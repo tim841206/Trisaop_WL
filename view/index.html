@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="../resource/bootstrap.min.css">
+		<link rel="stylesheet" href="../resource/index.css">
+		<script src="../resource/jquery.min.js"></script>
+		<script src="../resource/bootstrap.min.js"></script>
+		<script src="../resource/index.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="center-box">
+				<ul class="nav nav-tabs nav-justified">
+					<li class="active"><a data-toggle="tab" href="#login">登入</a></li>
+					<li><a data-toggle="tab" href="#logon">註冊</a></li>
+				</ul>
+				<br>
+				<div class="tab-content">
+					<div id="login" class="tab-pane fade in active">
+						<table>
+							<tr><td>帳號：</td><td><input type="text" id="account"></td></tr>
+							<tr><td>密碼：</td><td><input type="password" id="password"></td></tr>
+						</table>
+						<button onclick="login()">確定</button>
+						<button onclick="login_clear()">清除</button>
+					</div>
+					<div id="logon" class="tab-pane fade">
+						<table>
+							<tr><td>帳號：</td><td><input type="text" id="new_account"></td></tr>
+							<tr><td>姓名：</td><td><input type="text" id="text"></td></tr>
+							<tr><td>密碼：</td><td><input type="password" id="password1"></td></tr>
+							<tr><td>再次輸入密碼：</td><td><input type="password" id="password2"></td></tr>
+							<tr><td>申請權限：</td><td><select id="authority"><option value="">請選擇</option><option value="A">總部</option><option value="B">北投</option><option value="C">後山埤</option><option value="D">台東</option><option value="E">實習</option></select></td></tr>
+						</table>
+						<button onclick="logon()">註冊</button>
+						<button onclick="logon_clear()">清除</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
