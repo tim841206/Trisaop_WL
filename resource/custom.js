@@ -1,11 +1,12 @@
 function change_password() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
 	var ori_password = document.getElementById("ori_password").value;
 	var new_password1 = document.getElementById("new_password1").value;
 	var new_password2 = document.getElementById("new_password2").value;
-	var request = new XMLHttpRequest();
-	var queryString = "index.php?module=member&event=change_password&ori_password=" + ori_password + "&new_password1=" + new_password1 + "&new_password2=" + new_password2;
-	request.open("GET", queryString);
-	request.send();
+	var data = "module=member&event=change_password&ori_password=" + ori_password + "&new_password1=" + new_password1 + "&new_password2=" + new_password2;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -24,9 +25,10 @@ function change_password_clear() {
 
 function logout() {
 	var request = new XMLHttpRequest();
-	var queryString = "index.php?module=member&event=logout";
-	request.open("GET", queryString);
-	request.send();
+	request.open("POST", "index.php");
+	var data = "module=member&event=logout";
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -39,9 +41,10 @@ function logout() {
 
 function request_notice() {
 	var request = new XMLHttpRequest();
-	var queryString = "index.php?module=request&event=notice";
-	request.open("GET", queryString);
-	request.send();
+	request.open("POST", "index.php");
+	var data = "module=request&event=notice";
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -58,9 +61,10 @@ function request_notice() {
 
 function member_notice() {
 	var request = new XMLHttpRequest();
-	var queryString = "index.php?module=member&event=notice";
-	request.open("GET", queryString);
-	request.send();
+	request.open("POST", "index.php");
+	var data = "module=member&event=notice";
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -86,18 +90,19 @@ function createItem(index) {
 
 function calculate_search() {
 	var request = new XMLHttpRequest();
-	var queryString = "index.php?module=item&event=search";
+	request.open("POST", "index.php");
+	var data = "module=item&event=search";
 	for (var i = 1; i < 10; i++) {
 		var product = document.getElementById("product" + i).value;
 		if (product != null) {
 			var amount = Math.floor(document.getElementById("amount" + i).value);
 			if (amount > 0) {
-				queryString = queryString + "&product" + i + "=" + product + "&amount" + i + "=" + amount;
+				data = data + "&product" + i + "=" + product + "&amount" + i + "=" + amount;
 			}
 		}
 	}
-	request.open("GET", queryString);
-	request.send();
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -448,6 +453,7 @@ function itemclass() {
 
 function whouse_view() {
 	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
 	var queryString = "index.php?module=whouse&event=view";
 	request.open("GET", queryString);
 	request.send();
@@ -465,13 +471,14 @@ function whouse_view() {
 }
 
 function whouse_search() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
 	var whouse = document.getElementById("whouse").value;
 	var itemclass = document.getElementById("itemclass").value;
 	var itemno = document.getElementById("itemno").value;
-	var request = new XMLHttpRequest();
-	var queryString = "index.php?module=whouse&event=search&whouseno=" + whouse + "&itemclass=" + itemclass + "&itemno=" + itemno;
-	request.open("GET", queryString);
-	request.send();
+	var data = "module=whouse&event=search&whouseno=" + whouse + "&itemclass=" + itemclass + "&itemno=" + itemno;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -487,9 +494,10 @@ function whouse_search() {
 
 function request_view() {
 	var request = new XMLHttpRequest();
-	var queryString = "index.php?module=request&event=view";
-	request.open("GET", queryString);
-	request.send();
+	request.open("POST", "index.php");
+	var data = "module=request&event=view";
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -505,10 +513,11 @@ function request_view() {
 
 function search_index() {
 	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
 	var index = document.getElementById("index").value;
-	var queryString = "index.php?module=request&event=search_index&index=" + index;
-	request.open("GET", queryString);
-	request.send();
+	var data = "module=request&event=search_index&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -524,10 +533,11 @@ function search_index() {
 
 function search_state() {
 	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
 	var state = document.getElementById("state").value;
-	var queryString = "index.php?module=request&event=search_state&state=" + state;
-	request.open("GET", queryString);
-	request.send();
+	var data = "module=request&event=search_state&state=" + state;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -543,10 +553,11 @@ function search_state() {
 
 function view_index(index) {
 	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
 	var index = document.getElementById("index").value;
-	var queryString = "index.php?module=request&event=view_index&index=" + index;
-	request.open("GET", queryString);
-	request.send();
+	var data = "module=request&event=view_index&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -653,9 +664,10 @@ function receiver() {
 
 function send() {
 	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
 	var sender = document.getElementById("sender").value;
 	var receiver = document.getElementById("receiver").value;
-	var queryString = "../model/request.php?module=request&event=send&sender=" + sender + "&receiver=" + receiver;
+	var data = "module=request&event=send&sender=" + sender + "&receiver=" + receiver;
 
 	var oil_1 = document.getElementById("oil_1").value;
 	if (oil_1 != null && oil_1 != 0) queryString = queryString + "&oil_1=" + oil_1;
@@ -751,8 +763,8 @@ function send() {
 	var sp_3_houshanpi = document.getElementById("sp_3_houshanpi").value;
 	if (sp_3_houshanpi != null && sp_3_houshanpi != 0) queryString = queryString + "&sp_3_houshanpi=" + sp_3_houshanpi;
 
-	request.open("GET", queryString);
-	request.send();
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -768,9 +780,10 @@ function send() {
 
 function member_view() {
 	var request = new XMLHttpRequest();
-	var queryString = "index.php?module=member&event=view";
-	request.open("GET", queryString);
-	request.send();
+	request.open("POST", "index.php");
+	var data = "module=member&event=view";
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -786,10 +799,11 @@ function member_view() {
 
 function search_account() {
 	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
 	var index = document.getElementById("index").value;
-	var queryString = "index.php?module=member&event=search_account&index=" + index;
-	request.open("GET", queryString);
-	request.send();
+	var data = "module=member&event=search_account&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -805,10 +819,11 @@ function search_account() {
 
 function search_auth() {
 	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
 	var auth = document.getElementById("auth").value;
-	var queryString = "index.php?module=member&event=search_auth&auth=" + auth;
-	request.open("GET", queryString);
-	request.send();
+	var data = "module=member&event=search_auth&auth=" + auth;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);

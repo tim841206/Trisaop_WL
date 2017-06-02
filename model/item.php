@@ -1,4 +1,5 @@
 <?php
+include_once("../resource/database.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	if ($_GET['module'] == 'item') {
@@ -56,30 +57,34 @@ else {
 function search($content) {
 	$account = $content['account'];
 	$token = $content['token'];
-	if (is_null($account)) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	if (empty($account)) {
 		return 'Empty account';
 	}
-	elseif (mysql_num_rows($sql1) == 0) {
-		return 'Unregistered account';
-	}
-	elseif (is_null($token)) {
+	elseif (empty($token)) {
 		return 'Not logged in';
 	}
-	elseif ($fetch['TOKEN'] != md5($account.$token)) {
-		return 'Wrong token';
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
 	}
 	else {
-		$product = array();
-		$amount = array();
-		for ($i = 1; $i < 10; $i++) {
-			if (isset($_GET['product'.$i]) && is_positiveInt($_GET['amount'.$i])) {
-				array_push($product, $_GET['product'.$i]);
-				array_push($amount, $_GET['amount'.$i]);
-			}
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
 		}
-		$query = query($product, $amount);
-		$queryResultTable = queryResultTable($query);
-		return array('message' => 'Success', 'query' => $queryResultTable);
+		else {
+			$product = array();
+			$amount = array();
+			for ($i = 1; $i < 10; $i++) {
+				if (isset($_GET['product'.$i]) && is_positiveInt($_GET['amount'.$i])) {
+					array_push($product, $_GET['product'.$i]);
+					array_push($amount, $_GET['amount'.$i]);
+				}
+			}
+			$query = query($product, $amount);
+			$queryResultTable = queryResultTable($query);
+			return array('message' => 'Success', 'query' => $queryResultTable);
+		}
 	}
 }
 
