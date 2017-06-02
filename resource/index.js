@@ -9,7 +9,11 @@ function login() {
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
-			if (data.message != 'Success') {
+			if (data.message == 'Success') {
+				var html = document.getElementsByTagName('html')[0];
+				html.innerHTML = data.content;
+			}
+			else {
 				alert(data.message);
 			}
 		}

@@ -107,19 +107,24 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 					$_COOKIE['account'] = $_POST['account'];
 					$_COOKIE['token'] = $return['token'];
 					if ($return['authority'] == 'A') {
-						include_once("../view/index_A.html");
+						$content = file_get_contents("../view/index_A.html");
+						echo json_encode(array('message' => $return['message'], 'content' => $content));
 					}
 					elseif ($return['authority'] == 'B') {
-						include_once("../view/index_B.html");
+						$content = file_get_contents("../view/index_B.html");
+						echo json_encode(array('message' => $return['message'], 'content' => $content));
 					}
 					elseif ($return['authority'] == 'C') {
-						include_once("../view/index_C.html");
+						$content = file_get_contents("../view/index_C.html");
+						echo json_encode(array('message' => $return['message'], 'content' => $content));
 					}
 					elseif ($return['authority'] == 'D') {
-						include_once("../view/index_D.html");
+						$content = file_get_contents("../view/index_D.html");
+						echo json_encode(array('message' => $return['message'], 'content' => $content));
 					}
 					elseif ($return['authority'] == 'E') {
-						include_once("../view/index_E.html");
+						$content = file_get_contents("../view/index_E.html");
+						echo json_encode(array('message' => $return['message'], 'content' => $content));
 					}
 				}
 				else {
@@ -133,7 +138,8 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 				if ($return['message'] == 'Success') {
 					unset($_COOKIE['account']);
 					unset($_COOKIE['token']);
-					include_once("../view/index.html");
+					$content = file_get_contents("../view/index.html");
+					echo json_encode(array('message' => $return['message'], 'content' => $content));
 				}
 				else {
 					echo json_encode(array('message' => $return['message']));
