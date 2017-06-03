@@ -83,6 +83,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			echo json_encode(array('message' => $message));
 			return;
 		}
+		elseif ($_GET['event'] == 'get_auth') {
+			$message = get_auth($_GET['account'], $_GET['token']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'authority' => $message['authority']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
     		return;
@@ -175,6 +186,17 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$message = reject($_POST['account'], $_POST['token'], $_POST['index']);
 			echo json_encode(array('message' => $message));
 			return;
+		}
+		elseif ($_POST['event'] == 'get_auth') {
+			$message = get_auth($_POST['account'], $_POST['token']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'authority' => $message['authority']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
 		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
@@ -421,7 +443,7 @@ function search_auth($account, $token, $auth) {
 			else {
 				$content = '<table><tr><th>使用者帳號</th><th>使用者名稱</th><th>帳號建立日期</th><th>帳號最後登入日期</th><th>權限</th></tr>';
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ACCOUNT'].'</td><td>'.$fetch2['NAME'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.$fetch2['ONLINEDATE'].'</td><td>'.$fetch2['AUTHORITY'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ACCOUNT'].'</td><td>'.$fetch2['NAME'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.$fetch2['ONLINEDATE'].'</td><td>'.transfer($fetch2['AUTHORITY']).'</td></tr>';
 				}
 				$content .= '</table>';
 			}
@@ -594,6 +616,28 @@ function reject($account, $token, $index) {
 					return 'Database operation error';
 				}
 			}
+		}
+	}
+}
+
+function get_auth($account, $token) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Empty token';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		else {
+			return array('message' => 'Success', 'authority' => $fetch1['AUTHORITY']);
 		}
 	}
 }

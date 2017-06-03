@@ -95,7 +95,7 @@ CREATE TABLE `MEMBERMAS` (
   `ACCOUNT` varchar(15) COLLATE utf8_bin NOT NULL,
   `NAME` varchar(15) COLLATE utf8_bin NOT NULL,
   `PASSWORD` varchar(15) COLLATE utf8_bin NOT NULL,
-  `TOKEN` varchar(15) COLLATE utf8_bin DEFAULT NULL,
+  `TOKEN` varchar(32) COLLATE utf8_bin DEFAULT NULL,
   `AUTHORITY` varchar(1) COLLATE utf8_bin NOT NULL,
   `CREATEDATE` datetime NOT NULL,
   `ONLINEDATE` datetime NOT NULL,

@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			}
 		}
 		elseif ($_GET['event'] == 'search') {
-			$message = search($_GET['account'], $_GET['token'], $_GET['whouseno']);
+			$message = search($_GET['account'], $_GET['token'], $_GET['whouseno'], $_GET['itemclass'], $_GET['itemno']);
 			if (is_array($message)) {
 				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
 				return;
@@ -50,7 +50,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			}
 		}
 		if ($_POST['event'] == 'search') {
-			$message = search($_POST['account'], $_POST['token'], $_POST['whouseno']);
+			$message = search($_POST['account'], $_POST['token'], $_POST['whouseno'], $_POST['itemclass'], $_POST['itemno']);
 			if (is_array($message)) {
 				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
 				return;
@@ -188,7 +188,7 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 				else {
 					$content = '<table><tr><th>倉庫</th><th>名稱</th><th>數量</th></tr>';
 					while ($fetch2 = mysql_fetch_array($sql2)) {
-						$content .= ('<tr><td>'.$fetch2['WHOUSENO'].'</td><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>');
+						$content .= ('<tr><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>');
 					}
 					$content .= '</table>';
 					return array('message' => 'Success', 'content' => $content);
@@ -196,4 +196,11 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 			}
 		}
 	}
+}
+
+function transfer($whouseno) {
+	if ($whouseno == 'Beitou') return '北投';
+	elseif ($whouseno == 'Houshanpi') return '後山埤';
+	elseif ($whouseno == 'Taitung') return '台東';
+	else return 'Unknown';
 }

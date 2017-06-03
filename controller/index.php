@@ -104,8 +104,8 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 			if ($_POST['event'] == 'login') {
 				$return = json_decode(curl_post($_POST, $_POST['module']), true);
 				if ($return['message'] == 'Success') {
-					$_COOKIE['account'] = $_POST['account'];
-					$_COOKIE['token'] = $return['token'];
+					setcookie('account', $_POST['account']);
+					setcookie('token', $return['token']);
 					if ($return['authority'] == 'A') {
 						$content = file_get_contents("../view/index_A.html");
 						echo json_encode(array('message' => $return['message'], 'content' => $content));
@@ -255,7 +255,31 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 		return 'Invalid request method';
 	}
 }
-
+elseif (isset($_COOKIE['account']) && isset($_COOKIE['token'])) {
+	$return = json_decode(curl_post(array('module' => 'member', 'event' => 'get_auth', 'account' => $_COOKIE['account'], 'token' => $_COOKIE['token']), 'member'), true);
+	if ($return['message'] == 'Success') {
+		if ($return['authority'] == 'A') {
+			include_once("../view/index_A.html");
+		}
+		elseif ($return['authority'] == 'B') {
+			include_once("../view/index_B.html");
+		}
+		elseif ($return['authority'] == 'C') {
+			include_once("../view/index_C.html");
+		}
+		elseif ($return['authority'] == 'D') {
+			include_once("../view/index_D.html");
+		}
+		elseif ($return['authority'] == 'E') {
+			include_once("../view/index_E.html");
+		}
+	}
+	else {
+		unset($_COOKIE['account']);
+		unset($_COOKIE['token']);
+		include_once("../view/index.html");
+	}
+}
 else {
 	include_once("../view/index.html");
 }

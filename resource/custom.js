@@ -1,3 +1,62 @@
+function login() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var account = document.getElementById("account").value;
+	var password = document.getElementById("password").value;
+	var data = "module=member&event=login&account=" + account + "&password=" + password;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				var html = document.getElementsByTagName('html')[0];
+				html.innerHTML = data.content;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function login_clear() {
+	document.getElementById("account").value = null;
+	document.getElementById("password").value = null;
+}
+
+function logon() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var account = document.getElementById("new_account").value;
+	var name = document.getElementById("name").value;
+	var password1 = document.getElementById("password1").value;
+	var password2 = document.getElementById("password2").value;
+	var authority = document.getElementById("authority").value;
+	var data = "module=member&event=logon&account=" + account + "&name=" + name + "&password1=" + password1 + "&password2=" + password2 + "&authority=" + authority;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("註冊成功，請通知管理員授權");
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function logon_clear() {
+	document.getElementById("new_account").value = null;
+	document.getElementById("name").value = null;
+	document.getElementById("password1").value = null;
+	document.getElementById("password2").value = null;
+	document.getElementById("authority").value = null;
+}
+
 function change_password() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
@@ -465,7 +524,7 @@ function whouse_view() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("view_content").innerHTML = data.content;
+				document.getElementById("whouse_view_content").innerHTML = data.content;
 			}
 			else {
 				alert(data.message);
@@ -487,7 +546,7 @@ function whouse_search() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("search_content").innerHTML = data.content;
+				document.getElementById("whouse_search_content").innerHTML = data.content;
 			}
 			else {
 				alert(data.message);
@@ -506,7 +565,7 @@ function request_view() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("view_content").innerHTML = data.content;
+				document.getElementById("request_view_content").innerHTML = data.content;
 			}
 			else {
 				alert(data.message);
@@ -518,7 +577,7 @@ function request_view() {
 function search_index() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var index = document.getElementById("index").value;
+	var index = document.getElementById("request_index").value;
 	var data = "module=request&event=search_index&index=" + index;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
@@ -526,7 +585,7 @@ function search_index() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("view_content").innerHTML = data.content;
+				document.getElementById("request_search_content").innerHTML = data.content;
 			}
 			else {
 				alert(data.message);
@@ -546,7 +605,7 @@ function search_state() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("view_content").innerHTML = data.content;
+				document.getElementById("request_search_content").innerHTML = data.content;
 			}
 			else {
 				alert(data.message);
@@ -613,55 +672,145 @@ function receiver() {
 	var receiver = document.getElementById("receiver").value;
 	if (sender == 'Trisoap') {
 		if (receiver == 'Beitou' || receiver == 'Taitung') {
-			document.getElementByClassName("material_A").style.display = 'none';
-			document.getElementByClassName("material_B").style.display = null;
-			document.getElementByClassName("material_C").style.display = null;
-			document.getElementByClassName("material_D").style.display = 'none';
-			document.getElementByClassName("material_E").style.display = 'none';
-			document.getElementByClassName("material_H").style.display = 'none';
+			document.getElementsByClassName("material_A")[0].style.display = 'none';
+			document.getElementsByClassName("material_A")[1].style.display = 'none';
+			document.getElementsByClassName("material_B")[0].style.display = null;
+			document.getElementsByClassName("material_B")[1].style.display = null;
+			document.getElementsByClassName("material_C")[0].style.display = null;
+			document.getElementsByClassName("material_C")[1].style.display = null;
+			document.getElementsByClassName("material_D")[0].style.display = 'none';
+			document.getElementsByClassName("material_D")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("content").style.display = null;
+		}
+		else {
+			document.getElementsByClassName("material_A")[0].style.display = 'none';
+			document.getElementsByClassName("material_A")[1].style.display = 'none';
+			document.getElementsByClassName("material_B")[0].style.display = 'none';
+			document.getElementsByClassName("material_B")[1].style.display = 'none';
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_D")[0].style.display = 'none';
+			document.getElementsByClassName("material_D")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
+			document.getElementById("content").style.display = 'none';
 		}
 	}
 	else if (sender == 'Beitou') {
 		if (receiver == 'Trisoap') {
-			document.getElementByClassName("material_A").style.display = 'none';
-			document.getElementByClassName("material_B").style.display = 'none';
-			document.getElementByClassName("material_C").style.display = 'none';
-			document.getElementByClassName("material_D").style.display = null;
-			document.getElementByClassName("material_E").style.display = 'none';
-			document.getElementByClassName("material_H").style.display = 'none';
+			document.getElementsByClassName("material_A")[0].style.display = 'none';
+			document.getElementsByClassName("material_A")[1].style.display = 'none';
+			document.getElementsByClassName("material_B")[0].style.display = 'none';
+			document.getElementsByClassName("material_B")[1].style.display = 'none';
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_D")[0].style.display = null;
+			document.getElementsByClassName("material_D")[1].style.display = null;
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("content").style.display = null;
+		}
+		else {
+			document.getElementsByClassName("material_A")[0].style.display = 'none';
+			document.getElementsByClassName("material_A")[1].style.display = 'none';
+			document.getElementsByClassName("material_B")[0].style.display = 'none';
+			document.getElementsByClassName("material_B")[1].style.display = 'none';
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_D")[0].style.display = 'none';
+			document.getElementsByClassName("material_D")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
+			document.getElementById("content").style.display = 'none';
 		}
 	}
 	else if (sender == 'Houshanpi') {
 		if (receiver == 'Beitou') {
-			document.getElementByClassName("material_A").style.display = null;
-			document.getElementByClassName("material_B").style.display = null;
-			document.getElementByClassName("material_C").style.display = 'none';
-			document.getElementByClassName("material_D").style.display = 'none';
-			document.getElementByClassName("material_E").style.display = 'none';
-			document.getElementByClassName("material_H").style.display = null;
+			document.getElementsByClassName("material_A")[0].style.display = null;
+			document.getElementsByClassName("material_A")[1].style.display = null;
+			document.getElementsByClassName("material_B")[0].style.display = null;
+			document.getElementsByClassName("material_B")[1].style.display = null;
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_D")[0].style.display = 'none';
+			document.getElementsByClassName("material_D")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = null;
+			document.getElementsByClassName("material_H")[1].style.display = null;
 			document.getElementById("content").style.display = null;
 		}
 		else if (receiver == 'Taitung') {
-			document.getElementByClassName("material_A").style.display = null;
-			document.getElementByClassName("material_B").style.display = null;
-			document.getElementByClassName("material_C").style.display = 'none';
-			document.getElementByClassName("material_D").style.display = 'none';
-			document.getElementByClassName("material_E").style.display = 'none';
-			document.getElementByClassName("material_H").style.display = 'none';
+			document.getElementsByClassName("material_A")[0].style.display = null;
+			document.getElementsByClassName("material_A")[1].style.display = null;
+			document.getElementsByClassName("material_B")[0].style.display = null;
+			document.getElementsByClassName("material_B")[1].style.display = null;
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_D")[0].style.display = 'none';
+			document.getElementsByClassName("material_D")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("content").style.display = null;
+		}
+		else {
+			document.getElementsByClassName("material_A")[0].style.display = 'none';
+			document.getElementsByClassName("material_A")[1].style.display = 'none';
+			document.getElementsByClassName("material_B")[0].style.display = 'none';
+			document.getElementsByClassName("material_B")[1].style.display = 'none';
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_D")[0].style.display = 'none';
+			document.getElementsByClassName("material_D")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
+			document.getElementById("content").style.display = 'none';
 		}
 	}
 	else if (sender == 'Taitung') {
 		if (receiver == 'Beitou') {
-			document.getElementByClassName("material_A").style.display = 'none';
-			document.getElementByClassName("material_B").style.display = 'none';
-			document.getElementByClassName("material_C").style.display = 'none';
-			document.getElementByClassName("material_D").style.display = 'none';
-			document.getElementByClassName("material_E").style.display = null;
-			document.getElementByClassName("material_H").style.display = 'none';
+			document.getElementsByClassName("material_A")[0].style.display = 'none';
+			document.getElementsByClassName("material_A")[1].style.display = 'none';
+			document.getElementsByClassName("material_B")[0].style.display = 'none';
+			document.getElementsByClassName("material_B")[1].style.display = 'none';
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_D")[0].style.display = 'none';
+			document.getElementsByClassName("material_D")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = null;
+			document.getElementsByClassName("material_E")[1].style.display = null;
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("content").style.display = null;
+		}
+		else {
+			document.getElementsByClassName("material_A")[0].style.display = 'none';
+			document.getElementsByClassName("material_A")[1].style.display = 'none';
+			document.getElementsByClassName("material_B")[0].style.display = 'none';
+			document.getElementsByClassName("material_B")[1].style.display = 'none';
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_D")[0].style.display = 'none';
+			document.getElementsByClassName("material_D")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
+			document.getElementById("content").style.display = 'none';
 		}
 	}
 }
@@ -804,7 +953,7 @@ function member_view() {
 function search_account() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var index = document.getElementById("index").value;
+	var index = document.getElementById("member_index").value;
 	var data = "module=member&event=search_account&index=" + index;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
@@ -812,7 +961,7 @@ function search_account() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("view_content").innerHTML = data.content;
+				document.getElementById("member_search_content").innerHTML = data.content;
 			}
 			else {
 				alert(data.message);
@@ -832,7 +981,7 @@ function search_auth() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("view_content").innerHTML = data.content;
+				document.getElementById("member_search_content").innerHTML = data.content;
 			}
 			else {
 				alert(data.message);

@@ -76,9 +76,9 @@ function search($content) {
 			$product = array();
 			$amount = array();
 			for ($i = 1; $i < 10; $i++) {
-				if (isset($_GET['product'.$i]) && is_positiveInt($_GET['amount'.$i])) {
-					array_push($product, $_GET['product'.$i]);
-					array_push($amount, $_GET['amount'.$i]);
+				if (isset($content['product'.$i]) && is_positiveInt($content['amount'.$i])) {
+					array_push($product, $content['product'.$i]);
+					array_push($amount, $content['amount'.$i]);
 				}
 			}
 			$query = query($product, $amount);
