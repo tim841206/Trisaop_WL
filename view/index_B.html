@@ -58,7 +58,7 @@
 							<tr><td>紅棕梠皂絲</td><td><input type="number" id="calculate_ss_5" value="0" min="0" onchange="document.getElementById('result_calculate_ss_5').innerHTML = this.value*100"></td><td>x 100 =</td><td id="result_calculate_ss_5">0</td></tr>
 							<tr><td>蕁麻葉皂絲</td><td><input type="number" id="calculate_ss_6" value="0" min="0" onchange="document.getElementById('result_calculate_ss_6').innerHTML = this.value*100"></td><td>x 100 =</td><td id="result_calculate_ss_6">0</td></tr>
 						</table>
-						<button onclick="calculate_search()">確定</button>
+						<button onclick="calculate_search()">查詢</button>
 					</div>
 					<div id="query" style="display: none;">
 						<h3>材料一覽</h3>
@@ -92,7 +92,8 @@
 						<tr><td>蕁麻葉皂絲</td><td id="result_package_ss_6">0</td></tr>
 					</table>
 					<br>
-					<button onclick="package()">確定</button>
+					<button id="package" onclick="package()">查詢</button>
+					<button id="pack" onclick="pack()" style="display: none;">確定包裝</button>
 				</div>
 				<div id="menu3" class="tab-pane fade">
 					<h3 onload="whouse_view()">庫存一覽</h3>

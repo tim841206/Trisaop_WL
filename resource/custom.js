@@ -194,12 +194,7 @@ function produce() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("queryResult").innerHTML = data.query;
-				document.getElementById("query").style.display = null;
-				var produce = document.getElementById("produce");
-				if (produce != null) {
-					produce.style.display = null;
-				}
+				alert("成功製作");
 			}
 			else {
 				alert(data.message);
@@ -319,9 +314,9 @@ function itemclass() {
 			option1.text = '不織布包'; option1.value = 'package_1'; item.add(option1);
 			option2.text = '鋁包'; option2.value = 'package_2'; item.add(option2);
 			option3.text = '大禮盒'; option3.value = 'package_3'; item.add(option3);
-			option4.text = '小禮盒'; option4.value = 'package_1'; item.add(option4);
-			option5.text = '內襯'; option5.value = 'package_2'; item.add(option5);
-			option6.text = '單顆皂外盒'; option6.value = 'package_3'; item.add(option6);
+			option4.text = '小禮盒'; option4.value = 'package_4'; item.add(option4);
+			option5.text = '內襯'; option5.value = 'package_5'; item.add(option5);
+			option6.text = '單顆皂外盒'; option6.value = 'package_6'; item.add(option6);
 		}
 		else if (itemclass == 'D') {
 			var option0 = document.createElement("option");
@@ -471,9 +466,9 @@ function itemclass() {
 			option1.text = '不織布包'; option1.value = 'package_1'; item.add(option1);
 			option2.text = '鋁包'; option2.value = 'package_2'; item.add(option2);
 			option3.text = '大禮盒'; option3.value = 'package_3'; item.add(option3);
-			option4.text = '小禮盒'; option4.value = 'package_1'; item.add(option4);
-			option5.text = '內襯'; option5.value = 'package_2'; item.add(option5);
-			option6.text = '單顆皂外盒'; option6.value = 'package_3'; item.add(option6);
+			option4.text = '小禮盒'; option4.value = 'package_4'; item.add(option4);
+			option5.text = '內襯'; option5.value = 'package_5'; item.add(option5);
+			option6.text = '單顆皂外盒'; option6.value = 'package_6'; item.add(option6);
 		}
 		else if (itemclass == 'D') {
 			var option0 = document.createElement("option");
@@ -599,6 +594,7 @@ function package() {
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
+			alert(request.responseText);
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				document.getElementById("result_package_sp_1").innerHTML = data.sp_1;
@@ -616,6 +612,36 @@ function package() {
 				document.getElementById("result_package_package_4").innerHTML = data.package_4;
 				document.getElementById("result_package_package_5").innerHTML = data.package_5;
 				document.getElementById("result_package_package_6").innerHTML = data.package_6;
+				document.getElementById("package").style.display = 'none';
+				document.getElementById("pack").style.display = null;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+	
+}
+
+function pack() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var product_sp_1 = document.getElementById("package_sp_1").value;
+	var product_sp_2 = document.getElementById("package_sp_2").value;
+	var product_sp_3 = document.getElementById("package_sp_3").value;
+	var product_sp_box = document.getElementById("package_sp_box").value;
+	var product_ss_1 = document.getElementById("package_ss_1").value;
+	var product_ss_2 = document.getElementById("package_ss_2").value;
+	var product_ss_3 = document.getElementById("package_ss_3").value;
+	var product_ss_box = document.getElementById("package_ss_box").value;
+	var data = "module=item&event=pack&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功包裝");
 			}
 			else {
 				alert(data.message);

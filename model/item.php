@@ -31,6 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 				return;
 			}
 		}
+		elseif ($_GET['event'] == 'pack') {
+			$message = packing($_GET);
+			echo json_encode(array('message' => $message));
+			return;
+		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
     		return;
@@ -71,6 +76,11 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				echo json_encode(array('message' => $message));
 				return;
 			}
+		}
+		elseif ($_POST['event'] == 'pack') {
+			$message = packing($_POST);
+			echo json_encode(array('message' => $message));
+			return;
 		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
@@ -368,10 +378,8 @@ function produce($content) {
 			$ingredient['oil_6'] = ceil($ingredient['oil_6']);
 			$ingredient['oil_7'] = ceil($ingredient['oil_7']);
 			$ingredient['oil_8'] = ceil($ingredient['oil_8']);
-			date_default_timezone_set('Asia/Taipei');
-			$date = date("Y-m-d H:i:s");
 			if ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou'");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND (ITEMCLASS='A' OR ITEMCLASS='B')");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					$ITEMNM = $fetch2['ITEMNM'];
@@ -379,31 +387,21 @@ function produce($content) {
 					if ($fetch2['TOTALAMT'] < $amount) {
 						return 'Not enough' . $ITEMNM;
 					}
-					else {
-						$sql3 = "UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT-$amount, UPDATEDATE=$date WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'";
-						if (!mysql_query($sql3)) {
-							return 'Unable to reduce inventory';
-						}
-					}
 				}
+				ingredient_to_product($ingredient, $content, 'Beitou');
 				return 'Success';
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung'");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND (ITEMCLASS='A' OR ITEMCLASS='B')");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					$ITEMNM = $fetch2['ITEMNM'];
 					$amount = $ingredient[$ITEMNO];
 					if ($fetch2['TOTALAMT'] < $amount) {
-						return 'Not enough ' . $ITEMNM;
-					}
-					else {
-						$sql3 = "UPDATE WHOUSEITEMMAS SET TOTALAMT=$TOTALAMT-$amount, UPDATEDATE=$date WHERE WHOUSENO='Taitung' AND ITEMNO='$ITEMNO'";
-						if (!mysql_query($sql3)) {
-							return 'Unable to reduce inventory';
-						}
+						return 'Not enough' . $ITEMNM;
 					}
 				}
+				ingredient_to_product($ingredient, $content, 'Taitung');
 				return 'Success';
 			}
 		}
@@ -511,6 +509,117 @@ function package($content) {
 	}
 }
 
+function packing($content) {
+	$account = $content['account'];
+	$token = $content['token'];
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Not logged in';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		elseif ($fetch1['AUTHORITY'] != 'B') {
+			return 'No authority';
+		}
+		else {
+			$ingredient = array('sp_1' => 0, 'sp_2' => 0, 'sp_3' => 0, 'ss_1' => 0, 'ss_2' => 0, 'ss_3' => 0, 'ss_4' => 0, 'ss_5' => 0, 'ss_6' => 0, 'package_1' => 0, 'package_2' => 0, 'package_3' => 0, 'package_4' => 0, 'package_5' => 0, 'package_6' => 0);
+			if (is_nonnegativeInt($content['product_sp_1'])) {
+				$ingredient['sp_1'] += $content['product_sp_1'];
+				$ingredient['package_6'] += $content['product_sp_1'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_sp_2'])) {
+				$ingredient['sp_2'] += $content['product_sp_2'];
+				$ingredient['package_6'] += $content['product_sp_2'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_sp_3'])) {
+				$ingredient['sp_3'] += $content['product_sp_3'];
+				$ingredient['package_6'] += $content['product_sp_3'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_sp_box'])) {
+				$ingredient['sp_1'] += $content['product_sp_box'];
+				$ingredient['sp_2'] += $content['product_sp_box'];
+				$ingredient['sp_3'] += $content['product_sp_box'];
+				$ingredient['package_3'] += $content['product_sp_box'];
+				$ingredient['package_5'] += $content['product_sp_box'];
+				$ingredient['package_6'] += 3 * $content['product_sp_box'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_ss_1'])) {
+				$ingredient['ss_1'] += 10 * $content['product_ss_1'];
+				$ingredient['ss_2'] += 10 * $content['product_ss_1'];
+				$ingredient['package_1'] += $content['product_ss_1'];
+				$ingredient['package_2'] += $content['product_ss_1'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_ss_2'])) {
+				$ingredient['ss_3'] += 10 * $content['product_ss_2'];
+				$ingredient['ss_6'] += 10 * $content['product_ss_2'];
+				$ingredient['package_1'] += $content['product_ss_2'];
+				$ingredient['package_2'] += $content['product_ss_2'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_ss_3'])) {
+				$ingredient['ss_4'] += 10 * $content['product_ss_3'];
+				$ingredient['ss_5'] += 10 * $content['product_ss_3'];
+				$ingredient['package_1'] += $content['product_ss_3'];
+				$ingredient['package_2'] += $content['product_ss_3'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_ss_box'])) {
+				$ingredient['ss_1'] += 20 * $content['product_ss_box'];
+				$ingredient['ss_2'] += 20 * $content['product_ss_box'];
+				$ingredient['ss_3'] += 20 * $content['product_ss_box'];
+				$ingredient['ss_4'] += 20 * $content['product_ss_box'];
+				$ingredient['ss_5'] += 20 * $content['product_ss_box'];
+				$ingredient['ss_6'] += 20 * $content['product_ss_box'];
+				$ingredient['package_1'] += 6 * $content['product_ss_box'];
+				$ingredient['package_2'] += 6 * $content['product_ss_box'];
+				$ingredient['package_4'] += $content['product_sp_box'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND (ITEMCLASS='C' OR ITEMCLASS='E')");
+			while ($fetch2 = mysql_fetch_array($sql2)) {
+				$ITEMNO = $fetch2['ITEMNO'];
+				$ITEMNM = $fetch2['ITEMNM'];
+				$amount = $ingredient[$ITEMNO];
+				if ($fetch2['TOTALAMT'] < $amount) {
+					return 'Not enough' . $ITEMNM;
+				}
+			}
+			package_to_product($ingredient, $content);
+			return 'Success';
+		}
+	}
+}
+
 function is_positiveInt($value) {
 	if ((ceil($value) == floor($value)) && $value > 0) {
 		return true;
@@ -564,4 +673,119 @@ function queryResultTable($query) {
 	if ($query['additive_11'] != 0) $queryResult .= '<tr><td>乳油木果脂</td><td>'.$query['additive_11'].'</td><td>'.inventory('Beitou', 'additive_11').'</td><td>'.inventory('TaiTung', 'additive_11').'</td></tr>';
 	$queryResult .= '</table>';
 	return $queryResult;
+}
+
+function ingredient_to_product($ingredient, $product, $whouse) {
+	date_default_timezone_set('Asia/Taipei');
+	$date = date("Y-m-d H:i:s");
+	$today = date("Ymd");
+	$sql1 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND (ITEMCLASS='A' OR ITEMCLASS='B')");
+	while ($fetch1 = mysql_fetch_array($sql1)) {
+		$ITEMNO = $fetch1['ITEMNO'];
+		$ITEMNM = $fetch1['ITEMNM'];
+		$amount = $ingredient[$ITEMNO];
+		if ($amount > 0) {
+			mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT-'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
+		}
+	}
+	if (is_positiveInt($content['sp_1'])) {
+		$ITEMNO = 'sp_1_' . $today;
+		$amount = $product['sp_1'];
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '米皂', 'F', '$amount', '$date')");
+	}
+	if (is_positiveInt($content['sp_2'])) {
+		$ITEMNO = 'sp_2_' . $today;
+		$amount = $product['sp_2'];
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '金針皂', 'F', '$amount', '$date')");
+	}
+	if (is_positiveInt($content['sp_3'])) {
+		$ITEMNO = 'sp_3_' . $today;
+		$amount = $product['sp_3'];
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '釋迦皂', 'F', '$amount', '$date')");
+	}
+	if (is_positiveInt($content['ss_1'])) {
+		$ITEMNO = 'ss_1_' . $today;
+		$amount = $product['ss_1'];
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '洛神皂絲', 'F', '$amount', '$date')");
+	}
+	if (is_positiveInt($content['ss_2'])) {
+		$ITEMNO = 'ss_2_' . $today;
+		$amount = $product['ss_2'];
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '紅麴皂絲', 'F', '$amount', '$date')");
+	}
+	if (is_positiveInt($content['ss_3'])) {
+		$ITEMNO = 'ss_3_' . $today;
+		$amount = $product['ss_3'];
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '薑黃皂絲', 'F', '$amount', '$date')");
+	}
+	if (is_positiveInt($content['ss_4'])) {
+		$ITEMNO = 'ss_4_' . $today;
+		$amount = $product['ss_4'];
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '金針皂絲', 'F', '$amount', '$date')");
+	}
+	if (is_positiveInt($content['ss_5'])) {
+		$ITEMNO = 'ss_5_' . $today;
+		$amount = $product['ss_5'];
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '紅棕梠皂絲', 'F', '$amount', '$date')");
+	}
+	if (is_positiveInt($content['ss_6'])) {
+		$ITEMNO = 'ss_6_' . $today;
+		$amount = $product['ss_6'];
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '蕁麻葉皂絲', 'F', '$amount', '$date')");
+	}
+}
+
+function package_to_product($package, $product) {
+	date_default_timezone_set('Asia/Taipei');
+	$date = date("Y-m-d H:i:s");
+	$today = date("Ymd");
+	$sql1 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND (ITEMCLASS='C' OR ITEMCLASS='E')");
+	while ($fetch1 = mysql_fetch_array($sql1)) {
+		$ITEMNO = $fetch1['ITEMNO'];
+		$ITEMNM = $fetch1['ITEMNM'];
+		$amount = $package[$ITEMNO];
+		if ($amount > 0) {
+			mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT-'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
+		}
+	}
+	if (is_positiveInt($content['product_sp_1'])) {
+		$ITEMNO = 'product_sp_1';
+		$amount = $product['product_sp_1'];
+		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
+	}
+	if (is_positiveInt($content['product_sp_2'])) {
+		$ITEMNO = 'product_sp_2';
+		$amount = $product['product_sp_2'];
+		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
+	}
+	if (is_positiveInt($content['product_sp_3'])) {
+		$ITEMNO = 'product_sp_3';
+		$amount = $product['product_sp_3'];
+		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
+	}
+	if (is_positiveInt($content['product_sp_box'])) {
+		$ITEMNO = 'product_sp_box';
+		$amount = $product['product_sp_box'];
+		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
+	}
+	if (is_positiveInt($content['product_ss_1'])) {
+		$ITEMNO = 'product_ss_1';
+		$amount = $product['product_ss_1'];
+		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
+	}
+	if (is_positiveInt($content['product_ss_2'])) {
+		$ITEMNO = 'product_ss_2';
+		$amount = $product['product_ss_2'];
+		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
+	}
+	if (is_positiveInt($content['product_ss_3'])) {
+		$ITEMNO = 'product_ss_3';
+		$amount = $product['product_ss_3'];
+		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
+	}
+	if (is_positiveInt($content['product_ss_box'])) {
+		$ITEMNO = 'product_ss_box';
+		$amount = $product['product_ss_box'];
+		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
+	}
 }
