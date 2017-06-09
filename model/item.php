@@ -6,7 +6,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		if ($_GET['event'] == 'search') {
 			$message = search($_GET);
 			if (is_array($message)) {
-				echo json_encode(array('message' => $message['message'], 'query' => $message['query']));
+				$queryResultTable = queryResultTable($message);
+				echo json_encode(array('message' => 'Success', 'query' => $queryResultTable));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_GET['event'] == 'produce') {
+			$message = produce($_GET);
+			echo json_encode(array('message' => $message));
+			return;
+		}
+		elseif ($_GET['event'] == 'package') {
+			$message = package($_GET);
+			if (is_array($message)) {
+				echo json_encode(array('message' => 'Success', 'sp_1' => $message['sp_1'], 'sp_2' => $message['sp_2'], 'sp_3' => $message['sp_3'], 'ss_1' => $message['ss_1'], 'ss_2' => $message['ss_2'], 'ss_3' => $message['ss_3'], 'ss_4' => $message['ss_4'], 'ss_5' => $message['ss_5'], 'ss_6' => $message['ss_6'], 'package_1' => $message['package_1'], 'package_2' => $message['package_2'], 'package_3' => $message['package_3'], 'package_4' => $message['package_4'], 'package_5' => $message['package_5'], 'package_6' => $message['package_6']));
 				return;
 			}
 			else {
@@ -30,7 +47,24 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if ($_POST['event'] == 'search') {
 			$message = search($_POST);
 			if (is_array($message)) {
-				echo json_encode(array('message' => $message['message'], 'query' => $message['query']));
+				$queryResultTable = queryResultTable($message);
+				echo json_encode(array('message' => 'Success', 'query' => $queryResultTable));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_POST['event'] == 'produce') {
+			$message = produce($_POST);
+			echo json_encode(array('message' => $message));
+			return;
+		}
+		elseif ($_POST['event'] == 'package') {
+			$message = package($_POST);
+			if (is_array($message)) {
+				echo json_encode(array('message' => 'Success', 'sp_1' => $message['sp_1'], 'sp_2' => $message['sp_2'], 'sp_3' => $message['sp_3'], 'ss_1' => $message['ss_1'], 'ss_2' => $message['ss_2'], 'ss_3' => $message['ss_3'], 'ss_4' => $message['ss_4'], 'ss_5' => $message['ss_5'], 'ss_6' => $message['ss_6'], 'package_1' => $message['package_1'], 'package_2' => $message['package_2'], 'package_3' => $message['package_3'], 'package_4' => $message['package_4'], 'package_5' => $message['package_5'], 'package_6' => $message['package_6']));
 				return;
 			}
 			else {
@@ -73,17 +107,406 @@ function search($content) {
 			return 'Wrong token';
 		}
 		else {
-			$product = array();
-			$amount = array();
-			for ($i = 1; $i < 10; $i++) {
-				if (isset($content['product'.$i]) && is_positiveInt($content['amount'.$i])) {
-					array_push($product, $content['product'.$i]);
-					array_push($amount, $content['amount'.$i]);
-				}
+			$ingredient = array('oil_1' => 0, 'oil_2' => 0, 'oil_3' => 0, 'oil_4' => 0, 'oil_5' => 0, 'oil_6' => 0, 'oil_7' => 0, 'oil_8' => 0, 'additive_1' => 0, 'additive_2' => 0, 'additive_3' => 0, 'additive_4' => 0, 'additive_5' => 0, 'additive_6' => 0, 'additive_7' => 0, 'additive_8' => 0, 'additive_9' => 0, 'additive_10' => 0, 'additive_11' => 0, 'NaOH' => 0);
+			if (is_nonnegativeInt($content['sp_1'])) {
+				$ingredient['oil_1'] += 360 / 0.9 * $content['sp_1'];
+				$ingredient['oil_2'] += 160 / 0.9 * $content['sp_1'];
+				$ingredient['oil_3'] += 120 / 0.9 * $content['sp_1'];
+				$ingredient['oil_4'] += 80 / 0.9 * $content['sp_1'];
+				$ingredient['additive_4'] += 5 * $content['sp_1'];
+				$ingredient['additive_5'] += 5 * $content['sp_1'];
+				$ingredient['additive_6'] += 5 * $content['sp_1'];
+				$ingredient['additive_11'] += 80 * $content['sp_1'];
+				$ingredient['NaOH'] += 108 * $content['sp_1'];
 			}
-			$query = query($product, $amount);
-			$queryResultTable = queryResultTable($query);
-			return array('message' => 'Success', 'query' => $queryResultTable);
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['sp_2'])) {
+				$ingredient['oil_1'] += 425 / 0.9 * $content['sp_2'];
+				$ingredient['oil_2'] += 170 / 0.9 * $content['sp_2'];
+				$ingredient['oil_3'] += 170 / 0.9 * $content['sp_2'];
+				$ingredient['additive_1'] += 5 * $content['sp_2'];
+				$ingredient['additive_11'] += 85 * $content['sp_2'];
+				$ingredient['NaOH'] += 118 * $content['sp_2'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['sp_3'])) {
+				$ingredient['oil_1'] += 280 / 0.9 * $content['sp_3'];
+				$ingredient['oil_2'] += 160 / 0.9 * $content['sp_3'];
+				$ingredient['oil_3'] += 200 / 0.9 * $content['sp_3'];
+				$ingredient['oil_6'] += 80 / 0.9 * $content['sp_3'];
+				$ingredient['additive_2'] += 5 * $content['sp_3'];
+				$ingredient['additive_3'] += 60 * $content['sp_3'];
+				$ingredient['additive_11'] += 80 * $content['sp_3'];
+				$ingredient['NaOH'] += 112 * $content['sp_3'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_1'])) {
+				$ingredient['oil_2'] += 150 / 0.9 * $content['ss_1'];
+				$ingredient['oil_3'] += 225 / 0.9 * $content['ss_1'];
+				$ingredient['oil_4'] += 150 / 0.9 * $content['ss_1'];
+				$ingredient['oil_7'] += 75 / 0.9 * $content['ss_1'];
+				$ingredient['oil_8'] += 150 / 0.9 * $content['ss_1'];
+				$ingredient['additive_10'] += 6 * $content['ss_1'];
+				$ingredient['NaOH'] += 107 * $content['ss_1'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_2'])) {
+				$ingredient['oil_2'] += 150 / 0.9 * $content['ss_2'];
+				$ingredient['oil_3'] += 225 / 0.9 * $content['ss_2'];
+				$ingredient['oil_4'] += 150 / 0.9 * $content['ss_2'];
+				$ingredient['oil_7'] += 75 / 0.9 * $content['ss_2'];
+				$ingredient['oil_8'] += 150 / 0.9 * $content['ss_2'];
+				$ingredient['additive_9'] += 15 * $content['ss_2'];
+				$ingredient['NaOH'] += 107 * $content['ss_2'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_3'])) {
+				$ingredient['oil_1'] += 337.5 / 0.9 * $content['ss_3'];
+				$ingredient['oil_2'] += 150 / 0.9 * $content['ss_3'];
+				$ingredient['oil_3'] += 187.5 / 0.9 * $content['ss_3'];
+				$ingredient['oil_6'] += 75 / 0.9 * $content['ss_3'];
+				$ingredient['additive_8'] += 6 * $content['ss_3'];
+				$ingredient['NaOH'] += 106 * $content['ss_3'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_4'])) {
+				$ingredient['oil_1'] += 300 / 0.9 * $content['ss_4'];
+				$ingredient['oil_2'] += 112.5 / 0.9 * $content['ss_4'];
+				$ingredient['oil_3'] += 112.5 / 0.9 * $content['ss_4'];
+				$ingredient['oil_4'] += 150 / 0.9 * $content['ss_4'];
+				$ingredient['additive_7'] += 6 * $content['ss_4'];
+				$ingredient['additive_11'] += 75 * $content['ss_4'];
+				$ingredient['NaOH'] += 101 * $content['ss_4'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_5'])) {
+				$ingredient['oil_1'] += 300 / 0.9 * $content['ss_5'];
+				$ingredient['oil_2'] += 112.5 / 0.9 * $content['ss_5'];
+				$ingredient['oil_3'] += 112.5 / 0.9 * $content['ss_5'];
+				$ingredient['oil_4'] += 150 / 0.9 * $content['ss_5'];
+				$ingredient['oil_5'] += 5 / 0.9 * $content['ss_5'];
+				$ingredient['additive_7'] += 6 * $content['ss_5'];
+				$ingredient['NaOH'] += 101 * $content['ss_5'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_6'])) {
+				$ingredient['oil_1'] += 337.5 / 0.9 * $content['ss_6'];
+				$ingredient['oil_2'] += 150 / 0.9 * $content['ss_6'];
+				$ingredient['oil_3'] += 187.5 / 0.9 * $content['ss_6'];
+				$ingredient['oil_6'] += 75 / 0.9 * $content['ss_6'];
+				$ingredient['additive_5'] += 5 * $content['ss_6'];
+				$ingredient['NaOH'] += 106 * $content['ss_6'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			$ingredient['oil_1'] = ceil($ingredient['oil_1']);
+			$ingredient['oil_2'] = ceil($ingredient['oil_2']);
+			$ingredient['oil_3'] = ceil($ingredient['oil_3']);
+			$ingredient['oil_4'] = ceil($ingredient['oil_4']);
+			$ingredient['oil_5'] = ceil($ingredient['oil_5']);
+			$ingredient['oil_6'] = ceil($ingredient['oil_6']);
+			$ingredient['oil_7'] = ceil($ingredient['oil_7']);
+			$ingredient['oil_8'] = ceil($ingredient['oil_8']);
+			return $ingredient;
+		}
+	}
+}
+
+function produce($content) {
+	$account = $content['account'];
+	$token = $content['token'];
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Not logged in';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		elseif ($fetch1['AUTHORITY'] != 'B' && $fetch1['AUTHORITY'] != 'D') {
+			return 'No authority';
+		}
+		else {
+			$ingredient = array('oil_1' => 0, 'oil_2' => 0, 'oil_3' => 0, 'oil_4' => 0, 'oil_5' => 0, 'oil_6' => 0, 'oil_7' => 0, 'oil_8' => 0, 'additive_1' => 0, 'additive_2' => 0, 'additive_3' => 0, 'additive_4' => 0, 'additive_5' => 0, 'additive_6' => 0, 'additive_7' => 0, 'additive_8' => 0, 'additive_9' => 0, 'additive_10' => 0, 'additive_11' => 0, 'NaOH' => 0);
+			if (is_nonnegativeInt($content['sp_1'])) {
+				$ingredient['oil_1'] += 360 / 0.9 * $content['sp_1'];
+				$ingredient['oil_2'] += 160 / 0.9 * $content['sp_1'];
+				$ingredient['oil_3'] += 120 / 0.9 * $content['sp_1'];
+				$ingredient['oil_4'] += 80 / 0.9 * $content['sp_1'];
+				$ingredient['additive_4'] += 5 * $content['sp_1'];
+				$ingredient['additive_5'] += 5 * $content['sp_1'];
+				$ingredient['additive_6'] += 5 * $content['sp_1'];
+				$ingredient['additive_11'] += 80 * $content['sp_1'];
+				$ingredient['NaOH'] += 108 * $content['sp_1'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['sp_2'])) {
+				$ingredient['oil_1'] += 425 / 0.9 * $content['sp_2'];
+				$ingredient['oil_2'] += 170 / 0.9 * $content['sp_2'];
+				$ingredient['oil_3'] += 170 / 0.9 * $content['sp_2'];
+				$ingredient['additive_1'] += 5 * $content['sp_2'];
+				$ingredient['additive_11'] += 85 * $content['sp_2'];
+				$ingredient['NaOH'] += 118 * $content['sp_2'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['sp_3'])) {
+				$ingredient['oil_1'] += 280 / 0.9 * $content['sp_3'];
+				$ingredient['oil_2'] += 160 / 0.9 * $content['sp_3'];
+				$ingredient['oil_3'] += 200 / 0.9 * $content['sp_3'];
+				$ingredient['oil_6'] += 80 / 0.9 * $content['sp_3'];
+				$ingredient['additive_2'] += 5 * $content['sp_3'];
+				$ingredient['additive_3'] += 60 * $content['sp_3'];
+				$ingredient['additive_11'] += 80 * $content['sp_3'];
+				$ingredient['NaOH'] += 112 * $content['sp_3'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_1'])) {
+				$ingredient['oil_2'] += 150 / 0.9 * $content['ss_1'];
+				$ingredient['oil_3'] += 225 / 0.9 * $content['ss_1'];
+				$ingredient['oil_4'] += 150 / 0.9 * $content['ss_1'];
+				$ingredient['oil_7'] += 75 / 0.9 * $content['ss_1'];
+				$ingredient['oil_8'] += 150 / 0.9 * $content['ss_1'];
+				$ingredient['additive_10'] += 6 * $content['ss_1'];
+				$ingredient['NaOH'] += 107 * $content['ss_1'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_2'])) {
+				$ingredient['oil_2'] += 150 / 0.9 * $content['ss_2'];
+				$ingredient['oil_3'] += 225 / 0.9 * $content['ss_2'];
+				$ingredient['oil_4'] += 150 / 0.9 * $content['ss_2'];
+				$ingredient['oil_7'] += 75 / 0.9 * $content['ss_2'];
+				$ingredient['oil_8'] += 150 / 0.9 * $content['ss_2'];
+				$ingredient['additive_9'] += 15 * $content['ss_2'];
+				$ingredient['NaOH'] += 107 * $content['ss_2'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_3'])) {
+				$ingredient['oil_1'] += 337.5 / 0.9 * $content['ss_3'];
+				$ingredient['oil_2'] += 150 / 0.9 * $content['ss_3'];
+				$ingredient['oil_3'] += 187.5 / 0.9 * $content['ss_3'];
+				$ingredient['oil_6'] += 75 / 0.9 * $content['ss_3'];
+				$ingredient['additive_8'] += 6 * $content['ss_3'];
+				$ingredient['NaOH'] += 106 * $content['ss_3'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_4'])) {
+				$ingredient['oil_1'] += 300 / 0.9 * $content['ss_4'];
+				$ingredient['oil_2'] += 112.5 / 0.9 * $content['ss_4'];
+				$ingredient['oil_3'] += 112.5 / 0.9 * $content['ss_4'];
+				$ingredient['oil_4'] += 150 / 0.9 * $content['ss_4'];
+				$ingredient['additive_7'] += 6 * $content['ss_4'];
+				$ingredient['additive_11'] += 75 * $content['ss_4'];
+				$ingredient['NaOH'] += 101 * $content['ss_4'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_5'])) {
+				$ingredient['oil_1'] += 300 / 0.9 * $content['ss_5'];
+				$ingredient['oil_2'] += 112.5 / 0.9 * $content['ss_5'];
+				$ingredient['oil_3'] += 112.5 / 0.9 * $content['ss_5'];
+				$ingredient['oil_4'] += 150 / 0.9 * $content['ss_5'];
+				$ingredient['oil_5'] += 5 / 0.9 * $content['ss_5'];
+				$ingredient['additive_7'] += 6 * $content['ss_5'];
+				$ingredient['NaOH'] += 101 * $content['ss_5'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['ss_6'])) {
+				$ingredient['oil_1'] += 337.5 / 0.9 * $content['ss_6'];
+				$ingredient['oil_2'] += 150 / 0.9 * $content['ss_6'];
+				$ingredient['oil_3'] += 187.5 / 0.9 * $content['ss_6'];
+				$ingredient['oil_6'] += 75 / 0.9 * $content['ss_6'];
+				$ingredient['additive_5'] += 5 * $content['ss_6'];
+				$ingredient['NaOH'] += 106 * $content['ss_6'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			$ingredient['oil_1'] = ceil($ingredient['oil_1']);
+			$ingredient['oil_2'] = ceil($ingredient['oil_2']);
+			$ingredient['oil_3'] = ceil($ingredient['oil_3']);
+			$ingredient['oil_4'] = ceil($ingredient['oil_4']);
+			$ingredient['oil_5'] = ceil($ingredient['oil_5']);
+			$ingredient['oil_6'] = ceil($ingredient['oil_6']);
+			$ingredient['oil_7'] = ceil($ingredient['oil_7']);
+			$ingredient['oil_8'] = ceil($ingredient['oil_8']);
+			date_default_timezone_set('Asia/Taipei');
+			$date = date("Y-m-d H:i:s");
+			if ($fetch1['AUTHORITY'] == 'B') {
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou'");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$ITEMNO = $fetch2['ITEMNO'];
+					$ITEMNM = $fetch2['ITEMNM'];
+					$amount = $ingredient[$ITEMNO];
+					if ($fetch2['TOTALAMT'] < $amount) {
+						return 'Not enough' . $ITEMNM;
+					}
+					else {
+						$sql3 = "UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT-$amount, UPDATEDATE=$date WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'";
+						if (!mysql_query($sql3)) {
+							return 'Unable to reduce inventory';
+						}
+					}
+				}
+				return 'Success';
+			}
+			elseif ($fetch1['AUTHORITY'] == 'D') {
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung'");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$ITEMNO = $fetch2['ITEMNO'];
+					$ITEMNM = $fetch2['ITEMNM'];
+					$amount = $ingredient[$ITEMNO];
+					if ($fetch2['TOTALAMT'] < $amount) {
+						return 'Not enough ' . $ITEMNM;
+					}
+					else {
+						$sql3 = "UPDATE WHOUSEITEMMAS SET TOTALAMT=$TOTALAMT-$amount, UPDATEDATE=$date WHERE WHOUSENO='Taitung' AND ITEMNO='$ITEMNO'";
+						if (!mysql_query($sql3)) {
+							return 'Unable to reduce inventory';
+						}
+					}
+				}
+				return 'Success';
+			}
+		}
+	}
+}
+
+function package($content) {
+	$account = $content['account'];
+	$token = $content['token'];
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Not logged in';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		elseif ($fetch1['AUTHORITY'] != 'B') {
+			return 'No authority';
+		}
+		else {
+			$ingredient = array('sp_1' => 0, 'sp_2' => 0, 'sp_3' => 0, 'ss_1' => 0, 'ss_2' => 0, 'ss_3' => 0, 'ss_4' => 0, 'ss_5' => 0, 'ss_6' => 0, 'package_1' => 0, 'package_2' => 0, 'package_3' => 0, 'package_4' => 0, 'package_5' => 0, 'package_6' => 0);
+			if (is_nonnegativeInt($content['product_sp_1'])) {
+				$ingredient['sp_1'] += $content['product_sp_1'];
+				$ingredient['package_6'] += $content['product_sp_1'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_sp_2'])) {
+				$ingredient['sp_2'] += $content['product_sp_2'];
+				$ingredient['package_6'] += $content['product_sp_2'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_sp_3'])) {
+				$ingredient['sp_3'] += $content['product_sp_3'];
+				$ingredient['package_6'] += $content['product_sp_3'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_sp_box'])) {
+				$ingredient['sp_1'] += $content['product_sp_box'];
+				$ingredient['sp_2'] += $content['product_sp_box'];
+				$ingredient['sp_3'] += $content['product_sp_box'];
+				$ingredient['package_3'] += $content['product_sp_box'];
+				$ingredient['package_5'] += $content['product_sp_box'];
+				$ingredient['package_6'] += 3 * $content['product_sp_box'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_ss_1'])) {
+				$ingredient['ss_1'] += 10 * $content['product_ss_1'];
+				$ingredient['ss_2'] += 10 * $content['product_ss_1'];
+				$ingredient['package_1'] += $content['product_ss_1'];
+				$ingredient['package_2'] += $content['product_ss_1'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_ss_2'])) {
+				$ingredient['ss_3'] += 10 * $content['product_ss_2'];
+				$ingredient['ss_6'] += 10 * $content['product_ss_2'];
+				$ingredient['package_1'] += $content['product_ss_2'];
+				$ingredient['package_2'] += $content['product_ss_2'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_ss_3'])) {
+				$ingredient['ss_4'] += 10 * $content['product_ss_3'];
+				$ingredient['ss_5'] += 10 * $content['product_ss_3'];
+				$ingredient['package_1'] += $content['product_ss_3'];
+				$ingredient['package_2'] += $content['product_ss_3'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['product_ss_box'])) {
+				$ingredient['ss_1'] += 20 * $content['product_ss_box'];
+				$ingredient['ss_2'] += 20 * $content['product_ss_box'];
+				$ingredient['ss_3'] += 20 * $content['product_ss_box'];
+				$ingredient['ss_4'] += 20 * $content['product_ss_box'];
+				$ingredient['ss_5'] += 20 * $content['product_ss_box'];
+				$ingredient['ss_6'] += 20 * $content['product_ss_box'];
+				$ingredient['package_1'] += 6 * $content['product_ss_box'];
+				$ingredient['package_2'] += 6 * $content['product_ss_box'];
+				$ingredient['package_4'] += $content['product_sp_box'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			return $ingredient;
 		}
 	}
 }
@@ -97,100 +520,13 @@ function is_positiveInt($value) {
 	}
 }
 
-function query($product, $amount) {
-	$ingredient = array('oil_1' => 0, 'oil_2' => 0, 'oil_3' => 0, 'oil_4' => 0, 'oil_5' => 0, 'oil_6' => 0, 'oil_7' => 0, 'oil_8' => 0, 'additive_1' => 0, 'additive_2' => 0, 'additive_3' => 0, 'additive_4' => 0, 'additive_5' => 0, 'additive_6' => 0, 'additive_7' => 0, 'additive_8' => 0, 'additive_9' => 0, 'additive_10' => 0, 'additive_11' => 0, 'NaOH' => 0);
-	for ($i = 0; $i < count($product); $i++) {
-		if ($product[$i] == 'sp_1') {
-			$ingredient['oil_1'] += 360 / 0.9 * $amount[$i];
-			$ingredient['oil_2'] += 160 / 0.9 * $amount[$i];
-			$ingredient['oil_3'] += 120 / 0.9 * $amount[$i];
-			$ingredient['oil_4'] += 80 / 0.9 * $amount[$i];
-			$ingredient['additive_4'] += 5 * $amount[$i];
-			$ingredient['additive_5'] += 5 * $amount[$i];
-			$ingredient['additive_6'] += 5 * $amount[$i];
-			$ingredient['additive_11'] += 80 * $amount[$i];
-			$ingredient['NaOH'] += 108 * $amount[$i];
-		}
-		elseif ($product[$i] == 'sp_2') {
-			$ingredient['oil_1'] += 425 / 0.9 * $amount[$i];
-			$ingredient['oil_2'] += 170 / 0.9 * $amount[$i];
-			$ingredient['oil_3'] += 170 / 0.9 * $amount[$i];
-			$ingredient['additive_1'] += 5 * $amount[$i];
-			$ingredient['additive_11'] += 85 * $amount[$i];
-			$ingredient['NaOH'] += 118 * $amount[$i];
-		}
-		elseif ($product[$i] == 'sp_3') {
-			$ingredient['oil_1'] += 280 / 0.9 * $amount[$i];
-			$ingredient['oil_2'] += 160 / 0.9 * $amount[$i];
-			$ingredient['oil_3'] += 200 / 0.9 * $amount[$i];
-			$ingredient['oil_6'] += 80 / 0.9 * $amount[$i];
-			$ingredient['additive_2'] += 5 * $amount[$i];
-			$ingredient['additive_3'] += 60 * $amount[$i];
-			$ingredient['additive_11'] += 80 * $amount[$i];
-			$ingredient['NaOH'] += 112 * $amount[$i];
-		}
-		elseif ($product[$i] == 'ss_1') {
-			$ingredient['oil_2'] += 150 / 0.9 * $amount[$i];
-			$ingredient['oil_3'] += 225 / 0.9 * $amount[$i];
-			$ingredient['oil_4'] += 150 / 0.9 * $amount[$i];
-			$ingredient['oil_7'] += 75 / 0.9 * $amount[$i];
-			$ingredient['oil_8'] += 150 / 0.9 * $amount[$i];
-			$ingredient['additive_10'] += 6 * $amount[$i];
-			$ingredient['NaOH'] += 107 * $amount[$i];
-		}
-		elseif ($product[$i] == 'ss_2') {
-			$ingredient['oil_2'] += 150 / 0.9 * $amount[$i];
-			$ingredient['oil_3'] += 225 / 0.9 * $amount[$i];
-			$ingredient['oil_4'] += 150 / 0.9 * $amount[$i];
-			$ingredient['oil_7'] += 75 / 0.9 * $amount[$i];
-			$ingredient['oil_8'] += 150 / 0.9 * $amount[$i];
-			$ingredient['additive_9'] += 15 * $amount[$i];
-			$ingredient['NaOH'] += 107 * $amount[$i];
-		}
-		elseif ($product[$i] == 'ss_3') {
-			$ingredient['oil_1'] += 337.5 / 0.9 * $amount[$i];
-			$ingredient['oil_2'] += 150 / 0.9 * $amount[$i];
-			$ingredient['oil_3'] += 187.5 / 0.9 * $amount[$i];
-			$ingredient['oil_6'] += 75 / 0.9 * $amount[$i];
-			$ingredient['additive_8'] += 6 * $amount[$i];
-			$ingredient['NaOH'] += 106 * $amount[$i];
-		}
-		elseif ($product[$i] == 'ss_4') {
-			$ingredient['oil_1'] += 300 / 0.9 * $amount[$i];
-			$ingredient['oil_2'] += 112.5 / 0.9 * $amount[$i];
-			$ingredient['oil_3'] += 112.5 / 0.9 * $amount[$i];
-			$ingredient['oil_4'] += 150 / 0.9 * $amount[$i];
-			$ingredient['additive_7'] += 6 * $amount[$i];
-			$ingredient['additive_11'] += 75 * $amount[$i];
-			$ingredient['NaOH'] += 101 * $amount[$i];
-		}
-		elseif ($product[$i] == 'ss_5') {
-			$ingredient['oil_1'] += 300 / 0.9 * $amount[$i];
-			$ingredient['oil_2'] += 112.5 / 0.9 * $amount[$i];
-			$ingredient['oil_3'] += 112.5 / 0.9 * $amount[$i];
-			$ingredient['oil_4'] += 150 / 0.9 * $amount[$i];
-			$ingredient['oil_5'] += 5 / 0.9 * $amount[$i];
-			$ingredient['additive_7'] += 6 * $amount[$i];
-			$ingredient['NaOH'] += 101 * $amount[$i];
-		}
-		elseif ($product[$i] == 'ss_6') {
-			$ingredient['oil_1'] += 337.5 / 0.9 * $amount[$i];
-			$ingredient['oil_2'] += 150 / 0.9 * $amount[$i];
-			$ingredient['oil_3'] += 187.5 / 0.9 * $amount[$i];
-			$ingredient['oil_6'] += 75 / 0.9 * $amount[$i];
-			$ingredient['additive_5'] += 5 * $amount[$i];
-			$ingredient['NaOH'] += 106 * $amount[$i];
-		}
+function is_nonnegativeInt($value) {
+	if ((ceil($value) == floor($value)) && $value >= 0) {
+		return true;
 	}
-	$ingredient['oil_1'] = ceil($ingredient['oil_1']);
-	$ingredient['oil_2'] = ceil($ingredient['oil_2']);
-	$ingredient['oil_3'] = ceil($ingredient['oil_3']);
-	$ingredient['oil_4'] = ceil($ingredient['oil_4']);
-	$ingredient['oil_5'] = ceil($ingredient['oil_5']);
-	$ingredient['oil_6'] = ceil($ingredient['oil_6']);
-	$ingredient['oil_7'] = ceil($ingredient['oil_7']);
-	$ingredient['oil_8'] = ceil($ingredient['oil_8']);
-	return $ingredient;
+	else {
+		return false;
+	}
 }
 
 function inventory($whouse, $item) {

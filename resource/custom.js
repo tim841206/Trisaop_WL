@@ -142,28 +142,19 @@ function member_notice() {
 	}
 }
 
-function createItem(index) {
-	var next = (index + 1) > 9 ? 9 : (index + 1);
-	document.getElementById("content" + index).innerHTML = index;
-	document.getElementById("product" + index).style.display = "compact";
-	document.getElementById("amount" + index).style.display = "compact";
-	document.getElementById("row" + next).style.display = null;
-	document.getElementById("content" + next).style.display = "compact";
-}
-
 function calculate_search() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var data = "module=item&event=search";
-	for (var i = 1; i < 10; i++) {
-		var product = document.getElementById("product" + i).value;
-		if (product != null) {
-			var amount = Math.floor(document.getElementById("amount" + i).value);
-			if (amount > 0) {
-				data = data + "&product" + i + "=" + product + "&amount" + i + "=" + amount;
-			}
-		}
-	}
+	var sp_1 = document.getElementById("calculate_sp_1").value;
+	var sp_2 = document.getElementById("calculate_sp_2").value;
+	var sp_3 = document.getElementById("calculate_sp_3").value;
+	var ss_1 = document.getElementById("calculate_ss_1").value;
+	var ss_2 = document.getElementById("calculate_ss_2").value;
+	var ss_3 = document.getElementById("calculate_ss_3").value;
+	var ss_4 = document.getElementById("calculate_ss_4").value;
+	var ss_5 = document.getElementById("calculate_ss_5").value;
+	var ss_6 = document.getElementById("calculate_ss_6").value;
+	var data = "module=item&event=search&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3 + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 	request.onreadystatechange = function() {
@@ -172,9 +163,9 @@ function calculate_search() {
 			if (data.message == 'Success') {
 				document.getElementById("queryResult").innerHTML = data.query;
 				document.getElementById("query").style.display = null;
-				var order = document.getElementById("order");
-				if (order != null) {
-					order.style.display = null;
+				var produce = document.getElementById("produce");
+				if (produce != null) {
+					produce.style.display = null;
 				}
 			}
 			else {
@@ -184,8 +175,37 @@ function calculate_search() {
 	}
 }
 
-function order() {
-	
+function produce() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var sp_1 = document.getElementById("calculate_sp_1").value;
+	var sp_2 = document.getElementById("calculate_sp_2").value;
+	var sp_3 = document.getElementById("calculate_sp_3").value;
+	var ss_1 = document.getElementById("calculate_ss_1").value;
+	var ss_2 = document.getElementById("calculate_ss_2").value;
+	var ss_3 = document.getElementById("calculate_ss_3").value;
+	var ss_4 = document.getElementById("calculate_ss_4").value;
+	var ss_5 = document.getElementById("calculate_ss_5").value;
+	var ss_6 = document.getElementById("calculate_ss_6").value;
+	var data = "module=item&event=produce&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3 + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("queryResult").innerHTML = data.query;
+				document.getElementById("query").style.display = null;
+				var produce = document.getElementById("produce");
+				if (produce != null) {
+					produce.style.display = null;
+				}
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
 }
 
 function whouse() {
@@ -553,6 +573,48 @@ function whouse_search() {
 			}
 		}
 	}
+}
+
+function package() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var product_sp_1 = document.getElementById("package_sp_1").value;
+	var product_sp_2 = document.getElementById("package_sp_2").value;
+	var product_sp_3 = document.getElementById("package_sp_3").value;
+	var product_sp_box = document.getElementById("package_sp_box").value;
+	var product_ss_1 = document.getElementById("package_ss_1").value;
+	var product_ss_2 = document.getElementById("package_ss_2").value;
+	var product_ss_3 = document.getElementById("package_ss_3").value;
+	var product_ss_box = document.getElementById("package_ss_box").value;
+	var data = "module=item&event=package&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("sp_1").innerHTML = data.sp_1;
+				document.getElementById("sp_2").innerHTML = data.sp_2;
+				document.getElementById("sp_3").innerHTML = data.sp_3;
+				document.getElementById("ss_1").innerHTML = data.ss_1;
+				document.getElementById("ss_2").innerHTML = data.ss_2;
+				document.getElementById("ss_3").innerHTML = data.ss_3;
+				document.getElementById("ss_4").innerHTML = data.ss_4;
+				document.getElementById("ss_5").innerHTML = data.ss_5;
+				document.getElementById("ss_6").innerHTML = data.ss_6;
+				document.getElementById("package_1").innerHTML = data.package_1;
+				document.getElementById("package_2").innerHTML = data.package_2;
+				document.getElementById("package_3").innerHTML = data.package_3;
+				document.getElementById("package_4").innerHTML = data.package_4;
+				document.getElementById("package_5").innerHTML = data.package_5;
+				document.getElementById("package_6").innerHTML = data.package_6;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+	
 }
 
 function request_view() {
