@@ -331,13 +331,17 @@ function itemclass() {
 			var option4 = document.createElement("option");
 			var option5 = document.createElement("option");
 			var option6 = document.createElement("option");
+			var option7 = document.createElement("option");
+			var option8 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '田靜山巒禾風皂'; option1.value = 'product_sp_1'; item.add(option1);
 			option2.text = '金絲森林渲染皂'; option2.value = 'product_sp_2'; item.add(option2);
 			option3.text = '釋迦手感果力皂'; option3.value = 'product_sp_3'; item.add(option3);
-			option4.text = '洛神紅麴旅用皂絲'; option4.value = 'product_ss_1'; item.add(option4);
-			option5.text = '暖暖薑黃旅用皂絲'; option5.value = 'product_ss_2'; item.add(option5);
-			option6.text = '萱草米黃旅用皂絲'; option6.value = 'product_ss_3'; item.add(option6);
+			option4.text = '三三台東意象禮盒組'; option4.value = 'product_sp_box'; item.add(option4);
+			option5.text = '洛神紅麴旅用皂絲'; option5.value = 'product_ss_1'; item.add(option5);
+			option6.text = '暖暖薑黃旅用皂絲'; option6.value = 'product_ss_2'; item.add(option6);
+			option7.text = '萱草米黃旅用皂絲'; option7.value = 'product_ss_3'; item.add(option7);
+			option8.text = '三三台東意象皂絲旅行組'; option8.value = 'product_ss_box'; item.add(option8);
 		}
 		else if (itemclass == 'E') {
 			var option0 = document.createElement("option");
@@ -479,13 +483,17 @@ function itemclass() {
 			var option4 = document.createElement("option");
 			var option5 = document.createElement("option");
 			var option6 = document.createElement("option");
+			var option7 = document.createElement("option");
+			var option8 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '田靜山巒禾風皂'; option1.value = 'product_sp_1'; item.add(option1);
 			option2.text = '金絲森林渲染皂'; option2.value = 'product_sp_2'; item.add(option2);
 			option3.text = '釋迦手感果力皂'; option3.value = 'product_sp_3'; item.add(option3);
-			option4.text = '洛神紅麴旅用皂絲'; option4.value = 'product_ss_1'; item.add(option4);
-			option5.text = '暖暖薑黃旅用皂絲'; option5.value = 'product_ss_2'; item.add(option5);
-			option6.text = '萱草米黃旅用皂絲'; option6.value = 'product_ss_3'; item.add(option6);
+			option4.text = '三三台東意象禮盒組'; option4.value = 'product_sp_box'; item.add(option4);
+			option5.text = '洛神紅麴旅用皂絲'; option5.value = 'product_ss_1'; item.add(option5);
+			option6.text = '暖暖薑黃旅用皂絲'; option6.value = 'product_ss_2'; item.add(option6);
+			option7.text = '萱草米黃旅用皂絲'; option7.value = 'product_ss_3'; item.add(option7);
+			option8.text = '三三台東意象皂絲旅行組'; option8.value = 'product_ss_box'; item.add(option8);
 		}
 		else if (itemclass == 'E') {
 			var option0 = document.createElement("option");
@@ -593,21 +601,21 @@ function package() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("sp_1").innerHTML = data.sp_1;
-				document.getElementById("sp_2").innerHTML = data.sp_2;
-				document.getElementById("sp_3").innerHTML = data.sp_3;
-				document.getElementById("ss_1").innerHTML = data.ss_1;
-				document.getElementById("ss_2").innerHTML = data.ss_2;
-				document.getElementById("ss_3").innerHTML = data.ss_3;
-				document.getElementById("ss_4").innerHTML = data.ss_4;
-				document.getElementById("ss_5").innerHTML = data.ss_5;
-				document.getElementById("ss_6").innerHTML = data.ss_6;
-				document.getElementById("package_1").innerHTML = data.package_1;
-				document.getElementById("package_2").innerHTML = data.package_2;
-				document.getElementById("package_3").innerHTML = data.package_3;
-				document.getElementById("package_4").innerHTML = data.package_4;
-				document.getElementById("package_5").innerHTML = data.package_5;
-				document.getElementById("package_6").innerHTML = data.package_6;
+				document.getElementById("result_package_sp_1").innerHTML = data.sp_1;
+				document.getElementById("result_package_sp_2").innerHTML = data.sp_2;
+				document.getElementById("result_package_sp_3").innerHTML = data.sp_3;
+				document.getElementById("result_package_ss_1").innerHTML = data.ss_1;
+				document.getElementById("result_package_ss_2").innerHTML = data.ss_2;
+				document.getElementById("result_package_ss_3").innerHTML = data.ss_3;
+				document.getElementById("result_package_ss_4").innerHTML = data.ss_4;
+				document.getElementById("result_package_ss_5").innerHTML = data.ss_5;
+				document.getElementById("result_package_ss_6").innerHTML = data.ss_6;
+				document.getElementById("result_package_package_1").innerHTML = data.package_1;
+				document.getElementById("result_package_package_2").innerHTML = data.package_2;
+				document.getElementById("result_package_package_3").innerHTML = data.package_3;
+				document.getElementById("result_package_package_4").innerHTML = data.package_4;
+				document.getElementById("result_package_package_5").innerHTML = data.package_5;
+				document.getElementById("result_package_package_6").innerHTML = data.package_6;
 			}
 			else {
 				alert(data.message);
@@ -639,7 +647,7 @@ function request_view() {
 function search_index() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var index = document.getElementById("request_index").value;
+	var index = document.getElementById("index").value;
 	var data = "module=request&event=search_index&index=" + index;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
@@ -1015,7 +1023,7 @@ function member_view() {
 function search_account() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var index = document.getElementById("member_index").value;
+	var index = document.getElementById("account").value;
 	var data = "module=member&event=search_account&index=" + index;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);

@@ -81,15 +81,15 @@
 					</table>
 					<table style="display: inline;">
 						<tr><th>原料</th><th>數量</th><th>原料</th><th>數量</th></tr>
-						<tr><td>米皂</td><td id="sp_1">0</td><td>不織布包</td><td id="package_1">0</td></tr>
-						<tr><td>金針皂</td><td id="sp_2">0<td>鋁包</td><td id="package_2">0</td></tr>
-						<tr><td>釋迦皂</td><td id="sp_3">0<td>大禮盒</td><td id="package_3">0</td></tr>
-						<tr><td>洛神皂絲</td><td id="ss_1">0</td><td>小禮盒</td><td id="package_4">0</td></tr>
-						<tr><td>紅麴皂絲</td><td id="ss_2">0</td><td>內襯</td><td id="package_5">0</td></tr>
-						<tr><td>薑黃皂絲</td><td id="ss_3">0</td><td>單顆皂外盒</td><td id="package_6">0</td></tr>
-						<tr><td>金針皂絲</td><td id="ss_4">0</td></tr>
-						<tr><td>紅棕梠皂絲</td><td id="ss_5">0</td></tr>
-						<tr><td>蕁麻葉皂絲</td><td id="ss_6">0</td></tr>
+						<tr><td>米皂</td><td id="result_package_sp_1">0</td><td>不織布包</td><td id="result_package_package_1">0</td></tr>
+						<tr><td>金針皂</td><td id="result_package_sp_2">0<td>鋁包</td><td id="result_package_package_2">0</td></tr>
+						<tr><td>釋迦皂</td><td id="result_package_sp_3">0<td>大禮盒</td><td id="result_package_package_3">0</td></tr>
+						<tr><td>洛神皂絲</td><td id="result_package_ss_1">0</td><td>小禮盒</td><td id="result_package_package_4">0</td></tr>
+						<tr><td>紅麴皂絲</td><td id="result_package_ss_2">0</td><td>內襯</td><td id="result_package_package_5">0</td></tr>
+						<tr><td>薑黃皂絲</td><td id="result_package_ss_3">0</td><td>單顆皂外盒</td><td id="result_package_package_6">0</td></tr>
+						<tr><td>金針皂絲</td><td id="result_package_ss_4">0</td></tr>
+						<tr><td>紅棕梠皂絲</td><td id="result_package_ss_5">0</td></tr>
+						<tr><td>蕁麻葉皂絲</td><td id="result_package_ss_6">0</td></tr>
 					</table>
 					<br>
 					<button onclick="package()">確定</button>
@@ -186,9 +186,11 @@
 										<tr><td>田靜山巒禾風皂</td><td><input type="number" id="product_sp_1" value="0" min="0"></td></tr>
 										<tr><td>金絲森林渲染皂</td><td><input type="number" id="product_sp_2" value="0" min="0"></td></tr>
 										<tr><td>釋迦手感果力皂</td><td><input type="number" id="product_sp_3" value="0" min="0"></td></tr>
+										<tr><td>三三台東意象禮盒組</td><td><input type="number" id="product_sp_box" value="0" min="0"></td></tr>
 										<tr><td>洛神紅麴旅用皂絲</td><td><input type="number" id="product_ss_1" value="0" min="0"></td></tr>
 										<tr><td>暖暖薑黃旅用皂絲</td><td><input type="number" id="product_ss_2" value="0" min="0"></td></tr>
 										<tr><td>萱草米黃旅用皂絲</td><td><input type="number" id="product_ss_3" value="0" min="0"></td></tr>
+										<tr><td>三三台東意象皂絲旅行組</td><td><input type="number" id="product_ss_box" value="0" min="0"></td></tr>
 									</table>
 								</td>
 							</tr>
@@ -203,7 +205,7 @@
 					<table>
 						<tr>
 							<td>使用者編號</td>
-							<td><input type="text" id="index"></td>
+							<td><input type="text" id="account"></td>
 							<td><button onclick="search_account()">查詢</button></td>
 						</tr>
 						<tr>
