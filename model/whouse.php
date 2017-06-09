@@ -25,6 +25,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 				return;
 			}
 		}
+		elseif ($_GET['event'] == 'adjust_search') {
+			$message = adjust_search($_GET['account'], $_GET['token'], $_GET['whouseno']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
     		return;
@@ -49,8 +60,19 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				return;
 			}
 		}
-		if ($_POST['event'] == 'search') {
+		elseif ($_POST['event'] == 'search') {
 			$message = search($_POST['account'], $_POST['token'], $_POST['whouseno'], $_POST['itemclass'], $_POST['itemno']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_POST['event'] == 'adjust_search') {
+			$message = adjust_search($_POST['account'], $_POST['token'], $_POST['whouseno']);
 			if (is_array($message)) {
 				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
 				return;
@@ -196,6 +218,126 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 			}
 		}
 	}
+}
+
+function adjust_search($account, $token, $whouseno) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Not logged in';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		elseif ($fetch1['AUTHORITY'] != 'A') {
+			return 'No authority';
+		}
+		else {
+			if ($whouseno = 'Beitou') {
+				$content = ?>
+				<table>
+					<tr>
+						<td>
+							<table>
+								<tr><th colspan="2">油品</th></tr>
+								<tr><td>橄欖油</td><td><input type="text" id="adjust_oil_1" value=""></td></tr>
+								<tr><td>棕梠油</td><td><input type="text" id="adjust_oil_2" value=""></td></tr>
+								<tr><td>椰子油</td><td><input type="text" id="adjust_oil_3" value=""></td></tr>
+								<tr><td>米糠油</td><td><input type="text" id="adjust_oil_4" value=""></td></tr>
+								<tr><td>紅棕梠油</td><td><input type="text" id="adjust_oil_5" value=""></td></tr>
+								<tr><td>葡萄籽油</td><td><input type="text" id="adjust_oil_6" value=""></td></tr>
+								<tr><td>苦茶油</td><td><input type="text" id="adjust_oil_7" value=""></td></tr>
+								<tr><td>蓖麻油</td><td><input type="text" id="adjust_oil_8" value=""></td></tr>
+								<tr><td>鹼</td><td><input type="text" id="adjust_NaOH" value=""></td></tr>
+							</table>
+						</td>
+						<td>
+							<table>
+								<tr><th colspan="2">添加物</th></tr>
+								<tr><td>金針花瓣</td><td><input type="text" id="adjust_additive_1" value=""></td></tr>
+								<tr><td>釋迦果粉</td><td><input type="text" id="adjust_additive_2" value=""></td></tr>
+								<tr><td>釋迦果泥</td><td><input type="text" id="adjust_additive_3" value=""></td></tr>
+								<tr><td>米粉</td><td><input type="text" id="adjust_additive_4" value=""></td></tr>
+								<tr><td>蕁麻葉粉</td><td><input type="text" id="adjust_additive_5" value=""></td></tr>
+								<tr><td>金盞花粉</td><td><input type="text" id="adjust_additive_6" value=""></td></tr>
+								<tr><td>金針花粉</td><td><input type="text" id="adjust_additive_7" value=""></td></tr>
+								<tr><td>薑黃粉</td><td><input type="text" id="adjust_additive_8" value=""></td></tr>
+								<tr><td>紅麴粉</td><td><input type="text" id="adjust_additive_9" value=""></td></tr>
+								<tr><td>洛神花粉</td><td><input type="text" id="adjust_additive_10" value=""></td></tr>
+								<tr><td>乳油木果脂</td><td><input type="text" id="adjust_additive_11" value=""></td></tr>
+							</table>
+						</td>
+						<td>
+							<table>
+								<th colspan="2">包裝</th>
+								<tr><td>不織布包</td><td><input type="text" id="adjust_package_1" value=""></td></tr>
+								<tr><td>鋁包</td><td><input type="text" id="adjust_package_2" value=""></td></tr>
+								<tr><td>大禮盒</td><td><input type="text" id="adjust_package_3" value=""></td></tr>
+								<tr><td>小禮盒</td><td><input type="text" id="adjust_package_4" value=""></td></tr>
+								<tr><td>內襯</td><td><input type="text" id="adjust_package_5" value=""></td></tr>
+								<tr><td>單顆皂外盒</td><td><input type="text" id="adjust_package_6" value=""></td></tr>
+							</table>
+						</td>
+						<td>
+							<table>
+								<th colspan="2">商品</th>
+								<tr><td>田靜山巒禾風皂</td><td><input type="text" id="adjust_product_sp_1" value=""></td></tr>
+								<tr><td>金絲森林渲染皂</td><td><input type="text" id="adjust_product_sp_2" value=""></td></tr>
+								<tr><td>釋迦手感果力皂</td><td><input type="text" id="adjust_product_sp_3" value=""></td></tr>
+								<tr><td>三三台東意象禮盒組</td><td><input type="text" id="adjust_product_sp_box" value=""></td></tr>
+								<tr><td>洛神紅麴旅用皂絲</td><td><input type="text" id="adjust_product_ss_1" value=""></td></tr>
+								<tr><td>暖暖薑黃旅用皂絲</td><td><input type="text" id="adjust_product_ss_2" value=""></td></tr>
+								<tr><td>萱草米黃旅用皂絲</td><td><input type="text" id="adjust_product_ss_3" value=""></td></tr>
+								<tr><td>三三台東意象皂絲旅行組</td><td><input type="text" id="adjust_product_ss_box" value=""></td></tr>
+							</table>
+						</td>
+						<td>
+							<table>
+								<th colspan="2">產品</th>
+								<tr><td>米皂</td><td><input type="text" id="adjust_sp_1" value=""></td></tr>
+								<tr><td>金針皂</td><td><input type="text" id="adjust_sp_2" value=""></td></tr>
+								<tr><td>釋迦皂</td><td><input type="text" id="adjust_sp_3" value=""></td></tr>
+								<tr><td>洛神皂絲</td><td><input type="text" id="adjust_ss_1" value=""></td></tr>
+								<tr><td>紅麴皂絲</td><td><input type="text" id="adjust_ss_2" value=""></td></tr>
+								<tr><td>薑黃皂絲</td><td><input type="text" id="adjust_ss_3" value=""></td></tr>
+								<tr><td>金針皂絲</td><td><input type="text" id="adjust_ss_4" value=""></td></tr>
+								<tr><td>紅棕梠皂絲</td><td><input type="text" id="adjust_ss_5" value=""></td></tr>
+								<tr><td>蕁麻葉皂絲</td><td><input type="text" id="adjust_ss_6" value=""></td></tr>
+							</table>
+						</td>
+						<td>
+							<table>
+								<th colspan="2">半成品</th>
+							</table>
+						</td>
+						<td>
+							<table>
+								<th colspan="2">後山埤的產品</th>
+								<tr><td>後山埤的米皂</td><td><input type="text" id="adjust_houshanpi_sp_1" value=""></td></tr>
+								<tr><td>後山埤的金針皂</td><td><input type="text" id="adjust_houshanpi_sp_2" value=""></td></tr>
+								<tr><td>後山埤的釋迦皂</td><td><input type="text" id="adjust_houshanpi_sp_3" value=""></td></tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			}
+			elseif ($whouseno = 'Houshanpi') {
+
+			}
+			elseif ($whouseno = 'Taitung') {
+
+			}
+			else {
+				return 'Wrong warehouse number';
+			}
+		}
 }
 
 function transfer($whouseno) {

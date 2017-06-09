@@ -102,6 +102,27 @@ function logout() {
 	}
 }
 
+function adjust_whouse() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var whouseno = document.getElementById("adjust_whouse").value;
+	var data = "module=whouse&event=adjust_search&whouseno=" + whouseno;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("adjust_content").innerHTML = data.content;
+				document.getElementById("adjust_area").style.display = null;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
 function request_notice() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
@@ -594,7 +615,6 @@ function package() {
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
-			alert(request.responseText);
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				document.getElementById("result_package_sp_1").innerHTML = data.sp_1;
