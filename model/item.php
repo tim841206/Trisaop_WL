@@ -690,48 +690,57 @@ function ingredient_to_product($ingredient, $product, $whouse) {
 	}
 	if (is_positiveInt($content['sp_1'])) {
 		$ITEMNO = 'sp_1_' . $today;
+		$ITEMNM = $today . '的米皂';
 		$amount = $product['sp_1'];
-		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '米皂', 'F', '$amount', '$date')");
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 	}
 	if (is_positiveInt($content['sp_2'])) {
 		$ITEMNO = 'sp_2_' . $today;
+		$ITEMNM = $today . '的金針皂';
 		$amount = $product['sp_2'];
-		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '金針皂', 'F', '$amount', '$date')");
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 	}
 	if (is_positiveInt($content['sp_3'])) {
 		$ITEMNO = 'sp_3_' . $today;
+		$ITEMNM = $today . '的釋迦皂';
 		$amount = $product['sp_3'];
-		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '釋迦皂', 'F', '$amount', '$date')");
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 	}
 	if (is_positiveInt($content['ss_1'])) {
 		$ITEMNO = 'ss_1_' . $today;
+		$ITEMNM = $today . '的洛神皂絲';
 		$amount = $product['ss_1'];
-		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '洛神皂絲', 'F', '$amount', '$date')");
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 	}
 	if (is_positiveInt($content['ss_2'])) {
 		$ITEMNO = 'ss_2_' . $today;
+		$ITEMNM = $today . '的紅麴皂絲';
 		$amount = $product['ss_2'];
-		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '紅麴皂絲', 'F', '$amount', '$date')");
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 	}
 	if (is_positiveInt($content['ss_3'])) {
 		$ITEMNO = 'ss_3_' . $today;
+		$ITEMNM = $today . '的薑黃皂絲';
 		$amount = $product['ss_3'];
-		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '薑黃皂絲', 'F', '$amount', '$date')");
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 	}
 	if (is_positiveInt($content['ss_4'])) {
 		$ITEMNO = 'ss_4_' . $today;
+		$ITEMNM = $today . '的金針皂絲';
 		$amount = $product['ss_4'];
-		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '金針皂絲', 'F', '$amount', '$date')");
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 	}
 	if (is_positiveInt($content['ss_5'])) {
 		$ITEMNO = 'ss_5_' . $today;
+		$ITEMNM = $today . '的紅棕梠皂絲';
 		$amount = $product['ss_5'];
-		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '紅棕梠皂絲', 'F', '$amount', '$date')");
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 	}
 	if (is_positiveInt($content['ss_6'])) {
 		$ITEMNO = 'ss_6_' . $today;
+		$ITEMNM = $today . '的蕁麻葉皂絲';
 		$amount = $product['ss_6'];
-		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '蕁麻葉皂絲', 'F', '$amount', '$date')");
+		mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 	}
 }
 

@@ -98,12 +98,12 @@
 				</div>
 				<div id="menu3" class="tab-pane fade">
 					<h3>調整庫存</h3>
-					<select id="adjust_whouse">
+					<select id="adjust_whouse" onchange="adjust_whouse()">
+						<option value="">請選擇</option>
 						<option value="Beitou">北投</option>
 						<option value="Houshanpi">後山埤</option>
 						<option value="Taitung">台東</option>
 					</select>
-					<button onclick="adjust_whouse()">查詢</button>
 					<div id="adjust_area" style="display: none;">
 						<p id="adjust_content"></p>
 						<button onclick="adjust()">確定更改</button>

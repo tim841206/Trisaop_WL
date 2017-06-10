@@ -263,6 +263,11 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);
 			}
+			elseif ($_POST['event'] == 'adjust') {
+				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
+				$post = array_merge($id, $_POST);
+				echo curl_post($post, $_POST['module']);
+			}
 			else {
 				echo json_encode(array('message' => 'Invalid event called'));
 			}

@@ -114,7 +114,85 @@ function adjust_whouse() {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				document.getElementById("adjust_content").innerHTML = data.content;
-				document.getElementById("adjust_area").style.display = null;
+				if (data.content.length == 0) {
+					document.getElementById("adjust_area").style.display = 'none';
+				}
+				else {
+					document.getElementById("adjust_area").style.display = null;
+				}
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function adjust() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var whouseno = document.getElementById("adjust_whouse").value;
+	var adjust_A = document.getElementsByClassName("adjust_A");
+	var adjust_B = document.getElementsByClassName("adjust_B");
+	var adjust_C = document.getElementsByClassName("adjust_C");
+	var adjust_D = document.getElementsByClassName("adjust_D");
+	var adjust_E = document.getElementsByClassName("adjust_E");
+	var adjust_F = document.getElementsByClassName("adjust_F");
+	var adjust_H = document.getElementsByClassName("adjust_H");
+	var adjust_A_no = [], adjust_A_amt = [];
+	var adjust_B_no = [], adjust_B_amt = [];
+	var adjust_C_no = [], adjust_C_amt = [];
+	var adjust_D_no = [], adjust_D_amt = [];
+	var adjust_E_no = [], adjust_E_amt = [];
+	var adjust_F_no = [], adjust_F_amt = [];
+	var adjust_H_no = [], adjust_H_amt = [];
+	for (var i = 0; i < adjust_A.length; i++) {
+		adjust_A_no[i] = adjust_A[i].id;
+		adjust_A_amt[i] = adjust_A[i].value;
+	}
+	for (var i = 0; i < adjust_B.length; i++) {
+		adjust_B_no[i] = adjust_B[i].id;
+		adjust_B_amt[i] = adjust_B[i].value;
+	}
+	for (var i = 0; i < adjust_C.length; i++) {
+		adjust_C_no[i] = adjust_C[i].id;
+		adjust_C_amt[i] = adjust_C[i].value;
+	}
+	for (var i = 0; i < adjust_D.length; i++) {
+		adjust_D_no[i] = adjust_D[i].id;
+		adjust_D_amt[i] = adjust_D[i].value;
+	}
+	for (var i = 0; i < adjust_E.length; i++) {
+		adjust_E_no[i] = adjust_E[i].id;
+		adjust_E_amt[i] = adjust_E[i].value;
+	}
+	for (var i = 0; i < adjust_F.length; i++) {
+		adjust_F_no[i] = adjust_F[i].id;
+		adjust_F_amt[i] = adjust_F[i].value;
+	}
+	for (var i = 0; i < adjust_H.length; i++) {
+		adjust_H_no[i] = adjust_H[i].id;
+		adjust_H_amt[i] = adjust_H[i].value;
+	}
+	if (whouseno == 'Beitou') {
+		var data = "module=whouse&event=adjust&whouseno=Beitou&adjust_A_no=" + adjust_A_no + "&adjust_A_amt=" + adjust_A_amt + "&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_C_no=" + adjust_C_no + "&adjust_C_amt=" + adjust_C_amt + "&adjust_D_no=" + adjust_D_no + "&adjust_D_amt=" + adjust_D_amt + "&adjust_E_no=" + adjust_E_no + "&adjust_E_amt=" + adjust_E_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt + "&adjust_H_no=" + adjust_H_no + "&adjust_H_amt=" + adjust_H_amt;
+	}
+	else if (whouseno == 'Houshanpi') {
+		var data = "module=whouse&event=adjust&whouseno=Houshanpi&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt + "&adjust_H_no=" + adjust_H_no + "&adjust_H_amt=" + adjust_H_amt; 
+	}
+	else if (whouseno == 'Taitung') {
+		var data = "module=whouse&event=adjust&whouseno=Taitung&adjust_A_no=" + adjust_A_no + "&adjust_A_amt=" + adjust_A_amt + "&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_E_no=" + adjust_E_no + "&adjust_E_amt=" + adjust_E_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt;
+	}
+	else {
+		var data = "module=whouse&event=adjust";
+	}
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功調整");
 			}
 			else {
 				alert(data.message);
