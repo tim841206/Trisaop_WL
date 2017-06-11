@@ -12,6 +12,10 @@ function login() {
 			if (data.message == 'Success') {
 				var html = document.getElementsByTagName('html')[0];
 				html.innerHTML = data.content;
+				if (data.member == 'load') {
+					member_notice();
+				}
+				request_notice();
 			}
 			else {
 				alert(data.message);
@@ -217,7 +221,7 @@ function request_notice() {
 				document.getElementById("request_notice_content").innerHTML = data.content;
 				document.getElementById("request_notice").style.display = null;
 			}
-			else if (data.message == 'No notice'){
+			else if (data.message == 'No notice') {
 				document.getElementById("request_notice_content").innerHTML = '';
 				document.getElementById("request_notice").style.display = 'none';
 			}
@@ -241,7 +245,7 @@ function member_notice() {
 				document.getElementById("member_notice_content").innerHTML = data.content;
 				document.getElementById("member_notice").style.display = null;
 			}
-			else if (data.message == 'No notice'){
+			else if (data.message == 'No notice') {
 				document.getElementById("member_notice_content").innerHTML = '';
 				document.getElementById("member_notice").style.display = 'none';
 			}
@@ -868,7 +872,6 @@ function search_state() {
 function view_index(index) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var index = document.getElementById("index").value;
 	var data = "module=request&event=view_index&index=" + index;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
@@ -876,7 +879,7 @@ function view_index(index) {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("view_content").innerHTML = data.content;
+				document.getElementById("request_notice_detail").innerHTML = data.content;
 			}
 			else {
 				alert(data.message);
@@ -1074,98 +1077,98 @@ function send() {
 	var data = "module=request&event=send&sender=" + sender + "&receiver=" + receiver;
 
 	var oil_1 = document.getElementById("oil_1").value;
-	if (oil_1 != null && oil_1 != 0) queryString = queryString + "&oil_1=" + oil_1;
+	if (oil_1 != null && oil_1 != 0) data = data + "&oil_1=" + oil_1;
 	var oil_2 = document.getElementById("oil_2").value;
-	if (oil_2 != null && oil_2 != 0) queryString = queryString + "&oil_2=" + oil_2;
+	if (oil_2 != null && oil_2 != 0) data = data + "&oil_2=" + oil_2;
 	var oil_3 = document.getElementById("oil_3").value;
-	if (oil_3 != null && oil_3 != 0) queryString = queryString + "&oil_3=" + oil_3;
+	if (oil_3 != null && oil_3 != 0) data = data + "&oil_3=" + oil_3;
 	var oil_4 = document.getElementById("oil_4").value;
-	if (oil_4 != null && oil_4 != 0) queryString = queryString + "&oil_4=" + oil_4;
+	if (oil_4 != null && oil_4 != 0) data = data + "&oil_4=" + oil_4;
 	var oil_5 = document.getElementById("oil_5").value;
-	if (oil_5 != null && oil_5 != 0) queryString = queryString + "&oil_5=" + oil_5;
+	if (oil_5 != null && oil_5 != 0) data = data + "&oil_5=" + oil_5;
 	var oil_6 = document.getElementById("oil_6").value;
-	if (oil_6 != null && oil_6 != 0) queryString = queryString + "&oil_6=" + oil_6;
+	if (oil_6 != null && oil_6 != 0) data = data + "&oil_6=" + oil_6;
 	var oil_7 = document.getElementById("oil_7").value;
-	if (oil_7 != null && oil_7 != 0) queryString = queryString + "&oil_7=" + oil_7;
+	if (oil_7 != null && oil_7 != 0) data = data + "&oil_7=" + oil_7;
 	var oil_8 = document.getElementById("oil_8").value;
-	if (oil_8 != null && oil_8 != 0) queryString = queryString + "&oil_8=" + oil_8;
+	if (oil_8 != null && oil_8 != 0) data = data + "&oil_8=" + oil_8;
+	var NaOH = document.getElementById("NaOH").value;
+	if (NaOH != null && NaOH != 0) data = datang + "&NaOH=" + NaOH;
 
 	var additive_1 = document.getElementById("additive_1").value;
-	if (additive_1 != null && additive_1 != 0) queryString = queryString + "&additive_1=" + additive_1;
+	if (additive_1 != null && additive_1 != 0) data = data + "&additive_1=" + additive_1;
 	var additive_2 = document.getElementById("additive_2").value;
-	if (additive_2 != null && additive_2 != 0) queryString = queryString + "&additive_2=" + additive_2;
+	if (additive_2 != null && additive_2 != 0) data = data + "&additive_2=" + additive_2;
 	var additive_3 = document.getElementById("additive_3").value;
-	if (additive_3 != null && additive_3 != 0) queryString = queryString + "&additive_3=" + additive_3;
+	if (additive_3 != null && additive_3 != 0) data = data + "&additive_3=" + additive_3;
 	var additive_4 = document.getElementById("additive_4").value;
-	if (additive_4 != null && additive_4 != 0) queryString = queryString + "&additive_4=" + additive_4;
+	if (additive_4 != null && additive_4 != 0) data = data + "&additive_4=" + additive_4;
 	var additive_5 = document.getElementById("additive_5").value;
-	if (additive_5 != null && additive_5 != 0) queryString = queryString + "&additive_5=" + additive_5;
+	if (additive_5 != null && additive_5 != 0) data = data + "&additive_5=" + additive_5;
 	var additive_6 = document.getElementById("additive_6").value;
-	if (additive_6 != null && additive_6 != 0) queryString = queryString + "&additive_6=" + additive_6;
+	if (additive_6 != null && additive_6 != 0) data = data + "&additive_6=" + additive_6;
 	var additive_7 = document.getElementById("additive_7").value;
-	if (additive_7 != null && additive_7 != 0) queryString = queryString + "&additive_7=" + additive_7;
+	if (additive_7 != null && additive_7 != 0) data = data + "&additive_7=" + additive_7;
 	var additive_8 = document.getElementById("additive_8").value;
-	if (additive_8 != null && additive_8 != 0) queryString = queryString + "&additive_8=" + additive_8;
+	if (additive_8 != null && additive_8 != 0) data = data + "&additive_8=" + additive_8;
 	var additive_9 = document.getElementById("additive_9").value;
-	if (additive_9 != null && additive_9 != 0) queryString = queryString + "&additive_9=" + additive_9;
+	if (additive_9 != null && additive_9 != 0) data = data + "&additive_9=" + additive_9;
 	var additive_10 = document.getElementById("additive_10").value;
-	if (additive_10 != null && additive_10 != 0) queryString = queryString + "&additive_10=" + additive_10;
+	if (additive_10 != null && additive_10 != 0) data = data + "&additive_10=" + additive_10;
 	var additive_11 = document.getElementById("additive_11").value;
-	if (additive_11 != null && additive_11 != 0) queryString = queryString + "&additive_11=" + additive_11;
-	var additive_12 = document.getElementById("additive_12").value;
-	if (additive_12 != null && additive_12 != 0) queryString = queryString + "&additive_12=" + additive_12;
+	if (additive_11 != null && additive_11 != 0) data = data + "&additive_11=" + additive_11;
 
 	var package_1 = document.getElementById("package_1").value;
-	if (package_1 != null && package_1 != 0) queryString = queryString + "&package_1=" + package_1;
+	if (package_1 != null && package_1 != 0) data = data + "&package_1=" + package_1;
 	var package_2 = document.getElementById("package_2").value;
-	if (package_2 != null && package_2 != 0) queryString = queryString + "&package_2=" + package_2;
+	if (package_2 != null && package_2 != 0) data = data + "&package_2=" + package_2;
 	var package_3 = document.getElementById("package_3").value;
-	if (package_3 != null && package_3 != 0) queryString = queryString + "&package_3=" + package_3;
+	if (package_3 != null && package_3 != 0) data = data + "&package_3=" + package_3;
 	var package_4 = document.getElementById("package_4").value;
-	if (package_4 != null && package_4 != 0) queryString = queryString + "&package_4=" + package_4;
+	if (package_4 != null && package_4 != 0) data = data + "&package_4=" + package_4;
 	var package_5 = document.getElementById("package_5").value;
-	if (package_5 != null && package_5 != 0) queryString = queryString + "&package_5=" + package_5;
+	if (package_5 != null && package_5 != 0) data = data + "&package_5=" + package_5;
 	var package_6 = document.getElementById("package_6").value;
-	if (package_6 != null && package_6 != 0) queryString = queryString + "&package_6=" + package_6;
+	if (package_6 != null && package_6 != 0) data = data + "&package_6=" + package_6;
 
 	var product_sp_1 = document.getElementById("product_sp_1").value;
-	if (product_sp_1 != null && product_sp_1 != 0) queryString = queryString + "&product_sp_1=" + product_sp_1;
+	if (product_sp_1 != null && product_sp_1 != 0) data = data + "&product_sp_1=" + product_sp_1;
 	var product_sp_2 = document.getElementById("product_sp_2").value;
-	if (product_sp_2 != null && product_sp_2 != 0) queryString = queryString + "&product_sp_2=" + product_sp_2;
+	if (product_sp_2 != null && product_sp_2 != 0) data = data + "&product_sp_2=" + product_sp_2;
 	var product_sp_3 = document.getElementById("product_sp_3").value;
-	if (product_sp_3 != null && product_sp_3 != 0) queryString = queryString + "&product_sp_3=" + product_sp_3;
+	if (product_sp_3 != null && product_sp_3 != 0) data = data + "&product_sp_3=" + product_sp_3;
 	var product_ss_1 = document.getElementById("product_ss_1").value;
-	if (product_ss_1 != null && product_ss_1 != 0) queryString = queryString + "&product_ss_1=" + product_ss_1;
+	if (product_ss_1 != null && product_ss_1 != 0) data = data + "&product_ss_1=" + product_ss_1;
 	var product_ss_2 = document.getElementById("product_ss_2").value;
-	if (product_ss_2 != null && product_ss_2 != 0) queryString = queryString + "&product_ss_2=" + product_ss_2;
+	if (product_ss_2 != null && product_ss_2 != 0) data = data + "&product_ss_2=" + product_ss_2;
 	var product_ss_3 = document.getElementById("product_ss_3").value;
-	if (product_ss_3 != null && product_ss_3 != 0) queryString = queryString + "&product_ss_3=" + product_ss_3;
+	if (product_ss_3 != null && product_ss_3 != 0) data = data + "&product_ss_3=" + product_ss_3;
 
 	var sp_1 = document.getElementById("sp_1").value;
-	if (sp_1 != null && sp_1 != 0) queryString = queryString + "&sp_1=" + sp_1;
+	if (sp_1 != null && sp_1 != 0) data = data + "&sp_1=" + sp_1;
 	var sp_2 = document.getElementById("sp_2").value;
-	if (sp_2 != null && sp_2 != 0) queryString = queryString + "&sp_2=" + sp_2;
+	if (sp_2 != null && sp_2 != 0) data = data + "&sp_2=" + sp_2;
 	var sp_3 = document.getElementById("sp_3").value;
-	if (sp_3 != null && sp_3 != 0) queryString = queryString + "&sp_3=" + sp_3;
+	if (sp_3 != null && sp_3 != 0) data = data + "&sp_3=" + sp_3;
 	var ss_1 = document.getElementById("ss_1").value;
-	if (ss_1 != null && ss_1 != 0) queryString = queryString + "&ss_1=" + ss_1;
+	if (ss_1 != null && ss_1 != 0) data = data + "&ss_1=" + ss_1;
 	var ss_2 = document.getElementById("ss_2").value;
-	if (ss_2 != null && ss_2 != 0) queryString = queryString + "&ss_2=" + ss_2;
+	if (ss_2 != null && ss_2 != 0) data = data + "&ss_2=" + ss_2;
 	var ss_3 = document.getElementById("ss_3").value;
-	if (ss_3 != null && ss_3 != 0) queryString = queryString + "&ss_3=" + ss_3;
+	if (ss_3 != null && ss_3 != 0) data = data + "&ss_3=" + ss_3;
 	var ss_4 = document.getElementById("ss_4").value;
-	if (ss_4 != null && ss_4 != 0) queryString = queryString + "&ss_4=" + ss_4;
+	if (ss_4 != null && ss_4 != 0) data = data + "&ss_4=" + ss_4;
 	var ss_5 = document.getElementById("ss_5").value;
-	if (ss_5 != null && ss_5 != 0) queryString = queryString + "&ss_5=" + ss_5;
+	if (ss_5 != null && ss_5 != 0) data = data + "&ss_5=" + ss_5;
 	var ss_6 = document.getElementById("ss_6").value;
-	if (ss_6 != null && ss_6 != 0) queryString = queryString + "&ss_6=" + ss_6;
+	if (ss_6 != null && ss_6 != 0) data = data + "&ss_6=" + ss_6;
 
 	var sp_1_houshanpi = document.getElementById("sp_1_houshanpi").value;
-	if (sp_1_houshanpi != null && sp_1_houshanpi != 0) queryString = queryString + "&sp_1_houshanpi=" + sp_1_houshanpi;
+	if (sp_1_houshanpi != null && sp_1_houshanpi != 0) data = data + "&sp_1_houshanpi=" + sp_1_houshanpi;
 	var sp_2_houshanpi = document.getElementById("sp_2_houshanpi").value;
-	if (sp_2_houshanpi != null && sp_2_houshanpi != 0) queryString = queryString + "&sp_2_houshanpi=" + sp_2_houshanpi;
+	if (sp_2_houshanpi != null && sp_2_houshanpi != 0) data = data + "&sp_2_houshanpi=" + sp_2_houshanpi;
 	var sp_3_houshanpi = document.getElementById("sp_3_houshanpi").value;
-	if (sp_3_houshanpi != null && sp_3_houshanpi != 0) queryString = queryString + "&sp_3_houshanpi=" + sp_3_houshanpi;
+	if (sp_3_houshanpi != null && sp_3_houshanpi != 0) data = data + "&sp_3_houshanpi=" + sp_3_houshanpi;
 
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
@@ -1261,10 +1264,10 @@ function auth(account) {
 	}
 }
 
-function reject(account) {
+function release(account) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var data = "module=member&event=reject&index=" + account;
+	var data = "module=member&event=release&index=" + account;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 	request.onreadystatechange = function() {
@@ -1273,6 +1276,48 @@ function reject(account) {
 			if (data.message == 'Success') {
 				alert("成功拒絕");
 				member_notice();
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function accept(index) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=request&event=accept&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功確認");
+				request_notice();
+				document.getElementById("request_notice_detail").innerHTML = '';
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function reject(index) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=request&event=reject&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功拒絕");
+				request_notice();
+				document.getElementById("request_notice_detail").innerHTML = '';
 			}
 			else {
 				alert(data.message);

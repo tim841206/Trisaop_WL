@@ -78,8 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			echo json_encode(array('message' => $message));
 			return;
 		}
-		elseif ($_GET['event'] == 'reject') {
-			$message = reject($_GET['account'], $_GET['token'], $_GET['index']);
+		elseif ($_GET['event'] == 'release') {
+			$message = release($_GET['account'], $_GET['token'], $_GET['index']);
 			echo json_encode(array('message' => $message));
 			return;
 		}
@@ -182,8 +182,8 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			echo json_encode(array('message' => $message));
 			return;
 		}
-		elseif ($_POST['event'] == 'reject') {
-			$message = reject($_POST['account'], $_POST['token'], $_POST['index']);
+		elseif ($_POST['event'] == 'release') {
+			$message = release($_POST['account'], $_POST['token'], $_POST['index']);
 			echo json_encode(array('message' => $message));
 			return;
 		}
@@ -526,7 +526,7 @@ function notice($account, $token) {
 			else {
 				$content = '<table><tr><th>使用者帳號</th><th>使用者名稱</th><th>帳號建立日期</th><th>帳號最後登入日期</th><th>申請權限</th></tr>';
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ACCOUNT'].'</td><td>'.$fetch2['NAME'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.$fetch2['ONLINEDATE'].'</td><td>'.transfer($fetch2['AUTHORITY']).'</td><td><button onclick="auth('.$fetch2['ACCOUNT'].')">授權</button></td><td><button onclick="reject('.$fetch2['ACCOUNT'].')">拒絕</button></td></tr>';
+					$content .= '<tr><td>'.$fetch2['ACCOUNT'].'</td><td>'.$fetch2['NAME'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.$fetch2['ONLINEDATE'].'</td><td>'.transfer($fetch2['AUTHORITY']).'</td><td><button onclick="auth('.$fetch2['ACCOUNT'].')">授權</button></td><td><button onclick="release('.$fetch2['ACCOUNT'].')">拒絕</button></td></tr>';
 				}
 				$content .= '</table>';
 				return array('message' => 'Success', 'content' => $content);
@@ -579,7 +579,7 @@ function auth($account, $token, $index) {
 	}
 }
 
-function reject($account, $token, $index) {
+function release($account, $token, $index) {
 	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$index' AND ACTCODE='1'");
 	if (empty($account)) {

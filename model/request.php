@@ -309,7 +309,7 @@ function search_state($account, $token, $state) {
 function view_index($account, $token, $index) {
 	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
-	$sql3 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
+	$sql3 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -335,24 +335,25 @@ function view_index($account, $token, $index) {
 				$fetch2 = mysql_fetch_array($sql2);
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
+				$sql4 = '';
 				if ($fetch1['AUTHORITY'] == 'A') {
 					if ($fetch2['SENDER'] != 'Trisoap' && $fetch2['RECEIVER'] != 'Trisoap') {
 						return 'No authority';
 					}
 					elseif ($fetch2['SENDER'] == 'Trisoap') {
 						if ($fetch2['RQSTSTAT'] == 'C' || $fetch2['RQSTSTAT'] == 'D') {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 						}
 						else {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
 						}
 					}
 					elseif ($fetch2['RECEIVER'] == 'Trisoap') {
 						if ($fetch2['RQSTSTAT'] == 'A') {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 						}
 						else {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET RECEIVERDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date' WHERE RQSTNO='$index'";
 						}
 					}
 				}
@@ -362,18 +363,18 @@ function view_index($account, $token, $index) {
 					}
 					elseif ($fetch2['SENDER'] == 'Beitou') {
 						if ($fetch2['RQSTSTAT'] == 'C' || $fetch2['RQSTSTAT'] == 'D') {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 						}
 						else {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
 						}
 					}
 					elseif ($fetch2['RECEIVER'] == 'Beitou') {
 						if ($fetch2['RQSTSTAT'] == 'A') {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 						}
 						else {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET RECEIVERDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date' WHERE RQSTNO='$index'";
 						}
 					}
 				}
@@ -383,18 +384,18 @@ function view_index($account, $token, $index) {
 					}
 					elseif ($fetch2['SENDER'] == 'Houshanpi') {
 						if ($fetch2['RQSTSTAT'] == 'C' || $fetch2['RQSTSTAT'] == 'D') {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 						}
 						else {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
 						}
 					}
 					elseif ($fetch2['RECEIVER'] == 'Houshanpi') {
 						if ($fetch2['RQSTSTAT'] == 'A') {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 						}
 						else {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET RECEIVERDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date' WHERE RQSTNO='$index'";
 						}
 					}
 				}
@@ -404,18 +405,18 @@ function view_index($account, $token, $index) {
 					}
 					elseif ($fetch2['SENDER'] == 'Taitung') {
 						if ($fetch2['RQSTSTAT'] == 'C' || $fetch2['RQSTSTAT'] == 'D') {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 						}
 						else {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
 						}
 					}
 					elseif ($fetch2['RECEIVER'] == 'Taitung') {
 						if ($fetch2['RQSTSTAT'] == 'A') {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 						}
 						else {
-							$sql4 = mysql_query("UPDATE RQSTMAS SET RECEIVERDATE='$date' WHERE RQSTNO='$index'");
+							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date' WHERE RQSTNO='$index'";
 						}
 					}
 				}
@@ -436,7 +437,7 @@ function view_index($account, $token, $index) {
 						while ($fetch3 = mysql_fetch_array($sql3)) {
 							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.$fetch3['ITEMAMT'].'</td></tr>');
 						}
-						$content .= '<tr><td><button onclick="accept($index)">確認</button></td><td><button onclick="reject($index)">拒絕</button></td></tr></table>';
+						$content .= '<tr><td><button onclick="accept('.$index.')">確認</button></td><td><button onclick="reject('.$index.')">拒絕</button></td></tr></table>';
 						return array('message' => 'Success', 'content' => $content);
 					}
 				}
@@ -528,7 +529,7 @@ function accept($account, $token, $index) {
 			$date = date("Y-m-d H:i:s");
 			if ($fetch2['RECEIVER'] == 'Trisoap' && $fetch1['AUTHORITY'] == 'A') {
 				$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='C', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
-				if (mysql_query($sql)) {
+				if (mysql_query($sql3)) {
 					return 'Success';
 				}
 				else {
@@ -537,7 +538,7 @@ function accept($account, $token, $index) {
 			}
 			elseif ($fetch2['RECEIVER'] == 'Beitou' && $fetch1['AUTHORITY'] == 'B') {
 				$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='C', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
-				if (mysql_query($sql)) {
+				if (mysql_query($sql3)) {
 					return 'Success';
 				}
 				else {
@@ -546,7 +547,7 @@ function accept($account, $token, $index) {
 			}
 			elseif ($fetch2['RECEIVER'] == 'Houshanpi' && $fetch1['AUTHORITY'] == 'C') {
 				$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='C', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
-				if (mysql_query($sql)) {
+				if (mysql_query($sql3)) {
 					return 'Success';
 				}
 				else {
@@ -555,7 +556,7 @@ function accept($account, $token, $index) {
 			}
 			elseif ($fetch2['RECEIVER'] == 'Taitung' && $fetch1['AUTHORITY'] == 'D') {
 				$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='C', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
-				if (mysql_query($sql)) {
+				if (mysql_query($sql3)) {
 					return 'Success';
 				}
 				else {
@@ -702,7 +703,7 @@ function send($content) {
 				}
 				elseif ($sender == 'Houshanpi' && $receiver == 'Beitou') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11', 'sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
+						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'NaOH', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11', 'sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -714,7 +715,7 @@ function send($content) {
 				}
 				elseif ($sender == 'Houshanpi' && $receiver == 'Taitung') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11'))) {
+						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'NaOH', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -760,7 +761,7 @@ function send($content) {
 			elseif ($fetch1['AUTHORITY'] == 'C') {
 				if ($sender == 'Houshanpi' && $receiver == 'Beitou') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11', 'sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
+						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'NaOH', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11', 'sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -772,7 +773,7 @@ function send($content) {
 				}
 				elseif ($sender == 'Houshanpi' && $receiver == 'Taitung') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11'))) {
+						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'NaOH', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}

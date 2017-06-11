@@ -123,7 +123,7 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 					setcookie('token', $return['token']);
 					if ($return['authority'] == 'A') {
 						$content = file_get_contents("../view/index_A.html");
-						echo json_encode(array('message' => $return['message'], 'content' => $content));
+						echo json_encode(array('message' => $return['message'], 'content' => $content, 'member' => 'load'));
 					}
 					elseif ($return['authority'] == 'B') {
 						$content = file_get_contents("../view/index_B.html");
@@ -193,7 +193,7 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);
 			}
-			elseif ($_POST['event'] == 'reject') {
+			elseif ($_POST['event'] == 'delete') {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);

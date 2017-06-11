@@ -87,6 +87,24 @@ INSERT INTO `ITEMMAS` (`ITEMNO`, `ITEMNM`, `ITEMCLASS`, `TOTALAMT`, `UPDATEDATE`
 ('ss_5', '紅棕梠皂絲', 'E', 0, '2017-06-01 00:00:00', 1),
 ('ss_6', '蕁麻葉皂絲', 'E', 0, '2017-06-01 00:00:00', 1);
 
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `CONTROLMAS`
+--
+
+CREATE TABLE `CONTROLMAS` (
+  `NEXT_RQSTNO` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='控制檔';
+
+--
+-- 資料表的匯出資料 `CONTROLMAS`
+--
+
+INSERT INTO `CONTROLMAS` (`NEXT_RQSTNO`) VALUES
+('100001');
+
 -- --------------------------------------------------------
 
 --

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title></title>
+		<title>倉儲暨物流系統</title>
 		<link rel="stylesheet" href="../resource/bootstrap.min.css">
 		<link rel="stylesheet" href="../resource/custom.css">
 		<script src="../resource/jquery.min.js"></script>
@@ -43,15 +43,15 @@
 						<h3>製皂內容</h3>
 						<table>
 							<tr><th>產品</th><th>單位</th><th></th><th>數量</th></tr>
-							<tr><td>米皂</td><td><input type="number" id="calculate_sp_1" value="0" min="0" onchange="document.getElementById('result_calculate_sp_1').innerHTML = this.value"></td><td>x 1 =</td><td id="result_calculate_sp_1">0</td></tr>
-							<tr><td>金針皂</td><td><input type="number" id="calculate_sp_2" value="0" min="0" onchange="document.getElementById('result_calculate_sp_2').innerHTML = this.value"></td><td>x 1 =</td><td id="result_calculate_sp_2">0</td></tr>
-							<tr><td>釋迦皂</td><td><input type="number" id="calculate_sp_3" value="0" min="0" onchange="document.getElementById('result_calculate_sp_3').innerHTML = this.value"></td><td>x 1 =</td><td id="result_calculate_sp_3">0</td></tr>
-							<tr><td>洛神皂絲</td><td><input type="number" id="calculate_ss_1" value="0" min="0" onchange="document.getElementById('result_calculate_ss_1').innerHTML = this.value*100"></td><td>x 100 =</td><td id="result_calculate_ss_1">0</td></tr>
-							<tr><td>紅麴皂絲</td><td><input type="number" id="calculate_ss_2" value="0" min="0" onchange="document.getElementById('result_calculate_ss_2').innerHTML = this.value*100"></td><td>x 100 =</td><td id="result_calculate_ss_2">0</td></tr>
-							<tr><td>薑黃皂絲</td><td><input type="number" id="calculate_ss_3" value="0" min="0" onchange="document.getElementById('result_calculate_ss_3').innerHTML = this.value*100"></td><td>x 100 =</td><td id="result_calculate_ss_3">0</td></tr>
-							<tr><td>金針皂絲</td><td><input type="number" id="calculate_ss_4" value="0" min="0" onchange="document.getElementById('result_calculate_ss_4').innerHTML = this.value*100"></td><td>x 100 =</td><td id="result_calculate_ss_4">0</td></tr>
-							<tr><td>紅棕梠皂絲</td><td><input type="number" id="calculate_ss_5" value="0" min="0" onchange="document.getElementById('result_calculate_ss_5').innerHTML = this.value*100"></td><td>x 100 =</td><td id="result_calculate_ss_5">0</td></tr>
-							<tr><td>蕁麻葉皂絲</td><td><input type="number" id="calculate_ss_6" value="0" min="0" onchange="document.getElementById('result_calculate_ss_6').innerHTML = this.value*100"></td><td>x 100 =</td><td id="result_calculate_ss_6">0</td></tr>
+							<tr><td>米皂</td><td><input type="number" id="calculate_sp_1" value="0" min="0" onchange="document.getElementById('result_calculate_sp_1').innerHTML = this.value*10"></td><td>x 10 =</td><td id="result_calculate_sp_1">0</td></tr>
+							<tr><td>金針皂</td><td><input type="number" id="calculate_sp_2" value="0" min="0" onchange="document.getElementById('result_calculate_sp_2').innerHTML = this.value*10"></td><td>x 10 =</td><td id="result_calculate_sp_2">0</td></tr>
+							<tr><td>釋迦皂</td><td><input type="number" id="calculate_sp_3" value="0" min="0" onchange="document.getElementById('result_calculate_sp_3').innerHTML = this.value*10"></td><td>x 10 =</td><td id="result_calculate_sp_3">0</td></tr>
+							<tr><td>洛神皂絲</td><td><input type="number" id="calculate_ss_1" value="0" min="0" onchange="document.getElementById('result_calculate_ss_1').innerHTML = this.value*1000"></td><td>x 1000 =</td><td id="result_calculate_ss_1">0</td></tr>
+							<tr><td>紅麴皂絲</td><td><input type="number" id="calculate_ss_2" value="0" min="0" onchange="document.getElementById('result_calculate_ss_2').innerHTML = this.value*1000"></td><td>x 1000 =</td><td id="result_calculate_ss_2">0</td></tr>
+							<tr><td>薑黃皂絲</td><td><input type="number" id="calculate_ss_3" value="0" min="0" onchange="document.getElementById('result_calculate_ss_3').innerHTML = this.value*1000"></td><td>x 1000 =</td><td id="result_calculate_ss_3">0</td></tr>
+							<tr><td>金針皂絲</td><td><input type="number" id="calculate_ss_4" value="0" min="0" onchange="document.getElementById('result_calculate_ss_4').innerHTML = this.value*1000"></td><td>x 1000 =</td><td id="result_calculate_ss_4">0</td></tr>
+							<tr><td>紅棕梠皂絲</td><td><input type="number" id="calculate_ss_5" value="0" min="0" onchange="document.getElementById('result_calculate_ss_5').innerHTML = this.value*1000"></td><td>x 1000 =</td><td id="result_calculate_ss_5">0</td></tr>
+							<tr><td>蕁麻葉皂絲</td><td><input type="number" id="calculate_ss_6" value="0" min="0" onchange="document.getElementById('result_calculate_ss_6').innerHTML = this.value*1000"></td><td>x 1000 =</td><td id="result_calculate_ss_6">0</td></tr>
 						</table>
 						<button onclick="calculate_search()">查詢</button>
 					</div>

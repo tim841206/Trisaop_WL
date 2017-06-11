@@ -774,55 +774,55 @@ function ingredient_to_product($ingredient, $product, $whouse) {
 		if (is_positiveInt($product['sp_1'])) {
 			$ITEMNO = 'sp_1_' . $today;
 			$ITEMNM = $today . '的米皂';
-			$amount = $product['sp_1'];
+			$amount = $product['sp_1'] * 10;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['sp_2'])) {
 			$ITEMNO = 'sp_2_' . $today;
 			$ITEMNM = $today . '的金針皂';
-			$amount = $product['sp_2'];
+			$amount = $product['sp_2'] * 10;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['sp_3'])) {
 			$ITEMNO = 'sp_3_' . $today;
 			$ITEMNM = $today . '的釋迦皂';
-			$amount = $product['sp_3'];
+			$amount = $product['sp_3'] * 10;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['ss_1'])) {
 			$ITEMNO = 'ss_1_' . $today;
 			$ITEMNM = $today . '的洛神皂絲';
-			$amount = $product['ss_1'];
+			$amount = $product['ss_1'] * 1000;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['ss_2'])) {
 			$ITEMNO = 'ss_2_' . $today;
 			$ITEMNM = $today . '的紅麴皂絲';
-			$amount = $product['ss_2'];
+			$amount = $product['ss_2'] * 1000;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['ss_3'])) {
 			$ITEMNO = 'ss_3_' . $today;
 			$ITEMNM = $today . '的薑黃皂絲';
-			$amount = $product['ss_3'];
+			$amount = $product['ss_3'] * 1000;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['ss_4'])) {
 			$ITEMNO = 'ss_4_' . $today;
 			$ITEMNM = $today . '的金針皂絲';
-			$amount = $product['ss_4'];
+			$amount = $product['ss_4'] * 1000;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['ss_5'])) {
 			$ITEMNO = 'ss_5_' . $today;
 			$ITEMNM = $today . '的紅棕梠皂絲';
-			$amount = $product['ss_5'];
+			$amount = $product['ss_5'] * 1000;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['ss_6'])) {
 			$ITEMNO = 'ss_6_' . $today;
 			$ITEMNM = $today . '的蕁麻葉皂絲';
-			$amount = $product['ss_6'];
+			$amount = $product['ss_6'] * 1000;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 	}
@@ -830,19 +830,19 @@ function ingredient_to_product($ingredient, $product, $whouse) {
 		if (is_positiveInt($product['sp_1'])) {
 			$ITEMNO = 'sp_1_houshanpi_' . $today;
 			$ITEMNM = $today . '的後山埤米皂';
-			$amount = $product['sp_1'];
+			$amount = $product['sp_1'] * 10;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['sp_2'])) {
 			$ITEMNO = 'sp_2_houshanpi_' . $today;
 			$ITEMNM = $today . '的後山埤金針皂';
-			$amount = $product['sp_2'];
+			$amount = $product['sp_2'] * 10;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['sp_3'])) {
 			$ITEMNO = 'sp_3_houshanpi_' . $today;
 			$ITEMNM = $today . '的後山埤釋迦皂';
-			$amount = $product['sp_3'];
+			$amount = $product['sp_3'] * 10;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 	}
