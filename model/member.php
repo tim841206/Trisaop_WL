@@ -524,11 +524,10 @@ function notice($account, $token) {
 				return 'No notice';
 			}
 			else {
-				$content = '<table><tr><th>使用者帳號</th><th>使用者名稱</th><th>帳號建立日期</th><th>帳號最後登入日期</th><th>申請權限</th></tr>';
+				$content = '';
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ACCOUNT'].'</td><td>'.$fetch2['NAME'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.$fetch2['ONLINEDATE'].'</td><td>'.transfer($fetch2['AUTHORITY']).'</td><td><button onclick="auth('.$fetch2['ACCOUNT'].')">授權</button></td><td><button onclick="release('.$fetch2['ACCOUNT'].')">拒絕</button></td></tr>';
+					$content .= $fetch2['NAME'] . ' 請求獲得 ' . transfer($fetch2['AUTHORITY']) . ' 的授權。<button onclick="auth('.$fetch2['ACCOUNT'].')">授權</button></td><td><button onclick="release('.$fetch2['ACCOUNT'].')">拒絕</button><br>';
 				}
-				$content .= '</table>';
 				return array('message' => 'Success', 'content' => $content);
 			}
 		}

@@ -70,8 +70,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		}
 		elseif ($_GET['event'] == 'send') {
 			$message = send($_GET);
-			echo json_encode(array('message' => $message));
-			return;
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'index' => $message['index']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
 		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
@@ -153,8 +159,14 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		elseif ($_POST['event'] == 'send') {
 			$message = send($_POST);
-			echo json_encode(array('message' => $message));
-			return;
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'index' => $message['index']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
 		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
@@ -205,9 +217,9 @@ function view($account, $token) {
 				$content = '查無資料';
 			}
 			else {
-				$content = '<table><tr><th>物流編號</th><th>運送方</th><th>運送方最後查看時間</th><th>接收方</th><th>接收方最後查看時間</th><th>物流狀態</th></tr>';
+				$content = '<table><tr><th>物流編號</th><th>運送方</th><th>接收方</th><th>物流狀態</th></tr>';
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['SENDER'].'</td><td>'.$fetch2['SENDERDATE'].'</td><td>'.$fetch2['RECEIVER'].'</td><td>'.$fetch2['RECEIVERDATE'].'</td><td>'.$fetch2['RQSTSTAT'].'</td><td><button onclick="view_index('.$fetch2['RQSTNO'].')">查看</button></td></tr>';
+					$content .= '<tr><td>'.$fetch2['RQSTNO'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td><button onclick="view_index_view('.$fetch2['RQSTNO'].')">查看</button></td></tr>';
 				}
 				$content .= '</table>';
 			}
@@ -250,7 +262,7 @@ function search_index($account, $token, $index) {
 			return 'No authority';
 		}
 		else {
-			$content = '<table><tr><th>物流編號</th><th>運送方</th><th>運送方最後查看時間</th><th>接收方</th><th>接收方最後查看時間</th><th>物流狀態</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['SENDER'].'</td><td>'.$fetch2['SENDERDATE'].'</td><td>'.$fetch2['RECEIVER'].'</td><td>'.$fetch2['RECEIVERDATE'].'</td><td>'.$fetch2['RQSTSTAT'].'</td><td><button onclick="view_index('.$fetch2['RQSTNO'].')">查看</button></td></tr></table>';
+			$content = '<table><tr><th>物流編號</th><th>運送方</th><th>接收方</th><th>物流狀態</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td><button onclick="view_index_search('.$fetch2['RQSTNO'].')">查看</button></td></tr></table>';
 			return array('message' => 'Success', 'content' => $content);
 		}
 	}
@@ -295,9 +307,9 @@ function search_state($account, $token, $state) {
 				$content = '查無資料';
 			}
 			else {
-				$content = '<table><tr><th>物流編號</th><th>運送方</th><th>運送方最後查看時間</th><th>接收方</th><th>接收方最後查看時間</th><th>物流狀態</th></tr>';
+				$content = '<table><tr><th>物流編號</th><th>運送方</th><th>接收方</th><th>物流狀態</th></tr>';
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['SENDER'].'</td><td>'.$fetch2['SENDERDATE'].'</td><td>'.$fetch2['RECEIVER'].'</td><td>'.$fetch2['RECEIVERDATE'].'</td><td>'.$fetch2['RQSTSTAT'].'</td><td><button onclick="view_index('.$fetch2['RQSTNO'].')">查看</button></td></tr>';
+					$content .= '<tr><td>'.$fetch2['RQSTNO'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td><button onclick="view_index_search('.$fetch2['RQSTNO'].')">查看</button></td></tr>';
 				}
 				$content .= '</table>';
 			}
@@ -337,10 +349,7 @@ function view_index($account, $token, $index) {
 				$date = date("Y-m-d H:i:s");
 				$sql4 = '';
 				if ($fetch1['AUTHORITY'] == 'A') {
-					if ($fetch2['SENDER'] != 'Trisoap' && $fetch2['RECEIVER'] != 'Trisoap') {
-						return 'No authority';
-					}
-					elseif ($fetch2['SENDER'] == 'Trisoap') {
+					if ($fetch2['SENDER'] == 'Trisoap') {
 						if ($fetch2['RQSTSTAT'] == 'C' || $fetch2['RQSTSTAT'] == 'D') {
 							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 						}
@@ -420,7 +429,7 @@ function view_index($account, $token, $index) {
 						}
 					}
 				}
-				if ($fetch1['AUTHORITY'] == 'E') {
+				if ($fetch1['AUTHORITY'] == 'E' || ($fetch1['AUTHORITY'] == 'A' && $fetch2['SENDER'] != 'Trisoap' && $fetch2['RECEIVER'] != 'Trisoap')) {
 					$content = '<table><tr><th>名稱</th><th>數量</th></tr>';
 					while ($fetch3 = mysql_fetch_array($sql3)) {
 						$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.$fetch3['ITEMAMT'].'</td></tr>');
@@ -433,11 +442,16 @@ function view_index($account, $token, $index) {
 						return 'Unable to update review date';
 					}
 					else {
-						$content = '<table><tr><th>名稱</th><th>數量</th></tr>';
+						$content = '<table><tr><th>物流編號</th><th>運送方</th><th>接收方</th><th>運送方最後查看時間</th><th>接收方最後查看時間</th><th>物流狀態</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.$fetch2['SENDERDATE'].'</td><td>'.$fetch2['RECEIVERDATE'].'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td></tr></table>';
+						$content .= '<table><tr><th>名稱</th><th>數量</th></tr>';
 						while ($fetch3 = mysql_fetch_array($sql3)) {
 							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.$fetch3['ITEMAMT'].'</td></tr>');
 						}
-						$content .= '<tr><td><button onclick="accept('.$index.')">確認</button></td><td><button onclick="reject('.$index.')">拒絕</button></td></tr></table>';
+						$sql5 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
+						$fetch5 = mysql_fetch_array($sql5);
+						if ($fetch5['RQSTSTAT'] == 'B') {
+							$content .= '<tr><td><button onclick="accept('.$index.')">確認</button></td><td><button onclick="reject('.$index.')">拒絕</button></td></tr></table>';
+						}
 						return array('message' => 'Success', 'content' => $content);
 					}
 				}
@@ -486,18 +500,17 @@ function notice($account, $token) {
 				return 'No notice';
 			}
 			else {
-				$content = '<table><tr><th>物流編號</th><th>運送方</th><th>運送方最後查看時間</th><th>接收方</th><th>接收方最後查看時間</th><th>物流狀態</th></tr>';
+				$content = '';
 				if (mysql_num_rows($sql2) != 0) {
 					while ($fetch2 = mysql_fetch_array($sql2)) {
-						$content .= '<tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['SENDER'].'</td><td>'.$fetch2['SENDERDATE'].'</td><td>'.$fetch2['RECEIVER'].'</td><td>'.$fetch2['RECEIVERDATE'].'</td><td>'.$fetch2['RQSTSTAT'].'</td><td><button onclick="view_index('.$fetch2['RQSTNO'].')">查看</button></td></tr>';
+						$content .= translate($fetch2['RECEIVER']) . ' 方已經 ' . translate_state($fetch2['RQSTSTAT']) .' 編號為 ' . $fetch2['RQSTNO'] . ' 的物流。<br>';
 					}
 				}
 				if (mysql_num_rows($sql3) != 0) {
 					while ($fetch3 = mysql_fetch_array($sql3)) {
-						$content .= '<tr><td>'.$fetch3['RQSTNO'].'</td><td>'.$fetch3['SENDER'].'</td><td>'.$fetch3['SENDERDATE'].'</td><td>'.$fetch3['RECEIVER'].'</td><td>'.$fetch3['RECEIVERDATE'].'</td><td>'.$fetch3['RQSTSTAT'].'</td><td><button onclick="view_index('.$fetch3['RQSTNO'].')">查看</button></td></tr>';
+						$content .= '您有一個來自 ' . translate($fetch3['SENDER']) . ' 的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。<button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>';
 					}
 				}
-				$content .= '</table>';
 				return array('message' => 'Success', 'content' => $content);
 			}
 		}
@@ -530,6 +543,13 @@ function accept($account, $token, $index) {
 			if ($fetch2['RECEIVER'] == 'Trisoap' && $fetch1['AUTHORITY'] == 'A') {
 				$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='C', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 				if (mysql_query($sql3)) {
+					$RECEIVER = $fetch2['RECEIVER'];
+					$sql4 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index'");
+					while ($fetch4 = mysql_fetch_array($sql4)) {
+						$ITEMNO = $fetch4['ITEMNO'];
+						$ITEMAMT = $fetch4['ITEMAMT'];
+						mysql_query("UPDATE WHOUSEITEMMAS SET ITEMAMT=ITEMAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
+					}
 					return 'Success';
 				}
 				else {
@@ -539,6 +559,13 @@ function accept($account, $token, $index) {
 			elseif ($fetch2['RECEIVER'] == 'Beitou' && $fetch1['AUTHORITY'] == 'B') {
 				$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='C', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 				if (mysql_query($sql3)) {
+					$RECEIVER = $fetch2['RECEIVER'];
+					$sql4 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index'");
+					while ($fetch4 = mysql_fetch_array($sql4)) {
+						$ITEMNO = $fetch4['ITEMNO'];
+						$ITEMAMT = $fetch4['ITEMAMT'];
+						mysql_query("UPDATE WHOUSEITEMMAS SET ITEMAMT=ITEMAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
+					}
 					return 'Success';
 				}
 				else {
@@ -548,6 +575,13 @@ function accept($account, $token, $index) {
 			elseif ($fetch2['RECEIVER'] == 'Houshanpi' && $fetch1['AUTHORITY'] == 'C') {
 				$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='C', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 				if (mysql_query($sql3)) {
+					$RECEIVER = $fetch2['RECEIVER'];
+					$sql4 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index'");
+					while ($fetch4 = mysql_fetch_array($sql4)) {
+						$ITEMNO = $fetch4['ITEMNO'];
+						$ITEMAMT = $fetch4['ITEMAMT'];
+						mysql_query("UPDATE WHOUSEITEMMAS SET ITEMAMT=ITEMAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
+					}
 					return 'Success';
 				}
 				else {
@@ -557,6 +591,13 @@ function accept($account, $token, $index) {
 			elseif ($fetch2['RECEIVER'] == 'Taitung' && $fetch1['AUTHORITY'] == 'D') {
 				$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='C', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 				if (mysql_query($sql3)) {
+					$RECEIVER = $fetch2['RECEIVER'];
+					$sql4 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index'");
+					while ($fetch4 = mysql_fetch_array($sql4)) {
+						$ITEMNO = $fetch4['ITEMNO'];
+						$ITEMAMT = $fetch4['ITEMAMT'];
+						mysql_query("UPDATE WHOUSEITEMMAS SET ITEMAMT=ITEMAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
+					}
 					return 'Success';
 				}
 				else {
@@ -826,7 +867,7 @@ function send($content) {
 								return 'Unable to create request detail';
 							}
 						}
-						return 'Success';
+						return array('message' => 'Success', 'index' => $rqstno);
 					}
 					else {
 						return 'Unable to update request number';
@@ -860,4 +901,27 @@ function query_name($itemno) {
 	$sql = mysql_query("SELECT ITEMNM FROM ITEMMAS WHERE ITEMNO='$itemno'");
 	$fetch = mysql_fetch_row($sql);
 	return $fetch[0];
+}
+
+function translate_state($state) {
+	if ($state == 'B') return '查看';
+	elseif ($state == 'C') return '接受';
+	elseif ($state == 'D') return '拒絕';
+}
+
+function transfer_state($state) {
+	if ($state == 'A') return '已傳送';
+	elseif ($state == 'B') return '待確認';
+	elseif ($state == 'C') return '已確認';
+	elseif ($state == 'D') return '已拒絕';
+	elseif ($state == 'E') return '已完成';
+	else return 'Unknown';
+}
+
+function translate($whouseno) {
+	if ($whouseno == 'Trisoap') return '三三';
+	elseif ($whouseno == 'Beitou') return '北投';
+	elseif ($whouseno == 'Houshanpi') return '後山埤';
+	elseif ($whouseno == 'Taitung') return '台東';
+	else return 'Unknown';
 }

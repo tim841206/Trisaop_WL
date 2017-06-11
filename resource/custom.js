@@ -869,7 +869,7 @@ function search_state() {
 	}
 }
 
-function view_index(index) {
+function view_index_notice(index) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
 	var data = "module=request&event=view_index&index=" + index;
@@ -880,6 +880,44 @@ function view_index(index) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				document.getElementById("request_notice_detail").innerHTML = data.content;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function view_index_view(index) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=request&event=view_index&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("request_view_detail").innerHTML = data.content;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function view_index_search(index) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=request&event=view_index&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("request_search_detail").innerHTML = data.content;
 			}
 			else {
 				alert(data.message);
@@ -994,12 +1032,6 @@ function receiver() {
 			document.getElementsByClassName("material_A")[1].style.display = null;
 			document.getElementsByClassName("material_B")[0].style.display = null;
 			document.getElementsByClassName("material_B")[1].style.display = null;
-			document.getElementsByClassName("material_C")[0].style.display = 'none';
-			document.getElementsByClassName("material_C")[1].style.display = 'none';
-			document.getElementsByClassName("material_D")[0].style.display = 'none';
-			document.getElementsByClassName("material_D")[1].style.display = 'none';
-			document.getElementsByClassName("material_E")[0].style.display = 'none';
-			document.getElementsByClassName("material_E")[1].style.display = 'none';
 			document.getElementsByClassName("material_H")[0].style.display = null;
 			document.getElementsByClassName("material_H")[1].style.display = null;
 			document.getElementById("content").style.display = null;
@@ -1009,12 +1041,6 @@ function receiver() {
 			document.getElementsByClassName("material_A")[1].style.display = null;
 			document.getElementsByClassName("material_B")[0].style.display = null;
 			document.getElementsByClassName("material_B")[1].style.display = null;
-			document.getElementsByClassName("material_C")[0].style.display = 'none';
-			document.getElementsByClassName("material_C")[1].style.display = 'none';
-			document.getElementsByClassName("material_D")[0].style.display = 'none';
-			document.getElementsByClassName("material_D")[1].style.display = 'none';
-			document.getElementsByClassName("material_E")[0].style.display = 'none';
-			document.getElementsByClassName("material_E")[1].style.display = 'none';
 			document.getElementsByClassName("material_H")[0].style.display = 'none';
 			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("content").style.display = null;
@@ -1024,12 +1050,6 @@ function receiver() {
 			document.getElementsByClassName("material_A")[1].style.display = 'none';
 			document.getElementsByClassName("material_B")[0].style.display = 'none';
 			document.getElementsByClassName("material_B")[1].style.display = 'none';
-			document.getElementsByClassName("material_C")[0].style.display = 'none';
-			document.getElementsByClassName("material_C")[1].style.display = 'none';
-			document.getElementsByClassName("material_D")[0].style.display = 'none';
-			document.getElementsByClassName("material_D")[1].style.display = 'none';
-			document.getElementsByClassName("material_E")[0].style.display = 'none';
-			document.getElementsByClassName("material_E")[1].style.display = 'none';
 			document.getElementsByClassName("material_H")[0].style.display = 'none';
 			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("content").style.display = 'none';
@@ -1037,33 +1057,13 @@ function receiver() {
 	}
 	else if (sender == 'Taitung') {
 		if (receiver == 'Beitou') {
-			document.getElementsByClassName("material_A")[0].style.display = 'none';
-			document.getElementsByClassName("material_A")[1].style.display = 'none';
-			document.getElementsByClassName("material_B")[0].style.display = 'none';
-			document.getElementsByClassName("material_B")[1].style.display = 'none';
-			document.getElementsByClassName("material_C")[0].style.display = 'none';
-			document.getElementsByClassName("material_C")[1].style.display = 'none';
-			document.getElementsByClassName("material_D")[0].style.display = 'none';
-			document.getElementsByClassName("material_D")[1].style.display = 'none';
 			document.getElementsByClassName("material_E")[0].style.display = null;
 			document.getElementsByClassName("material_E")[1].style.display = null;
-			document.getElementsByClassName("material_H")[0].style.display = 'none';
-			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("content").style.display = null;
 		}
 		else {
-			document.getElementsByClassName("material_A")[0].style.display = 'none';
-			document.getElementsByClassName("material_A")[1].style.display = 'none';
-			document.getElementsByClassName("material_B")[0].style.display = 'none';
-			document.getElementsByClassName("material_B")[1].style.display = 'none';
-			document.getElementsByClassName("material_C")[0].style.display = 'none';
-			document.getElementsByClassName("material_C")[1].style.display = 'none';
-			document.getElementsByClassName("material_D")[0].style.display = 'none';
-			document.getElementsByClassName("material_D")[1].style.display = 'none';
 			document.getElementsByClassName("material_E")[0].style.display = 'none';
 			document.getElementsByClassName("material_E")[1].style.display = 'none';
-			document.getElementsByClassName("material_H")[0].style.display = 'none';
-			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("content").style.display = 'none';
 		}
 	}
@@ -1075,108 +1075,113 @@ function send() {
 	var sender = document.getElementById("sender").value;
 	var receiver = document.getElementById("receiver").value;
 	var data = "module=request&event=send&sender=" + sender + "&receiver=" + receiver;
-
-	var oil_1 = document.getElementById("oil_1").value;
-	if (oil_1 != null && oil_1 != 0) data = data + "&oil_1=" + oil_1;
-	var oil_2 = document.getElementById("oil_2").value;
-	if (oil_2 != null && oil_2 != 0) data = data + "&oil_2=" + oil_2;
-	var oil_3 = document.getElementById("oil_3").value;
-	if (oil_3 != null && oil_3 != 0) data = data + "&oil_3=" + oil_3;
-	var oil_4 = document.getElementById("oil_4").value;
-	if (oil_4 != null && oil_4 != 0) data = data + "&oil_4=" + oil_4;
-	var oil_5 = document.getElementById("oil_5").value;
-	if (oil_5 != null && oil_5 != 0) data = data + "&oil_5=" + oil_5;
-	var oil_6 = document.getElementById("oil_6").value;
-	if (oil_6 != null && oil_6 != 0) data = data + "&oil_6=" + oil_6;
-	var oil_7 = document.getElementById("oil_7").value;
-	if (oil_7 != null && oil_7 != 0) data = data + "&oil_7=" + oil_7;
-	var oil_8 = document.getElementById("oil_8").value;
-	if (oil_8 != null && oil_8 != 0) data = data + "&oil_8=" + oil_8;
-	var NaOH = document.getElementById("NaOH").value;
-	if (NaOH != null && NaOH != 0) data = datang + "&NaOH=" + NaOH;
-
-	var additive_1 = document.getElementById("additive_1").value;
-	if (additive_1 != null && additive_1 != 0) data = data + "&additive_1=" + additive_1;
-	var additive_2 = document.getElementById("additive_2").value;
-	if (additive_2 != null && additive_2 != 0) data = data + "&additive_2=" + additive_2;
-	var additive_3 = document.getElementById("additive_3").value;
-	if (additive_3 != null && additive_3 != 0) data = data + "&additive_3=" + additive_3;
-	var additive_4 = document.getElementById("additive_4").value;
-	if (additive_4 != null && additive_4 != 0) data = data + "&additive_4=" + additive_4;
-	var additive_5 = document.getElementById("additive_5").value;
-	if (additive_5 != null && additive_5 != 0) data = data + "&additive_5=" + additive_5;
-	var additive_6 = document.getElementById("additive_6").value;
-	if (additive_6 != null && additive_6 != 0) data = data + "&additive_6=" + additive_6;
-	var additive_7 = document.getElementById("additive_7").value;
-	if (additive_7 != null && additive_7 != 0) data = data + "&additive_7=" + additive_7;
-	var additive_8 = document.getElementById("additive_8").value;
-	if (additive_8 != null && additive_8 != 0) data = data + "&additive_8=" + additive_8;
-	var additive_9 = document.getElementById("additive_9").value;
-	if (additive_9 != null && additive_9 != 0) data = data + "&additive_9=" + additive_9;
-	var additive_10 = document.getElementById("additive_10").value;
-	if (additive_10 != null && additive_10 != 0) data = data + "&additive_10=" + additive_10;
-	var additive_11 = document.getElementById("additive_11").value;
-	if (additive_11 != null && additive_11 != 0) data = data + "&additive_11=" + additive_11;
-
-	var package_1 = document.getElementById("package_1").value;
-	if (package_1 != null && package_1 != 0) data = data + "&package_1=" + package_1;
-	var package_2 = document.getElementById("package_2").value;
-	if (package_2 != null && package_2 != 0) data = data + "&package_2=" + package_2;
-	var package_3 = document.getElementById("package_3").value;
-	if (package_3 != null && package_3 != 0) data = data + "&package_3=" + package_3;
-	var package_4 = document.getElementById("package_4").value;
-	if (package_4 != null && package_4 != 0) data = data + "&package_4=" + package_4;
-	var package_5 = document.getElementById("package_5").value;
-	if (package_5 != null && package_5 != 0) data = data + "&package_5=" + package_5;
-	var package_6 = document.getElementById("package_6").value;
-	if (package_6 != null && package_6 != 0) data = data + "&package_6=" + package_6;
-
-	var product_sp_1 = document.getElementById("product_sp_1").value;
-	if (product_sp_1 != null && product_sp_1 != 0) data = data + "&product_sp_1=" + product_sp_1;
-	var product_sp_2 = document.getElementById("product_sp_2").value;
-	if (product_sp_2 != null && product_sp_2 != 0) data = data + "&product_sp_2=" + product_sp_2;
-	var product_sp_3 = document.getElementById("product_sp_3").value;
-	if (product_sp_3 != null && product_sp_3 != 0) data = data + "&product_sp_3=" + product_sp_3;
-	var product_ss_1 = document.getElementById("product_ss_1").value;
-	if (product_ss_1 != null && product_ss_1 != 0) data = data + "&product_ss_1=" + product_ss_1;
-	var product_ss_2 = document.getElementById("product_ss_2").value;
-	if (product_ss_2 != null && product_ss_2 != 0) data = data + "&product_ss_2=" + product_ss_2;
-	var product_ss_3 = document.getElementById("product_ss_3").value;
-	if (product_ss_3 != null && product_ss_3 != 0) data = data + "&product_ss_3=" + product_ss_3;
-
-	var sp_1 = document.getElementById("sp_1").value;
-	if (sp_1 != null && sp_1 != 0) data = data + "&sp_1=" + sp_1;
-	var sp_2 = document.getElementById("sp_2").value;
-	if (sp_2 != null && sp_2 != 0) data = data + "&sp_2=" + sp_2;
-	var sp_3 = document.getElementById("sp_3").value;
-	if (sp_3 != null && sp_3 != 0) data = data + "&sp_3=" + sp_3;
-	var ss_1 = document.getElementById("ss_1").value;
-	if (ss_1 != null && ss_1 != 0) data = data + "&ss_1=" + ss_1;
-	var ss_2 = document.getElementById("ss_2").value;
-	if (ss_2 != null && ss_2 != 0) data = data + "&ss_2=" + ss_2;
-	var ss_3 = document.getElementById("ss_3").value;
-	if (ss_3 != null && ss_3 != 0) data = data + "&ss_3=" + ss_3;
-	var ss_4 = document.getElementById("ss_4").value;
-	if (ss_4 != null && ss_4 != 0) data = data + "&ss_4=" + ss_4;
-	var ss_5 = document.getElementById("ss_5").value;
-	if (ss_5 != null && ss_5 != 0) data = data + "&ss_5=" + ss_5;
-	var ss_6 = document.getElementById("ss_6").value;
-	if (ss_6 != null && ss_6 != 0) data = data + "&ss_6=" + ss_6;
-
-	var sp_1_houshanpi = document.getElementById("sp_1_houshanpi").value;
-	if (sp_1_houshanpi != null && sp_1_houshanpi != 0) data = data + "&sp_1_houshanpi=" + sp_1_houshanpi;
-	var sp_2_houshanpi = document.getElementById("sp_2_houshanpi").value;
-	if (sp_2_houshanpi != null && sp_2_houshanpi != 0) data = data + "&sp_2_houshanpi=" + sp_2_houshanpi;
-	var sp_3_houshanpi = document.getElementById("sp_3_houshanpi").value;
-	if (sp_3_houshanpi != null && sp_3_houshanpi != 0) data = data + "&sp_3_houshanpi=" + sp_3_houshanpi;
-
+	if (sender == 'Trisoap' || sender == 'Houshanpi') {
+		var oil_1 = document.getElementById("oil_1").value;
+		if (oil_1 != null && oil_1 != 0) data = data + "&oil_1=" + oil_1;
+		var oil_2 = document.getElementById("oil_2").value;
+		if (oil_2 != null && oil_2 != 0) data = data + "&oil_2=" + oil_2;
+		var oil_3 = document.getElementById("oil_3").value;
+		if (oil_3 != null && oil_3 != 0) data = data + "&oil_3=" + oil_3;
+		var oil_4 = document.getElementById("oil_4").value;
+		if (oil_4 != null && oil_4 != 0) data = data + "&oil_4=" + oil_4;
+		var oil_5 = document.getElementById("oil_5").value;
+		if (oil_5 != null && oil_5 != 0) data = data + "&oil_5=" + oil_5;
+		var oil_6 = document.getElementById("oil_6").value;
+		if (oil_6 != null && oil_6 != 0) data = data + "&oil_6=" + oil_6;
+		var oil_7 = document.getElementById("oil_7").value;
+		if (oil_7 != null && oil_7 != 0) data = data + "&oil_7=" + oil_7;
+		var oil_8 = document.getElementById("oil_8").value;
+		if (oil_8 != null && oil_8 != 0) data = data + "&oil_8=" + oil_8;
+		var NaOH = document.getElementById("NaOH").value;
+		if (NaOH != null && NaOH != 0) data = data + "&NaOH=" + NaOH;
+	}
+	if (sender == 'Trisoap' || sender == 'Houshanpi') {
+		var additive_1 = document.getElementById("additive_1").value;
+		if (additive_1 != null && additive_1 != 0) data = data + "&additive_1=" + additive_1;
+		var additive_2 = document.getElementById("additive_2").value;
+		if (additive_2 != null && additive_2 != 0) data = data + "&additive_2=" + additive_2;
+		var additive_3 = document.getElementById("additive_3").value;
+		if (additive_3 != null && additive_3 != 0) data = data + "&additive_3=" + additive_3;
+		var additive_4 = document.getElementById("additive_4").value;
+		if (additive_4 != null && additive_4 != 0) data = data + "&additive_4=" + additive_4;
+		var additive_5 = document.getElementById("additive_5").value;
+		if (additive_5 != null && additive_5 != 0) data = data + "&additive_5=" + additive_5;
+		var additive_6 = document.getElementById("additive_6").value;
+		if (additive_6 != null && additive_6 != 0) data = data + "&additive_6=" + additive_6;
+		var additive_7 = document.getElementById("additive_7").value;
+		if (additive_7 != null && additive_7 != 0) data = data + "&additive_7=" + additive_7;
+		var additive_8 = document.getElementById("additive_8").value;
+		if (additive_8 != null && additive_8 != 0) data = data + "&additive_8=" + additive_8;
+		var additive_9 = document.getElementById("additive_9").value;
+		if (additive_9 != null && additive_9 != 0) data = data + "&additive_9=" + additive_9;
+		var additive_10 = document.getElementById("additive_10").value;
+		if (additive_10 != null && additive_10 != 0) data = data + "&additive_10=" + additive_10;
+		var additive_11 = document.getElementById("additive_11").value;
+		if (additive_11 != null && additive_11 != 0) data = data + "&additive_11=" + additive_11;
+	}
+	if (sender == 'Trisoap') {
+		var package_1 = document.getElementById("package_1").value;
+		if (package_1 != null && package_1 != 0) data = data + "&package_1=" + package_1;
+		var package_2 = document.getElementById("package_2").value;
+		if (package_2 != null && package_2 != 0) data = data + "&package_2=" + package_2;
+		var package_3 = document.getElementById("package_3").value;
+		if (package_3 != null && package_3 != 0) data = data + "&package_3=" + package_3;
+		var package_4 = document.getElementById("package_4").value;
+		if (package_4 != null && package_4 != 0) data = data + "&package_4=" + package_4;
+		var package_5 = document.getElementById("package_5").value;
+		if (package_5 != null && package_5 != 0) data = data + "&package_5=" + package_5;
+		var package_6 = document.getElementById("package_6").value;
+		if (package_6 != null && package_6 != 0) data = data + "&package_6=" + package_6;
+	}
+	if (sender == 'Trisoap' || sender == 'Beitou') {
+		var product_sp_1 = document.getElementById("product_sp_1").value;
+		if (product_sp_1 != null && product_sp_1 != 0) data = data + "&product_sp_1=" + product_sp_1;
+		var product_sp_2 = document.getElementById("product_sp_2").value;
+		if (product_sp_2 != null && product_sp_2 != 0) data = data + "&product_sp_2=" + product_sp_2;
+		var product_sp_3 = document.getElementById("product_sp_3").value;
+		if (product_sp_3 != null && product_sp_3 != 0) data = data + "&product_sp_3=" + product_sp_3;
+		var product_ss_1 = document.getElementById("product_ss_1").value;
+		if (product_ss_1 != null && product_ss_1 != 0) data = data + "&product_ss_1=" + product_ss_1;
+		var product_ss_2 = document.getElementById("product_ss_2").value;
+		if (product_ss_2 != null && product_ss_2 != 0) data = data + "&product_ss_2=" + product_ss_2;
+		var product_ss_3 = document.getElementById("product_ss_3").value;
+		if (product_ss_3 != null && product_ss_3 != 0) data = data + "&product_ss_3=" + product_ss_3;
+	}
+	if (sender == 'Trisoap' || sender == 'Taitung') {
+		var sp_1 = document.getElementById("sp_1").value;
+		if (sp_1 != null && sp_1 != 0) data = data + "&sp_1=" + sp_1;
+		var sp_2 = document.getElementById("sp_2").value;
+		if (sp_2 != null && sp_2 != 0) data = data + "&sp_2=" + sp_2;
+		var sp_3 = document.getElementById("sp_3").value;
+		if (sp_3 != null && sp_3 != 0) data = data + "&sp_3=" + sp_3;
+		var ss_1 = document.getElementById("ss_1").value;
+		if (ss_1 != null && ss_1 != 0) data = data + "&ss_1=" + ss_1;
+		var ss_2 = document.getElementById("ss_2").value;
+		if (ss_2 != null && ss_2 != 0) data = data + "&ss_2=" + ss_2;
+		var ss_3 = document.getElementById("ss_3").value;
+		if (ss_3 != null && ss_3 != 0) data = data + "&ss_3=" + ss_3;
+		var ss_4 = document.getElementById("ss_4").value;
+		if (ss_4 != null && ss_4 != 0) data = data + "&ss_4=" + ss_4;
+		var ss_5 = document.getElementById("ss_5").value;
+		if (ss_5 != null && ss_5 != 0) data = data + "&ss_5=" + ss_5;
+		var ss_6 = document.getElementById("ss_6").value;
+		if (ss_6 != null && ss_6 != 0) data = data + "&ss_6=" + ss_6;
+	}
+	if (sender == 'Trisoap' || sender == 'Houshanpi') {
+		var sp_1_houshanpi = document.getElementById("sp_1_houshanpi").value;
+		if (sp_1_houshanpi != null && sp_1_houshanpi != 0) data = data + "&sp_1_houshanpi=" + sp_1_houshanpi;
+		var sp_2_houshanpi = document.getElementById("sp_2_houshanpi").value;
+		if (sp_2_houshanpi != null && sp_2_houshanpi != 0) data = data + "&sp_2_houshanpi=" + sp_2_houshanpi;
+		var sp_3_houshanpi = document.getElementById("sp_3_houshanpi").value;
+		if (sp_3_houshanpi != null && sp_3_houshanpi != 0) data = data + "&sp_3_houshanpi=" + sp_3_houshanpi;
+	}
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				alert("成功送出");
+				alert("成功送出，物流編號：" + data.index);
 			}
 			else {
 				alert(data.message);

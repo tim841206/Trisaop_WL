@@ -829,19 +829,19 @@ function ingredient_to_product($ingredient, $product, $whouse) {
 	elseif ($whouse = 'Houshanpi') {
 		if (is_positiveInt($product['sp_1'])) {
 			$ITEMNO = 'sp_1_houshanpi_' . $today;
-			$ITEMNM = $today . '的後山埤米皂';
+			$ITEMNM = $today . '的後山埤的米皂';
 			$amount = $product['sp_1'] * 10;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['sp_2'])) {
 			$ITEMNO = 'sp_2_houshanpi_' . $today;
-			$ITEMNM = $today . '的後山埤金針皂';
+			$ITEMNM = $today . '的後山埤的金針皂';
 			$amount = $product['sp_2'] * 10;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
 		if (is_positiveInt($product['sp_3'])) {
 			$ITEMNO = 'sp_3_houshanpi_' . $today;
-			$ITEMNM = $today . '的後山埤釋迦皂';
+			$ITEMNM = $today . '的後山埤的釋迦皂';
 			$amount = $product['sp_3'] * 10;
 			mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
 		}
