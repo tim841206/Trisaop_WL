@@ -10,7 +10,7 @@
 		<script src="../resource/bootstrap.min.js"></script>
 		<script src="../resource/custom.js"></script>
 	</head>
-	<body>
+	<body onload="request_notice(); member_notice();">
 		<div class="container">
 			<h1>倉儲暨物流系統</h1>
 			<button onclick="document.getElementById('change_password').style.display = null;">更換密碼</button>
@@ -25,22 +25,21 @@
 				<button onclick="change_password_clear()">清除</button>
 				<button onclick="document.getElementById('change_password').style.display = 'none';">取消</button>
 			</div>
-			<div id="request_notice" onload="request_notice()" style="display: none;">
+			<div id="request_notice" style="display: none;">
 				<h3>物流通知</h3>
 				<p id="request_notice_content"></p>
 			</div>
-			<div id="member_notice" onload="member_notice()" style="display: none;">
+			<div id="member_notice" style="display: none;">
 				<h3>授權通知</h3>
 				<p id="member_notice_content"></p>
 			</div>
-
 			<ul class="nav nav-tabs nav-justified">
 				<li><a data-toggle="tab" href="#menu1">原料試算</a></li>
-				<li><a data-toggle="tab" href="#menu2">庫存一覽</a></li>
+				<li><a data-toggle="tab" href="#menu2" onclick="whouse_view()">庫存一覽</a></li>
 				<li><a data-toggle="tab" href="#menu3">調整庫存</a></li>
-				<li><a data-toggle="tab" href="#menu4">物流一覽</a></li>
+				<li><a data-toggle="tab" href="#menu4" onclick="request_view()">物流一覽</a></li>
 				<li><a data-toggle="tab" href="#menu5">建立物流</a></li>
-				<li><a data-toggle="tab" href="#menu6">使用者一覽</a></li>
+				<li><a data-toggle="tab" href="#menu6" onclick="member_view()">使用者一覽</a></li>
 			</ul>
 			<div class="tab-content">
 				<div id="menu1" class="tab-pane fade">
@@ -66,7 +65,7 @@
 					</div>
 				</div>
 				<div id="menu2" class="tab-pane fade">
-					<h3 onload="whouse_view()">庫存一覽</h3>
+					<h3>庫存一覽</h3>
 					<p id="whouse_view_content"></p>
 					<h3>進階查詢</h3>
 					<table>
@@ -110,8 +109,8 @@
 					</div>
 				</div>
 				<div id="menu4" class="tab-pane fade">
-					<h3 onload="request_view()">物流一覽</h3>
-					<p id="requset_view_content"></p>
+					<h3>物流一覽</h3>
+					<p id="request_view_content"></p>
 					<h3>進階查詢</h3>
 					<table>
 						<tr>
@@ -246,7 +245,7 @@
 					</div>
 				</div>
 				<div id="menu6" class="tab-pane fade">
-					<h3 onload="member_view()">使用者一覽</h3>
+					<h3>使用者一覽</h3>
 					<p id="member_view_content"></p>
 					<h3>進階查詢</h3>
 					<table>

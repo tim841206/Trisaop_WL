@@ -109,7 +109,7 @@ else {
 }
 
 function view($account, $token) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -125,11 +125,12 @@ function view($account, $token) {
 			return 'Wrong token';
 		}
 		else {
+			$content = '';
 			if ($fetch1['AUTHORITY'] == 'A') {
 				$content = '<table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th><th>後山埤存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' ORDER BY ITEMCLASS, ITEMNO ASC");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' ORDER BY ITEMCLASS, ITEMNO ASC");
-				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' ORDER BY ITEMCLASS, ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ACTCODE='1' ORDER BY ITEMCLASS, ITEMNO ASC");
+				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ACTCODE='1' ORDER BY ITEMCLASS, ITEMNO ASC");
+				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ACTCODE='1' ORDER BY ITEMCLASS, ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
 					$fetch4 = mysql_fetch_array($sql4);
@@ -138,8 +139,8 @@ function view($account, $token) {
 			}
 			elseif ($fetch1['AUTHORITY'] == 'E') {
 				$content = '<table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' ORDER BY ITEMCLASS, ITEMNO ASC");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' ORDER BY ITEMCLASS, ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ACTCODE='1' ORDER BY ITEMCLASS, ITEMNO ASC");
+				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ACTCODE='1' ORDER BY ITEMCLASS, ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
 					$content .= ('<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td><td>'.$fetch3['TOTALAMT'].'</td></tr>');
@@ -148,32 +149,32 @@ function view($account, $token) {
 			else {
 				$content = '<table><tr><th>名稱</th><th>存量/th></tr>';
 				if ($fetch1['AUTHORITY'] == 'B') {
-					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' ORDER BY ITEMNO ASC");
+					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 					while ($fetch2 = mysql_fetch_array($sql2)) {
 						$content .= ('<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>');
 					}
 				}
 				elseif ($fetch1['AUTHORITY'] == 'C') {
-					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' ORDER BY ITEMNO ASC");
+					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 					while ($fetch2 = mysql_fetch_array($sql2)) {
 						$content .= ('<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>');
 					}
 				}
 				elseif ($fetch1['AUTHORITY'] == 'D') {
-					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' ORDER BY ITEMNO ASC");
+					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 					while ($fetch2 = mysql_fetch_array($sql2)) {
 						$content .= ('<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>');
 					}
 				}
-				$content = '</table>';
 			}
+			$content .= '</table>';
 			return array('message' => 'Success', 'content' => $content);
 		}
 	}
 }
 
 function search($account, $token, $whouseno, $itemclass, $itemno) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -203,16 +204,16 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 			}
 			else {
 				if ($whouseno == 'all' && $itemno == 'all') {
-					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE ITEMCLASS='$itemclass'");
+					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE ITEMCLASS='$itemclass' AND ACTCODE='1'");
 				}
 				elseif ($whouseno == 'all') {
-					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE ITEMCLASS='$itemclass' AND ITEMNO='$itemno'");
+					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE ITEMCLASS='$itemclass' AND ITEMNO='$itemno' AND ACTCODE='1'");
 				}
 				elseif ($itemno == 'all') {
-					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouseno' AND ITEMCLASS='$itemclass'");
+					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouseno' AND ITEMCLASS='$itemclass' AND ACTCODE='1'");
 				}
 				else {
-					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouseno' AND ITEMCLASS='$itemclass' AND ITEMNO='$itemno'");
+					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouseno' AND ITEMCLASS='$itemclass' AND ITEMNO='$itemno' AND ACTCODE='1'");
 				}
 				if (mysql_num_rows($sql2) == 0) {
 					return 'No data';
@@ -231,7 +232,7 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 }
 
 function adjust_search($account, $token, $whouseno) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -254,7 +255,7 @@ function adjust_search($account, $token, $whouseno) {
 				$inventory = array();
 				$f_class_no = array();
 				$f_class_nm = array();
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou'");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					if ($fetch2['ITEMCLASS'] == 'F') {
@@ -345,7 +346,7 @@ function adjust_search($account, $token, $whouseno) {
 				$inventory = array();
 				$f_class_no = array();
 				$f_class_nm = array();
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi'");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					if ($fetch2['ITEMCLASS'] == 'F') {
@@ -378,7 +379,7 @@ function adjust_search($account, $token, $whouseno) {
 				$inventory = array();
 				$f_class_no = array();
 				$f_class_nm = array();
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung'");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					if ($fetch2['ITEMCLASS'] == 'F') {
@@ -449,7 +450,7 @@ function adjust_search($account, $token, $whouseno) {
 function adjust($content) {
 	$account = $content['account'];
 	$token = $content['token'];
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}

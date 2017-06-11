@@ -69,7 +69,10 @@ function change_password() {
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
-			if (data.message != 'Success') {
+			if (data.message == 'Success') {
+				alert("成功更換");
+			}
+			else {
 				alert(data.message);
 			}
 		}
@@ -214,7 +217,11 @@ function request_notice() {
 				document.getElementById("request_notice_content").innerHTML = data.content;
 				document.getElementById("request_notice").style.display = null;
 			}
-			else if (data.message != 'No data'){
+			else if (data.message == 'No notice'){
+				document.getElementById("request_notice_content").innerHTML = '';
+				document.getElementById("request_notice").style.display = 'none';
+			}
+			else {
 				alert(data.message);
 			}
 		}
@@ -234,7 +241,11 @@ function member_notice() {
 				document.getElementById("member_notice_content").innerHTML = data.content;
 				document.getElementById("member_notice").style.display = null;
 			}
-			else if (data.message != 'No data'){
+			else if (data.message == 'No notice'){
+				document.getElementById("member_notice_content").innerHTML = '';
+				document.getElementById("member_notice").style.display = 'none';
+			}
+			else {
 				alert(data.message);
 			}
 		}
@@ -274,6 +285,30 @@ function calculate_search() {
 	}
 }
 
+function calculate_search_houshanpi() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var sp_1 = document.getElementById("calculate_sp_1").value;
+	var sp_2 = document.getElementById("calculate_sp_2").value;
+	var sp_3 = document.getElementById("calculate_sp_3").value;
+	var data = "module=item&event=search&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("queryResult").innerHTML = data.query;
+				document.getElementById("query").style.display = null;
+				document.getElementById("produce_houshanpi").style.display = null;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
 function produce() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
@@ -287,6 +322,28 @@ function produce() {
 	var ss_5 = document.getElementById("calculate_ss_5").value;
 	var ss_6 = document.getElementById("calculate_ss_6").value;
 	var data = "module=item&event=produce&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3 + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功製作");
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function produce_houshanpi() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var sp_1 = document.getElementById("calculate_sp_1").value;
+	var sp_2 = document.getElementById("calculate_sp_2").value;
+	var sp_3 = document.getElementById("calculate_sp_3").value;
+	var data = "module=item&event=produce&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 	request.onreadystatechange = function() {
@@ -639,9 +696,9 @@ function itemclass() {
 function whouse_view() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var queryString = "index.php?module=whouse&event=view";
-	request.open("GET", queryString);
-	request.send();
+	var data = "module=whouse&event=view";
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
@@ -1135,7 +1192,7 @@ function member_view() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("view_content").innerHTML = data.content;
+				document.getElementById("member_view_content").innerHTML = data.content;
 			}
 			else {
 				alert(data.message);
@@ -1176,6 +1233,46 @@ function search_auth() {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				document.getElementById("member_search_content").innerHTML = data.content;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function auth(account) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=member&event=auth&index=" + account;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功授權");
+				member_notice();
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function reject(account) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=member&event=reject&index=" + account;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功拒絕");
+				member_notice();
 			}
 			else {
 				alert(data.message);

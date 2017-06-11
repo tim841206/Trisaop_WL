@@ -173,7 +173,7 @@ else {
 }
 
 function view($account, $token) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -190,16 +190,16 @@ function view($account, $token) {
 		}
 		else {
 			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS ORDER BY UPDATEDATE DESC");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Beitou' OR RECEIVER='Beitou' ORDER BY UPDATEDATE DESC");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE (SENDER='Beitou' OR RECEIVER='Beitou') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'C') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Houshanpi' OR RECEIVER='Houshanpi' ORDER BY UPDATEDATE DESC");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Taitung' OR RECEIVER='Taitung' ORDER BY UPDATEDATE DESC");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE (SENDER='Taitung' OR RECEIVER='Taitung') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
 			if (mysql_num_rows($sql2) == 0) {
 				$content = '查無資料';
@@ -217,8 +217,8 @@ function view($account, $token) {
 }
 
 function search_index($account, $token, $index) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
-	$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -257,7 +257,7 @@ function search_index($account, $token, $index) {
 }
 
 function search_state($account, $token, $state) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -280,18 +280,18 @@ function search_state($account, $token, $state) {
 		}
 		else {
 			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state'");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND ACTCODE='1'");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='Beitou' OR RECEIVER='Beitou') ORDER BY UPDATEDATE DESC");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'C') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') ORDER BY UPDATEDATE DESC");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='Taitung' OR RECEIVER='Taitung') ORDER BY UPDATEDATE DESC");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
-			if (mysql_num_rows($sql2) == 0) {
+			if ($sql2 == false) {
 				$content = '查無資料';
 			}
 			else {
@@ -307,9 +307,9 @@ function search_state($account, $token, $state) {
 }
 
 function view_index($account, $token, $index) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
-	$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index'");
-	$sql3 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
+	$sql3 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -446,7 +446,7 @@ function view_index($account, $token, $index) {
 }
 
 function notice($account, $token) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -463,35 +463,35 @@ function notice($account, $token) {
 		}
 		else {
 			if ($fetch1['AUTHORITY'] == 'A') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Trisoap' AND SENDERDATE<UPDATEDATE");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Trisoap' AND RQSTSTAT='A'");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Trisoap' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
+				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Trisoap' AND RQSTSTAT='A' AND ACTCODE='1'");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Beitou' AND SENDERDATE<UPDATEDATE");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Beitou' AND RQSTSTAT='A'");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Beitou' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
+				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Beitou' AND RQSTSTAT='A' AND ACTCODE='1'");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'C') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Houshanpi' AND SENDERDATE<UPDATEDATE");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Houshanpi' AND RQSTSTAT='A'");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Houshanpi' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
+				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Houshanpi' AND RQSTSTAT='A' AND ACTCODE='1'");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Taitung' AND SENDERDATE<UPDATEDATE");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Taitung' AND RQSTSTAT='A'");
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Taitung' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
+				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Taitung' AND RQSTSTAT='A' AND ACTCODE='1'");
 			}
 			else {
 				return 'No notice';
 			}
-			if ($sql2 == false && $sql3 == false) {
-					return 'No notice';
+			if (mysql_num_rows($sql2) + mysql_num_rows($sql3) == 0) {
+				return 'No notice';
 			}
 			else {
 				$content = '<table><tr><th>物流編號</th><th>運送方</th><th>運送方最後查看時間</th><th>接收方</th><th>接收方最後查看時間</th><th>物流狀態</th></tr>';
-				if ($sql2 != false) {
+				if (mysql_num_rows($sql2) != 0) {
 					while ($fetch2 = mysql_fetch_array($sql2)) {
 						$content .= '<tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['SENDER'].'</td><td>'.$fetch2['SENDERDATE'].'</td><td>'.$fetch2['RECEIVER'].'</td><td>'.$fetch2['RECEIVERDATE'].'</td><td>'.$fetch2['RQSTSTAT'].'</td><td><button onclick="view_index('.$fetch2['RQSTNO'].')">查看</button></td></tr>';
 					}
 				}
-				if ($sql3 != false) {
+				if (mysql_num_rows($sql3) != 0) {
 					while ($fetch3 = mysql_fetch_array($sql3)) {
 						$content .= '<tr><td>'.$fetch3['RQSTNO'].'</td><td>'.$fetch3['SENDER'].'</td><td>'.$fetch3['SENDERDATE'].'</td><td>'.$fetch3['RECEIVER'].'</td><td>'.$fetch3['RECEIVERDATE'].'</td><td>'.$fetch3['RQSTSTAT'].'</td><td><button onclick="view_index('.$fetch3['RQSTNO'].')">查看</button></td></tr>';
 					}
@@ -504,8 +504,8 @@ function notice($account, $token) {
 }
 
 function accept($account, $token, $index) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
-	$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
 	date_default_timezone_set('Asia/Taipei');
 	$date = date("Y-m-d H:i:s");
 	if (empty($account)) {
@@ -570,8 +570,8 @@ function accept($account, $token, $index) {
 }
 
 function reject($account, $token, $index) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
-	$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -641,7 +641,7 @@ function send($content) {
 	$itemno = array();
 	$itemamt = array();
 	$key = array_keys($content);
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}

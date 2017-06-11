@@ -222,11 +222,14 @@ function login($account, $password) {
 	elseif (empty($password)) {
 		return 'Empty password';
 	}
-	elseif ($sql1 == false) {
+	elseif (mysql_num_rows($sql1) == 0) {
 		return 'Unregistered account';
 	}
 	else {
 		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['ACTCODE'] == 2) {
+			return 'Unauthorized account';
+		}
 		if ($password != $fetch1['PASSWORD']) {
 			return 'Wrong password';
 		}
@@ -247,7 +250,7 @@ function login($account, $password) {
 }
 
 function logout($account) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -266,7 +269,7 @@ function logout($account) {
 }
 
 function logon($account, $name, $password1, $password2, $authority) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -308,7 +311,7 @@ function logon($account, $name, $password1, $password2, $authority) {
 }
 
 function change_password($account, $token, $ori_password, $new_password1, $new_password2) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	$fetch = mysql_fetch_array($sql1);
 	if (empty($account)) {
 		return 'Empty account';
@@ -360,8 +363,8 @@ function change_password($account, $token, $ori_password, $new_password1, $new_p
 }
 
 function search_account($account, $token, $index) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
-	$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$index'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$index' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -405,7 +408,7 @@ function search_account($account, $token, $index) {
 }
 
 function search_auth($account, $token, $auth) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -436,7 +439,7 @@ function search_auth($account, $token, $auth) {
 			return 'No authority';
 		}
 		else {
-			$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='$auth'");
+			$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='$auth' AND ACTCODE='1'");
 			if ($sql2 == false) {
 				$content = '查無資料';
 			}
@@ -453,7 +456,7 @@ function search_auth($account, $token, $auth) {
 }
 
 function view($account, $token) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -470,18 +473,18 @@ function view($account, $token) {
 		}
 		else {
 			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS ORDER BY ONLINEDATE DESC");
+				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACTCODE='1' ORDER BY ONLINEDATE DESC");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE AUTHORITY='B' ORDER BY ONLINEDATE DESC");
+				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='B' AND ACTCODE='1' ORDER BY ONLINEDATE DESC");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'C') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE AUTHORITY='C' ORDER BY ONLINEDATE DESC");
+				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='C' AND ACTCODE='1' ORDER BY ONLINEDATE DESC");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE AUTHORITY='D' ORDER BY ONLINEDATE DESC");
+				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='D' AND ACTCODE='1' ORDER BY ONLINEDATE DESC");
 			}
-			if (mysql_num_rows($sql2) == 0) {
+			if ($sql2 == false) {
 				$content = '查無資料';
 			}
 			else {
@@ -497,7 +500,7 @@ function view($account, $token) {
 }
 
 function notice($account, $token) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -517,13 +520,13 @@ function notice($account, $token) {
 		}
 		else {
 			$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACTCODE='2' ORDER BY ONLINEDATE ASC");
-			if ($sql2 == false) {
+			if (mysql_num_rows($sql2) == 0) {
 				return 'No notice';
 			}
 			else {
 				$content = '<table><tr><th>使用者帳號</th><th>使用者名稱</th><th>帳號建立日期</th><th>帳號最後登入日期</th><th>申請權限</th></tr>';
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ACCOUNT'].'</td><td>'.$fetch2['NAME'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.$fetch2['ONLINEDATE'].'</td><td>'.transfer($fetch2['AUTHORITY']).'</td><td><button onclick="auth('.$fetch2['ACCOUNT'].')">授權</button></td><button onclick="reject('.$fetch2['ACCOUNT'].')">拒絕</button></td></tr>';
+					$content .= '<tr><td>'.$fetch2['ACCOUNT'].'</td><td>'.$fetch2['NAME'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.$fetch2['ONLINEDATE'].'</td><td>'.transfer($fetch2['AUTHORITY']).'</td><td><button onclick="auth('.$fetch2['ACCOUNT'].')">授權</button></td><td><button onclick="reject('.$fetch2['ACCOUNT'].')">拒絕</button></td></tr>';
 				}
 				$content .= '</table>';
 				return array('message' => 'Success', 'content' => $content);
@@ -533,8 +536,8 @@ function notice($account, $token) {
 }
 
 function auth($account, $token, $index) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
-	$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$index'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$index' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -577,8 +580,8 @@ function auth($account, $token, $index) {
 }
 
 function reject($account, $token, $index) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
-	$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$index'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$index' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -621,7 +624,7 @@ function reject($account, $token, $index) {
 }
 
 function get_auth($account, $token) {
-	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account'");
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
 	}

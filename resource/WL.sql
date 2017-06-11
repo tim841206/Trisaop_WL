@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `ITEMMAS` (
-  `ITEMNO` varchar(15) COLLATE utf8_bin NOT NULL,
+  `ITEMNO` varchar(25) COLLATE utf8_bin NOT NULL,
   `ITEMNM` varchar(50) COLLATE utf8_bin NOT NULL,
   `ITEMCLASS` varchar(1) COLLATE utf8_bin NOT NULL,
   `TOTALAMT` int(11) NOT NULL,
@@ -123,7 +123,7 @@ INSERT INTO `MEMBERMAS` (`ACCOUNT`, `NAME`, `PASSWORD`, `TOKEN`, `AUTHORITY`, `C
 
 CREATE TABLE `RQSTDTLMAS` (
   `RQSTNO` varchar(15) COLLATE utf8_bin NOT NULL,
-  `ITEMNO` varchar(15) COLLATE utf8_bin NOT NULL,
+  `ITEMNO` varchar(25) COLLATE utf8_bin NOT NULL,
   `ITEMNM` varchar(50) COLLATE utf8_bin NOT NULL,
   `ITEMAMT` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='請求內容主檔';
@@ -153,7 +153,7 @@ CREATE TABLE `RQSTMAS` (
 
 CREATE TABLE `WHOUSEITEMMAS` (
   `WHOUSENO` varchar(15) COLLATE utf8_bin NOT NULL,
-  `ITEMNO` varchar(15) COLLATE utf8_bin NOT NULL,
+  `ITEMNO` varchar(25) COLLATE utf8_bin NOT NULL,
   `ITEMNM` varchar(50) COLLATE utf8_bin NOT NULL,
   `ITEMCLASS` varchar(1) COLLATE utf8_bin NOT NULL,
   `TOTALAMT` int(11) NOT NULL,
