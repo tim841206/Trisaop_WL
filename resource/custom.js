@@ -15,6 +15,9 @@ function login() {
 				if (data.member == 'load') {
 					member_notice();
 				}
+				if (data.mature == 'load') {
+					mature_notice();
+				}
 				request_notice();
 			}
 			else {
@@ -248,6 +251,30 @@ function member_notice() {
 			else if (data.message == 'No notice') {
 				document.getElementById("member_notice_content").innerHTML = '';
 				document.getElementById("member_notice").style.display = 'none';
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function mature_notice() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=whouse&event=mature";
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("mature_notice_content").innerHTML = data.content;
+				document.getElementById("mature_notice").style.display = null;
+			}
+			else if (data.message == 'No notice') {
+				document.getElementById("mature_notice_content").innerHTML = '';
+				document.getElementById("mature_notice").style.display = 'none';
 			}
 			else {
 				alert(data.message);

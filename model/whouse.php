@@ -41,6 +41,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			echo json_encode(array('message' => $message));
 			return;
 		}
+		elseif ($_GET['event'] == 'mature') {
+			$message = mature($_GET['account'], $_GET['token']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
     		return;
@@ -91,6 +102,17 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$message = adjust($_POST);
 			echo json_encode(array('message' => $message));
 			return;
+		}
+		elseif ($_POST['event'] == 'mature') {
+			$message = mature($_POST['account'], $_POST['token']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
 		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
@@ -842,6 +864,82 @@ function adjust($content) {
 			}
 			else {
 				return 'Wrong warehouse number';
+			}
+		}
+	}
+}
+
+function mature($account, $token) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Not logged in';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		elseif ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
+			return 'No authority';
+		}
+		else {
+			date_default_timezone_set('Asia/Taipei');
+			$date = date("Y-m-d H:i:s");
+			$matureDay = 33;
+			$content = '';
+			if ($fetch1['AUTHORITY'] == 'B') {
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='F' AND ACTCODE='1'");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$ITEMNO = $fetch2['ITEMNO'];
+					$processedITEMNO = substr($ITEMNO, 0, -9);
+					$TOTALAMT = $fetch2['TOTALAMT'];
+					$difference = (strtotime($date) - strtotime($fetch2['UPDATEDATE'])) / (60 * 60 * 24);
+					if ($difference >= $matureDay) {
+						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
+						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$processedITEMNO'");
+						$content .= $fetch2['ITEMNM'] . ' 已熟成。';
+					}
+				}
+			}
+			elseif ($fetch1['AUTHORITY'] == 'C') {
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ITEMCLASS='F' AND ACTCODE='1'");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$ITEMNO = $fetch2['ITEMNO'];
+					$processedITEMNO = substr($ITEMNO, 0, -9);
+					$TOTALAMT = $fetch2['TOTALAMT'];
+					$difference = (strtotime($date) - strtotime($fetch2['UPDATEDATE'])) / (60 * 60 * 24);
+					if ($difference >= $matureDay) {
+						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$ITEMNO'");
+						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$processedITEMNO'");
+						$content .= $fetch2['ITEMNM'] . ' 已熟成。';
+					}
+				}
+			}
+			elseif ($fetch1['AUTHORITY'] == 'D') {
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='F' AND ACTCODE='1'");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$ITEMNO = $fetch2['ITEMNO'];
+					$processedITEMNO = substr($ITEMNO, 0, -9);
+					$TOTALAMT = $fetch2['TOTALAMT'];
+					$difference = (strtotime($date) - strtotime($fetch2['UPDATEDATE'])) / (60 * 60 * 24);
+					if ($difference >= $matureDay) {
+						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$ITEMNO'");
+						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$processedITEMNO'");
+						$content .= $fetch2['ITEMNM'] . ' 已熟成。';
+					}
+				}
+			}
+			if (empty($content)) {
+				return 'No notice';
+			}
+			else {
+				return array('message' => 'Success', 'content' => $content);
 			}
 		}
 	}
