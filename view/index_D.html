@@ -10,7 +10,7 @@
 		<script src="../resource/bootstrap.min.js"></script>
 		<script src="../resource/custom.js"></script>
 	</head>
-	<body onload="request_notice()">
+	<body onload="request_notice(); mature_notice();">
 		<div class="container">
 			<h1>倉儲暨物流系統</h1>
 			<button onclick="document.getElementById('change_password').style.display = null;">更換密碼</button>
@@ -27,12 +27,12 @@
 			</div>
 			<div id="request_notice" style="display: none;">
 				<h3>物流通知</h3>
-				<p id="request_notice_content" style="width: 45%; display: inline-block;"></p>
-				<p id="request_notice_detail" style="width: 45%; display: inline-block;"></p>
+				<p id="request_notice_content" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
+				<p id="request_notice_detail" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
 			</div>
 			<div id="mature_notice" style="display: none;">
 				<h3>熟成通知</h3>
-				<p id="mature_notice_content" style="width: 45%; display: inline-block;"></p>
+				<p id="mature_notice_content" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
 			</div>
 
 			<ul class="nav nav-tabs nav-justified">
@@ -84,14 +84,22 @@
 								<select id="itemclass" onchange="itemclass()">
 									<option value="A">油品</option>
 									<option value="B">添加物</option>
-									<option value="C">包裝</option>
-									<option value="D">商品</option>
 									<option value="E">產品</option>
 									<option value="F">半成品</option>
 								</select>
 							</td>
 							<td>
 								<select id="itemno">
+									<option value="all">全部</option>
+									<option value="oil_1">橄欖油</option>
+									<option value="oil_2">棕梠油</option>
+									<option value="oil_3">椰子油</option>
+									<option value="oil_4">米糠油</option>
+									<option value="oil_5">紅棕梠油</option>
+									<option value="oil_6">葡萄籽油</option>
+									<option value="oil_7">苦茶油</option>
+									<option value="oil_8">蓖麻油</option>
+									<option value="NaOH">鹼</option>
 								</select>
 							</td>
 						</tr>
@@ -101,8 +109,8 @@
 				</div>
 				<div id="menu3" class="tab-pane fade">
 					<h3>物流一覽</h3>
-					<p id="request_view_content" style="width: 45%; display: inline-block;"></p>
-					<p id="request_view_detail" style="width: 45%; display: inline-block;"></p>
+					<p id="request_view_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
+					<p id="request_view_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 					<h3>進階查詢</h3>
 					<table>
 						<tr>
@@ -125,8 +133,8 @@
 							<td><button onclick="search_state()">查詢</button></td>
 						</tr>
 					</table>
-					<p id="request_search_content" style="width: 45%; display: inline-block;"></p>
-					<p id="request_search_detail" style="width: 45%; display: inline-block;"></p>
+					<p id="request_search_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
+					<p id="request_search_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 				</div>
 				<div id="menu4" class="tab-pane fade">
 					<h3>建立物流</h3>
@@ -174,7 +182,7 @@
 				</div>
 				<div id="menu5" class="tab-pane fade">
 					<h3>使用者一覽</h3>
-					<p id="member_view_content"></p>
+					<p id="member_view_content" style="max-height: 300px; overflow: scroll;"></p>
 					<h3>進階查詢</h3>
 					<table>
 						<tr>
@@ -192,7 +200,7 @@
 							<td><button onclick="search_auth()">查詢</button></td>
 						</tr>
 					</table>
-					<p id="member_search_content"></p>
+					<p id="member_search_content" style="max-height: 300px; overflow: scroll;"></p>
 				</div>
 			</div>
 		</div>

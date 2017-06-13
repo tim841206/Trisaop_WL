@@ -350,12 +350,7 @@ function view_index($account, $token, $index) {
 				$sql4 = '';
 				if ($fetch1['AUTHORITY'] == 'A') {
 					if ($fetch2['SENDER'] == 'Trisoap') {
-						if ($fetch2['RQSTSTAT'] == 'C' || $fetch2['RQSTSTAT'] == 'D') {
-							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'";
-						}
-						else {
-							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
-						}
+						$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
 					}
 					elseif ($fetch2['RECEIVER'] == 'Trisoap') {
 						if ($fetch2['RQSTSTAT'] == 'A') {
@@ -371,12 +366,7 @@ function view_index($account, $token, $index) {
 						return 'No authority';
 					}
 					elseif ($fetch2['SENDER'] == 'Beitou') {
-						if ($fetch2['RQSTSTAT'] == 'C' || $fetch2['RQSTSTAT'] == 'D') {
-							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'";
-						}
-						else {
-							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
-						}
+						$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
 					}
 					elseif ($fetch2['RECEIVER'] == 'Beitou') {
 						if ($fetch2['RQSTSTAT'] == 'A') {
@@ -392,12 +382,7 @@ function view_index($account, $token, $index) {
 						return 'No authority';
 					}
 					elseif ($fetch2['SENDER'] == 'Houshanpi') {
-						if ($fetch2['RQSTSTAT'] == 'C' || $fetch2['RQSTSTAT'] == 'D') {
-							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'";
-						}
-						else {
-							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
-						}
+						$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
 					}
 					elseif ($fetch2['RECEIVER'] == 'Houshanpi') {
 						if ($fetch2['RQSTSTAT'] == 'A') {
@@ -413,12 +398,7 @@ function view_index($account, $token, $index) {
 						return 'No authority';
 					}
 					elseif ($fetch2['SENDER'] == 'Taitung') {
-						if ($fetch2['RQSTSTAT'] == 'C' || $fetch2['RQSTSTAT'] == 'D') {
-							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$index'";
-						}
-						else {
-							$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
-						}
+						$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
 					}
 					elseif ($fetch2['RECEIVER'] == 'Taitung') {
 						if ($fetch2['RQSTSTAT'] == 'A') {
@@ -502,8 +482,17 @@ function notice($account, $token) {
 			else {
 				$content = '';
 				if (mysql_num_rows($sql2) != 0) {
+					date_default_timezone_set('Asia/Taipei');
+					$date = date("Y-m-d H:i:s");
 					while ($fetch2 = mysql_fetch_array($sql2)) {
-						$content .= translate($fetch2['RECEIVER']) . ' 方已經 ' . translate_state($fetch2['RQSTSTAT']) .' 編號為 ' . $fetch2['RQSTNO'] . ' 的物流。<br>';
+						$RQSTNO = $fetch2['RQSTNO'];
+						$content .= translate($fetch2['RECEIVER']) . ' 方已經 ' . translate_state($fetch2['RQSTSTAT']) .' 編號為 ' . $RQSTNO . ' 的物流。<br>';
+						if ($fetch2['RQSTSTAT'] == 'B') {
+							mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$RQSTNO'");
+						}
+						if ($fetch2['RQSTSTAT'] == 'C' || $fetch2['RQSTSTAT'] == 'D') {
+							mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$RQSTNO'");
+						}
 					}
 				}
 				if (mysql_num_rows($sql3) != 0) {
@@ -712,10 +701,6 @@ function send($content) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
-						else if (!in_array($key[$i], array('module', 'event', 'account', 'token', 'sender', 'receiver'))){
-							return 'Invalid item ' . $key[$i];
-							break;
-						}
 					}
 				}
 				elseif ($sender == 'Trisoap' && $receiver == 'Taitung') {
@@ -724,21 +709,13 @@ function send($content) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
-						else if (!in_array($key[$i], array('module', 'event', 'account', 'token', 'sender', 'receiver'))){
-							return 'Invalid item ' . $key[$i];
-							break;
-						}
 					}
 				}
 				elseif ($sender == 'Beitou' && $receiver == 'Trisoap') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('product_sp_1', 'product_sp_2', 'product_sp_3', 'product_ss_1', 'product_ss_2', 'product_ss_3'))) {
+						if (in_array($key[$i], array('product_sp_1', 'product_sp_2', 'product_sp_3', 'product_sp_box', 'product_ss_1', 'product_ss_2', 'product_ss_3', 'product_ss_box'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
-						}
-						else if (!in_array($key[$i], array('module', 'event', 'account', 'token', 'sender', 'receiver'))){
-							return 'Invalid item ' . $key[$i];
-							break;
 						}
 					}
 				}
@@ -748,10 +725,6 @@ function send($content) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
-						else if (!in_array($key[$i], array('module', 'event', 'account', 'token', 'sender', 'receiver'))){
-							return 'Invalid item ' . $key[$i];
-							break;
-						}
 					}
 				}
 				elseif ($sender == 'Houshanpi' && $receiver == 'Taitung') {
@@ -760,10 +733,6 @@ function send($content) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
-						else if (!in_array($key[$i], array('module', 'event', 'account', 'token', 'sender', 'receiver'))){
-							return 'Invalid item ' . $key[$i];
-							break;
-						}
 					}
 				}
 				elseif ($sender == 'Taitung' && $receiver == 'Beitou') {
@@ -771,10 +740,6 @@ function send($content) {
 						if (in_array($key[$i], array('sp_1', 'sp_2', 'sp_3', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
-						}
-						else if (!in_array($key[$i], array('module', 'event', 'account', 'token', 'sender', 'receiver'))){
-							return 'Invalid item ' . $key[$i];
-							break;
 						}
 					}
 				}
@@ -785,13 +750,9 @@ function send($content) {
 			elseif ($fetch1['AUTHORITY'] == 'B') {
 				if ($sender == 'Beitou' && $receiver == 'Trisoap') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('product_sp_1', 'product_sp_2', 'product_sp_3', 'product_ss_1', 'product_ss_2', 'product_ss_3'))) {
+						if (in_array($key[$i], array('product_sp_1', 'product_sp_2', 'product_sp_3', 'product_sp_box', 'product_ss_1', 'product_ss_2', 'product_ss_3', 'product_ss_box'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
-						}
-						else if (!in_array($key[$i], array('module', 'event', 'account', 'token', 'sender', 'receiver'))){
-							return 'Invalid item ' . $key[$i];
-							break;
 						}
 					}
 				}
@@ -806,10 +767,6 @@ function send($content) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
-						else if (!in_array($key[$i], array('module', 'event', 'account', 'token', 'sender', 'receiver'))){
-							return 'Invalid item ' . $key[$i];
-							break;
-						}
 					}
 				}
 				elseif ($sender == 'Houshanpi' && $receiver == 'Taitung') {
@@ -817,10 +774,6 @@ function send($content) {
 						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'NaOH', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
-						}
-						else if (!in_array($key[$i], array('module', 'event', 'account', 'token', 'sender', 'receiver'))){
-							return 'Invalid item ' . $key[$i];
-							break;
 						}
 					}
 				}
@@ -835,10 +788,6 @@ function send($content) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
-						else if (!in_array($key[$i], array('module', 'event', 'account', 'token', 'sender', 'receiver'))){
-							return 'Invalid item ' . $key[$i];
-							break;
-						}
 					}
 				}
 				else {
@@ -848,7 +797,7 @@ function send($content) {
 			elseif ($fetch1['AUTHORITY'] == 'E') {
 				return 'No authority';
 			}
-			if (count($content) == 6) {
+			if (count($itemno) == 0) {
 				return 'Empty request';
 			}
 			else {
@@ -859,9 +808,9 @@ function send($content) {
 				if (mysql_query($sql2)) {
 					if (update_rqstno()) {
 						for ($i = 0; $i < count($itemno); $i++) {
-							$no = array_pop($itemno);
+							$no = $itemno[$i];
 							$nm = query_name($no);
-							$amt = array_pop($itemamt);
+							$amt = $itemamt[$i];
 							$sql3 = "INSERT INTO RQSTDTLMAS (RQSTNO, ITEMNO, ITEMNM, ITEMAMT) VALUES ('$rqstno', '$no', '$nm', '$amt')";
 							if (!mysql_query($sql3)) {
 								return 'Unable to create request detail';

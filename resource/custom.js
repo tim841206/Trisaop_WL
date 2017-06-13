@@ -360,6 +360,7 @@ function produce() {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				alert("成功製作");
+				location.reload();
 			}
 			else {
 				alert(data.message);
@@ -414,21 +415,19 @@ function whouse() {
 	}
 	else if (whouse == 'Houshanpi') {
 		var option1 = document.createElement("option");
-		option1.text = '後山埤產品'; option1.value = 'H'; itemclass.add(option1);
+		var option2 = document.createElement("option");
+		option1.text = '半成品'; option1.value = 'F'; itemclass.add(option1);
+		option2.text = '後山埤產品'; option1.value = 'H'; itemclass.add(option2);
 	}
 	else if (whouse == 'Taitung') {
 		var option1 = document.createElement("option");
 		var option2 = document.createElement("option");
 		var option3 = document.createElement("option");
 		var option4 = document.createElement("option");
-		var option5 = document.createElement("option");
-		var option6 = document.createElement("option");
 		option1.text = '油品'; option1.value = 'A'; itemclass.add(option1);
 		option2.text = '添加物'; option2.value = 'B'; itemclass.add(option2);
-		option3.text = '包裝'; option3.value = 'C'; itemclass.add(option3);
-		option4.text = '商品'; option4.value = 'D'; itemclass.add(option4);
-		option5.text = '產品'; option5.value = 'E'; itemclass.add(option5);
-		option6.text = '半成品'; option6.value = 'F'; itemclass.add(option6);
+		option3.text = '產品'; option3.value = 'E'; itemclass.add(option3);
+		option4.text = '半成品'; option4.value = 'F'; itemclass.add(option4);
 	}
 	document.getElementById("itemclass").onchange();
 }
@@ -451,6 +450,7 @@ function itemclass() {
 			var option6 = document.createElement("option");
 			var option7 = document.createElement("option");
 			var option8 = document.createElement("option");
+			var option9 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '橄欖油'; option1.value = 'oil_1'; item.add(option1);
 			option2.text = '棕梠油'; option2.value = 'oil_2'; item.add(option2);
@@ -460,6 +460,7 @@ function itemclass() {
 			option6.text = '葡萄籽油'; option6.value = 'oil_6'; item.add(option6);
 			option7.text = '苦茶油'; option7.value = 'oil_7'; item.add(option7);
 			option8.text = '蓖麻油'; option8.value = 'oil_8'; item.add(option8);
+			option9.text = '鹼'; option9.value = 'NaOH'; item.add(option9);
 		}
 		else if (itemclass == 'B') {
 			var option0 = document.createElement("option");
@@ -474,7 +475,6 @@ function itemclass() {
 			var option9 = document.createElement("option");
 			var option10 = document.createElement("option");
 			var option11 = document.createElement("option");
-			var option12 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '金針花瓣'; option1.value = 'additive_1'; item.add(option1);
 			option2.text = '釋迦果粉'; option2.value = 'additive_2'; item.add(option2);
@@ -487,7 +487,6 @@ function itemclass() {
 			option9.text = '紅麴粉'; option9.value = 'additive_9'; item.add(option9);
 			option10.text = '洛神花粉'; option10.value = 'additive_10'; item.add(option10);
 			option11.text = '乳油木果脂'; option11.value = 'additive_11'; item.add(option11);
-			option12.text = '鹼'; option12.value = 'NaOH'; item.add(option12);
 		}
 		else if (itemclass == 'C') {
 			var option0 = document.createElement("option");
@@ -549,25 +548,7 @@ function itemclass() {
 		}
 		else if (itemclass == 'F') {
 			var option0 = document.createElement("option");
-			var option1 = document.createElement("option");
-			var option2 = document.createElement("option");
-			var option3 = document.createElement("option");
-			var option4 = document.createElement("option");
-			var option5 = document.createElement("option");
-			var option6 = document.createElement("option");
-			var option7 = document.createElement("option");
-			var option8 = document.createElement("option");
-			var option9 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
-			option1.text = '米皂'; option1.value = 'sp_1'; item.add(option1);
-			option2.text = '金針皂'; option2.value = 'sp_2'; item.add(option2);
-			option3.text = '釋迦皂'; option3.value = 'sp_3'; item.add(option3);
-			option4.text = '洛神皂絲'; option4.value = 'ss_1'; item.add(option4);
-			option5.text = '紅麴皂絲'; option5.value = 'ss_2'; item.add(option5);
-			option6.text = '薑黃皂絲'; option6.value = 'ss_3'; item.add(option6);
-			option7.text = '金針皂絲'; option7.value = 'ss_4'; item.add(option7);
-			option8.text = '紅棕梠皂絲'; option8.value = 'ss_5'; item.add(option8);
-			option9.text = '蕁麻葉皂絲'; option9.value = 'ss_6'; item.add(option9);
 		}
 		else if (itemclass == 'H') {
 			var option0 = document.createElement("option");
@@ -581,15 +562,19 @@ function itemclass() {
 		}
 	}
 	else if (whouse == 'Houshanpi') {
-		if (itemclass == 'H') {
+		if (itemclass == 'F') {
+			var option0 = document.createElement("option");
+			option0.text = '全部'; option0.value = 'all'; item.add(option0);
+		}
+		else if (itemclass == 'H') {
 			var option0 = document.createElement("option");
 			var option1 = document.createElement("option");
 			var option2 = document.createElement("option");
 			var option3 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
-			option1.text = '後山埤的米皂'; option1.value = 'sp_1_houshanpi'; item.add(option1);
-			option2.text = '後山埤的金針皂'; option2.value = 'sp_2_houshanpi'; item.add(option2);
-			option3.text = '後山埤的釋迦皂'; option3.value = 'sp_3_houshanpi'; item.add(option3);
+			option1.text = '米皂'; option1.value = 'sp_1_houshanpi'; item.add(option1);
+			option2.text = '金針皂'; option2.value = 'sp_2_houshanpi'; item.add(option2);
+			option3.text = '釋迦皂'; option3.value = 'sp_3_houshanpi'; item.add(option3);
 		}
 	}
 	else if (whouse == 'Taitung') {
@@ -603,6 +588,7 @@ function itemclass() {
 			var option6 = document.createElement("option");
 			var option7 = document.createElement("option");
 			var option8 = document.createElement("option");
+			var option9 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '橄欖油'; option1.value = 'oil_1'; item.add(option1);
 			option2.text = '棕梠油'; option2.value = 'oil_2'; item.add(option2);
@@ -612,6 +598,7 @@ function itemclass() {
 			option6.text = '葡萄籽油'; option6.value = 'oil_6'; item.add(option6);
 			option7.text = '苦茶油'; option7.value = 'oil_7'; item.add(option7);
 			option8.text = '蓖麻油'; option8.value = 'oil_8'; item.add(option8);
+			option8.text = '鹼'; option9.value = 'NaOH'; item.add(option9);
 		}
 		else if (itemclass == 'B') {
 			var option0 = document.createElement("option");
@@ -626,7 +613,6 @@ function itemclass() {
 			var option9 = document.createElement("option");
 			var option10 = document.createElement("option");
 			var option11 = document.createElement("option");
-			var option12 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '金針花瓣'; option1.value = 'additive_1'; item.add(option1);
 			option2.text = '釋迦果粉'; option2.value = 'additive_2'; item.add(option2);
@@ -639,43 +625,6 @@ function itemclass() {
 			option9.text = '紅麴粉'; option9.value = 'additive_9'; item.add(option9);
 			option10.text = '洛神花粉'; option10.value = 'additive_10'; item.add(option10);
 			option11.text = '乳油木果脂'; option11.value = 'additive_11'; item.add(option11);
-			option12.text = '鹼'; option12.value = 'NaOH'; item.add(option12);
-		}
-		else if (itemclass == 'C') {
-			var option0 = document.createElement("option");
-			var option1 = document.createElement("option");
-			var option2 = document.createElement("option");
-			var option3 = document.createElement("option");
-			var option4 = document.createElement("option");
-			var option5 = document.createElement("option");
-			var option6 = document.createElement("option");
-			option0.text = '全部'; option0.value = 'all'; item.add(option0);
-			option1.text = '不織布包'; option1.value = 'package_1'; item.add(option1);
-			option2.text = '鋁包'; option2.value = 'package_2'; item.add(option2);
-			option3.text = '大禮盒'; option3.value = 'package_3'; item.add(option3);
-			option4.text = '小禮盒'; option4.value = 'package_4'; item.add(option4);
-			option5.text = '內襯'; option5.value = 'package_5'; item.add(option5);
-			option6.text = '單顆皂外盒'; option6.value = 'package_6'; item.add(option6);
-		}
-		else if (itemclass == 'D') {
-			var option0 = document.createElement("option");
-			var option1 = document.createElement("option");
-			var option2 = document.createElement("option");
-			var option3 = document.createElement("option");
-			var option4 = document.createElement("option");
-			var option5 = document.createElement("option");
-			var option6 = document.createElement("option");
-			var option7 = document.createElement("option");
-			var option8 = document.createElement("option");
-			option0.text = '全部'; option0.value = 'all'; item.add(option0);
-			option1.text = '田靜山巒禾風皂'; option1.value = 'product_sp_1'; item.add(option1);
-			option2.text = '金絲森林渲染皂'; option2.value = 'product_sp_2'; item.add(option2);
-			option3.text = '釋迦手感果力皂'; option3.value = 'product_sp_3'; item.add(option3);
-			option4.text = '三三台東意象禮盒組'; option4.value = 'product_sp_box'; item.add(option4);
-			option5.text = '洛神紅麴旅用皂絲'; option5.value = 'product_ss_1'; item.add(option5);
-			option6.text = '暖暖薑黃旅用皂絲'; option6.value = 'product_ss_2'; item.add(option6);
-			option7.text = '萱草米黃旅用皂絲'; option7.value = 'product_ss_3'; item.add(option7);
-			option8.text = '三三台東意象皂絲旅行組'; option8.value = 'product_ss_box'; item.add(option8);
 		}
 		else if (itemclass == 'E') {
 			var option0 = document.createElement("option");
@@ -701,25 +650,7 @@ function itemclass() {
 		}
 		else if (itemclass == 'F') {
 			var option0 = document.createElement("option");
-			var option1 = document.createElement("option");
-			var option2 = document.createElement("option");
-			var option3 = document.createElement("option");
-			var option4 = document.createElement("option");
-			var option5 = document.createElement("option");
-			var option6 = document.createElement("option");
-			var option7 = document.createElement("option");
-			var option8 = document.createElement("option");
-			var option9 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
-			option1.text = '米皂'; option1.value = 'sp_1'; item.add(option1);
-			option2.text = '金針皂'; option2.value = 'sp_2'; item.add(option2);
-			option3.text = '釋迦皂'; option3.value = 'sp_3'; item.add(option3);
-			option4.text = '洛神皂絲'; option4.value = 'ss_1'; item.add(option4);
-			option5.text = '紅麴皂絲'; option5.value = 'ss_2'; item.add(option5);
-			option6.text = '薑黃皂絲'; option6.value = 'ss_3'; item.add(option6);
-			option7.text = '金針皂絲'; option7.value = 'ss_4'; item.add(option7);
-			option8.text = '紅棕梠皂絲'; option8.value = 'ss_5'; item.add(option8);
-			option9.text = '蕁麻葉皂絲'; option9.value = 'ss_6'; item.add(option9);
 		}
 	}
 }
@@ -759,6 +690,7 @@ function whouse_search() {
 				document.getElementById("whouse_search_content").innerHTML = data.content;
 			}
 			else {
+				document.getElementById("whouse_search_content").innerHTML = null;
 				alert(data.message);
 			}
 		}
@@ -783,22 +715,8 @@ function package() {
 		if (request.readyState === 4 && request.status === 200) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				document.getElementById("result_package_sp_1").innerHTML = data.sp_1;
-				document.getElementById("result_package_sp_2").innerHTML = data.sp_2;
-				document.getElementById("result_package_sp_3").innerHTML = data.sp_3;
-				document.getElementById("result_package_ss_1").innerHTML = data.ss_1;
-				document.getElementById("result_package_ss_2").innerHTML = data.ss_2;
-				document.getElementById("result_package_ss_3").innerHTML = data.ss_3;
-				document.getElementById("result_package_ss_4").innerHTML = data.ss_4;
-				document.getElementById("result_package_ss_5").innerHTML = data.ss_5;
-				document.getElementById("result_package_ss_6").innerHTML = data.ss_6;
-				document.getElementById("result_package_package_1").innerHTML = data.package_1;
-				document.getElementById("result_package_package_2").innerHTML = data.package_2;
-				document.getElementById("result_package_package_3").innerHTML = data.package_3;
-				document.getElementById("result_package_package_4").innerHTML = data.package_4;
-				document.getElementById("result_package_package_5").innerHTML = data.package_5;
-				document.getElementById("result_package_package_6").innerHTML = data.package_6;
-				document.getElementById("package").style.display = 'none';
+				document.getElementById("packageQueryResult").innerHTML = data.query;
+				document.getElementById("packageQuery").style.display = null;
 				document.getElementById("pack").style.display = null;
 			}
 			else {
@@ -828,6 +746,7 @@ function pack() {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				alert("成功包裝");
+				location.reload();
 			}
 			else {
 				alert(data.message);
@@ -870,6 +789,7 @@ function search_index() {
 				document.getElementById("request_search_content").innerHTML = data.content;
 			}
 			else {
+				document.getElementById("request_search_content").innerHTML = null;
 				alert(data.message);
 			}
 		}
@@ -890,6 +810,7 @@ function search_state() {
 				document.getElementById("request_search_content").innerHTML = data.content;
 			}
 			else {
+				document.getElementById("request_search_content").innerHTML = null;
 				alert(data.message);
 			}
 		}
@@ -909,6 +830,7 @@ function view_index_notice(index) {
 				document.getElementById("request_notice_detail").innerHTML = data.content;
 			}
 			else {
+				document.getElementById("request_notice_detail").innerHTML = null;
 				alert(data.message);
 			}
 		}
@@ -928,6 +850,7 @@ function view_index_view(index) {
 				document.getElementById("request_view_detail").innerHTML = data.content;
 			}
 			else {
+				document.getElementById("request_view_detail").innerHTML = null;
 				alert(data.message);
 			}
 		}
@@ -947,6 +870,7 @@ function view_index_search(index) {
 				document.getElementById("request_search_detail").innerHTML = data.content;
 			}
 			else {
+				document.getElementById("request_search_detail").innerHTML = null;
 				alert(data.message);
 			}
 		}
@@ -1061,6 +985,14 @@ function receiver() {
 			document.getElementsByClassName("material_B")[1].style.display = null;
 			document.getElementsByClassName("material_H")[0].style.display = null;
 			document.getElementsByClassName("material_H")[1].style.display = null;
+			if (document.getElementsByClassName("material_C") != null) {
+				document.getElementsByClassName("material_C")[0].style.display = 'none';
+				document.getElementsByClassName("material_C")[1].style.display = 'none';
+				document.getElementsByClassName("material_D")[0].style.display = 'none';
+				document.getElementsByClassName("material_D")[1].style.display = 'none';
+				document.getElementsByClassName("material_E")[0].style.display = 'none';
+				document.getElementsByClassName("material_E")[1].style.display = 'none';
+			}
 			document.getElementById("content").style.display = null;
 		}
 		else if (receiver == 'Taitung') {
@@ -1070,6 +1002,14 @@ function receiver() {
 			document.getElementsByClassName("material_B")[1].style.display = null;
 			document.getElementsByClassName("material_H")[0].style.display = 'none';
 			document.getElementsByClassName("material_H")[1].style.display = 'none';
+			if (document.getElementsByClassName("material_C") != null) {
+				document.getElementsByClassName("material_C")[0].style.display = 'none';
+				document.getElementsByClassName("material_C")[1].style.display = 'none';
+				document.getElementsByClassName("material_D")[0].style.display = 'none';
+				document.getElementsByClassName("material_D")[1].style.display = 'none';
+				document.getElementsByClassName("material_E")[0].style.display = 'none';
+				document.getElementsByClassName("material_E")[1].style.display = 'none';
+			}
 			document.getElementById("content").style.display = null;
 		}
 		else {
@@ -1079,6 +1019,14 @@ function receiver() {
 			document.getElementsByClassName("material_B")[1].style.display = 'none';
 			document.getElementsByClassName("material_H")[0].style.display = 'none';
 			document.getElementsByClassName("material_H")[1].style.display = 'none';
+			if (document.getElementsByClassName("material_C") != null) {
+				document.getElementsByClassName("material_C")[0].style.display = 'none';
+				document.getElementsByClassName("material_C")[1].style.display = 'none';
+				document.getElementsByClassName("material_D")[0].style.display = 'none';
+				document.getElementsByClassName("material_D")[1].style.display = 'none';
+				document.getElementsByClassName("material_E")[0].style.display = 'none';
+				document.getElementsByClassName("material_E")[1].style.display = 'none';
+			}
 			document.getElementById("content").style.display = 'none';
 		}
 	}
@@ -1086,11 +1034,35 @@ function receiver() {
 		if (receiver == 'Beitou') {
 			document.getElementsByClassName("material_E")[0].style.display = null;
 			document.getElementsByClassName("material_E")[1].style.display = null;
+			if (document.getElementsByClassName("material_A") != null) {
+				document.getElementsByClassName("material_A")[0].style.display = 'none';
+				document.getElementsByClassName("material_A")[1].style.display = 'none';
+				document.getElementsByClassName("material_B")[0].style.display = 'none';
+				document.getElementsByClassName("material_B")[1].style.display = 'none';
+				document.getElementsByClassName("material_C")[0].style.display = 'none';
+				document.getElementsByClassName("material_C")[1].style.display = 'none';
+				document.getElementsByClassName("material_D")[0].style.display = 'none';
+				document.getElementsByClassName("material_D")[1].style.display = 'none';
+				document.getElementsByClassName("material_H")[0].style.display = 'none';
+				document.getElementsByClassName("material_H")[1].style.display = 'none';
+			}
 			document.getElementById("content").style.display = null;
 		}
 		else {
 			document.getElementsByClassName("material_E")[0].style.display = 'none';
 			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			if (document.getElementsByClassName("material_A") != null) {
+				document.getElementsByClassName("material_A")[0].style.display = 'none';
+				document.getElementsByClassName("material_A")[1].style.display = 'none';
+				document.getElementsByClassName("material_B")[0].style.display = 'none';
+				document.getElementsByClassName("material_B")[1].style.display = 'none';
+				document.getElementsByClassName("material_C")[0].style.display = 'none';
+				document.getElementsByClassName("material_C")[1].style.display = 'none';
+				document.getElementsByClassName("material_D")[0].style.display = 'none';
+				document.getElementsByClassName("material_D")[1].style.display = 'none';
+				document.getElementsByClassName("material_H")[0].style.display = 'none';
+				document.getElementsByClassName("material_H")[1].style.display = 'none';
+			}
 			document.getElementById("content").style.display = 'none';
 		}
 	}
@@ -1103,103 +1075,107 @@ function send() {
 	var receiver = document.getElementById("receiver").value;
 	var data = "module=request&event=send&sender=" + sender + "&receiver=" + receiver;
 	if (sender == 'Trisoap' || sender == 'Houshanpi') {
-		var oil_1 = document.getElementById("oil_1").value;
+		var oil_1 = document.getElementById("send_oil_1").value;
 		if (oil_1 != null && oil_1 != 0) data = data + "&oil_1=" + oil_1;
-		var oil_2 = document.getElementById("oil_2").value;
+		var oil_2 = document.getElementById("send_oil_2").value;
 		if (oil_2 != null && oil_2 != 0) data = data + "&oil_2=" + oil_2;
-		var oil_3 = document.getElementById("oil_3").value;
+		var oil_3 = document.getElementById("send_oil_3").value;
 		if (oil_3 != null && oil_3 != 0) data = data + "&oil_3=" + oil_3;
-		var oil_4 = document.getElementById("oil_4").value;
+		var oil_4 = document.getElementById("send_oil_4").value;
 		if (oil_4 != null && oil_4 != 0) data = data + "&oil_4=" + oil_4;
-		var oil_5 = document.getElementById("oil_5").value;
+		var oil_5 = document.getElementById("send_oil_5").value;
 		if (oil_5 != null && oil_5 != 0) data = data + "&oil_5=" + oil_5;
-		var oil_6 = document.getElementById("oil_6").value;
+		var oil_6 = document.getElementById("send_oil_6").value;
 		if (oil_6 != null && oil_6 != 0) data = data + "&oil_6=" + oil_6;
-		var oil_7 = document.getElementById("oil_7").value;
+		var oil_7 = document.getElementById("send_oil_7").value;
 		if (oil_7 != null && oil_7 != 0) data = data + "&oil_7=" + oil_7;
-		var oil_8 = document.getElementById("oil_8").value;
+		var oil_8 = document.getElementById("send_oil_8").value;
 		if (oil_8 != null && oil_8 != 0) data = data + "&oil_8=" + oil_8;
-		var NaOH = document.getElementById("NaOH").value;
+		var NaOH = document.getElementById("send_NaOH").value;
 		if (NaOH != null && NaOH != 0) data = data + "&NaOH=" + NaOH;
 	}
 	if (sender == 'Trisoap' || sender == 'Houshanpi') {
-		var additive_1 = document.getElementById("additive_1").value;
+		var additive_1 = document.getElementById("send_additive_1").value;
 		if (additive_1 != null && additive_1 != 0) data = data + "&additive_1=" + additive_1;
-		var additive_2 = document.getElementById("additive_2").value;
+		var additive_2 = document.getElementById("send_additive_2").value;
 		if (additive_2 != null && additive_2 != 0) data = data + "&additive_2=" + additive_2;
-		var additive_3 = document.getElementById("additive_3").value;
+		var additive_3 = document.getElementById("send_additive_3").value;
 		if (additive_3 != null && additive_3 != 0) data = data + "&additive_3=" + additive_3;
-		var additive_4 = document.getElementById("additive_4").value;
+		var additive_4 = document.getElementById("send_additive_4").value;
 		if (additive_4 != null && additive_4 != 0) data = data + "&additive_4=" + additive_4;
-		var additive_5 = document.getElementById("additive_5").value;
+		var additive_5 = document.getElementById("send_additive_5").value;
 		if (additive_5 != null && additive_5 != 0) data = data + "&additive_5=" + additive_5;
-		var additive_6 = document.getElementById("additive_6").value;
+		var additive_6 = document.getElementById("send_additive_6").value;
 		if (additive_6 != null && additive_6 != 0) data = data + "&additive_6=" + additive_6;
-		var additive_7 = document.getElementById("additive_7").value;
+		var additive_7 = document.getElementById("send_additive_7").value;
 		if (additive_7 != null && additive_7 != 0) data = data + "&additive_7=" + additive_7;
-		var additive_8 = document.getElementById("additive_8").value;
+		var additive_8 = document.getElementById("send_additive_8").value;
 		if (additive_8 != null && additive_8 != 0) data = data + "&additive_8=" + additive_8;
-		var additive_9 = document.getElementById("additive_9").value;
+		var additive_9 = document.getElementById("send_additive_9").value;
 		if (additive_9 != null && additive_9 != 0) data = data + "&additive_9=" + additive_9;
-		var additive_10 = document.getElementById("additive_10").value;
+		var additive_10 = document.getElementById("send_additive_10").value;
 		if (additive_10 != null && additive_10 != 0) data = data + "&additive_10=" + additive_10;
-		var additive_11 = document.getElementById("additive_11").value;
+		var additive_11 = document.getElementById("send_additive_11").value;
 		if (additive_11 != null && additive_11 != 0) data = data + "&additive_11=" + additive_11;
 	}
 	if (sender == 'Trisoap') {
-		var package_1 = document.getElementById("package_1").value;
+		var package_1 = document.getElementById("send_package_1").value;
 		if (package_1 != null && package_1 != 0) data = data + "&package_1=" + package_1;
-		var package_2 = document.getElementById("package_2").value;
+		var package_2 = document.getElementById("send_package_2").value;
 		if (package_2 != null && package_2 != 0) data = data + "&package_2=" + package_2;
-		var package_3 = document.getElementById("package_3").value;
+		var package_3 = document.getElementById("send_package_3").value;
 		if (package_3 != null && package_3 != 0) data = data + "&package_3=" + package_3;
-		var package_4 = document.getElementById("package_4").value;
+		var package_4 = document.getElementById("send_package_4").value;
 		if (package_4 != null && package_4 != 0) data = data + "&package_4=" + package_4;
-		var package_5 = document.getElementById("package_5").value;
+		var package_5 = document.getElementById("send_package_5").value;
 		if (package_5 != null && package_5 != 0) data = data + "&package_5=" + package_5;
-		var package_6 = document.getElementById("package_6").value;
+		var package_6 = document.getElementById("send_package_6").value;
 		if (package_6 != null && package_6 != 0) data = data + "&package_6=" + package_6;
 	}
 	if (sender == 'Trisoap' || sender == 'Beitou') {
-		var product_sp_1 = document.getElementById("product_sp_1").value;
+		var product_sp_1 = document.getElementById("send_product_sp_1").value;
 		if (product_sp_1 != null && product_sp_1 != 0) data = data + "&product_sp_1=" + product_sp_1;
-		var product_sp_2 = document.getElementById("product_sp_2").value;
+		var product_sp_2 = document.getElementById("send_product_sp_2").value;
 		if (product_sp_2 != null && product_sp_2 != 0) data = data + "&product_sp_2=" + product_sp_2;
-		var product_sp_3 = document.getElementById("product_sp_3").value;
+		var product_sp_3 = document.getElementById("send_product_sp_3").value;
 		if (product_sp_3 != null && product_sp_3 != 0) data = data + "&product_sp_3=" + product_sp_3;
-		var product_ss_1 = document.getElementById("product_ss_1").value;
+		var product_sp_box = document.getElementById("send_product_sp_box").value;
+		if (product_sp_box != null && product_sp_box != 0) data = data + "&product_sp_box=" + product_sp_box;
+		var product_ss_1 = document.getElementById("send_product_ss_1").value;
 		if (product_ss_1 != null && product_ss_1 != 0) data = data + "&product_ss_1=" + product_ss_1;
-		var product_ss_2 = document.getElementById("product_ss_2").value;
+		var product_ss_2 = document.getElementById("send_product_ss_2").value;
 		if (product_ss_2 != null && product_ss_2 != 0) data = data + "&product_ss_2=" + product_ss_2;
-		var product_ss_3 = document.getElementById("product_ss_3").value;
+		var product_ss_3 = document.getElementById("send_product_ss_3").value;
 		if (product_ss_3 != null && product_ss_3 != 0) data = data + "&product_ss_3=" + product_ss_3;
+		var product_ss_box = document.getElementById("send_product_ss_box").value;
+		if (product_ss_box != null && product_ss_box != 0) data = data + "&product_ss_box=" + product_ss_box;
 	}
 	if (sender == 'Trisoap' || sender == 'Taitung') {
-		var sp_1 = document.getElementById("sp_1").value;
+		var sp_1 = document.getElementById("send_sp_1").value;
 		if (sp_1 != null && sp_1 != 0) data = data + "&sp_1=" + sp_1;
-		var sp_2 = document.getElementById("sp_2").value;
+		var sp_2 = document.getElementById("send_sp_2").value;
 		if (sp_2 != null && sp_2 != 0) data = data + "&sp_2=" + sp_2;
-		var sp_3 = document.getElementById("sp_3").value;
+		var sp_3 = document.getElementById("send_sp_3").value;
 		if (sp_3 != null && sp_3 != 0) data = data + "&sp_3=" + sp_3;
-		var ss_1 = document.getElementById("ss_1").value;
+		var ss_1 = document.getElementById("send_ss_1").value;
 		if (ss_1 != null && ss_1 != 0) data = data + "&ss_1=" + ss_1;
-		var ss_2 = document.getElementById("ss_2").value;
+		var ss_2 = document.getElementById("send_ss_2").value;
 		if (ss_2 != null && ss_2 != 0) data = data + "&ss_2=" + ss_2;
-		var ss_3 = document.getElementById("ss_3").value;
+		var ss_3 = document.getElementById("send_ss_3").value;
 		if (ss_3 != null && ss_3 != 0) data = data + "&ss_3=" + ss_3;
-		var ss_4 = document.getElementById("ss_4").value;
+		var ss_4 = document.getElementById("send_ss_4").value;
 		if (ss_4 != null && ss_4 != 0) data = data + "&ss_4=" + ss_4;
-		var ss_5 = document.getElementById("ss_5").value;
+		var ss_5 = document.getElementById("send_ss_5").value;
 		if (ss_5 != null && ss_5 != 0) data = data + "&ss_5=" + ss_5;
-		var ss_6 = document.getElementById("ss_6").value;
+		var ss_6 = document.getElementById("send_ss_6").value;
 		if (ss_6 != null && ss_6 != 0) data = data + "&ss_6=" + ss_6;
 	}
 	if (sender == 'Trisoap' || sender == 'Houshanpi') {
-		var sp_1_houshanpi = document.getElementById("sp_1_houshanpi").value;
+		var sp_1_houshanpi = document.getElementById("send_sp_1_houshanpi").value;
 		if (sp_1_houshanpi != null && sp_1_houshanpi != 0) data = data + "&sp_1_houshanpi=" + sp_1_houshanpi;
-		var sp_2_houshanpi = document.getElementById("sp_2_houshanpi").value;
+		var sp_2_houshanpi = document.getElementById("send_sp_2_houshanpi").value;
 		if (sp_2_houshanpi != null && sp_2_houshanpi != 0) data = data + "&sp_2_houshanpi=" + sp_2_houshanpi;
-		var sp_3_houshanpi = document.getElementById("sp_3_houshanpi").value;
+		var sp_3_houshanpi = document.getElementById("send_sp_3_houshanpi").value;
 		if (sp_3_houshanpi != null && sp_3_houshanpi != 0) data = data + "&sp_3_houshanpi=" + sp_3_houshanpi;
 	}
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -1250,6 +1226,7 @@ function search_account() {
 				document.getElementById("member_search_content").innerHTML = data.content;
 			}
 			else {
+				document.getElementById("member_search_content").innerHTML = null;
 				alert(data.message);
 			}
 		}
@@ -1270,6 +1247,7 @@ function search_auth() {
 				document.getElementById("member_search_content").innerHTML = data.content;
 			}
 			else {
+				document.getElementById("member_search_content").innerHTML = null;
 				alert(data.message);
 			}
 		}
@@ -1328,7 +1306,9 @@ function accept(index) {
 			if (data.message == 'Success') {
 				alert("成功確認");
 				request_notice();
-				document.getElementById("request_notice_detail").innerHTML = '';
+				document.getElementById("request_notice_detail").innerHTML = null;
+				document.getElementById("request_view_detail").innerHTML = null;
+				document.getElementById("request_search_detail").innerHTML = null;
 			}
 			else {
 				alert(data.message);
@@ -1349,7 +1329,9 @@ function reject(index) {
 			if (data.message == 'Success') {
 				alert("成功拒絕");
 				request_notice();
-				document.getElementById("request_notice_detail").innerHTML = '';
+				document.getElementById("request_notice_detail").innerHTML = null;
+				document.getElementById("request_view_detail").innerHTML = null;
+				document.getElementById("request_search_detail").innerHTML = null;
 			}
 			else {
 				alert(data.message);

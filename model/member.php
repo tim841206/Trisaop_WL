@@ -312,7 +312,6 @@ function logon($account, $name, $password1, $password2, $authority) {
 
 function change_password($account, $token, $ori_password, $new_password1, $new_password2) {
 	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
-	$fetch = mysql_fetch_array($sql1);
 	if (empty($account)) {
 		return 'Empty account';
 	}
@@ -526,7 +525,7 @@ function notice($account, $token) {
 			else {
 				$content = '';
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= $fetch2['NAME'] . ' 請求獲得 ' . transfer($fetch2['AUTHORITY']) . ' 的授權。<button onclick="auth('.$fetch2['ACCOUNT'].')">授權</button></td><td><button onclick="release('.$fetch2['ACCOUNT'].')">拒絕</button><br>';
+					$content .= $fetch2['NAME'] . ' 請求獲得 ' . transfer($fetch2['AUTHORITY']) . ' 的授權。<button onclick="auth('.$fetch2['ACCOUNT'].')">授權</button><button onclick="release('.$fetch2['ACCOUNT'].')">拒絕</button><br>';
 				}
 				return array('message' => 'Success', 'content' => $content);
 			}

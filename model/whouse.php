@@ -355,16 +355,16 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 			return 'Wrong token';
 		}
 		else {
-			if ($fetch1['AUTHORITY'] == 'B' && $whouseno != 'B') {
+			if ($fetch1['AUTHORITY'] == 'B' && $whouseno != 'Beitou') {
 				return 'No authority';
 			}
-			elseif ($fetch1['AUTHORITY'] == 'C' && $whouseno != 'C') {
+			elseif ($fetch1['AUTHORITY'] == 'C' && $whouseno != 'Houshanpi') {
 				return 'No authority';
 			}
-			elseif ($fetch1['AUTHORITY'] == 'D' && $whouseno != 'D') {
+			elseif ($fetch1['AUTHORITY'] == 'D' && $whouseno != 'Taitung') {
 				return 'No authority';
 			}
-			elseif ($fetch1['AUTHORITY'] == 'E' && ($whouseno == 'C' || $itemclass == 'H' || in_array($itemno, array('sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi')))) {
+			elseif ($fetch1['AUTHORITY'] == 'E' && ($whouseno == 'Houshanpi' || $itemclass == 'H' || in_array($itemno, array('sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi')))) {
 				return 'No authority';
 			}
 			else {
@@ -385,8 +385,15 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 				}
 				else {
 					$content = '<table><tr><th>倉庫</th><th>名稱</th><th>數量</th></tr>';
-					while ($fetch2 = mysql_fetch_array($sql2)) {
-						$content .= ('<tr><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>');
+					if ($fetch1['AUTHORITY'] == 'C') {
+						while ($fetch2 = mysql_fetch_array($sql2)) {
+							$content .= ('<tr><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.str_replace('後山埤的', '', $fetch2['ITEMNM']).'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>');
+						}
+					}
+					else {
+						while ($fetch2 = mysql_fetch_array($sql2)) {
+							$content .= ('<tr><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>');
+						}
 					}
 					$content .= '</table>';
 					return array('message' => 'Success', 'content' => $content);
@@ -759,13 +766,13 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_positiveInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$NO'";
 						if (!mysql_query($sql2)) {
 							return 'Wrong index';
 						}
 					}
 					elseif ($AMT == 0) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date', ACTCODE='0' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date', ACTCODE='0' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$NO'";
 						if (!mysql_query($sql2)) {
 							return 'Wrong index';
 						}
@@ -780,7 +787,7 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$NO'";
 						if (!mysql_query($sql2)) {
 							return 'Wrong index';
 						}
@@ -800,7 +807,7 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
 						if (!mysql_query($sql2)) {
 							return 'Wrong index';
 						}
@@ -815,7 +822,7 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
 						if (!mysql_query($sql2)) {
 							return 'Wrong index';
 						}
@@ -830,7 +837,7 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
 						if (!mysql_query($sql2)) {
 							return 'Wrong index';
 						}
@@ -845,13 +852,13 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_positiveInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
 						if (!mysql_query($sql2)) {
 							return 'Wrong index';
 						}
 					}
 					elseif ($AMT == 0) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date', ACTCODE='0' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date', ACTCODE='0' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
 						if (!mysql_query($sql2)) {
 							return 'Wrong index';
 						}
@@ -903,7 +910,7 @@ function mature($account, $token) {
 					if ($difference >= $matureDay) {
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$processedITEMNO'");
-						$content .= $fetch2['ITEMNM'] . ' 已熟成。';
+						$content .= $fetch2['ITEMNM'] . ' 已熟成。<br>';
 					}
 				}
 			}
@@ -917,7 +924,7 @@ function mature($account, $token) {
 					if ($difference >= $matureDay) {
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$ITEMNO'");
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$processedITEMNO'");
-						$content .= $fetch2['ITEMNM'] . ' 已熟成。';
+						$content .= $fetch2['ITEMNM'] . ' 已熟成。<br>';
 					}
 				}
 			}
@@ -931,7 +938,7 @@ function mature($account, $token) {
 					if ($difference >= $matureDay) {
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$ITEMNO'");
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$processedITEMNO'");
-						$content .= $fetch2['ITEMNM'] . ' 已熟成。';
+						$content .= $fetch2['ITEMNM'] . ' 已熟成。<br>';
 					}
 				}
 			}
