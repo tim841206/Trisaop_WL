@@ -244,7 +244,7 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 				echo curl_post($post, $_POST['module']);
 			}
 			else {
-				echo json_encode(array('message' => $_POST['event']));
+				echo json_encode(array('message' => 'Invalid event called'));
 			}
 		}
 		elseif ($_POST['module'] == 'whouse') {

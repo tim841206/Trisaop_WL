@@ -760,23 +760,23 @@ function querySearchTable($query, $authority) {
 }
 
 function queryPackageTable($query) {
-		$queryResult = '<table><tr><th>原料</th><th>所需數量</th><th>庫存數量</th></tr>';
-		if ($query['sp_1'] != 0) $queryResult .= '<tr><td>米皂</td><td>'.$query['sp_1'].'</td><td>'.inventory('Beitou', 'sp_1').'</td></tr>';
-		if ($query['sp_2'] != 0) $queryResult .= '<tr><td>金針皂</td><td>'.$query['sp_2'].'</td><td>'.inventory('Beitou', 'sp_2').'</td></tr>';
-		if ($query['sp_3'] != 0) $queryResult .= '<tr><td>釋迦皂</td><td>'.$query['sp_3'].'</td><td>'.inventory('Beitou', 'sp_3').'</td></tr>';
-		if ($query['ss_1'] != 0) $queryResult .= '<tr><td>洛神皂絲</td><td>'.$query['ss_1'].'</td><td>'.inventory('Beitou', 'ss_1').'</td></tr>';
-		if ($query['ss_2'] != 0) $queryResult .= '<tr><td>紅麴皂絲</td><td>'.$query['ss_2'].'</td><td>'.inventory('Beitou', 'ss_2').'</td></tr>';
-		if ($query['ss_3'] != 0) $queryResult .= '<tr><td>薑黃皂絲</td><td>'.$query['ss_3'].'</td><td>'.inventory('Beitou', 'ss_3').'</td></tr>';
-		if ($query['ss_4'] != 0) $queryResult .= '<tr><td>金針皂絲</td><td>'.$query['ss_4'].'</td><td>'.inventory('Beitou', 'ss_4').'</td></tr>';
-		if ($query['ss_5'] != 0) $queryResult .= '<tr><td>紅棕梠皂絲</td><td>'.$query['ss_5'].'</td><td>'.inventory('Beitou', 'ss_5').'</td></tr>';
-		if ($query['ss_6'] != 0) $queryResult .= '<tr><td>蕁麻葉皂絲</td><td>'.$query['NaOH'].'</td><td>'.inventory('Beitou', 'ss_6').'</td></tr>';
-		if ($query['package_1'] != 0) $queryResult .= '<tr><td>不織布包</td><td>'.$query['package_1'].'</td><td>'.inventory('Beitou', 'package_1').'</td></tr>';
-		if ($query['package_2'] != 0) $queryResult .= '<tr><td>鋁包</td><td>'.$query['package_2'].'</td><td>'.inventory('Beitou', 'package_2').'</td></tr>';
-		if ($query['package_3'] != 0) $queryResult .= '<tr><td>大禮盒</td><td>'.$query['package_3'].'</td><td>'.inventory('Beitou', 'package_3').'</td></tr>';
-		if ($query['package_4'] != 0) $queryResult .= '<tr><td>小禮盒</td><td>'.$query['package_4'].'</td><td>'.inventory('Beitou', 'package_4').'</td></tr>';
-		if ($query['package_5'] != 0) $queryResult .= '<tr><td>內襯</td><td>'.$query['package_5'].'</td><td>'.inventory('Beitou', 'package_5').'</td></tr>';
-		if ($query['package_6'] != 0) $queryResult .= '<tr><td>單顆皂外盒</td><td>'.$query['package_6'].'</td><td>'.inventory('Beitou', 'package_6').'</td></tr>';
-		$queryResult .= '</table>';
+	$queryResult = '<table><tr><th>原料</th><th>所需數量</th><th>庫存數量</th></tr>';
+	if ($query['sp_1'] != 0) $queryResult .= '<tr><td>米皂</td><td>'.$query['sp_1'].'</td><td>'.inventory('Beitou', 'sp_1').'</td></tr>';
+	if ($query['sp_2'] != 0) $queryResult .= '<tr><td>金針皂</td><td>'.$query['sp_2'].'</td><td>'.inventory('Beitou', 'sp_2').'</td></tr>';
+	if ($query['sp_3'] != 0) $queryResult .= '<tr><td>釋迦皂</td><td>'.$query['sp_3'].'</td><td>'.inventory('Beitou', 'sp_3').'</td></tr>';
+	if ($query['ss_1'] != 0) $queryResult .= '<tr><td>洛神皂絲</td><td>'.$query['ss_1'].'</td><td>'.inventory('Beitou', 'ss_1').'</td></tr>';
+	if ($query['ss_2'] != 0) $queryResult .= '<tr><td>紅麴皂絲</td><td>'.$query['ss_2'].'</td><td>'.inventory('Beitou', 'ss_2').'</td></tr>';
+	if ($query['ss_3'] != 0) $queryResult .= '<tr><td>薑黃皂絲</td><td>'.$query['ss_3'].'</td><td>'.inventory('Beitou', 'ss_3').'</td></tr>';
+	if ($query['ss_4'] != 0) $queryResult .= '<tr><td>金針皂絲</td><td>'.$query['ss_4'].'</td><td>'.inventory('Beitou', 'ss_4').'</td></tr>';
+	if ($query['ss_5'] != 0) $queryResult .= '<tr><td>紅棕梠皂絲</td><td>'.$query['ss_5'].'</td><td>'.inventory('Beitou', 'ss_5').'</td></tr>';
+	if ($query['ss_6'] != 0) $queryResult .= '<tr><td>蕁麻葉皂絲</td><td>'.$query['NaOH'].'</td><td>'.inventory('Beitou', 'ss_6').'</td></tr>';
+	if ($query['package_1'] != 0) $queryResult .= '<tr><td>不織布包</td><td>'.$query['package_1'].'</td><td>'.inventory('Beitou', 'package_1').'</td></tr>';
+	if ($query['package_2'] != 0) $queryResult .= '<tr><td>鋁包</td><td>'.$query['package_2'].'</td><td>'.inventory('Beitou', 'package_2').'</td></tr>';
+	if ($query['package_3'] != 0) $queryResult .= '<tr><td>大禮盒</td><td>'.$query['package_3'].'</td><td>'.inventory('Beitou', 'package_3').'</td></tr>';
+	if ($query['package_4'] != 0) $queryResult .= '<tr><td>小禮盒</td><td>'.$query['package_4'].'</td><td>'.inventory('Beitou', 'package_4').'</td></tr>';
+	if ($query['package_5'] != 0) $queryResult .= '<tr><td>內襯</td><td>'.$query['package_5'].'</td><td>'.inventory('Beitou', 'package_5').'</td></tr>';
+	if ($query['package_6'] != 0) $queryResult .= '<tr><td>單顆皂外盒</td><td>'.$query['package_6'].'</td><td>'.inventory('Beitou', 'package_6').'</td></tr>';
+	$queryResult .= '</table>';
 	return $queryResult;
 }
 
