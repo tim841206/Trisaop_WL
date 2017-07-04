@@ -38,7 +38,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		}
 		elseif ($_GET['event'] == 'adjust') {
 			$message = adjust($_GET);
-			echo json_encode(array('message' => $message));
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'check' => $message['check']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_POST['event'] == 'adjust_checked') {
+			$message = adjust_checked($_GET);
+			echo json_encode($message);
 			return;
 		}
 		elseif ($_GET['event'] == 'mature') {
@@ -100,7 +111,18 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		elseif ($_POST['event'] == 'adjust') {
 			$message = adjust($_POST);
-			echo json_encode(array('message' => $message));
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'check' => $message['check']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_POST['event'] == 'adjust_checked') {
+			$message = adjust_checked($_POST);
+			echo json_encode($message);
 			return;
 		}
 		elseif ($_POST['event'] == 'mature') {
@@ -155,7 +177,7 @@ function view($account, $token) {
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td><td>'.$fetch3['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th></tr>';
@@ -163,19 +185,19 @@ function view($account, $token) {
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td><td>'.$fetch3['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th></tr>';
@@ -183,13 +205,13 @@ function view($account, $token) {
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td><td>'.$fetch3['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>製作地點</th><th>存量</th></tr>';
+				$content .= '<td><table class="table_content"><tr><th>名稱</th><th>製作地點</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE ITEMCLASS='F' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>後山埤存量</th></tr>';
@@ -197,7 +219,7 @@ function view($account, $token) {
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td><td>'.$fetch3['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td></tr></table>';
 			}
@@ -206,43 +228,43 @@ function view($account, $token) {
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
+				$content .= '<td><table class="table_content"><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='F' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td></tr></table>';
 			}
@@ -251,13 +273,13 @@ function view($account, $token) {
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.str_replace('後山埤的', '', $fetch2['ITEMNM']).'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.str_replace('後山埤的', '', $fetch2['ITEMNM']).'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
+				$content .= '<td><table class="table_content"><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ITEMCLASS='F' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.str_replace('後山埤的', '', $fetch2['ITEMNM']).'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.str_replace('後山埤的', '', $fetch2['ITEMNM']).'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td></tr></table>';
 			}
@@ -266,25 +288,25 @@ function view($account, $token) {
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
+				$content .= '<td><table class="table_content"><tr><th>名稱</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='F' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td></tr></table>';
 			}
@@ -295,7 +317,7 @@ function view($account, $token) {
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td><td>'.$fetch3['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th></tr>';
@@ -303,19 +325,19 @@ function view($account, $token) {
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td><td>'.$fetch3['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th></tr>';
@@ -323,13 +345,13 @@ function view($account, $token) {
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td><td>'.$fetch3['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>製作地點</th><th>存量</th></tr>';
+				$content .= '<td><table class="table_content"><tr><th>名稱</th><th>製作地點</th><th>存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE (WHOUSENO='Beitou' OR WHOUSENO='Taitung') AND ITEMCLASS='F' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td></tr></table>';
 			}
@@ -387,12 +409,12 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 					$content = '<table><tr><th>倉庫</th><th>名稱</th><th>數量</th></tr>';
 					if ($fetch1['AUTHORITY'] == 'C') {
 						while ($fetch2 = mysql_fetch_array($sql2)) {
-							$content .= ('<tr><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.str_replace('後山埤的', '', $fetch2['ITEMNM']).'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>');
+							$content .= ('<tr><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.str_replace('後山埤的', '', $fetch2['ITEMNM']).'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>');
 						}
 					}
 					else {
 						while ($fetch2 = mysql_fetch_array($sql2)) {
-							$content .= ('<tr><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.$fetch2['ITEMNM'].'</td><td>'.$fetch2['TOTALAMT'].'</td></tr>');
+							$content .= ('<tr><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>');
 						}
 					}
 					$content .= '</table>';
@@ -423,16 +445,16 @@ function adjust_search($account, $token, $whouseno) {
 			return 'No authority';
 		}
 		else {
+			$inventory = array();
+			$f_class_no = array();
+			$f_class_nm = array();
 			if ($whouseno == 'Beitou') {
-				$inventory = array();
-				$f_class_no = array();
-				$f_class_nm = array();
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					if ($fetch2['ITEMCLASS'] == 'F') {
 						$f_class_no[$ITEMNO] = $fetch2['TOTALAMT'];
-						$f_class_no[$ITEMNO] = $fetch2['ITEMNM'];
+						$f_class_nm[$ITEMNO] = $fetch2['ITEMNM'];
 					}
 					else {
 						$inventory[$ITEMNO] = $fetch2['TOTALAMT'];
@@ -472,7 +494,9 @@ function adjust_search($account, $token, $whouseno) {
 								<tr><td>大禮盒</td><td><input type="text" class="adjust_C" id="adjust_package_3" value="'.$inventory['package_3'].'"></td></tr>
 								<tr><td>小禮盒</td><td><input type="text" class="adjust_C" id="adjust_package_4" value="'.$inventory['package_4'].'"></td></tr>
 								<tr><td>內襯</td><td><input type="text" class="adjust_C" id="adjust_package_5" value="'.$inventory['package_5'].'"></td></tr>
-								<tr><td>單顆皂外盒</td><td><input type="text" class="adjust_C" id="adjust_package_6" value="'.$inventory['package_6'].'"></td></tr>
+								<tr><td>米皂外盒</td><td><input type="text" class="adjust_C" id="adjust_package_6" value="'.$inventory['package_6'].'"></td></tr>
+								<tr><td>金針皂外盒</td><td><input type="text" class="adjust_C" id="adjust_package_7" value="'.$inventory['package_7'].'"></td></tr>
+								<tr><td>釋迦皂外盒</td><td><input type="text" class="adjust_C" id="adjust_package_8" value="'.$inventory['package_8'].'"></td></tr>
 							</table></td>
 							<td><table>
 								<tr><th colspan="2">商品</th></tr>
@@ -499,10 +523,13 @@ function adjust_search($account, $token, $whouseno) {
 							</table></td>
 							<td><table>
 								<tr><th colspan="2">半成品</th></tr>';
-				for ($i = 0; $i < count($f_class_no); $i++) {
-					$ITEMNO = array_keys($f_class_no)[$i];
-					$ITEMNM = $f_class_nm[$i];
-					$content .= '<tr><td>'.$f_class_nm[$i].'</td><td><input type="text" class="adjust_F" id="adjust_'.$ITEMNO.'" value="'.$f_class_no[$i].'"></td></tr>';
+				$NO = array_keys($f_class_no);
+				$itr_time = count($f_class_no);
+				for ($i = 0; $i < $itr_time; $i++) {
+					$ITEMNO = array_pop($NO);
+					$ITEMNM = array_pop($f_class_nm);
+					$ITEMAMT = array_pop($f_class_no);
+					$content .= '<tr><td>'.$ITEMNM.'</td><td><input type="text" class="adjust_F" id="adjust_'.$ITEMNO.'" value="'.$ITEMAMT.'"></td></tr>';
 				}
 				$content .= '</table></td>
 							<td><table>
@@ -515,15 +542,12 @@ function adjust_search($account, $token, $whouseno) {
 				return array('message' => 'Success', 'content' => $content);
 			}
 			elseif ($whouseno == 'Houshanpi') {
-				$inventory = array();
-				$f_class_no = array();
-				$f_class_nm = array();
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					if ($fetch2['ITEMCLASS'] == 'F') {
 						$f_class_no[$ITEMNO] = $fetch2['TOTALAMT'];
-						$f_class_no[$ITEMNO] = $fetch2['ITEMNM'];
+						$f_class_nm[$ITEMNO] = $fetch2['ITEMNM'];
 					}
 					else {
 						$inventory[$ITEMNO] = $fetch2['TOTALAMT'];
@@ -532,10 +556,13 @@ function adjust_search($account, $token, $whouseno) {
 				$content = '<table><tr>
 							<td><table>
 								<tr><th colspan="2">半成品</th></tr>';
-				for ($i = 0; $i < count($f_class_no); $i++) {
-					$ITEMNO = array_keys($f_class_no)[$i];
-					$ITEMNM = $f_class_nm[$i];
-					$content .= '<tr><td>'.$f_class_nm[$i].'</td><td><input type="text" class="adjust_F" id="adjust_'.$ITEMNO.'" value="'.$f_class_no[$i].'"></td></tr>';
+				$NO = array_keys($f_class_no);
+				$itr_time = count($f_class_no);
+				for ($i = 0; $i < $itr_time; $i++) {
+					$ITEMNO = array_pop($NO);
+					$ITEMNM = array_pop($f_class_nm);
+					$ITEMAMT = array_pop($f_class_no);
+					$content .= '<tr><td>'.$ITEMNM.'</td><td><input type="text" class="adjust_F" id="adjust_'.$ITEMNO.'" value="'.$ITEMAMT.'"></td></tr>';
 				}
 				$content .= '</table></td>
 							<td><table>
@@ -548,15 +575,12 @@ function adjust_search($account, $token, $whouseno) {
 				return array('message' => 'Success', 'content' => $content);
 			}
 			elseif ($whouseno == 'Taitung') {
-				$inventory = array();
-				$f_class_no = array();
-				$f_class_nm = array();
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					if ($fetch2['ITEMCLASS'] == 'F') {
 						$f_class_no[$ITEMNO] = $fetch2['TOTALAMT'];
-						$f_class_no[$ITEMNO] = $fetch2['ITEMNM'];
+						$f_class_nm[$ITEMNO] = $fetch2['ITEMNM'];
 					}
 					else {
 						$inventory[$ITEMNO] = $fetch2['TOTALAMT'];
@@ -603,10 +627,13 @@ function adjust_search($account, $token, $whouseno) {
 							</table></td>
 							<td><table>
 								<tr><th colspan="2">半成品</th></tr>';
-				for ($i = 0; $i < count($f_class_no); $i++) {
-					$ITEMNO = array_keys($f_class_no)[$i];
-					$ITEMNM = $f_class_nm[$i];
-					$content .= '<tr><td>'.$f_class_nm[$i].'</td><td><input type="text" class="adjust_F" id="adjust_'.$ITEMNO.'" value="'.$f_class_no[$i].'"></td></tr>';
+				$NO = array_keys($f_class_no);
+				$itr_time = count($f_class_no);
+				for ($i = 0; $i < $itr_time; $i++) {
+					$ITEMNO = array_pop($NO);
+					$ITEMNM = array_pop($f_class_nm);
+					$ITEMAMT = array_pop($f_class_no);
+					$content .= '<tr><td>'.$ITEMNM.'</td><td><input type="text" class="adjust_F" id="adjust_'.$ITEMNO.'" value="'.$ITEMAMT.'"></td></tr>';
 				}
 				$content .= '</table></td>
 							</tr></table>';
@@ -641,6 +668,7 @@ function adjust($content) {
 			return 'No authority';
 		}
 		else {
+			$message = '';
 			if ($content['whouseno'] == 'Beitou') {
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
@@ -650,9 +678,10 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
 						}
 					}
 					else {
@@ -665,9 +694,10 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
 						}
 					}
 					else {
@@ -680,9 +710,10 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
 						}
 					}
 					else {
@@ -695,9 +726,10 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
 						}
 					}
 					else {
@@ -710,9 +742,273 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				$ITEMNO = explode(',', $content['adjust_F_no']);
+				$TOTALAMT = explode(',', $content['adjust_F_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				$ITEMNO = explode(',', $content['adjust_H_no']);
+				$TOTALAMT = explode(',', $content['adjust_H_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				return array('message' => 'Success', 'check' => $message);
+			}
+			elseif ($content['whouseno'] == 'Houshanpi') {
+				date_default_timezone_set('Asia/Taipei');
+				$date = date("Y-m-d H:i:s");
+				$ITEMNO = explode(',', $content['adjust_F_no']);
+				$TOTALAMT = explode(',', $content['adjust_F_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				$ITEMNO = explode(',', $content['adjust_H_no']);
+				$TOTALAMT = explode(',', $content['adjust_H_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				return array('message' => 'Success', 'check' => $message);
+			}
+			elseif ($content['whouseno'] == 'Taitung') {
+				date_default_timezone_set('Asia/Taipei');
+				$date = date("Y-m-d H:i:s");
+				$ITEMNO = explode(',', $content['adjust_A_no']);
+				$TOTALAMT = explode(',', $content['adjust_A_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				$ITEMNO = explode(',', $content['adjust_B_no']);
+				$TOTALAMT = explode(',', $content['adjust_B_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				$ITEMNO = explode(',', $content['adjust_E_no']);
+				$TOTALAMT = explode(',', $content['adjust_E_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				$ITEMNO = explode(',', $content['adjust_F_no']);
+				$TOTALAMT = explode(',', $content['adjust_F_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				return array('message' => 'Success', 'check' => $message);
+			}
+			else {
+				return 'Wrong warehouse number';
+			}
+		}
+	}
+}
+
+function adjust_checked($content) {
+	$account = $content['account'];
+	$token = $content['token'];
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Not logged in';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		elseif ($fetch1['AUTHORITY'] != 'A') {
+			return 'No authority';
+		}
+		else {
+			$message = '';
+			if ($content['whouseno'] == 'Beitou') {
+				date_default_timezone_set('Asia/Taipei');
+				$date = date("Y-m-d H:i:s");
+				$ITEMNO = explode(',', $content['adjust_A_no']);
+				$TOTALAMT = explode(',', $content['adjust_A_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				$ITEMNO = explode(',', $content['adjust_B_no']);
+				$TOTALAMT = explode(',', $content['adjust_B_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				$ITEMNO = explode(',', $content['adjust_C_no']);
+				$TOTALAMT = explode(',', $content['adjust_C_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				$ITEMNO = explode(',', $content['adjust_D_no']);
+				$TOTALAMT = explode(',', $content['adjust_D_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				$ITEMNO = explode(',', $content['adjust_E_no']);
+				$TOTALAMT = explode(',', $content['adjust_E_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
 						}
 					}
 					else {
@@ -725,9 +1021,12 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_positiveInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
 						}
 					}
 					elseif ($AMT == 0) {
@@ -746,9 +1045,12 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
 						}
 					}
 					else {
@@ -766,9 +1068,12 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_positiveInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
 						}
 					}
 					elseif ($AMT == 0) {
@@ -787,9 +1092,12 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
 						}
 					}
 					else {
@@ -807,9 +1115,12 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
 						}
 					}
 					else {
@@ -822,9 +1133,12 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
 						}
 					}
 					else {
@@ -837,9 +1151,12 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
 						}
 					}
 					else {
@@ -852,9 +1169,12 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_positiveInt($AMT)) {
-						$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
-						if (!mysql_query($sql2)) {
-							return 'Wrong index';
+						$ORIGINAMT = inventory('Beitou', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
 						}
 					}
 					elseif ($AMT == 0) {
@@ -975,4 +1295,21 @@ function is_positiveInt($value) {
 	else {
 		return false;
 	}
+}
+
+function inventory($whouse, $item) {
+	$sqlQuery = mysql_query("SELECT TOTALAMT FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$item' AND ACTCODE='1'");
+	if ($sqlQuery == false) {
+		return 0;
+	}
+	else {
+		$sqlFetch = mysql_fetch_row($sqlQuery);
+		return $sqlFetch[0];
+	}
+}
+
+function query_name($itemno) {
+	$sql = mysql_query("SELECT ITEMNM FROM ITEMMAS WHERE ITEMNO='$itemno'");
+	$fetch = mysql_fetch_row($sql);
+	return $fetch[0];
 }

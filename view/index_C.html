@@ -48,17 +48,18 @@
 						<h3>製皂內容</h3>
 						<table>
 							<tr><th>產品</th><th>單位</th><th></th><th>數量</th></tr>
-							<tr><td>米皂</td><td><input type="number" id="calculate_sp_1" value="0" min="0" onchange="document.getElementById('result_calculate_sp_1').innerHTML = this.value*10"></td><td>x 10 =</td><td id="result_calculate_sp_1">0</td></tr>
-							<tr><td>金針皂</td><td><input type="number" id="calculate_sp_2" value="0" min="0" onchange="document.getElementById('result_calculate_sp_2').innerHTML = this.value*10"></td><td>x 10 =</td><td id="result_calculate_sp_2">0</td></tr>
-							<tr><td>釋迦皂</td><td><input type="number" id="calculate_sp_3" value="0" min="0" onchange="document.getElementById('result_calculate_sp_3').innerHTML = this.value*10"></td><td>x 10 =</td><td id="result_calculate_sp_3">0</td></tr>
+							<tr><td>米皂</td><td><input type="number" id="calculate_sp_1" value="0" min="0" onchange="document.getElementById('result_calculate_sp_1').innerHTML = this.value*10 + '顆'"></td><td>x 10 =</td><td id="result_calculate_sp_1">0</td></tr>
+							<tr><td>金針皂</td><td><input type="number" id="calculate_sp_2" value="0" min="0" onchange="document.getElementById('result_calculate_sp_2').innerHTML = this.value*10 + '顆'"></td><td>x 10 =</td><td id="result_calculate_sp_2">0</td></tr>
+							<tr><td>釋迦皂</td><td><input type="number" id="calculate_sp_3" value="0" min="0" onchange="document.getElementById('result_calculate_sp_3').innerHTML = this.value*10 + '顆'"></td><td>x 10 =</td><td id="result_calculate_sp_3">0</td></tr>
 						</table>
-						<button onclick="calculate_search_houshanpi()">查詢</button>
+						<button onclick="calculate_search()">查詢</button>
+						<button onclick="calculate_refresh()">清除</button>
 					</div>
 					<div id="query" style="display: none;">
 						<h3>材料一覽</h3>
 						<p id="queryResult"></p>
 					</div>
-					<button id="produce_houshanpi" onclick="produce_houshanpi()" style="display: none;">確定製作</button>
+					<button id="produce" onclick="produce()" style="display: none;">確定製作</button>
 				</div>
 				<div id="menu2" class="tab-pane fade">
 					<h3>庫存一覽</h3>
@@ -148,48 +149,33 @@
 						<table>
 							<tr>
 								<th class="material_A" style="display: none;">油品</th>
-								<th class="material_B" style="display: none;">添加物</th>
 								<th class="material_H" style="display: none;">後山埤的產品</th>
 							</tr>
 							<tr>
 								<td class="material_A" style="display: none;">
 									<table>
-										<tr><td>橄欖油</td><td><input type="number" id="oil_1" value="0" min="0"></td></tr>
-										<tr><td>棕梠油</td><td><input type="number" id="oil_2" value="0" min="0"></td></tr>
-										<tr><td>椰子油</td><td><input type="number" id="oil_3" value="0" min="0"></td></tr>
-										<tr><td>米糠油</td><td><input type="number" id="oil_4" value="0" min="0"></td></tr>
-										<tr><td>紅棕梠油</td><td><input type="number" id="oil_5" value="0" min="0"></td></tr>
-										<tr><td>葡萄籽油</td><td><input type="number" id="oil_6" value="0" min="0"></td></tr>
-										<tr><td>苦茶油</td><td><input type="number" id="oil_7" value="0" min="0"></td></tr>
-										<tr><td>蓖麻油</td><td><input type="number" id="oil_8" value="0" min="0"></td></tr>
-										<tr><td>鹼</td><td><input type="number" id="NaOH" value="0" min="0"></td></tr>
-									</table>
-								</td>
-								<td class="material_B" style="display: none;">
-									<table>
-										<tr><td>金針花瓣</td><td><input type="number" id="additive_1" value="0" min="0"></td></tr>
-										<tr><td>釋迦果粉</td><td><input type="number" id="additive_2" value="0" min="0"></td></tr>
-										<tr><td>釋迦果泥</td><td><input type="number" id="additive_3" value="0" min="0"></td></tr>
-										<tr><td>米粉</td><td><input type="number" id="additive_4" value="0" min="0"></td></tr>
-										<tr><td>蕁麻葉粉</td><td><input type="number" id="additive_5" value="0" min="0"></td></tr>
-										<tr><td>金盞花粉</td><td><input type="number" id="additive_6" value="0" min="0"></td></tr>
-										<tr><td>金針花粉</td><td><input type="number" id="additive_7" value="0" min="0"></td></tr>
-										<tr><td>薑黃粉</td><td><input type="number" id="additive_8" value="0" min="0"></td></tr>
-										<tr><td>紅麴粉</td><td><input type="number" id="additive_9" value="0" min="0"></td></tr>
-										<tr><td>洛神花粉</td><td><input type="number" id="additive_10" value="0" min="0"></td></tr>
-										<tr><td>乳油木果脂</td><td><input type="number" id="additive_11" value="0" min="0"></td></tr>
+										<tr><td>橄欖油</td><td><input type="number" id="send_oil_1" value="0" min="0">c.c.</td></tr>
+										<tr><td>棕梠油</td><td><input type="number" id="send_oil_2" value="0" min="0">c.c.</td></tr>
+										<tr><td>椰子油</td><td><input type="number" id="send_oil_3" value="0" min="0">c.c.</td></tr>
+										<tr><td>米糠油</td><td><input type="number" id="send_oil_4" value="0" min="0">c.c.</td></tr>
+										<tr><td>紅棕梠油</td><td><input type="number" id="send_oil_5" value="0" min="0">c.c.</td></tr>
+										<tr><td>葡萄籽油</td><td><input type="number" id="send_oil_6" value="0" min="0">c.c.</td></tr>
+										<tr><td>苦茶油</td><td><input type="number" id="send_oil_7" value="0" min="0">c.c.</td></tr>
+										<tr><td>蓖麻油</td><td><input type="number" id="send_oil_8" value="0" min="0">c.c.</td></tr>
+										<tr><td>鹼</td><td><input type="number" id="send_NaOH" value="0" min="0">g</td></tr>
 									</table>
 								</td>
 								<td class="material_H" style="display: none;">
 									<table>
-										<tr><td>米皂</td><td><input type="number" id="sp_1_houshanpi" value="0" min="0"></td></tr>
-										<tr><td>金針皂</td><td><input type="number" id="sp_2_houshanpi" value="0" min="0"></td></tr>
-										<tr><td>釋迦皂</td><td><input type="number" id="sp_3_houshanpi" value="0" min="0"></td></tr>
+										<tr><td>米皂</td><td><input type="number" id="send_sp_1_houshanpi" value="0" min="0">顆</td></tr>
+										<tr><td>金針皂</td><td><input type="number" id="send_sp_2_houshanpi" value="0" min="0">顆</td></tr>
+										<tr><td>釋迦皂</td><td><input type="number" id="send_sp_3_houshanpi" value="0" min="0">顆</td></tr>
 									</table>
 								</td>
 							</tr>
 						</table>
 						<button onclick="send()">確定</button>
+						<button onclick="send_refresh()">清除</button>
 					</div>
 				</div>
 				<div id="menu5" class="tab-pane fade">

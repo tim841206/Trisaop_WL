@@ -1,95 +1,6 @@
 <?php
 if (isset($_GET['module']) || isset($_POST['module'])) {
-	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-		if ($_GET['module'] == 'item') {
-			if ($_GET['event'] == 'search') {
-				
-			}
-			else {
-				echo json_encode(array('message' => 'Invalid event called'));
-			}
-		}
-		elseif ($_GET['module'] == 'member') {
-			if ($_GET['event'] == 'login') {
-				
-			}
-			elseif ($_GET['event'] == 'logout') {
-
-			}
-			elseif ($_GET['event'] == 'logon') {
-
-			}
-			elseif ($_GET['event'] == 'change_password') {
-
-			}
-			elseif ($_GET['event'] == 'search_account') {
-
-			}
-			elseif ($_GET['event'] == 'search_auth') {
-
-			}
-			elseif ($_GET['event'] == 'view') {
-
-			}
-			elseif ($_GET['event'] == 'notice') {
-
-			}
-			elseif ($_GET['event'] == 'auth') {
-
-			}
-			elseif ($_GET['event'] == 'reject') {
-
-			}
-			else {
-				echo json_encode(array('message' => 'Invalid event called'));
-			}
-		}
-		elseif ($_GET['module'] == 'request') {
-			if ($_GET['event'] == 'view') {
-
-			}
-			elseif ($_GET['event'] == 'search_index') {
-
-			}
-			elseif ($_GET['event'] == 'search_state') {
-
-			}
-			elseif ($_GET['event'] == 'view_index') {
-
-			}
-			elseif ($_GET['event'] == 'notice') {
-
-			}
-			elseif ($_GET['event'] == 'accept') {
-
-			}
-			elseif ($_GET['event'] == 'reject') {
-
-			}
-			elseif ($_GET['event'] == 'send') {
-
-			}
-			else {
-				echo json_encode(array('message' => 'Invalid event called'));
-			}
-		}
-		elseif ($_GET['module'] == 'whouse') {
-			if ($_GET['event'] == 'view') {
-
-			}
-			elseif ($_GET['event'] == 'search') {
-
-			}
-			else {
-				echo json_encode(array('message' => 'Invalid event called'));
-			}
-		}
-		else {
-			echo json_encode(array('message' => 'Invalid module called'));
-		}
-	}
-
-	elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if ($_POST['module'] == 'item') {
 			if ($_POST['event'] == 'search') {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
@@ -264,6 +175,11 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 				echo curl_post($post, $_POST['module']);
 			}
 			elseif ($_POST['event'] == 'adjust') {
+				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
+				$post = array_merge($id, $_POST);
+				echo curl_post($post, $_POST['module']);
+			}
+			elseif ($_POST['event'] == 'adjust_checked') {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);

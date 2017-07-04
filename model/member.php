@@ -471,7 +471,7 @@ function view($account, $token) {
 			return 'Wrong token';
 		}
 		else {
-			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
+			if ($fetch1['AUTHORITY'] == 'A') {
 				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACTCODE='1' ORDER BY ONLINEDATE DESC");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'B') {
@@ -482,6 +482,9 @@ function view($account, $token) {
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
 				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='D' AND ACTCODE='1' ORDER BY ONLINEDATE DESC");
+			}
+			elseif ($fetch1['AUTHORITY'] == 'E') {
+				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='E' AND ACTCODE='1' ORDER BY ONLINEDATE DESC");
 			}
 			if ($sql2 == false) {
 				$content = '查無資料';
@@ -525,7 +528,7 @@ function notice($account, $token) {
 			else {
 				$content = '';
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= $fetch2['NAME'] . ' 請求獲得 ' . transfer($fetch2['AUTHORITY']) . ' 的授權。<button onclick="auth('.$fetch2['ACCOUNT'].')">授權</button><button onclick="release('.$fetch2['ACCOUNT'].')">拒絕</button><br>';
+					$content .= $fetch2['NAME'] . ' 請求獲得 ' . transfer($fetch2['AUTHORITY']) . ' 的授權。<button onclick="auth(\''.$fetch2['ACCOUNT'].'\')">授權</button><button onclick="release(\''.$fetch2['ACCOUNT'].'\')">拒絕</button><br>';
 				}
 				return array('message' => 'Success', 'content' => $content);
 			}

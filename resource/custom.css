@@ -1,5 +1,5 @@
 .center-box {
-	width: 500px;
+	width: 400px;
 	padding: 20px;
 	border-radius: 5px;
 	border: 5px solid #FFA042;
@@ -18,5 +18,43 @@ input {
 }
 
 input[type="number"] { 
-    width: 50px;
+    width: 70px;
+}
+
+table, tr, th, td {
+	text-align: center;
+	vertical-align: top;
+	padding: 2px;
+	border-radius: 5px;
+	border: 2px solid #FFA042;
+}
+
+p {
+	vertical-align: top;
+}
+
+#entry1, #entry2 {
+	text-align: center;
+}
+
+#entry1 table, #entry2 table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.table_content {
+	display: block;
+	max-height: 500px;
+	overflow: scroll;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
