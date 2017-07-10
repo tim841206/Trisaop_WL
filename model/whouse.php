@@ -122,7 +122,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		elseif ($_POST['event'] == 'adjust_checked') {
 			$message = adjust_checked($_POST);
-			echo json_encode($message);
+			echo json_encode(array('message' => $message));
 			return;
 		}
 		elseif ($_POST['event'] == 'mature') {
@@ -681,7 +681,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -697,7 +697,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -713,7 +713,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -729,7 +729,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -745,7 +745,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -761,7 +761,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -777,7 +777,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -798,7 +798,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -814,7 +814,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -835,7 +835,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -851,7 +851,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -867,7 +867,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {
@@ -883,7 +883,7 @@ function adjust($content) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
-							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . '\n';
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
 					else {

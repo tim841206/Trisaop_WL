@@ -774,12 +774,13 @@ function package() {
 	var product_sp_1 = document.getElementById("package_sp_1").value;
 	var product_sp_2 = document.getElementById("package_sp_2").value;
 	var product_sp_3 = document.getElementById("package_sp_3").value;
-	var product_sp_box = document.getElementById("package_sp_box").value;
+	var product_sp_box1 = document.getElementById("package_sp_box1").value;
+	var product_sp_box2 = document.getElementById("package_sp_box2").value;
 	var product_ss_1 = document.getElementById("package_ss_1").value;
 	var product_ss_2 = document.getElementById("package_ss_2").value;
 	var product_ss_3 = document.getElementById("package_ss_3").value;
 	var product_ss_box = document.getElementById("package_ss_box").value;
-	var data = "module=item&event=package&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
+	var data = "module=item&event=package&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box1=" + product_sp_box1 + "&product_sp_box2=" + product_sp_box2 + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 	request.onreadystatechange = function() {
@@ -804,12 +805,13 @@ function pack() {
 	var product_sp_1 = document.getElementById("package_sp_1").value;
 	var product_sp_2 = document.getElementById("package_sp_2").value;
 	var product_sp_3 = document.getElementById("package_sp_3").value;
-	var product_sp_box = document.getElementById("package_sp_box").value;
+	var product_sp_box1 = document.getElementById("package_sp_box1").value;
+	var product_sp_box2 = document.getElementById("package_sp_box2").value;
 	var product_ss_1 = document.getElementById("package_ss_1").value;
 	var product_ss_2 = document.getElementById("package_ss_2").value;
 	var product_ss_3 = document.getElementById("package_ss_3").value;
 	var product_ss_box = document.getElementById("package_ss_box").value;
-	var data = "module=item&event=pack&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
+	var data = "module=item&event=pack&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box1=" + product_sp_box1 + "&product_sp_box2=" + product_sp_box2 + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 	request.onreadystatechange = function() {
@@ -1050,7 +1052,7 @@ function receiver() {
 			document.getElementsByClassName("material_E")[1].style.display = 'none';
 			document.getElementsByClassName("material_H")[0].style.display = 'none';
 			document.getElementsByClassName("material_H")[1].style.display = 'none';
-			document.getElementById("ship").style.display = null;
+			document.getElementById("ship").style.display = 'none';
 			document.getElementById("content").style.display = null;
 		}
 		else {
@@ -1165,6 +1167,7 @@ function receiver() {
 function send() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
+	var memo = document.getElementById("memo").value;
 	var sender = document.getElementById("sender").value;
 	var receiver = document.getElementById("receiver").value;
 	var shipfee;
@@ -1174,7 +1177,7 @@ function send() {
 	else {
 		shipfee = 0;
 	}
-	var data = "module=request&event=send&sender=" + sender + "&receiver=" + receiver + "&shipfee=" + shipfee;
+	var data = "module=request&event=send&memo=" + memo + "&sender=" + sender + "&receiver=" + receiver + "&shipfee=" + shipfee;
 	if (sender == 'Houshanpi') {
 		var oil_1 = document.getElementById("send_oil_1").value;
 		if (oil_1 != null && oil_1 != 0) data = data + "&oil_1=" + oil_1;
@@ -1491,6 +1494,26 @@ function reject(index) {
 				document.getElementById("request_notice_detail").innerHTML = null;
 				document.getElementById("request_view_detail").innerHTML = null;
 				document.getElementById("request_search_detail").innerHTML = null;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function set_shipfee(index) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var shipfee = document.getElementById("set_shipfee").value;
+	var data = "module=request&event=set_shipfee&index=" + index + "&shipfee=" + shipfee;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功設定");
 			}
 			else {
 				alert(data.message);
