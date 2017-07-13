@@ -40,10 +40,7 @@ CREATE TABLE `ITEMMAS` (
 --
 
 INSERT INTO `ITEMMAS` (`ITEMNO`, `ITEMNM`, `ITEMCLASS`, `TOTALAMT`, `UPDATEDATE`, `ACTCODE`) VALUES
-('NaOH', '鹼', 'A', 0, '2017-06-01 00:00:00', 1),
 ('additive_1', '金針花瓣', 'B', 0, '2017-06-01 00:00:00', 1),
-('additive_10', '洛神花粉', 'B', 0, '2017-06-01 00:00:00', 1),
-('additive_11', '乳油木果脂', 'B', 0, '2017-06-01 00:00:00', 1),
 ('additive_2', '釋迦果粉', 'B', 0, '2017-06-01 00:00:00', 1),
 ('additive_3', '釋迦果泥', 'B', 0, '2017-06-01 00:00:00', 1),
 ('additive_4', '米粉', 'B', 0, '2017-06-01 00:00:00', 1),
@@ -52,6 +49,8 @@ INSERT INTO `ITEMMAS` (`ITEMNO`, `ITEMNM`, `ITEMCLASS`, `TOTALAMT`, `UPDATEDATE`
 ('additive_7', '金針花粉', 'B', 0, '2017-06-01 00:00:00', 1),
 ('additive_8', '薑黃粉', 'B', 0, '2017-06-01 00:00:00', 1),
 ('additive_9', '紅麴粉', 'B', 0, '2017-06-01 00:00:00', 1),
+('additive_10', '洛神花粉', 'B', 0, '2017-06-01 00:00:00', 1),
+('NaOH', '鹼', 'A', 0, '2017-06-01 00:00:00', 1),
 ('oil_1', '橄欖油', 'A', 0, '2017-06-01 00:00:00', 1),
 ('oil_2', '棕梠油', 'A', 0, '2017-06-01 00:00:00', 1),
 ('oil_3', '椰子油', 'A', 0, '2017-06-01 00:00:00', 1),
@@ -60,6 +59,7 @@ INSERT INTO `ITEMMAS` (`ITEMNO`, `ITEMNM`, `ITEMCLASS`, `TOTALAMT`, `UPDATEDATE`
 ('oil_6', '葡萄籽油', 'A', 0, '2017-06-01 00:00:00', 1),
 ('oil_7', '苦茶油', 'A', 0, '2017-06-01 00:00:00', 1),
 ('oil_8', '蓖麻油', 'A', 0, '2017-06-01 00:00:00', 1),
+('oil_9', '乳油木果脂', 'A', 0, '2017-06-01 00:00:00', 1),
 ('package_1', '不織布包', 'C', 0, '2017-06-01 00:00:00', 1),
 ('package_2', '鋁包', 'C', 0, '2017-06-01 00:00:00', 1),
 ('package_3', '大禮盒', 'C', 0, '2017-06-01 00:00:00', 1),
@@ -97,15 +97,16 @@ INSERT INTO `ITEMMAS` (`ITEMNO`, `ITEMNM`, `ITEMCLASS`, `TOTALAMT`, `UPDATEDATE`
 --
 
 CREATE TABLE `CONTROLMAS` (
-  `NEXT_RQSTNO` int(11) NOT NULL
+  `NEXT_RQSTNO` int(11) NOT NULL,
+  `NEXT_CMDNO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='控制檔';
 
 --
 -- 資料表的匯出資料 `CONTROLMAS`
 --
 
-INSERT INTO `CONTROLMAS` (`NEXT_RQSTNO`) VALUES
-('100001');
+INSERT INTO `CONTROLMAS` (`NEXT_RQSTNO`, `NEXT_CMDNO`) VALUES
+('100001', '100001');
 
 -- --------------------------------------------------------
 
@@ -134,6 +135,40 @@ INSERT INTO `MEMBERMAS` (`ACCOUNT`, `NAME`, `PASSWORD`, `TOKEN`, `AUTHORITY`, `C
 ('intern', 'intern', 'intern', NULL, 'E', '2017-06-01 00:00:00', '2017-06-01 00:00:00', 1),
 ('taitung', 'taitung', 'taitung', NULL, 'D', '2017-06-01 00:00:00', '2017-06-01 00:00:00', 1),
 ('trisoap', 'trisoap', 'trisoap', NULL, 'A', '2017-06-01 00:00:00', '2017-06-01 00:00:00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `COMMANDMAS`
+--
+
+CREATE TABLE `CMDMAS` (
+  `CMDNO` varchar(15) COLLATE utf8_bin NOT NULL,
+  `TARGET` varchar(15) COLLATE utf8_bin NOT NULL,
+  `SENDER` varchar(15) COLLATE utf8_bin DEFAULT NULL,
+  `RECEIVER` varchar(15) COLLATE utf8_bin DEFAULT NULL,
+  `CMDSTAT` varchar(1) COLLATE utf8_bin NOT NULL,
+  `CMDTYPE` varchar(1) COLLATE utf8_bin NOT NULL,
+  `NOTICE` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `REVIEWDATE` datetime NOT NULL,
+  `CREATEDATE` datetime NOT NULL,
+  `UPDATEDATE` datetime NOT NULL,
+  `ACTCODE` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='下單主檔';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `CMDDTLMAS`
+--
+
+CREATE TABLE `CMDDTLMAS` (
+  `CMDNO` varchar(15) COLLATE utf8_bin NOT NULL,
+  `ITEMNO` varchar(25) COLLATE utf8_bin NOT NULL,
+  `ITEMNM` varchar(50) COLLATE utf8_bin NOT NULL,
+  `ITEMAMT` int(11) NOT NULL,
+  `CMDDATE` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='請求內容主檔';
 
 -- --------------------------------------------------------
 
@@ -197,6 +232,7 @@ INSERT INTO `WHOUSEITEMMAS` (`WHOUSENO`, `ITEMNO`, `ITEMNM`, `ITEMCLASS`, `TOTAL
 ('Beitou', 'oil_6', '葡萄籽油', 'A', 0, '2017-06-01 00:00:00', 1),
 ('Beitou', 'oil_7', '苦茶油', 'A', 0, '2017-06-01 00:00:00', 1),
 ('Beitou', 'oil_8', '蓖麻油', 'A', 0, '2017-06-01 00:00:00', 1),
+('Beitou', 'oil_9', '乳油木果脂', 'A', 0, '2017-06-01 00:00:00', 1),
 ('Beitou', 'NaOH', '鹼', 'A', 0, '2017-06-01 00:00:00', 1),
 ('Beitou', 'additive_1', '金針花瓣', 'B', 0, '2017-06-01 00:00:00', 1),
 ('Beitou', 'additive_2', '釋迦果粉', 'B', 0, '2017-06-01 00:00:00', 1),
@@ -208,7 +244,6 @@ INSERT INTO `WHOUSEITEMMAS` (`WHOUSENO`, `ITEMNO`, `ITEMNM`, `ITEMCLASS`, `TOTAL
 ('Beitou', 'additive_8', '薑黃粉', 'B', 0, '2017-06-01 00:00:00', 1),
 ('Beitou', 'additive_9', '紅麴粉', 'B', 0, '2017-06-01 00:00:00', 1),
 ('Beitou', 'additive_10', '洛神花粉', 'B', 0, '2017-06-01 00:00:00', 1),
-('Beitou', 'additive_11', '乳油木果脂', 'B', 0, '2017-06-01 00:00:00', 1),
 ('Beitou', 'package_1', '不織布包', 'C', 0, '2017-06-01 00:00:00', 1),
 ('Beitou', 'package_2', '鋁包', 'C', 0, '2017-06-01 00:00:00', 1),
 ('Beitou', 'package_3', '大禮盒', 'C', 0, '2017-06-01 00:00:00', 1),
@@ -247,7 +282,6 @@ INSERT INTO `WHOUSEITEMMAS` (`WHOUSENO`, `ITEMNO`, `ITEMNM`, `ITEMCLASS`, `TOTAL
 ('Houshanpi', 'additive_8', '薑黃粉', 'B', 0, '2017-06-01 00:00:00', 1),
 ('Houshanpi', 'additive_9', '紅麴粉', 'B', 0, '2017-06-01 00:00:00', 1),
 ('Houshanpi', 'additive_10', '洛神花粉', 'B', 0, '2017-06-01 00:00:00', 1),
-('Houshanpi', 'additive_11', '乳油木果脂', 'B', 0, '2017-06-01 00:00:00', 1),
 ('Houshanpi', 'sp_1_houshanpi', '後山埤的米皂', 'H', 0, '2017-06-01 00:00:00', 1),
 ('Houshanpi', 'sp_2_houshanpi', '後山埤的金針皂', 'H', 0, '2017-06-01 00:00:00', 1),
 ('Houshanpi', 'sp_3_houshanpi', '後山埤的釋迦皂', 'H', 0, '2017-06-01 00:00:00', 1),
@@ -259,6 +293,7 @@ INSERT INTO `WHOUSEITEMMAS` (`WHOUSENO`, `ITEMNO`, `ITEMNM`, `ITEMCLASS`, `TOTAL
 ('Taitung', 'oil_6', '葡萄籽油', 'A', 0, '2017-06-01 00:00:00', 1),
 ('Taitung', 'oil_7', '苦茶油', 'A', 0, '2017-06-01 00:00:00', 1),
 ('Taitung', 'oil_8', '蓖麻油', 'A', 0, '2017-06-01 00:00:00', 1),
+('Taitung', 'oil_9', '乳油木果脂', 'A', 0, '2017-06-01 00:00:00', 1),
 ('Taitung', 'NaOH', '鹼', 'A', 0, '2017-06-01 00:00:00', 1),
 ('Taitung', 'additive_1', '金針花瓣', 'B', 0, '2017-06-01 00:00:00', 1),
 ('Taitung', 'additive_2', '釋迦果粉', 'B', 0, '2017-06-01 00:00:00', 1),
@@ -270,7 +305,6 @@ INSERT INTO `WHOUSEITEMMAS` (`WHOUSENO`, `ITEMNO`, `ITEMNM`, `ITEMCLASS`, `TOTAL
 ('Taitung', 'additive_8', '薑黃粉', 'B', 0, '2017-06-01 00:00:00', 1),
 ('Taitung', 'additive_9', '紅麴粉', 'B', 0, '2017-06-01 00:00:00', 1),
 ('Taitung', 'additive_10', '洛神花粉', 'B', 0, '2017-06-01 00:00:00', 1),
-('Taitung', 'additive_11', '乳油木果脂', 'B', 0, '2017-06-01 00:00:00', 1),
 ('Taitung', 'sp_1', '米皂', 'E', 0, '2017-06-01 00:00:00', 1),
 ('Taitung', 'sp_2', '金針皂', 'E', 0, '2017-06-01 00:00:00', 1),
 ('Taitung', 'sp_3', '釋迦皂', 'E', 0, '2017-06-01 00:00:00', 1),

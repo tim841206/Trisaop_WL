@@ -18,6 +18,9 @@ function login() {
 				if (data.mature == 'load') {
 					mature_notice();
 				}
+				if (data.command == 'load') {
+					command_notice();
+				}
 				request_notice();
 			}
 			else {
@@ -358,6 +361,30 @@ function mature_notice() {
 	}
 }
 
+function command_notice() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=command&event=notice";
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("command_notice_content").innerHTML = data.content;
+				document.getElementById("command_notice").style.display = null;
+			}
+			else if (data.message == 'No notice') {
+				document.getElementById("command_notice_content").innerHTML = '';
+				document.getElementById("command_notice").style.display = 'none';
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
 function calculate_search() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
@@ -499,6 +526,199 @@ function whouse() {
 	document.getElementById("itemclass").onchange();
 }
 
+function command() {
+	var command = document.getElementById("command").value;
+	if (command == '') {
+		document.getElementById("command_content").style.display = 'none';
+		document.getElementById("commandA").style.display = 'none';
+		document.getElementById("commandB").style.display = 'none';
+		document.getElementById("commandC").style.display = 'none';
+		document.getElementById("commandD").style.display = 'none';
+		document.getElementById("commandE").style.display = 'none';
+		document.getElementById("commandF").style.display = 'none';
+	}
+	else if (command == 'A') {
+		document.getElementById("command_content").style.display = null;
+		document.getElementById("commandA").style.display = null;
+		document.getElementById("commandB").style.display = 'none';
+		document.getElementById("commandC").style.display = 'none';
+		document.getElementById("commandD").style.display = 'none';
+		document.getElementById("commandE").style.display = 'none';
+		document.getElementById("commandF").style.display = 'none';
+	}
+	else if (command == 'B') {
+		document.getElementById("command_content").style.display = null;
+		document.getElementById("commandA").style.display = 'none';
+		document.getElementById("commandB").style.display = null;
+		document.getElementById("commandC").style.display = 'none';
+		document.getElementById("commandD").style.display = 'none';
+		document.getElementById("commandE").style.display = 'none';
+		document.getElementById("commandF").style.display = 'none';
+	}
+	else if (command == 'C') {
+		document.getElementById("command_content").style.display = null;
+		document.getElementById("commandA").style.display = 'none';
+		document.getElementById("commandB").style.display = 'none';
+		document.getElementById("commandC").style.display = null;
+		document.getElementById("commandD").style.display = 'none';
+		document.getElementById("commandE").style.display = 'none';
+		document.getElementById("commandF").style.display = 'none';
+	}
+	else if (command == 'D') {
+		document.getElementById("command_content").style.display = null;
+		document.getElementById("commandA").style.display = 'none';
+		document.getElementById("commandB").style.display = 'none';
+		document.getElementById("commandC").style.display = 'none';
+		document.getElementById("commandD").style.display = null;
+		document.getElementById("commandE").style.display = 'none';
+		document.getElementById("commandF").style.display = 'none';
+	}
+	else if (command == 'E') {
+		document.getElementById("command_content").style.display = null;
+		document.getElementById("commandA").style.display = 'none';
+		document.getElementById("commandB").style.display = 'none';
+		document.getElementById("commandC").style.display = 'none';
+		document.getElementById("commandD").style.display = 'none';
+		document.getElementById("commandE").style.display = null;
+		document.getElementById("commandF").style.display = 'none';
+	}
+	else if (command == 'F') {
+		document.getElementById("command_content").style.display = null;
+		document.getElementById("commandA").style.display = 'none';
+		document.getElementById("commandB").style.display = 'none';
+		document.getElementById("commandC").style.display = 'none';
+		document.getElementById("commandD").style.display = 'none';
+		document.getElementById("commandE").style.display = 'none';
+		document.getElementById("commandF").style.display = null;
+	}
+}
+
+function command_check() {
+	var command = document.getElementById("command").value;
+	var command_memo = document.getElementById("command_memo").value;
+	var data = null;
+	if (command == 'A') {
+		var request = new XMLHttpRequest();
+		request.open("POST", "index.php");
+		var oil_1 = document.getElementById("commandA_oil_1").value;
+		var oil_2 = document.getElementById("commandA_oil_2").value;
+		var oil_3 = document.getElementById("commandA_oil_3").value;
+		var oil_4 = document.getElementById("commandA_oil_4").value;
+		var oil_5 = document.getElementById("commandA_oil_5").value;
+		var oil_6 = document.getElementById("commandA_oil_6").value;
+		var oil_7 = document.getElementById("commandA_oil_7").value;
+		var oil_8 = document.getElementById("commandA_oil_8").value;
+		var oil_9 = document.getElementById("commandA_oil_9").value;
+		var NaOH = document.getElementById("commandA_NaOH").value;
+		data = "module=command&event=send&type=A&command_memo=" + command_memo + "&oil_1=" + oil_1 + "&oil_2=" + oil_2 + "&oil_3=" + oil_3 + "&oil_4=" + oil_4 + "&oil_5=" + oil_5 + "&oil_6=" + oil_6 + "&oil_7=" + oil_7 + "&oil_8=" + oil_8 + "&oil_9=" + oil_9 + "&NaOH=" + NaOH;
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.send(data);
+	}
+	else if (command == 'B') {
+		var request = new XMLHttpRequest();
+		request.open("POST", "index.php");
+		var oil_1 = document.getElementById("commandB_oil_1").value;
+		var oil_2 = document.getElementById("commandB_oil_2").value;
+		var oil_3 = document.getElementById("commandB_oil_3").value;
+		var oil_4 = document.getElementById("commandB_oil_4").value;
+		var oil_5 = document.getElementById("commandB_oil_5").value;
+		var oil_6 = document.getElementById("commandB_oil_6").value;
+		var oil_7 = document.getElementById("commandB_oil_7").value;
+		var oil_8 = document.getElementById("commandB_oil_8").value;
+		var oil_9 = document.getElementById("commandB_oil_9").value;
+		var NaOH = document.getElementById("commandB_NaOH").value;
+		data = "module=command&event=send&type=B&command_memo=" + command_memo + "&oil_1=" + oil_1 + "&oil_2=" + oil_2 + "&oil_3=" + oil_3 + "&oil_4=" + oil_4 + "&oil_5=" + oil_5 + "&oil_6=" + oil_6 + "&oil_7=" + oil_7 + "&oil_8=" + oil_8 + "&oil_9=" + oil_9 + "&NaOH=" + NaOH;
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.send(data);
+	}
+	else if (command == 'C') {
+		var request = new XMLHttpRequest();
+		request.open("POST", "index.php");
+		var product_sp_1 = document.getElementById("commandC_product_sp_1").value;
+		var product_sp_2 = document.getElementById("commandC_product_sp_2").value;
+		var product_sp_3 = document.getElementById("commandC_product_sp_3").value;
+		var product_sp_box = document.getElementById("commandC_product_sp_box").value;
+		var product_ss_1 = document.getElementById("commandC_product_ss_1").value;
+		var product_ss_2 = document.getElementById("commandC_product_ss_2").value;
+		var product_ss_3 = document.getElementById("commandC_product_ss_3").value;
+		var product_ss_box = document.getElementById("commandC_product_ss_box").value;
+		data = "module=command&event=send&type=C&command_memo=" + command_memo + "&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.send(data);
+	}
+	else if (command == 'D') {
+		var request = new XMLHttpRequest();
+		request.open("POST", "index.php");
+		var ss_1 = document.getElementById("commandD_ss_1").value;
+		var ss_2 = document.getElementById("commandD_ss_2").value;
+		var ss_3 = document.getElementById("commandD_ss_3").value;
+		var ss_4 = document.getElementById("commandD_ss_4").value;
+		var ss_5 = document.getElementById("commandD_ss_5").value;
+		var ss_6 = document.getElementById("commandD_ss_6").value;
+		var date_ss_1 = document.getElementById("date_commandD_ss_1").value;
+		var date_ss_2 = document.getElementById("date_commandD_ss_2").value;
+		var date_ss_3 = document.getElementById("date_commandD_ss_3").value;
+		var date_ss_4 = document.getElementById("date_commandD_ss_4").value;
+		var date_ss_5 = document.getElementById("date_commandD_ss_5").value;
+		var date_ss_6 = document.getElementById("date_commandD_ss_6").value;
+		data = "module=command&event=send&type=D&command_memo=" + command_memo + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6 + "&date_ss_1=" + date_ss_1 + "&date_ss_2=" + date_ss_2 + "&date_ss_3=" + date_ss_3 + "&date_ss_4=" + date_ss_4 + "&date_ss_5=" + date_ss_5 + "&date_ss_6=" + date_ss_6;
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.send(data);
+	}
+	else if (command == 'E') {
+		var request = new XMLHttpRequest();
+		request.open("POST", "index.php");
+		var sp_1_houshanpi = document.getElementById("commandE_sp_1").value;
+		var sp_2_houshanpi = document.getElementById("commandE_sp_2").value;
+		var sp_3_houshanpi = document.getElementById("commandE_sp_3").value;
+		var date_sp_1_houshanpi = document.getElementById("date_commandE_sp_1").value;
+		var date_sp_2_houshanpi = document.getElementById("date_commandE_sp_2").value;
+		var date_sp_3_houshanpi = document.getElementById("date_commandE_sp_3").value;
+		data = "module=command&event=send&type=E&command_memo=" + command_memo + "&sp_1_houshanpi=" + sp_1_houshanpi + "&sp_2_houshanpi=" + sp_2_houshanpi + "&sp_3_houshanpi=" + sp_3_houshanpi + "&date_sp_1_houshanpi=" + date_sp_1_houshanpi + "&date_sp_2_houshanpi=" + date_sp_2_houshanpi + "&date_sp_3_houshanpi=" + date_sp_3_houshanpi;
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.send(data);
+	}
+	else if (command == 'F') {
+		var request = new XMLHttpRequest();
+		request.open("POST", "index.php");
+		var sp_1 = document.getElementById("commandF_sp_1").value;
+		var sp_2 = document.getElementById("commandF_sp_2").value;
+		var sp_3 = document.getElementById("commandF_sp_3").value;
+		var ss_1 = document.getElementById("commandF_ss_1").value;
+		var ss_2 = document.getElementById("commandF_ss_2").value;
+		var ss_3 = document.getElementById("commandF_ss_3").value;
+		var ss_4 = document.getElementById("commandF_ss_4").value;
+		var ss_5 = document.getElementById("commandF_ss_5").value;
+		var ss_6 = document.getElementById("commandF_ss_6").value;
+		var date_sp_1 = document.getElementById("date_commandF_sp_1").value;
+		var date_sp_2 = document.getElementById("date_commandF_sp_2").value;
+		var date_sp_3 = document.getElementById("date_commandF_sp_3").value;
+		var date_ss_1 = document.getElementById("date_commandF_ss_1").value;
+		var date_ss_2 = document.getElementById("date_commandF_ss_2").value;
+		var date_ss_3 = document.getElementById("date_commandF_ss_3").value;
+		var date_ss_4 = document.getElementById("date_commandF_ss_4").value;
+		var date_ss_5 = document.getElementById("date_commandF_ss_5").value;
+		var date_ss_6 = document.getElementById("date_commandF_ss_6").value;
+		data = "module=command&event=send&type=F&command_memo=" + command_memo + "&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3 + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6 + "&date_sp_1=" + date_sp_1 + "&date_sp_2=" + date_sp_2 + "&date_sp_3=" + date_sp_3 + "&date_ss_1=" + date_ss_1 + "&date_ss_2=" + date_ss_2 + "&date_ss_3=" + date_ss_3 + "&date_ss_4=" + date_ss_4 + "&date_ss_5=" + date_ss_5 + "&date_ss_6=" + date_ss_6;
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.send(data);
+	}
+	if (data != null) {
+		request.onreadystatechange = function() {
+			if (request.readyState === 4 && request.status === 200) {
+				var data = JSON.parse(request.responseText);
+				if (data.message == 'Success') {
+					alert("成功下單，訂單編號：" + data.index);
+					location.reload();
+				}
+				else {
+					alert(data.message);
+				}
+			}
+		}
+	}
+}
+
 function itemclass() {
 	var whouse = document.getElementById("whouse").value;
 	var itemclass = document.getElementById("itemclass").value;
@@ -518,6 +738,7 @@ function itemclass() {
 			var option7 = document.createElement("option");
 			var option8 = document.createElement("option");
 			var option9 = document.createElement("option");
+			var option10 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '橄欖油'; option1.value = 'oil_1'; item.add(option1);
 			option2.text = '棕梠油'; option2.value = 'oil_2'; item.add(option2);
@@ -527,7 +748,8 @@ function itemclass() {
 			option6.text = '葡萄籽油'; option6.value = 'oil_6'; item.add(option6);
 			option7.text = '苦茶油'; option7.value = 'oil_7'; item.add(option7);
 			option8.text = '蓖麻油'; option8.value = 'oil_8'; item.add(option8);
-			option9.text = '鹼'; option9.value = 'NaOH'; item.add(option9);
+			option9.text = '乳油木果脂'; option9.value = 'oil_9'; item.add(option9);
+			option10.text = '鹼'; option10.value = 'NaOH'; item.add(option10);
 		}
 		else if (itemclass == 'B') {
 			var option0 = document.createElement("option");
@@ -541,7 +763,6 @@ function itemclass() {
 			var option8 = document.createElement("option");
 			var option9 = document.createElement("option");
 			var option10 = document.createElement("option");
-			var option11 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '金針花瓣'; option1.value = 'additive_1'; item.add(option1);
 			option2.text = '釋迦果粉'; option2.value = 'additive_2'; item.add(option2);
@@ -553,7 +774,6 @@ function itemclass() {
 			option8.text = '薑黃粉'; option8.value = 'additive_8'; item.add(option8);
 			option9.text = '紅麴粉'; option9.value = 'additive_9'; item.add(option9);
 			option10.text = '洛神花粉'; option10.value = 'additive_10'; item.add(option10);
-			option11.text = '乳油木果脂'; option11.value = 'additive_11'; item.add(option11);
 		}
 		else if (itemclass == 'C') {
 			var option0 = document.createElement("option");
@@ -613,9 +833,9 @@ function itemclass() {
 			option4.text = '洛神皂絲'; option4.value = 'ss_1'; item.add(option4);
 			option5.text = '紅麴皂絲'; option5.value = 'ss_2'; item.add(option5);
 			option6.text = '薑黃皂絲'; option6.value = 'ss_3'; item.add(option6);
-			option7.text = '金針皂絲'; option7.value = 'ss_4'; item.add(option7);
-			option8.text = '紅棕梠皂絲'; option8.value = 'ss_5'; item.add(option8);
-			option9.text = '蕁麻葉皂絲'; option9.value = 'ss_6'; item.add(option9);
+			option7.text = '蕁麻葉皂絲'; option7.value = 'ss_4'; item.add(option7);
+			option8.text = '金針皂絲'; option8.value = 'ss_5'; item.add(option8);
+			option9.text = '紅棕梠皂絲'; option9.value = 'ss_6'; item.add(option9s);
 		}
 		else if (itemclass == 'F') {
 			var option0 = document.createElement("option");
@@ -660,6 +880,7 @@ function itemclass() {
 			var option7 = document.createElement("option");
 			var option8 = document.createElement("option");
 			var option9 = document.createElement("option");
+			var option10 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '橄欖油'; option1.value = 'oil_1'; item.add(option1);
 			option2.text = '棕梠油'; option2.value = 'oil_2'; item.add(option2);
@@ -669,7 +890,8 @@ function itemclass() {
 			option6.text = '葡萄籽油'; option6.value = 'oil_6'; item.add(option6);
 			option7.text = '苦茶油'; option7.value = 'oil_7'; item.add(option7);
 			option8.text = '蓖麻油'; option8.value = 'oil_8'; item.add(option8);
-			option8.text = '鹼'; option9.value = 'NaOH'; item.add(option9);
+			option9.text = '乳油木果脂'; option9.value = 'oil_9'; item.add(option9);
+			option10.text = '鹼'; option10.value = 'NaOH'; item.add(option10);
 		}
 		else if (itemclass == 'B') {
 			var option0 = document.createElement("option");
@@ -683,7 +905,6 @@ function itemclass() {
 			var option8 = document.createElement("option");
 			var option9 = document.createElement("option");
 			var option10 = document.createElement("option");
-			var option11 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '金針花瓣'; option1.value = 'additive_1'; item.add(option1);
 			option2.text = '釋迦果粉'; option2.value = 'additive_2'; item.add(option2);
@@ -695,7 +916,6 @@ function itemclass() {
 			option8.text = '薑黃粉'; option8.value = 'additive_8'; item.add(option8);
 			option9.text = '紅麴粉'; option9.value = 'additive_9'; item.add(option9);
 			option10.text = '洛神花粉'; option10.value = 'additive_10'; item.add(option10);
-			option11.text = '乳油木果脂'; option11.value = 'additive_11'; item.add(option11);
 		}
 		else if (itemclass == 'E') {
 			var option0 = document.createElement("option");
@@ -715,9 +935,9 @@ function itemclass() {
 			option4.text = '洛神皂絲'; option4.value = 'ss_1'; item.add(option4);
 			option5.text = '紅麴皂絲'; option5.value = 'ss_2'; item.add(option5);
 			option6.text = '薑黃皂絲'; option6.value = 'ss_3'; item.add(option6);
-			option7.text = '金針皂絲'; option7.value = 'ss_4'; item.add(option7);
-			option8.text = '紅棕梠皂絲'; option8.value = 'ss_5'; item.add(option8);
-			option9.text = '蕁麻葉皂絲'; option9.value = 'ss_6'; item.add(option9);
+			option7.text = '蕁麻葉皂絲'; option7.value = 'ss_4'; item.add(option7);
+			option8.text = '金針皂絲'; option8.value = 'ss_5'; item.add(option8);
+			option9.text = '紅棕梠皂絲'; option9.value = 'ss_6'; item.add(option9);
 		}
 		else if (itemclass == 'F') {
 			var option0 = document.createElement("option");
@@ -840,6 +1060,25 @@ function request_view() {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				document.getElementById("request_view_content").innerHTML = data.content;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function command_view() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=command&event=view";
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("command_view_content").innerHTML = data.content;
 			}
 			else {
 				alert(data.message);
@@ -1195,6 +1434,8 @@ function send() {
 		if (oil_7 != null && oil_7 != 0) data = data + "&oil_7=" + oil_7;
 		var oil_8 = document.getElementById("send_oil_8").value;
 		if (oil_8 != null && oil_8 != 0) data = data + "&oil_8=" + oil_8;
+		var oil_9 = document.getElementById("send_oil_9").value;
+		if (oil_9 != null && oil_9 != 0) data = data + "&oil_9=" + oil_9;
 		var NaOH = document.getElementById("send_NaOH").value;
 		if (NaOH != null && NaOH != 0) data = data + "&NaOH=" + NaOH;
 	}
@@ -1219,8 +1460,6 @@ function send() {
 		if (additive_9 != null && additive_9 != 0) data = data + "&additive_9=" + additive_9;
 		var additive_10 = document.getElementById("send_additive_10").value;
 		if (additive_10 != null && additive_10 != 0) data = data + "&additive_10=" + additive_10;
-		var additive_11 = document.getElementById("send_additive_11").value;
-		if (additive_11 != null && additive_11 != 0) data = data + "&additive_11=" + additive_11;
 	}
 	if (sender == 'Trisoap') {
 		var package_1 = document.getElementById("send_package_1").value;
@@ -1311,6 +1550,7 @@ function send_refresh() {
 	if (document.getElementById("send_oil_6") != null) document.getElementById("send_oil_6").value = 0;
 	if (document.getElementById("send_oil_7") != null) document.getElementById("send_oil_7").value = 0;
 	if (document.getElementById("send_oil_8") != null) document.getElementById("send_oil_8").value = 0;
+	if (document.getElementById("send_oil_9") != null) document.getElementById("send_oil_9").value = 0;
 	if (document.getElementById("send_NaOH") != null) document.getElementById("send_NaOH").value = 0;
 	if (document.getElementById("send_additive_1") != null) document.getElementById("send_additive_1").value = 0;
 	if (document.getElementById("send_additive_2") != null) document.getElementById("send_additive_2").value = 0;
@@ -1322,7 +1562,6 @@ function send_refresh() {
 	if (document.getElementById("send_additive_8") != null) document.getElementById("send_additive_8").value = 0;
 	if (document.getElementById("send_additive_9") != null) document.getElementById("send_additive_9").value = 0;
 	if (document.getElementById("send_additive_10") != null) document.getElementById("send_additive_10").value = 0;
-	if (document.getElementById("send_additive_11") != null) document.getElementById("send_additive_11").value = 0;
 	if (document.getElementById("send_package_1") != null) document.getElementById("send_package_1").value = 0;
 	if (document.getElementById("send_package_2") != null) document.getElementById("send_package_2").value = 0;
 	if (document.getElementById("send_package_3") != null) document.getElementById("send_package_3").value = 0;
@@ -1502,6 +1741,55 @@ function reject(index) {
 	}
 }
 
+function deliver(index) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=command&event=deliver&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			alert(request.responseText);
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功送出，物流編號：" + data.index);
+				command_notice();
+				command_view();
+				document.getElementById("command_notice_detail").innerHTML = null;
+				document.getElementById("command_view_detail").innerHTML = null;
+				document.getElementById("command_search_detail").innerHTML = null;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function refuse(index) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=command&event=refuse&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功拒絕");
+				command_notice();
+				command_view();
+				document.getElementById("command_notice_detail").innerHTML = null;
+				document.getElementById("command_view_detail").innerHTML = null;
+				document.getElementById("command_search_detail").innerHTML = null;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
 function set_shipfee(index) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
@@ -1514,8 +1802,50 @@ function set_shipfee(index) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				alert("成功設定");
+				request_view();
+				view_index_view(index);
 			}
 			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function view_command(index) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=command&event=view_index&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("command_view_detail").innerHTML = data.content;
+			}
+			else {
+				document.getElementById("command_view_detail").innerHTML = null;
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function view_command_notice(index) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=command&event=view_index&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("command_notice_detail").innerHTML = data.content;
+			}
+			else {
+				document.getElementById("command_notice_detail").innerHTML = null;
 				alert(data.message);
 			}
 		}

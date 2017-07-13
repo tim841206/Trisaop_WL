@@ -10,7 +10,7 @@
 		<script src="../resource/bootstrap.min.js"></script>
 		<script src="../resource/custom.js"></script>
 	</head>
-	<body onload="request_notice(); mature_notice();">
+	<body>
 		<div class="container">
 			<h1>倉儲暨物流系統</h1>
 			<button onclick="document.getElementById('change_password').style.display = null;">更換密碼</button>
@@ -30,6 +30,11 @@
 				<p id="request_notice_content" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
 				<p id="request_notice_detail" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
 			</div>
+			<div id="command_notice" style="display: none;">
+				<h3>訂單通知</h3>
+				<p id="command_notice_content" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
+				<p id="command_notice_detail" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
+			</div>
 			<div id="mature_notice" style="display: none;">
 				<h3>熟成通知</h3>
 				<p id="mature_notice_content" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
@@ -40,7 +45,8 @@
 				<li><a data-toggle="tab" href="#menu2" onclick="whouse_view()">庫存一覽</a></li>
 				<li><a data-toggle="tab" href="#menu3" onclick="request_view()">物流一覽</a></li>
 				<li><a data-toggle="tab" href="#menu4">建立物流</a></li>
-				<li><a data-toggle="tab" href="#menu5" onclick="member_view()">使用者一覽</a></li>
+				<li><a data-toggle="tab" href="#menu5" onclick="command_view()">訂單一覽</a></li>
+				<li><a data-toggle="tab" href="#menu6" onclick="member_view()">使用者一覽</a></li>
 			</ul>
 			<div class="tab-content">
 				<div id="menu1" class="tab-pane fade">
@@ -162,6 +168,7 @@
 										<tr><td>葡萄籽油</td><td><input type="number" id="send_oil_6" value="0" min="0">c.c.</td></tr>
 										<tr><td>苦茶油</td><td><input type="number" id="send_oil_7" value="0" min="0">c.c.</td></tr>
 										<tr><td>蓖麻油</td><td><input type="number" id="send_oil_8" value="0" min="0">c.c.</td></tr>
+										<tr><td>乳油木果脂</td><td><input type="number" id="send_oil_9" value="0" min="0">g</td></tr>
 										<tr><td>鹼</td><td><input type="number" id="send_NaOH" value="0" min="0">g</td></tr>
 									</table>
 								</td>
@@ -180,12 +187,17 @@
 					</div>
 				</div>
 				<div id="menu5" class="tab-pane fade">
+					<h3>訂單一覽</h3>
+					<p id="command_view_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
+					<p id="command_view_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
+				</div>
+				<div id="menu6" class="tab-pane fade">
 					<h3>使用者一覽</h3>
 					<p id="member_view_content" style="max-height: 300px; overflow: scroll;"></p>
 					<h3>進階查詢</h3>
 					<table>
 						<tr>
-							<td>使用者編號</td>
+							<td>使用者帳號</td>
 							<td><input type="text" id="account"></td>
 							<td><button onclick="search_account()">查詢</button></td>
 						</tr>

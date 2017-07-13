@@ -6,11 +6,15 @@
 		<title>倉儲暨物流系統</title>
 		<link rel="stylesheet" href="../resource/bootstrap.min.css">
 		<link rel="stylesheet" href="../resource/custom.css">
+		<link rel="stylesheet" href="../resource/jquery.datepick.css">
 		<script src="../resource/jquery.min.js"></script>
 		<script src="../resource/bootstrap.min.js"></script>
 		<script src="../resource/custom.js"></script>
+		<script src="../resource/jquery.plugin.min.js"></script>
+		<script src="../resource/jquery.datepick.js"></script>
+		<script>$(function() { $('.datepicker').datepick(); });</script>
 	</head>
-	<body onload="member_notice(); request_notice();">
+	<body>
 		<div class="container">
 			<h1>倉儲暨物流系統</h1>
 			<button onclick="document.getElementById('change_password').style.display = null;">更換密碼</button>
@@ -34,13 +38,20 @@
 				<p id="request_notice_content" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
 				<p id="request_notice_detail" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
 			</div>
+			<div id="command_notice" style="display: none;">
+				<h3>訂單通知</h3>
+				<p id="command_notice_content" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
+				<p id="command_notice_detail" style="width: 45%; display: inline-block; max-height: 200px; overflow: scroll;"></p>
+			</div>
 			<ul class="nav nav-tabs nav-justified">
 				<li><a data-toggle="tab" href="#menu1">原料試算</a></li>
 				<li><a data-toggle="tab" href="#menu2" onclick="whouse_view()">庫存一覽</a></li>
 				<li><a data-toggle="tab" href="#menu3">調整庫存</a></li>
 				<li><a data-toggle="tab" href="#menu4" onclick="request_view()">物流一覽</a></li>
 				<li><a data-toggle="tab" href="#menu5">建立物流</a></li>
-				<li><a data-toggle="tab" href="#menu6" onclick="member_view()">使用者一覽</a></li>
+				<li><a data-toggle="tab" href="#menu6" onclick="command_view()">訂單一覽</a></li>
+				<li><a data-toggle="tab" href="#menu7">建立訂單</a></li>
+				<li><a data-toggle="tab" href="#menu8" onclick="member_view()">使用者一覽</a></li>
 			</ul>
 			<div class="tab-content">
 				<div id="menu1" class="tab-pane fade">
@@ -183,6 +194,7 @@
 										<tr><td>葡萄籽油</td><td><input type="number" id="send_oil_6" value="0" min="0">c.c.</td></tr>
 										<tr><td>苦茶油</td><td><input type="number" id="send_oil_7" value="0" min="0">c.c.</td></tr>
 										<tr><td>蓖麻油</td><td><input type="number" id="send_oil_8" value="0" min="0">c.c.</td></tr>
+										<tr><td>乳油木果脂</td><td><input type="number" id="send_oil_9" value="0" min="0">g</td></tr>
 										<tr><td>鹼</td><td><input type="number" id="send_NaOH" value="0" min="0">g</td></tr>
 									</table>
 								</td>
@@ -198,7 +210,6 @@
 										<tr><td>薑黃粉</td><td><input type="number" id="send_additive_8" value="0" min="0">g</td></tr>
 										<tr><td>紅麴粉</td><td><input type="number" id="send_additive_9" value="0" min="0">g</td></tr>
 										<tr><td>洛神花粉</td><td><input type="number" id="send_additive_10" value="0" min="0">g</td></tr>
-										<tr><td>乳油木果脂</td><td><input type="number" id="send_additive_11" value="0" min="0">g</td></tr>
 									</table>
 								</td>
 								<td class="material_C" style="display: none;">
@@ -254,12 +265,97 @@
 					</div>
 				</div>
 				<div id="menu6" class="tab-pane fade">
+					<h3>訂單一覽</h3>
+					<p id="command_view_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
+					<p id="command_view_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
+				</div>
+				<div id="menu7" class="tab-pane fade">
+					<h3>建立訂單</h3>
+					<select id="command" onchange="command()">
+						<option value="">請選擇</option>
+						<optgroup label="油品訂單">
+							<option value="A">後山埤->北投</option>
+							<option value="B">後山埤->台東</option>
+						</optgroup>
+						<optgroup label="出貨訂單">
+							<option value="C">北投->總部</option>
+						</optgroup>
+						<optgroup label="製皂訂單">
+							<option value="D">北投</option>
+							<option value="E">後山埤</option>
+							<option value="F">台東</option>
+						</optgroup>
+					</select>
+					<div id="command_content" style="display: none;">
+						<table id="commandA" style="display: none;">
+							<tr><td>橄欖油</td><td><input type="number" id="commandA_oil_1" value="0" min="0">c.c.</td></tr>
+							<tr><td>棕梠油</td><td><input type="number" id="commandA_oil_2" value="0" min="0">c.c.</td></tr>
+							<tr><td>椰子油</td><td><input type="number" id="commandA_oil_3" value="0" min="0">c.c.</td></tr>
+							<tr><td>米糠油</td><td><input type="number" id="commandA_oil_4" value="0" min="0">c.c.</td></tr>
+							<tr><td>紅棕梠油</td><td><input type="number" id="commandA_oil_5" value="0" min="0">c.c.</td></tr>
+							<tr><td>葡萄籽油</td><td><input type="number" id="commandA_oil_6" value="0" min="0">c.c.</td></tr>
+							<tr><td>苦茶油</td><td><input type="number" id="commandA_oil_7" value="0" min="0">c.c.</td></tr>
+							<tr><td>蓖麻油</td><td><input type="number" id="commandA_oil_8" value="0" min="0">c.c.</td></tr>
+							<tr><td>乳油木果脂</td><td><input type="number" id="commandA_oil_9" value="0" min="0">g</td></tr>
+							<tr><td>鹼</td><td><input type="number" id="commandA_NaOH" value="0" min="0">g</td></tr>
+						</table>
+						<table id="commandB" style="display: none;">
+							<tr><td>橄欖油</td><td><input type="number" id="commandB_oil_1" value="0" min="0">c.c.</td></tr>
+							<tr><td>棕梠油</td><td><input type="number" id="commandB_oil_2" value="0" min="0">c.c.</td></tr>
+							<tr><td>椰子油</td><td><input type="number" id="commandB_oil_3" value="0" min="0">c.c.</td></tr>
+							<tr><td>米糠油</td><td><input type="number" id="commandB_oil_4" value="0" min="0">c.c.</td></tr>
+							<tr><td>紅棕梠油</td><td><input type="number" id="commandB_oil_5" value="0" min="0">c.c.</td></tr>
+							<tr><td>葡萄籽油</td><td><input type="number" id="commandB_oil_6" value="0" min="0">c.c.</td></tr>
+							<tr><td>苦茶油</td><td><input type="number" id="commandB_oil_7" value="0" min="0">c.c.</td></tr>
+							<tr><td>蓖麻油</td><td><input type="number" id="commandB_oil_8" value="0" min="0">c.c.</td></tr>
+							<tr><td>乳油木果脂</td><td><input type="number" id="commandB_oil_9" value="0" min="0">g</td></tr>
+							<tr><td>鹼</td><td><input type="number" id="commandB_NaOH" value="0" min="0">g</td></tr>
+						</table>
+						<table id="commandC" style="display: none;">
+							<tr><td>田靜山巒禾風皂</td><td><input type="number" id="commandC_product_sp_1" value="0" min="0">個</td></tr>
+							<tr><td>金絲森林渲染皂</td><td><input type="number" id="commandC_product_sp_2" value="0" min="0">個</td></tr>
+							<tr><td>釋迦手感果力皂</td><td><input type="number" id="commandC_product_sp_3" value="0" min="0">個</td></tr>
+							<tr><td>三三台東意象禮盒組</td><td><input type="number" id="commandC_product_sp_box" value="0" min="0">個</td></tr>
+							<tr><td>洛神紅麴旅用皂絲</td><td><input type="number" id="commandC_product_ss_1" value="0" min="0">個</td></tr>
+							<tr><td>暖暖薑黃旅用皂絲</td><td><input type="number" id="commandC_product_ss_2" value="0" min="0">個</td></tr>
+							<tr><td>萱草米黃旅用皂絲</td><td><input type="number" id="commandC_product_ss_3" value="0" min="0">個</td></tr>
+							<tr><td>三三台東意象皂絲旅行組</td><td><input type="number" id="commandC_product_ss_box" value="0" min="0">個</td></tr>
+						</table>
+						<table id="commandD" style="display: none;">
+							<tr><td>洛神皂絲</td><td><input type="number" id="commandD_ss_1" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandD_ss_1"></td></tr>
+							<tr><td>紅麴皂絲</td><td><input type="number" id="commandD_ss_2" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandD_ss_2"></td></tr>
+							<tr><td>薑黃皂絲</td><td><input type="number" id="commandD_ss_3" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandD_ss_3"></td></tr>
+							<tr><td>蕁麻葉皂絲</td><td><input type="number" id="commandD_ss_4" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandD_ss_4"></td></tr>
+							<tr><td>金針皂絲</td><td><input type="number" id="commandD_ss_5" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandD_ss_5"></td></tr>
+							<tr><td>紅棕梠皂絲</td><td><input type="number" id="commandD_ss_6" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandD_ss_6"></td></tr>
+						</table>
+						<table id="commandE" style="display: none;">
+							<tr><td>米皂</td><td><input type="number" id="commandE_sp_1" value="0" min="0">顆</td><td>製作日期：<input type="text" class="datepicker" id="date_commandE_sp_1"></td></tr>
+							<tr><td>金針皂</td><td><input type="number" id="commandE_sp_2" value="0" min="0">顆</td><td>製作日期：<input type="text" class="datepicker" id="date_commandE_sp_2"></td></tr>
+							<tr><td>釋迦皂</td><td><input type="number" id="commandE_sp_3" value="0" min="0">顆</td><td>製作日期：<input type="text" class="datepicker" id="date_commandE_sp_3"></td></tr>
+						</table>
+						<table id="commandF" style="display: none;">
+							<tr><td>米皂</td><td><input type="number" id="commandF_sp_1" value="0" min="0">顆</td><td>製作日期：<input type="text" class="datepicker" id="date_commandF_sp_1"></td></tr>
+							<tr><td>金針皂</td><td><input type="number" id="commandF_sp_2" value="0" min="0">顆</td><td>製作日期：<input type="text" class="datepicker" id="date_commandF_sp_2"></td></tr>
+							<tr><td>釋迦皂</td><td><input type="number" id="commandF_sp_3" value="0" min="0">顆</td><td>製作日期：<input type="text" class="datepicker" id="date_commandF_sp_3"></td></tr>
+							<tr><td>洛神皂絲</td><td><input type="number" id="commandF_ss_1" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandF_ss_1"></td></tr>
+							<tr><td>紅麴皂絲</td><td><input type="number" id="commandF_ss_2" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandF_ss_2"></td></tr>
+							<tr><td>薑黃皂絲</td><td><input type="number" id="commandF_ss_3" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandF_ss_3"></td></tr>
+							<tr><td>蕁麻葉皂絲</td><td><input type="number" id="commandF_ss_4" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandF_ss_4"></td></tr>
+							<tr><td>金針皂絲</td><td><input type="number" id="commandF_ss_5" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandF_ss_5"></td></tr>
+							<tr><td>紅棕梠皂絲</td><td><input type="number" id="commandF_ss_6" value="0" min="0">g</td><td>製作日期：<input type="text" class="datepicker" id="date_commandF_ss_6"></td></tr>
+						</table>
+						<textarea type="text" id="command_memo" placeholder="備註"></textarea>
+						<button onclick="command_check()">下單</button>
+					</div>
+				</div>
+				<div id="menu8" class="tab-pane fade">
 					<h3>使用者一覽</h3>
 					<p id="member_view_content" style="max-height: 300px; overflow: scroll;"></p>
 					<h3>進階查詢</h3>
 					<table>
 						<tr>
-							<td>使用者編號</td>
+							<td>使用者帳號</td>
 							<td><input type="text" id="account"></td>
 							<td><button onclick="search_account()">查詢</button></td>
 						</tr>

@@ -992,7 +992,7 @@ function send($content) {
 			if ($fetch1['AUTHORITY'] == 'A') {
 				if ($sender == 'Trisoap' && $receiver == 'Beitou') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7', 'package_8'))) {
+						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7', 'package_8'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1000,7 +1000,7 @@ function send($content) {
 				}
 				elseif ($sender == 'Trisoap' && $receiver == 'Houshanpi') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11'))) {
+						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1008,17 +1008,18 @@ function send($content) {
 				}
 				elseif ($sender == 'Trisoap' && $receiver == 'Taitung') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7', 'package_8'))) {
+						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7', 'package_8'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
 					}
 				}
 				elseif ($sender == 'Beitou' && $receiver == 'Trisoap') {
+					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
 						if (in_array($key[$i], array('product_sp_1', 'product_sp_2', 'product_sp_3', 'product_sp_box', 'product_ss_1', 'product_ss_2', 'product_ss_3', 'product_ss_box'))) { 
 							if (inventory('Beitou', $key[$i]) < $content[$key[$i]]) {
-								return 'Not enough ' . $key[$i];
+								$message .= query_name($key[$i]) . "存量不足\n";
 							}
 							else {
 								array_push($itemno, $key[$i]);
@@ -1026,16 +1027,20 @@ function send($content) {
 							}
 						}
 					}
+					if (!empty($message)) {
+						return $message;
+					}
 				}
 				elseif ($sender == 'Houshanpi' && $receiver == 'Beitou') {
+					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'NaOH'))) {
+						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
 						elseif (in_array($key[$i], array('sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
 							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
-								return 'Not enough ' . $key[$i];
+								$message .= query_name($key[$i]) . "存量不足\n";
 							}
 							else {
 								array_push($itemno, $key[$i]);
@@ -1043,26 +1048,33 @@ function send($content) {
 							}
 						}
 					}
+					if (!empty($message)) {
+						return $message;
+					}
 				}
 				elseif ($sender == 'Houshanpi' && $receiver == 'Taitung') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'NaOH'))) {
+						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
 					}
 				}
 				elseif ($sender == 'Taitung' && $receiver == 'Beitou') {
+					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
 						if (in_array($key[$i], array('sp_1', 'sp_2', 'sp_3', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
 							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
-								return 'Not enough ' . $key[$i];
+								$message .= query_name($key[$i]) . "存量不足\n";
 							}
 							else {
 								array_push($itemno, $key[$i]);
 								array_push($itemamt, $content[$key[$i]]);
 							}
 						}
+					}
+					if (!empty($message)) {
+						return $message;
 					}
 				}
 				else {
@@ -1071,16 +1083,20 @@ function send($content) {
 			}
 			elseif ($fetch1['AUTHORITY'] == 'B') {
 				if ($sender == 'Beitou' && $receiver == 'Trisoap') {
+					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
 						if (in_array($key[$i], array('product_sp_1', 'product_sp_2', 'product_sp_3', 'product_sp_box', 'product_ss_1', 'product_ss_2', 'product_ss_3', 'product_ss_box'))) { 
 							if (inventory('Beitou', $key[$i]) < $content[$key[$i]]) {
-								return 'Not enough ' . $key[$i];
+								$message .= query_name($key[$i]) . "存量不足\n";
 							}
 							else {
 								array_push($itemno, $key[$i]);
 								array_push($itemamt, $content[$key[$i]]);
 							}
 						}
+					}
+					if (!empty($message)) {
+						return $message;
 					}
 				}
 				else {
@@ -1089,14 +1105,15 @@ function send($content) {
 			}
 			elseif ($fetch1['AUTHORITY'] == 'C') {
 				if ($sender == 'Houshanpi' && $receiver == 'Beitou') {
+					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'NaOH', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11'))) {
+						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
 						elseif (in_array($key[$i], array('sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
 							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
-								return 'Not enough ' . $key[$i];
+								$message .= query_name($key[$i]) . "存量不足\n";
 							}
 							else {
 								array_push($itemno, $key[$i]);
@@ -1104,10 +1121,13 @@ function send($content) {
 							}
 						}
 					}
+					if (!empty($message)) {
+						return $message;
+					}
 				}
 				elseif ($sender == 'Houshanpi' && $receiver == 'Taitung') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'NaOH', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'additive_11'))) {
+						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1119,16 +1139,20 @@ function send($content) {
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
 				if ($sender == 'Taitung' && $receiver == 'Beitou') {
+					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
 						if (in_array($key[$i], array('sp_1', 'sp_2', 'sp_3', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
 							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
-								return 'Not enough ' . $key[$i];
+								$message .= query_name($key[$i]) . "存量不足\n";
 							}
 							else {
 								array_push($itemno, $key[$i]);
 								array_push($itemamt, $content[$key[$i]]);
 							}
 						}
+					}
+					if (!empty($message)) {
+						return $message;
 					}
 				}
 				else {

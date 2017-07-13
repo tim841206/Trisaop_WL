@@ -471,6 +471,7 @@ function adjust_search($account, $token, $whouseno) {
 								<tr><td>葡萄籽油</td><td><input type="text" class="adjust_A" id="adjust_oil_6" value="'.$inventory['oil_6'].'"></td></tr>
 								<tr><td>苦茶油</td><td><input type="text" class="adjust_A" id="adjust_oil_7" value="'.$inventory['oil_7'].'"></td></tr>
 								<tr><td>蓖麻油</td><td><input type="text" class="adjust_A" id="adjust_oil_8" value="'.$inventory['oil_8'].'"></td></tr>
+								<tr><td>乳油木果脂</td><td><input type="text" class="adjust_A" id="adjust_oil_9" value="'.$inventory['oil_9'].'"></td></tr>
 								<tr><td>鹼</td><td><input type="text" class="adjust_A" id="adjust_NaOH" value="'.$inventory['NaOH'].'"></td></tr>
 							</table></td>
 							<td><table>
@@ -485,7 +486,6 @@ function adjust_search($account, $token, $whouseno) {
 								<tr><td>薑黃粉</td><td><input type="text" class="adjust_B" id="adjust_additive_8" value="'.$inventory['additive_8'].'"></td></tr>
 								<tr><td>紅麴粉</td><td><input type="text" class="adjust_B" id="adjust_additive_9" value="'.$inventory['additive_9'].'"></td></tr>
 								<tr><td>洛神花粉</td><td><input type="text" class="adjust_B" id="adjust_additive_10" value="'.$inventory['additive_10'].'"></td></tr>
-								<tr><td>乳油木果脂</td><td><input type="text" class="adjust_B" id="adjust_additive_11" value="'.$inventory['additive_11'].'"></td></tr>
 							</table></td>
 							<td><table>
 								<tr><th colspan="2">包裝</th></tr>
@@ -597,6 +597,7 @@ function adjust_search($account, $token, $whouseno) {
 								<tr><td>葡萄籽油</td><td><input type="text" class="adjust_A" id="adjust_oil_6" value="'.$inventory['oil_6'].'"></td></tr>
 								<tr><td>苦茶油</td><td><input type="text" class="adjust_A" id="adjust_oil_7" value="'.$inventory['oil_7'].'"></td></tr>
 								<tr><td>蓖麻油</td><td><input type="text" class="adjust_A" id="adjust_oil_8" value="'.$inventory['oil_8'].'"></td></tr>
+								<tr><td>乳油木果脂</td><td><input type="text" class="adjust_A" id="adjust_oil_9" value="'.$inventory['oil_9'].'"></td></tr>
 								<tr><td>鹼</td><td><input type="text" class="adjust_A" id="adjust_NaOH" value="'.$inventory['NaOH'].'"></td></tr>
 							</table></td>
 							<td><table>
@@ -611,7 +612,6 @@ function adjust_search($account, $token, $whouseno) {
 								<tr><td>薑黃粉</td><td><input type="text" class="adjust_B" id="adjust_additive_8" value="'.$inventory['additive_8'].'"></td></tr>
 								<tr><td>紅麴粉</td><td><input type="text" class="adjust_B" id="adjust_additive_9" value="'.$inventory['additive_9'].'"></td></tr>
 								<tr><td>洛神花粉</td><td><input type="text" class="adjust_B" id="adjust_additive_10" value="'.$inventory['additive_10'].'"></td></tr>
-								<tr><td>乳油木果脂</td><td><input type="text" class="adjust_B" id="adjust_additive_11" value="'.$inventory['additive_11'].'"></td></tr>
 							</table></td>
 							<td><table>
 								<tr><th colspan="2">產品</th></tr>

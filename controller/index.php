@@ -34,19 +34,19 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 					setcookie('token', $return['token']);
 					if ($return['authority'] == 'A') {
 						$content = file_get_contents("../view/index_A.html");
-						echo json_encode(array('message' => $return['message'], 'content' => $content, 'member' => 'load'));
+						echo json_encode(array('message' => $return['message'], 'content' => $content, 'member' => 'load', 'command' => 'load'));
 					}
 					elseif ($return['authority'] == 'B') {
 						$content = file_get_contents("../view/index_B.html");
-						echo json_encode(array('message' => $return['message'], 'content' => $content, 'mature' => 'load'));
+						echo json_encode(array('message' => $return['message'], 'content' => $content, 'mature' => 'load', 'command' => 'load'));
 					}
 					elseif ($return['authority'] == 'C') {
 						$content = file_get_contents("../view/index_C.html");
-						echo json_encode(array('message' => $return['message'], 'content' => $content, 'mature' => 'load'));
+						echo json_encode(array('message' => $return['message'], 'content' => $content, 'mature' => 'load', 'command' => 'load'));
 					}
 					elseif ($return['authority'] == 'D') {
 						$content = file_get_contents("../view/index_D.html");
-						echo json_encode(array('message' => $return['message'], 'content' => $content, 'mature' => 'load'));
+						echo json_encode(array('message' => $return['message'], 'content' => $content, 'mature' => 'load', 'command' => 'load'));
 					}
 					elseif ($return['authority'] == 'E') {
 						$content = file_get_contents("../view/index_E.html");
@@ -190,6 +190,41 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 				echo curl_post($post, $_POST['module']);
 			}
 			elseif ($_POST['event'] == 'mature') {
+				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
+				$post = array_merge($id, $_POST);
+				echo curl_post($post, $_POST['module']);
+			}
+			else {
+				echo json_encode(array('message' => 'Invalid event called'));
+			}
+		}
+		elseif ($_POST['module'] == 'command') {
+			if ($_POST['event'] == 'view') {
+				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
+				$post = array_merge($id, $_POST);
+				echo curl_post($post, $_POST['module']);
+			}
+			elseif ($_POST['event'] == 'view_index') {
+				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
+				$post = array_merge($id, $_POST);
+				echo curl_post($post, $_POST['module']);
+			}
+			elseif ($_POST['event'] == 'notice') {
+				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
+				$post = array_merge($id, $_POST);
+				echo curl_post($post, $_POST['module']);
+			}
+			elseif ($_POST['event'] == 'deliver') {
+				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
+				$post = array_merge($id, $_POST);
+				echo curl_post($post, $_POST['module']);
+			}
+			elseif ($_POST['event'] == 'refuse') {
+				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
+				$post = array_merge($id, $_POST);
+				echo curl_post($post, $_POST['module']);
+			}
+			elseif ($_POST['event'] == 'send') {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);
