@@ -565,6 +565,7 @@ function command() {
 		document.getElementById("commandF").style.display = 'none';
 	}
 	else if (command == 'D') {
+		$(function() { $('.datepicker').datepick(); });
 		document.getElementById("command_content").style.display = null;
 		document.getElementById("commandA").style.display = 'none';
 		document.getElementById("commandB").style.display = 'none';
@@ -574,6 +575,7 @@ function command() {
 		document.getElementById("commandF").style.display = 'none';
 	}
 	else if (command == 'E') {
+		$(function() { $('.datepicker').datepick(); });
 		document.getElementById("command_content").style.display = null;
 		document.getElementById("commandA").style.display = 'none';
 		document.getElementById("commandB").style.display = 'none';
@@ -583,6 +585,7 @@ function command() {
 		document.getElementById("commandF").style.display = 'none';
 	}
 	else if (command == 'F') {
+		$(function() { $('.datepicker').datepick(); });
 		document.getElementById("command_content").style.display = null;
 		document.getElementById("commandA").style.display = 'none';
 		document.getElementById("commandB").style.display = 'none';
@@ -1749,7 +1752,6 @@ function deliver(index) {
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
-			alert(request.responseText);
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				alert("成功送出，物流編號：" + data.index);
@@ -1846,6 +1848,48 @@ function view_command_notice(index) {
 			}
 			else {
 				document.getElementById("command_notice_detail").innerHTML = null;
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function check(index, itemno) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=command&event=check&index=" + index + "&itemno=" + itemno;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				if (confirm(data.check) == true) {
+					check_checked(index, itemno);
+				}
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function check_checked(index, itemno) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=command&event=check_checked&index=" + index + "&itemno=" + itemno;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				command_view();
+				view_command(index);	
+				view_command_notice(index);
+			}
+			else {
 				alert(data.message);
 			}
 		}

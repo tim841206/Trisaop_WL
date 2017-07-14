@@ -304,7 +304,7 @@ function search_state($account, $token, $state) {
 	elseif (empty($state)) {
 		return 'Empty state';
 	}
-	elseif (!in_array($state, array('A', 'B', 'C', 'D', 'E'))) {
+	elseif (!in_array($state, array('A', 'B', 'C', 'D'))) {
 		return 'Wrong state format';
 	}
 	elseif ($sql1 == false) {
@@ -688,12 +688,7 @@ function notice($account, $token) {
 					while ($fetch2 = mysql_fetch_array($sql2)) {
 						$RQSTNO = $fetch2['RQSTNO'];
 						$content .= translate($fetch2['RECEIVER']) . ' 方已經 ' . translate_state($fetch2['RQSTSTAT']) .' 編號為 ' . $RQSTNO . ' 的物流。<br>';
-						if ($fetch2['RQSTSTAT'] == 'B') {
-							mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$RQSTNO'");
-						}
-						if ($fetch2['RQSTSTAT'] == 'C' || $fetch2['RQSTSTAT'] == 'D') {
-							mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date', RQSTSTAT='E', UPDATEDATE='$date' WHERE RQSTNO='$RQSTNO'");
-						}
+						mysql_query("UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$RQSTNO'");
 					}
 				}
 				if (mysql_num_rows($sql3) != 0) {
@@ -1267,7 +1262,6 @@ function transfer_state($state) {
 	elseif ($state == 'B') return '待確認';
 	elseif ($state == 'C') return '已確認';
 	elseif ($state == 'D') return '已拒絕';
-	elseif ($state == 'E') return '已完成';
 	else return 'Unknown';
 }
 

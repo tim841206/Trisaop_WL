@@ -167,7 +167,8 @@ CREATE TABLE `CMDDTLMAS` (
   `ITEMNO` varchar(25) COLLATE utf8_bin NOT NULL,
   `ITEMNM` varchar(50) COLLATE utf8_bin NOT NULL,
   `ITEMAMT` int(11) NOT NULL,
-  `CMDDATE` date DEFAULT NULL
+  `CMDDATE` date DEFAULT NULL,
+  `CHECKSTAT` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='請求內容主檔';
 
 -- --------------------------------------------------------
