@@ -13,7 +13,7 @@
 		<script src="../resource/jquery.plugin.min.js"></script>
 		<script src="../resource/jquery.datepick.js"></script>
 	</head>
-	<body>
+	<body onload="request_notice()">
 		<div class="container">
 			<h1>倉儲暨物流系統</h1>
 			<button onclick="document.getElementById('change_password').style.display = null;">更換密碼</button>
@@ -144,6 +144,11 @@
 								</select>
 							</td>
 							<td><button onclick="search_state()">查詢</button></td>
+						</tr>
+						<tr>
+							<td>物流建立日期</td>
+							<td><input type="text" id="year">年<input type="text" id="month">月<input type="text" id="day">日</td>
+							<td><button onclick="search_date()">查詢</button></td>
 						</tr>
 					</table>
 					<p id="request_search_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>

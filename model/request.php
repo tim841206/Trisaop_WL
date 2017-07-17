@@ -36,6 +36,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 				return;
 			}
 		}
+		elseif ($_GET['event'] == 'search_date') {
+			$message = search_date($_GET['account'], $_GET['token'], $_GET['year'], $_GET['month'], $_GET['day']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
 		elseif ($_GET['event'] == 'view_index') {
 			$message = view_index($_GET['account'], $_GET['token'], $_GET['index']);
 			if (is_array($message)) {
@@ -121,6 +132,17 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		elseif ($_POST['event'] == 'search_state') {
 			$message = search_state($_POST['account'], $_POST['token'], $_POST['state']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_POST['event'] == 'search_date') {
+			$message = search_date($_POST['account'], $_POST['token'], $_POST['year'], $_POST['month'], $_POST['day']);
 			if (is_array($message)) {
 				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
 				return;
@@ -327,6 +349,201 @@ function search_state($account, $token, $state) {
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
 				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
+			}
+			$content = '';
+			if ($sql2 == false) {
+				$content = '查無資料';
+			}
+			else {
+				if ($fetch1['AUTHORITY'] == 'C') {
+					$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th></tr>';
+					while ($fetch2 = mysql_fetch_array($sql2)) {
+						$content .= '<tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td><button onclick="view_index_search('.$fetch2['RQSTNO'].')">查看</button></td></tr>';
+					}
+				}
+				else {
+					$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th><th>運費</th></tr>';
+					while ($fetch2 = mysql_fetch_array($sql2)) {
+						$content .= '<tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td><td><button onclick="view_index_search('.$fetch2['RQSTNO'].')">查看</button></td></tr>';
+					}
+				}
+				$content .= '</table>';
+			}
+			return array('message' => 'Success', 'content' => $content);
+		}
+	}
+}
+
+function search_date($account, $token, $year, $month, $day) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Empty token';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		else {
+			$month = process_date($month);
+			$day = process_date($day);
+			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
+				if (empty($year)) {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
+						}
+					}
+				}
+				else {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
+						}
+					}
+				}
+			}
+			elseif ($fetch1['AUTHORITY'] == 'B') {
+				if (empty($year)) {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou')");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
+						}
+					}
+				}
+				else {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
+						}
+					}
+				}
+			}
+			elseif ($fetch1['AUTHORITY'] == 'C') {
+				if (empty($year)) {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou')");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
+						}
+					}
+				}
+				else {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
+						}
+					}
+				}
+			}
+			elseif ($fetch1['AUTHORITY'] == 'D') {
+				if (empty($year)) {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou')");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
+						}
+					}
+				}
+				else {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
+						}
+					}
+				}
 			}
 			$content = '';
 			if ($sql2 == false) {
@@ -660,19 +877,19 @@ function notice($account, $token) {
 		else {
 			if ($fetch1['AUTHORITY'] == 'A') {
 				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Trisoap' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Trisoap' AND RQSTSTAT='A' AND ACTCODE='1'");
+				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Trisoap' AND (RQSTSTAT='A' OR RQSTSTAT='B') AND ACTCODE='1'");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'B') {
 				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Beitou' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Beitou' AND RQSTSTAT='A' AND ACTCODE='1'");
+				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Beitou' AND (RQSTSTAT='A' OR RQSTSTAT='B') AND ACTCODE='1'");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'C') {
 				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Houshanpi' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Houshanpi' AND RQSTSTAT='A' AND ACTCODE='1'");
+				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Houshanpi' AND (RQSTSTAT='A' OR RQSTSTAT='B') AND ACTCODE='1'");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
 				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Taitung' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Taitung' AND RQSTSTAT='A' AND ACTCODE='1'");
+				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Taitung' AND (RQSTSTAT='A' OR RQSTSTAT='B') AND ACTCODE='1'");
 			}
 			else {
 				return 'No notice';
@@ -693,7 +910,12 @@ function notice($account, $token) {
 				}
 				if (mysql_num_rows($sql3) != 0) {
 					while ($fetch3 = mysql_fetch_array($sql3)) {
-						$content .= '<span style="color: red;">您有一個來自 ' . translate($fetch3['SENDER']) . ' 的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。</span><button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>';
+						if ($fetch3['RQSTSTAT'] == 'A') {
+							$content .= '<span style="color: red;">您有一個來自 ' . translate($fetch3['SENDER']) . ' 的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。</span><button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>';
+						}
+						else {
+							$content .= '<span style="color: red;">您有一個待確認的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。</span><button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>';
+						}
 					}
 				}
 				return array('message' => 'Success', 'content' => $content);
@@ -1102,7 +1324,7 @@ function send($content) {
 				if ($sender == 'Houshanpi' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10'))) {
+						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1122,7 +1344,7 @@ function send($content) {
 				}
 				elseif ($sender == 'Houshanpi' && $receiver == 'Taitung') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH', 'additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10'))) {
+						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1300,4 +1522,13 @@ function authorityToName($authority) {
 	elseif ($authority == 'D') return 'Taitung';
 	elseif ($authority == 'E') return 'Intern';
 	else return 'Unknown';
+}
+
+function process_date($value) {
+	if ($value < 10) {
+		return '0'.$value;
+	}
+	else {
+		return $value;
+	}
 }

@@ -158,7 +158,7 @@ function view($account, $token) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
@@ -366,7 +366,7 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
@@ -431,7 +431,7 @@ function adjust_search($account, $token, $whouseno) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
@@ -555,6 +555,19 @@ function adjust_search($account, $token, $whouseno) {
 				}
 				$content = '<table><tr>
 							<td><table>
+								<tr><th colspan="2">添加物</th></tr>
+								<tr><td>金針花瓣</td><td><input type="text" class="adjust_B" id="adjust_additive_1" value="'.$inventory['additive_1'].'"></td></tr>
+								<tr><td>釋迦果粉</td><td><input type="text" class="adjust_B" id="adjust_additive_2" value="'.$inventory['additive_2'].'"></td></tr>
+								<tr><td>釋迦果泥</td><td><input type="text" class="adjust_B" id="adjust_additive_3" value="'.$inventory['additive_3'].'"></td></tr>
+								<tr><td>米粉</td><td><input type="text" class="adjust_B" id="adjust_additive_4" value="'.$inventory['additive_4'].'"></td></tr>
+								<tr><td>蕁麻葉粉</td><td><input type="text" class="adjust_B" id="adjust_additive_5" value="'.$inventory['additive_5'].'"></td></tr>
+								<tr><td>金盞花粉</td><td><input type="text" class="adjust_B" id="adjust_additive_6" value="'.$inventory['additive_6'].'"></td></tr>
+								<tr><td>金針花粉</td><td><input type="text" class="adjust_B" id="adjust_additive_7" value="'.$inventory['additive_7'].'"></td></tr>
+								<tr><td>薑黃粉</td><td><input type="text" class="adjust_B" id="adjust_additive_8" value="'.$inventory['additive_8'].'"></td></tr>
+								<tr><td>紅麴粉</td><td><input type="text" class="adjust_B" id="adjust_additive_9" value="'.$inventory['additive_9'].'"></td></tr>
+								<tr><td>洛神花粉</td><td><input type="text" class="adjust_B" id="adjust_additive_10" value="'.$inventory['additive_10'].'"></td></tr>
+							</table></td>
+							<td><table>
 								<tr><th colspan="2">半成品</th></tr>';
 				$NO = array_keys($f_class_no);
 				$itr_time = count($f_class_no);
@@ -654,7 +667,7 @@ function adjust($content) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
@@ -756,11 +769,13 @@ function adjust($content) {
 				$TOTALAMT = explode(',', $content['adjust_F_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
 					$NO = substr($ITEMNO[$i], 7);
+					$queryNO = substr(substr($ITEMNO[$i], 7), 0, -9);
+					$TIME = substr($ITEMNO[$i], -8);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
 						$ORIGINAMT = inventory('Beitou', $NO);
 						if ($AMT != $ORIGINAMT) {
-							$NAME = query_name($NO);
+							$NAME = $TIME . query_name($queryNO);
 							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
@@ -789,15 +804,33 @@ function adjust($content) {
 			elseif ($content['whouseno'] == 'Houshanpi') {
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
-				$ITEMNO = explode(',', $content['adjust_F_no']);
-				$TOTALAMT = explode(',', $content['adjust_F_amt']);
+				$ITEMNO = explode(',', $content['adjust_B_no']);
+				$TOTALAMT = explode(',', $content['adjust_B_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Houshanpi', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
+							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
+				$ITEMNO = explode(',', $content['adjust_F_no']);
+				$TOTALAMT = explode(',', $content['adjust_F_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$queryNO = substr(substr($ITEMNO[$i], 7), 0, -9);
+					$TIME = substr($ITEMNO[$i], -8);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Houshanpi', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$NAME = $TIME . query_name($queryNO);
 							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
@@ -811,7 +844,7 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Houshanpi', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
 							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
@@ -832,7 +865,7 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Taitung', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
 							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
@@ -848,7 +881,7 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Taitung', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
 							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
@@ -864,7 +897,7 @@ function adjust($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Taitung', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$NAME = query_name($NO);
 							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
@@ -878,11 +911,13 @@ function adjust($content) {
 				$TOTALAMT = explode(',', $content['adjust_F_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
 					$NO = substr($ITEMNO[$i], 7);
+					$queryNO = substr(substr($ITEMNO[$i], 7), 0, -9);
+					$TIME = substr($ITEMNO[$i], -8);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Taitung', $NO);
 						if ($AMT != $ORIGINAMT) {
-							$NAME = query_name($NO);
+							$NAME = $TIME . query_name($queryNO);
 							$message .= '將把' . $NAME . '的存量由' . $ORIGINAMT . '更改為' . $AMT . "\n";
 						}
 					}
@@ -907,7 +942,7 @@ function adjust_checked($content) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
@@ -1062,13 +1097,31 @@ function adjust_checked($content) {
 			elseif ($content['whouseno'] == 'Houshanpi') {
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
+				$ITEMNO = explode(',', $content['adjust_B_no']);
+				$TOTALAMT = explode(',', $content['adjust_B_amt']);
+				for ($i = 0; $i < count($ITEMNO); $i++) {
+					$NO = substr($ITEMNO[$i], 7);
+					$AMT = $TOTALAMT[$i];
+					if (is_nonnegativeInt($AMT)) {
+						$ORIGINAMT = inventory('Houshanpi', $NO);
+						if ($AMT != $ORIGINAMT) {
+							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$NO'";
+							if (!mysql_query($sql2)) {
+								return 'Wrong index';
+							}
+						}
+					}
+					else {
+						return 'Wrong amount format';
+					}
+				}
 				$ITEMNO = explode(',', $content['adjust_F_no']);
 				$TOTALAMT = explode(',', $content['adjust_F_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_positiveInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Houshanpi', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$NO'";
 							if (!mysql_query($sql2)) {
@@ -1092,7 +1145,7 @@ function adjust_checked($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Houshanpi', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$NO'";
 							if (!mysql_query($sql2)) {
@@ -1115,7 +1168,7 @@ function adjust_checked($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Taitung', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
 							if (!mysql_query($sql2)) {
@@ -1133,7 +1186,7 @@ function adjust_checked($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Taitung', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
 							if (!mysql_query($sql2)) {
@@ -1151,7 +1204,7 @@ function adjust_checked($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_nonnegativeInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Taitung', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
 							if (!mysql_query($sql2)) {
@@ -1169,7 +1222,7 @@ function adjust_checked($content) {
 					$NO = substr($ITEMNO[$i], 7);
 					$AMT = $TOTALAMT[$i];
 					if (is_positiveInt($AMT)) {
-						$ORIGINAMT = inventory('Beitou', $NO);
+						$ORIGINAMT = inventory('Taitung', $NO);
 						if ($AMT != $ORIGINAMT) {
 							$sql2 = "UPDATE WHOUSEITEMMAS SET TOTALAMT='$AMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$NO'";
 							if (!mysql_query($sql2)) {
@@ -1202,7 +1255,7 @@ function mature($account, $token) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
@@ -1218,9 +1271,9 @@ function mature($account, $token) {
 		else {
 			date_default_timezone_set('Asia/Taipei');
 			$date = date("Y-m-d H:i:s");
-			$matureDay = 33;
 			$content = '';
 			if ($fetch1['AUTHORITY'] == 'B') {
+				$matureDay = 33;
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='F' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
@@ -1230,11 +1283,12 @@ function mature($account, $token) {
 					if ($difference >= $matureDay) {
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$processedITEMNO'");
-						$content .= $fetch2['ITEMNM'] . ' 已熟成。<br>';
+						$content .= $fetch2['TOTALAMT'] . ' 個 ' . $fetch2['ITEMNM'] . ' 已熟成。<br>';
 					}
 				}
 			}
 			elseif ($fetch1['AUTHORITY'] == 'C') {
+				$matureDay = 14;
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ITEMCLASS='F' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
@@ -1244,11 +1298,12 @@ function mature($account, $token) {
 					if ($difference >= $matureDay) {
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$ITEMNO'");
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$processedITEMNO'");
-						$content .= $fetch2['ITEMNM'] . ' 已熟成。<br>';
+						$content .= $fetch2['TOTALAMT'] . ' 個 ' . $fetch2['ITEMNM'] . ' 已熟成。<br>';
 					}
 				}
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
+				$matureDay = 33;
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='F' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
@@ -1258,7 +1313,7 @@ function mature($account, $token) {
 					if ($difference >= $matureDay) {
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$ITEMNO'");
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$processedITEMNO'");
-						$content .= $fetch2['ITEMNM'] . ' 已熟成。<br>';
+						$content .= $fetch2['TOTALAMT'] . ' 個 ' . $fetch2['ITEMNM'] . ' 已熟成。<br>';
 					}
 				}
 			}

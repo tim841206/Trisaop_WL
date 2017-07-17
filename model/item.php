@@ -108,7 +108,7 @@ function search($content) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
@@ -246,7 +246,7 @@ function produce($content) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
@@ -394,7 +394,7 @@ function produce($content) {
 				}
 			}
 			elseif ($fetch1['AUTHORITY'] == 'C') {
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='B' AND ACTCODE='1'");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ITEMCLASS='B' AND ACTCODE='1'");
 				$message = '';
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
@@ -443,7 +443,7 @@ function package($content) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
@@ -551,7 +551,7 @@ function packing($content) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif ($sql1 == false) {
 		return 'Unregistered account';

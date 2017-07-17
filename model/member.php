@@ -316,7 +316,7 @@ function change_password($account, $token, $ori_password, $new_password1, $new_p
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif (empty($ori_password)) {
 		return 'Empty original password';
@@ -368,7 +368,7 @@ function search_account($account, $token, $index) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif (empty($index)) {
 		return 'Empty target';
@@ -507,7 +507,7 @@ function notice($account, $token) {
 		return 'Empty account';
 	}
 	elseif (empty($token)) {
-		return 'Not logged in';
+		return 'Empty token';
 	}
 	elseif ($sql1 == false) {
 		return 'Unregistered account';

@@ -191,7 +191,7 @@ function adjust() {
 		var data = "module=whouse&event=adjust&whouseno=Beitou&adjust_A_no=" + adjust_A_no + "&adjust_A_amt=" + adjust_A_amt + "&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_C_no=" + adjust_C_no + "&adjust_C_amt=" + adjust_C_amt + "&adjust_D_no=" + adjust_D_no + "&adjust_D_amt=" + adjust_D_amt + "&adjust_E_no=" + adjust_E_no + "&adjust_E_amt=" + adjust_E_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt + "&adjust_H_no=" + adjust_H_no + "&adjust_H_amt=" + adjust_H_amt;
 	}
 	else if (whouseno == 'Houshanpi') {
-		var data = "module=whouse&event=adjust&whouseno=Houshanpi&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt + "&adjust_H_no=" + adjust_H_no + "&adjust_H_amt=" + adjust_H_amt; 
+		var data = "module=whouse&event=adjust&whouseno=Houshanpi&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt + "&adjust_H_no=" + adjust_H_no + "&adjust_H_amt=" + adjust_H_amt;
 	}
 	else if (whouseno == 'Taitung') {
 		var data = "module=whouse&event=adjust&whouseno=Taitung&adjust_A_no=" + adjust_A_no + "&adjust_A_amt=" + adjust_A_amt + "&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_E_no=" + adjust_E_no + "&adjust_E_amt=" + adjust_E_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt;
@@ -266,7 +266,7 @@ function adjust_checked() {
 		var data = "module=whouse&event=adjust_checked&whouseno=Beitou&adjust_A_no=" + adjust_A_no + "&adjust_A_amt=" + adjust_A_amt + "&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_C_no=" + adjust_C_no + "&adjust_C_amt=" + adjust_C_amt + "&adjust_D_no=" + adjust_D_no + "&adjust_D_amt=" + adjust_D_amt + "&adjust_E_no=" + adjust_E_no + "&adjust_E_amt=" + adjust_E_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt + "&adjust_H_no=" + adjust_H_no + "&adjust_H_amt=" + adjust_H_amt;
 	}
 	else if (whouseno == 'Houshanpi') {
-		var data = "module=whouse&event=adjust_checked&whouseno=Houshanpi&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt + "&adjust_H_no=" + adjust_H_no + "&adjust_H_amt=" + adjust_H_amt; 
+		var data = "module=whouse&event=adjust_checked&whouseno=Houshanpi&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt + "&adjust_H_no=" + adjust_H_no + "&adjust_H_amt=" + adjust_H_amt;
 	}
 	else if (whouseno == 'Taitung') {
 		var data = "module=whouse&event=adjust_checked&whouseno=Taitung&adjust_A_no=" + adjust_A_no + "&adjust_A_amt=" + adjust_A_amt + "&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_E_no=" + adjust_E_no + "&adjust_E_amt=" + adjust_E_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt;
@@ -1132,6 +1132,29 @@ function search_state() {
 	}
 }
 
+function search_date() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var year = document.getElementById("year").value;
+	var month = document.getElementById("month").value;
+	var day = document.getElementById("day").value;
+	var data = "module=request&event=search_date&year=" + year + "&month=" + month + "&day=" + day;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("request_search_content").innerHTML = data.content;
+			}
+			else {
+				document.getElementById("request_search_content").innerHTML = null;
+				alert(data.message);
+			}
+		}
+	}
+}
+
 function view_index_notice(index) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
@@ -1501,32 +1524,32 @@ function send() {
 		if (product_ss_box != null && product_ss_box != 0) data = data + "&product_ss_box=" + product_ss_box;
 	}
 	if (sender == 'Beitou' || sender == 'Taitung') {
-		var sp_1 = document.getElementById("send_sp_1");
-		if (sp_1 != null) data = data + "&sp_1=" + sp_1.value;
-		var sp_2 = document.getElementById("send_sp_2");
-		if (sp_2 != null) data = data + "&sp_2=" + sp_2.value;
-		var sp_3 = document.getElementById("send_sp_3");
-		if (sp_3 != null) data = data + "&sp_3=" + sp_3.value;
-		var ss_1 = document.getElementById("send_ss_1");
-		if (ss_1 != null) data = data + "&ss_1=" + ss_1.value;
-		var ss_2 = document.getElementById("send_ss_2");
-		if (ss_2 != null) data = data + "&ss_2=" + ss_2.value;
-		var ss_3 = document.getElementById("send_ss_3");
-		if (ss_3 != null) data = data + "&ss_3=" + ss_3.value;
-		var ss_4 = document.getElementById("send_ss_4");
-		if (ss_4 != null) data = data + "&ss_4=" + ss_4.value;
-		var ss_5 = document.getElementById("send_ss_5");
-		if (ss_5 != null) data = data + "&ss_5=" + ss_5.value;
-		var ss_6 = document.getElementById("send_ss_6");
-		if (ss_6 != null) data = data + "&ss_6=" + ss_6.value;
+		var sp_1 = document.getElementById("send_sp_1").value;
+		if (sp_1 != null && sp_1 != 0) data = data + "&sp_1=" + sp_1;
+		var sp_2 = document.getElementById("send_sp_2").value;
+		if (sp_2 != null && sp_2 != 0) data = data + "&sp_2=" + sp_2;
+		var sp_3 = document.getElementById("send_sp_3").value;
+		if (sp_3 != null && sp_3 != 0) data = data + "&sp_3=" + sp_3;
+		var ss_1 = document.getElementById("send_ss_1").value;
+		if (ss_1 != null && ss_1 != 0) data = data + "&ss_1=" + ss_1;
+		var ss_2 = document.getElementById("send_ss_2").value;
+		if (ss_2 != null && ss_2 != 0) data = data + "&ss_2=" + ss_2;
+		var ss_3 = document.getElementById("send_ss_3").value;
+		if (ss_3 != null && ss_3 != 0) data = data + "&ss_3=" + ss_3;
+		var ss_4 = document.getElementById("send_ss_4").value;
+		if (ss_4 != null && ss_4 != 0) data = data + "&ss_4=" + ss_4;
+		var ss_5 = document.getElementById("send_ss_5").value;
+		if (ss_5 != null && ss_5 != 0) data = data + "&ss_5=" + ss_5;
+		var ss_6 = document.getElementById("send_ss_6").value;
+		if (ss_6 != null && ss_6 != 0) data = data + "&ss_6=" + ss_6;
 	}
 	if (sender == 'Beitou' || sender == 'Houshanpi') {
-		var sp_1_houshanpi = document.getElementById("send_sp_1_houshanpi");
-		if (sp_1_houshanpi != null) data = data + "&sp_1_houshanpi=" + sp_1_houshanpi.value;
-		var sp_2_houshanpi = document.getElementById("send_sp_2_houshanpi");
-		if (sp_2_houshanpi != null) data = data + "&sp_2_houshanpi=" + sp_2_houshanpi.value;
-		var sp_3_houshanpi = document.getElementById("send_sp_3_houshanpi");
-		if (sp_3_houshanpi != null) data = data + "&sp_3_houshanpi=" + sp_3_houshanpi.value;
+		var sp_1_houshanpi = document.getElementById("send_sp_1_houshanpi").value;
+		if (sp_1_houshanpi != null && sp_1_houshanpi != 0) data = data + "&sp_1_houshanpi=" + sp_1_houshanpi;
+		var sp_2_houshanpi = document.getElementById("send_sp_2_houshanpi").value;
+		if (sp_2_houshanpi != null && sp_2_houshanpi != 0) data = data + "&sp_2_houshanpi=" + sp_2_houshanpi;
+		var sp_3_houshanpi = document.getElementById("send_sp_3_houshanpi").value;
+		if (sp_3_houshanpi != null && sp_3_houshanpi != 0) data = data + "&sp_3_houshanpi=" + sp_3_houshanpi;
 	}
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
