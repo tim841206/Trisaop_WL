@@ -287,12 +287,18 @@ else {
 
 function curl_post($post, $module) {
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'http://localhost/Trisoap_WL/model/'. $module .'.php');
+	curl_setopt($ch, CURLOPT_URL, 'https://trisoap.com/Trisoap_WL/model/' . $module . '.php');
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	$result = curl_exec($ch);
-	curl_close($ch);
-	return $result;
+	if( $result ) {
+		curl_close($ch);
+		return $result;
+	}
+	else {
+		return curl_error($ch);
+	}
 }
+
