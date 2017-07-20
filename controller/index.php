@@ -287,7 +287,7 @@ else {
 
 function curl_post($post, $module) {
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'http://localhost/Trisoap_WL/model/'. $module .'.php');
+	curl_setopt($ch, CURLOPT_URL, 'https://trisoap.com/Trisoap_WL/model/'. $module .'.php');
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);

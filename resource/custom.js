@@ -48,6 +48,7 @@ function logon() {
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
+			alert(request.responseText);
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				alert("註冊成功，請通知管理員授權");
