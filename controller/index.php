@@ -1,4 +1,6 @@
 <?php
+include_once("../resource/database.php");
+
 if (isset($_GET['module']) || isset($_POST['module'])) {
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if ($_POST['module'] == 'item') {
@@ -257,28 +259,51 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 	}
 }
 elseif (isset($_COOKIE['account']) && isset($_COOKIE['token'])) {
-	$return = json_decode(curl_post(array('module' => 'member', 'event' => 'get_auth', 'account' => $_COOKIE['account'], 'token' => $_COOKIE['token']), 'member'), true);
-	if ($return['message'] == 'Success') {
-		if ($return['authority'] == 'A') {
-			include_once("../view/index_A.html");
+	if (isset($_FILES['fileData'])) {
+		if ($_FILES['fileData']['type'] == 'application/pdf') {
+			if ($_FILES['fileData']['size'] <= 5000000) {
+				$cmdno = get_no() - 1;
+				$upload = move_uploaded_file($_FILES['fileData']['tmp_name'], '../resource/commandFile/' . $cmdno . '.pdf');
+				if ($upload) {
+					mysql_query("UPDATE CMDMAS SET FILESTAT='1' WHERE CMDNO='$cmdno' AND ACTCODE='1'");
+					echo json_encode(array('message' => 'Success'));
+				}
+				else {
+					echo json_encode(array('message' => 'Unable to attach file'));	
+				}
+			}
+			else {
+				echo json_encode(array('message' => 'File exceed size limit'));
+			}
 		}
-		elseif ($return['authority'] == 'B') {
-			include_once("../view/index_B.html");
-		}
-		elseif ($return['authority'] == 'C') {
-			include_once("../view/index_C.html");
-		}
-		elseif ($return['authority'] == 'D') {
-			include_once("../view/index_D.html");
-		}
-		elseif ($return['authority'] == 'E') {
-			include_once("../view/index_E.html");
+		else {
+			echo json_encode(array('message' => 'Wrong file format'));
 		}
 	}
 	else {
-		unset($_COOKIE['account']);
-		unset($_COOKIE['token']);
-		include_once("../view/index.html");
+		$return = json_decode(curl_post(array('module' => 'member', 'event' => 'get_auth', 'account' => $_COOKIE['account'], 'token' => $_COOKIE['token']), 'member'), true);
+		if ($return['message'] == 'Success') {
+			if ($return['authority'] == 'A') {
+				include_once("../view/index_A.html");
+			}
+			elseif ($return['authority'] == 'B') {
+				include_once("../view/index_B.html");
+			}
+			elseif ($return['authority'] == 'C') {
+				include_once("../view/index_C.html");
+			}
+			elseif ($return['authority'] == 'D') {
+				include_once("../view/index_D.html");
+			}
+			elseif ($return['authority'] == 'E') {
+				include_once("../view/index_E.html");
+			}
+		}
+		else {
+			unset($_COOKIE['account']);
+			unset($_COOKIE['token']);
+			include_once("../view/index.html");
+		}
 	}
 }
 else {
@@ -295,4 +320,10 @@ function curl_post($post, $module) {
 	$result = curl_exec($ch);
 	curl_close($ch);
 	return $result;
+}
+
+function get_no() {
+	$sql = mysql_query("SELECT NEXT_NO FROM CONTROLMAS");
+	$fetch = mysql_fetch_row($sql);
+	return $fetch[0];
 }

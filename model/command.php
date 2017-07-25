@@ -291,13 +291,16 @@ function view_index($account, $token, $index) {
 						$content .= '</table>';
 					}
 					elseif ($fetch2['CMDTYPE'] == 'C') {
-						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>製皂</td></tr>';
+						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th><th>開始日期</th><th>結束日期</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>製皂</td><td>'.$fetch2['STARTDATE'].'</td><td>'.$fetch2['ENDDATE'].'</td></tr>';
 						if ($fetch2['NOTICE'] != null) {
 							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
 						}
-						$content .= '</table><table><tr><th>名稱</th><th>數量</th><th>日期</th><th>完成狀態</th></tr>';
+						if ($fetch2['FILESTAT'] == 1) {
+							$content .= '<tr><td colspan="10"><a href="../resource/download.php?cmdno='.$fetch2['CMDNO'].'">下載檔案</a></td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th><th>完成狀態</th></tr>';
 						while ($fetch3 = mysql_fetch_array($sql3)) {
-							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td><td>'.$fetch3['CMDDATE'].'</td><td>'.translate_checkState($fetch3['CHECKSTAT']).'</td></tr>');
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td><td>'.translate_checkState($fetch3['CHECKSTAT']).'</td></tr>');
 						}
 						$content .= '</table>';
 					}
@@ -329,13 +332,16 @@ function view_index($account, $token, $index) {
 						}
 					}
 					elseif ($fetch2['CMDTYPE'] == 'C') {
-						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>製皂</td></tr>';
+						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th><th>開始日期</th><th>結束日期</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>製皂</td><td>'.$fetch2['STARTDATE'].'</td><td>'.$fetch2['ENDDATE'].'</td></tr>';
 						if ($fetch2['NOTICE'] != null) {
 							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
 						}
-						$content .= '</table><table><tr><th>名稱</th><th>數量</th><th>日期</th><th>完成狀態</th></tr>';
+						if ($fetch2['FILESTAT'] == 1) {
+							$content .= '<tr><td colspan="10"><a href="../resource/download.php?cmdno='.$fetch2['CMDNO'].'">下載檔案</a></td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th><th>完成狀態</th></tr>';
 						while ($fetch3 = mysql_fetch_array($sql3)) {
-							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td><td>'.$fetch3['CMDDATE'].'</td><td>'.translate_check($fetch3['CHECKSTAT'], $index, $fetch3['ITEMNO']).'</td></tr>');
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td><td>'.translate_check($fetch3['CHECKSTAT'], $index, $fetch3['ITEMNO']).'</td></tr>');
 						}
 						$content .= '</table>';
 					}
@@ -367,13 +373,16 @@ function view_index($account, $token, $index) {
 						}
 					}
 					elseif ($fetch2['CMDTYPE'] == 'C') {
-						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>製皂</td></tr>';
+						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th><th>開始日期</th><th>結束日期</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>製皂</td><td>'.$fetch2['STARTDATE'].'</td><td>'.$fetch2['ENDDATE'].'</td></tr>';
 						if ($fetch2['NOTICE'] != null) {
 							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
 						}
-						$content .= '</table><table><tr><th>名稱</th><th>數量</th><th>日期</th><th>完成狀態</th></tr>';
+						if ($fetch2['FILESTAT'] == 1) {
+							$content .= '<tr><td colspan="10"><a href="../resource/download.php?cmdno='.$fetch2['CMDNO'].'">下載檔案</a></td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th><th>完成狀態</th></tr>';
 						while ($fetch3 = mysql_fetch_array($sql3)) {
-							$content .= '<tr><td>'.substr($fetch3['ITEMNM'], 12).'</td><td>'.number_format($fetch3['ITEMAMT']).'</td><td>'.$fetch3['CMDDATE'].'</td><td>'.translate_check($fetch3['CHECKSTAT'], $index, $fetch3['ITEMNO']).'</td></tr>';
+							$content .= '<tr><td>'.substr($fetch3['ITEMNM'], 12).'</td><td>'.number_format($fetch3['ITEMAMT']).'</td><td>'.translate_check($fetch3['CHECKSTAT'], $index, $fetch3['ITEMNO']).'</td></tr>';
 						}
 						$content .= '</table>';
 					}
@@ -387,13 +396,16 @@ function view_index($account, $token, $index) {
 						}
 					}
 					if ($fetch2['CMDTYPE'] == 'C') {
-						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>製皂</td></tr>';
+						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th><th>開始日期</th><th>結束日期</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>製皂</td><td>'.$fetch2['STARTDATE'].'</td><td>'.$fetch2['ENDDATE'].'</td></tr>';
 						if ($fetch2['NOTICE'] != null) {
 							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
 						}
-						$content .= '</table><table><tr><th>名稱</th><th>數量</th><th>日期</th><th>完成狀態</th></tr>';
+						if ($fetch2['FILESTAT'] == 1) {
+							$content .= '<tr><td colspan="10"><a href="../resource/download.php?cmdno='.$fetch2['CMDNO'].'">下載檔案</a></td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th><th>完成狀態</th></tr>';
 						while ($fetch3 = mysql_fetch_array($sql3)) {
-							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td><td>'.$fetch3['CMDDATE'].'</td><td>'.translate_check($fetch3['CHECKSTAT'], $index, $fetch3['ITEMNO']).'</td></tr>');
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td><td>'.translate_check($fetch3['CHECKSTAT'], $index, $fetch3['ITEMNO']).'</td></tr>');
 						}
 						$content .= '</table>';
 					}
@@ -525,20 +537,18 @@ function deliver($account, $token, $index) {
 					return $content;
 				}
 				else {
-					$rqstno = get_rqstno();
-					$sql4 = "INSERT INTO RQSTMAS (RQSTNO, SENDER, RECEIVER, SENDERDATE, RQSTSTAT, CREATEDATE, UPDATEDATE) VALUES ('$rqstno', 'Beitou', 'Trisoap', '$date', 'A', '$date', '$date')";
+					$sql4 = "INSERT INTO RQSTMAS (RQSTNO, SENDER, RECEIVER, SENDERDATE, RQSTSTAT, CREATEDATE, UPDATEDATE) VALUES ('$index', 'Beitou', 'Trisoap', '$date', 'A', '$date', '$date')";
 					if (mysql_query($sql4)) {
-						update_rqstno();
 						for ($i = 0; $i < count($itemno); $i++) {
 							$no = $itemno[$i];
 							$nm = query_name($no);
 							$amt = $itemamt[$i];
-							mysql_query("INSERT INTO RQSTDTLMAS (RQSTNO, ITEMNO, ITEMNM, ITEMAMT) VALUES ('$rqstno', '$no', '$nm', '$amt')");
+							mysql_query("INSERT INTO RQSTDTLMAS (RQSTNO, ITEMNO, ITEMNM, ITEMAMT) VALUES ('$index', '$no', '$nm', '$amt')");
 							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT-'$amt' WHERE WHOUSENO='Beitou' AND ITEMNO='$no'");
 						}
 						$sql5 = "UPDATE CMDMAS SET CMDSTAT='C', UPDATEDATE='$date' WHERE CMDNO='$index'";
 						if (mysql_query($sql5)) {
-							return array('message' => 'Success', 'index' => $rqstno);
+							return array('message' => 'Success', 'index' => $index);
 						}
 						else {
 							return 'Database operation error';
@@ -550,21 +560,19 @@ function deliver($account, $token, $index) {
 				}
 			}
 			elseif ($fetch1['AUTHORITY'] == 'C' && $fetch2['TARGET'] == 'Houshanpi' && $fetch2['CMDTYPE'] == 'A') {
-				$rqstno = get_rqstno();
 				$receiver = $fetch2['RECEIVER'];
-				$sql3 = "INSERT INTO RQSTMAS (RQSTNO, SENDER, RECEIVER, SENDERDATE, RQSTSTAT, CREATEDATE, UPDATEDATE) VALUES ('$rqstno', 'Houshanpi', '$receiver', '$date', 'A', '$date', '$date')";
+				$sql3 = "INSERT INTO RQSTMAS (RQSTNO, SENDER, RECEIVER, SENDERDATE, RQSTSTAT, CREATEDATE, UPDATEDATE) VALUES ('$index', 'Houshanpi', '$receiver', '$date', 'A', '$date', '$date')";
 				if (mysql_query($sql3)) {
-					update_rqstno();
 					$sql4 = mysql_query("SELECT * FROM CMDDTLMAS WHERE CMDNO='$index'");
 					while ($fetch4 = mysql_fetch_array($sql4)) {
 						$no = $fetch4['ITEMNO'];
 						$nm = $fetch4['ITEMNM'];
 						$amt = $fetch4['ITEMAMT'];
-						mysql_query("INSERT INTO RQSTDTLMAS (RQSTNO, ITEMNO, ITEMNM, ITEMAMT) VALUES ('$rqstno', '$no', '$nm', '$amt')");
+						mysql_query("INSERT INTO RQSTDTLMAS (RQSTNO, ITEMNO, ITEMNM, ITEMAMT) VALUES ('$index', '$no', '$nm', '$amt')");
 					}
 					$sql5 = "UPDATE CMDMAS SET CMDSTAT='C', UPDATEDATE='$date' WHERE CMDNO='$index'";
 					if (mysql_query($sql5)) {
-						return array('message' => 'Success', 'index' => $rqstno);
+						return array('message' => 'Success', 'index' => $index);
 					}
 					else {
 						return 'Database operation error';
@@ -632,6 +640,8 @@ function send($content) {
 	$token = $content['token'];
 	$type = $content['type'];
 	$memo = $content['command_memo'];
+	$startdate = $content['date_start'];
+	$enddate = $content['date_end'];
 	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
@@ -732,10 +742,10 @@ function send($content) {
 				}
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
-				$cmdno = get_cmdno();
+				$cmdno = get_no();
 				$sql2 = ($type == 'A') ? "INSERT INTO CMDMAS (CMDNO, TARGET, SENDER, RECEIVER, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Houshanpi', 'Houshanpi', 'Beitou', 'A', 'A', '$memo', '$date', '$date', '$date')" : "INSERT INTO CMDMAS (CMDNO, TARGET, SENDER, RECEIVER, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Houshanpi', 'Houshanpi', 'Taitung', 'A', 'A', '$memo', '$date', '$date', '$date')";
 				if (mysql_query($sql2)) {
-					if (update_cmdno()) {
+					if (update_no()) {
 						for ($i = 0; $i < count($itemno); $i++) {
 							$no = $itemno[$i];
 							$nm = query_name($no);
@@ -816,10 +826,10 @@ function send($content) {
 				}
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
-				$cmdno = get_cmdno();
+				$cmdno = get_no();
 				$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, SENDER, RECEIVER, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Beitou', 'Beitou', 'Trisoap', 'A', 'B', '$memo', '$date', '$date', '$date')";
 				if (mysql_query($sql2)) {
-					if (update_cmdno()) {
+					if (update_no()) {
 						for ($i = 0; $i < count($itemno); $i++) {
 							$no = $itemno[$i];
 							$nm = query_name($no);
@@ -836,293 +846,158 @@ function send($content) {
 					return 'Unable to create command';
 				}
 			}
-			elseif ($type == 'D') {
-				$itemno = array();
-				$itemamt = array();
-				$itemdate = array();
-				if (is_positiveInt($content['ss_1']) && is_validDate($content['date_ss_1'])) {
-					array_push($itemno, 'ss_1');
-					array_push($itemamt, $content['ss_1']);
-					array_push($itemdate, $content['date_ss_1']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_1'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_1'] != 0 && !is_validDate($content['date_ss_1'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['ss_2']) && is_validDate($content['date_ss_2'])) {
-					array_push($itemno, 'ss_2');
-					array_push($itemamt, $content['ss_2']);
-					array_push($itemdate, $content['date_ss_2']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_2'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_2'] != 0 && !is_validDate($content['date_ss_2'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['ss_3']) && is_validDate($content['date_ss_3'])) {
-					array_push($itemno, 'ss_3');
-					array_push($itemamt, $content['ss_3']);
-					array_push($itemdate, $content['date_ss_3']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_3'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_3'] != 0 && !is_validDate($content['date_ss_3'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['ss_4']) && is_validDate($content['date_ss_4'])) {
-					array_push($itemno, 'ss_4');
-					array_push($itemamt, $content['ss_4']);
-					array_push($itemdate, $content['date_ss_4']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_4'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_4'] != 0 && !is_validDate($content['date_ss_4'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['ss_5']) && is_validDate($content['date_ss_5'])) {
-					array_push($itemno, 'ss_5');
-					array_push($itemamt, $content['ss_5']);
-					array_push($itemdate, $content['date_ss_5']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_5'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_5'] != 0 && !is_validDate($content['date_ss_5'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['ss_6']) && is_validDate($content['date_ss_6'])) {
-					array_push($itemno, 'ss_6');
-					array_push($itemamt, $content['ss_6']);
-					array_push($itemdate, $content['date_ss_6']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_6'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_6'] != 0 && !is_validDate($content['date_ss_6'])) {
-					return 'Wrong date format';
-				}
-				if (count($itemno) == 0) {
-					return 'Empty command';
-				}
-				date_default_timezone_set('Asia/Taipei');
-				$date = date("Y-m-d H:i:s");
-				$cmdno = get_cmdno();
-				$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Beitou', 'A', 'C', '$memo', '$date', '$date', '$date')";
-				if (mysql_query($sql2)) {
-					if (update_cmdno()) {
-						for ($i = 0; $i < count($itemno); $i++) {
-							$no = $itemno[$i];
-							$nm = query_name($no);
-							$amt = $itemamt[$i];
-							$date = $itemdate[$i];
-							mysql_query("INSERT INTO CMDDTLMAS (CMDNO, ITEMNO, ITEMNM, ITEMAMT, CMDDATE) VALUES ('$cmdno', '$no', '$nm', '$amt', '$date')");
+			elseif ($type == 'D' || $type == 'F') {
+				if (is_validDate($startdate) && is_validDate($enddate)) {
+					$itemno = array();
+					$itemamt = array();
+					if (is_positiveInt($content['sp_1'])) {
+						array_push($itemno, 'sp_1');
+						array_push($itemamt, $content['sp_1']);
+					}
+					elseif (!is_nonnegativeInt($content['sp_1'])) {
+						return 'Wrong amount format';
+					}
+					if (is_positiveInt($content['sp_2'])) {
+						array_push($itemno, 'sp_2');
+						array_push($itemamt, $content['sp_2']);
+					}
+					elseif (!is_nonnegativeInt($content['sp_2'])) {
+						return 'Wrong amount format';
+					}
+					if (is_positiveInt($content['sp_3'])) {
+						array_push($itemno, 'sp_3');
+						array_push($itemamt, $content['sp_3']);
+					}
+					elseif (!is_nonnegativeInt($content['sp_3'])) {
+						return 'Wrong amount format';
+					}
+					if (is_positiveInt($content['ss_1'])) {
+						array_push($itemno, 'ss_1');
+						array_push($itemamt, $content['ss_1']);
+					}
+					elseif (!is_nonnegativeInt($content['ss_1'])) {
+						return 'Wrong amount format';
+					}
+					if (is_positiveInt($content['ss_2'])) {
+						array_push($itemno, 'ss_2');
+						array_push($itemamt, $content['ss_2']);
+					}
+					elseif (!is_nonnegativeInt($content['ss_2'])) {
+						return 'Wrong amount format';
+					}
+					if (is_positiveInt($content['ss_3'])) {
+						array_push($itemno, 'ss_3');
+						array_push($itemamt, $content['ss_3']);
+					}
+					elseif (!is_nonnegativeInt($content['ss_3'])) {
+						return 'Wrong amount format';
+					}
+					if (is_positiveInt($content['ss_4'])) {
+						array_push($itemno, 'ss_4');
+						array_push($itemamt, $content['ss_4']);
+					}
+					elseif (!is_nonnegativeInt($content['ss_4'])) {
+						return 'Wrong amount format';
+					}
+					if (is_positiveInt($content['ss_5'])) {
+						array_push($itemno, 'ss_5');
+						array_push($itemamt, $content['ss_5']);
+					}
+					elseif (!is_nonnegativeInt($content['ss_5'])) {
+						return 'Wrong amount format';
+					}
+					if (is_positiveInt($content['ss_6'])) {
+						array_push($itemno, 'ss_6');
+						array_push($itemamt, $content['ss_6']);
+					}
+					elseif (!is_nonnegativeInt($content['ss_6'])) {
+						return 'Wrong amount format';
+					}
+					if (count($itemno) == 0) {
+						return 'Empty command';
+					}
+					date_default_timezone_set('Asia/Taipei');
+					$date = date("Y-m-d H:i:s");
+					$cmdno = get_no();
+					$sql2 = ($type == 'D') ? "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Beitou', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')" : "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Taitung', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')";
+					if (mysql_query($sql2)) {
+						if (update_no()) {
+							for ($i = 0; $i < count($itemno); $i++) {
+								$no = $itemno[$i];
+								$nm = query_name($no);
+								$amt = $itemamt[$i];
+								mysql_query("INSERT INTO CMDDTLMAS (CMDNO, ITEMNO, ITEMNM, ITEMAMT) VALUES ('$cmdno', '$no', '$nm', '$amt')");
+							}
+							return array('message' => 'Success', 'index' => $cmdno);
 						}
-						return array('message' => 'Success', 'index' => $cmdno);
+						else {
+							return 'Unable to update request number';
+						}
 					}
 					else {
-						return 'Unable to update request number';
+						return 'Unable to create command';
 					}
 				}
 				else {
-					return 'Unable to create command';
+					return 'Wrong date format';
 				}
 			}
 			elseif ($type == 'E') {
-				$itemno = array();
-				$itemamt = array();
-				$itemdate = array();
-				if (is_positiveInt($content['sp_1_houshanpi']) && is_validDate($content['date_sp_1_houshanpi'])) {
-					array_push($itemno, 'sp_1_houshanpi');
-					array_push($itemamt, $content['sp_1_houshanpi']);
-					array_push($itemdate, $content['date_sp_1_houshanpi']);
-				}
-				elseif (!is_nonnegativeInt($content['sp_1_houshanpi'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['sp_1_houshanpi'] != 0 && !is_validDate($content['date_sp_1_houshanpi'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['sp_2_houshanpi']) && is_validDate($content['date_sp_2_houshanpi'])) {
-					array_push($itemno, 'sp_2_houshanpi');
-					array_push($itemamt, $content['sp_2_houshanpi']);
-					array_push($itemdate, $content['date_sp_2_houshanpi']);
-				}
-				elseif (!is_nonnegativeInt($content['sp_2_houshanpi'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['sp_2_houshanpi'] != 0 && !is_validDate($content['date_sp_2_houshanpi'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['sp_3_houshanpi']) && is_validDate($content['date_sp_3_houshanpi'])) {
-					array_push($itemno, 'sp_3_houshanpi');
-					array_push($itemamt, $content['sp_3_houshanpi']);
-					array_push($itemdate, $content['date_sp_3_houshanpi']);
-				}
-				elseif (!is_nonnegativeInt($content['sp_3_houshanpi'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['sp_3_houshanpi'] != 0 && !is_validDate($content['date_sp_3_houshanpi'])) {
-					return 'Wrong date format';
-				}
-				if (count($itemno) == 0) {
-					return 'Empty command';
-				}
-				date_default_timezone_set('Asia/Taipei');
-				$date = date("Y-m-d H:i:s");
-				$cmdno = get_cmdno();
-				$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Houshanpi', 'A', 'C', '$memo', '$date', '$date', '$date')";
-				if (mysql_query($sql2)) {
-					if (update_cmdno()) {
-						for ($i = 0; $i < count($itemno); $i++) {
-							$no = $itemno[$i];
-							$nm = query_name($no);
-							$amt = $itemamt[$i];
-							$date = $itemdate[$i];
-							mysql_query("INSERT INTO CMDDTLMAS (CMDNO, ITEMNO, ITEMNM, ITEMAMT, CMDDATE) VALUES ('$cmdno', '$no', '$nm', '$amt', '$date')");
+				if (is_validDate($startdate) && is_validDate($enddate)) {
+					$itemno = array();
+					$itemamt = array();
+					if (is_positiveInt($content['sp_1_houshanpi'])) {
+						array_push($itemno, 'sp_1_houshanpi');
+						array_push($itemamt, $content['sp_1_houshanpi']);
+					}
+					elseif (!is_nonnegativeInt($content['sp_1_houshanpi'])) {
+						return 'Wrong amount format';
+					}
+					if (is_positiveInt($content['sp_2_houshanpi'])) {
+						array_push($itemno, 'sp_2_houshanpi');
+						array_push($itemamt, $content['sp_2_houshanpi']);
+					}
+					elseif (!is_nonnegativeInt($content['sp_2_houshanpi'])) {
+						return 'Wrong amount format';
+					}
+					if (is_positiveInt($content['sp_3_houshanpi'])) {
+						array_push($itemno, 'sp_3_houshanpi');
+						array_push($itemamt, $content['sp_3_houshanpi']);
+					}
+					elseif (!is_nonnegativeInt($content['sp_3_houshanpi'])) {
+						return 'Wrong amount format';
+					}
+					if (count($itemno) == 0) {
+						return 'Empty command';
+					}
+					date_default_timezone_set('Asia/Taipei');
+					$date = date("Y-m-d H:i:s");
+					$cmdno = get_no();
+					$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Houshanpi', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')";
+					if (mysql_query($sql2)) {
+						if (update_no()) {
+							for ($i = 0; $i < count($itemno); $i++) {
+								$no = $itemno[$i];
+								$nm = query_name($no);
+								$amt = $itemamt[$i];
+								mysql_query("INSERT INTO CMDDTLMAS (CMDNO, ITEMNO, ITEMNM, ITEMAMT) VALUES ('$cmdno', '$no', '$nm', '$amt')");
+							}
+							return array('message' => 'Success', 'index' => $cmdno);
 						}
-						return array('message' => 'Success', 'index' => $cmdno);
+						else {
+							return 'Unable to update request number';
+						}
 					}
 					else {
-						return 'Unable to update request number';
+						return 'Unable to create command';
 					}
 				}
 				else {
-					return 'Unable to create command';
+					return 'Wrong date format';
 				}
 			}
-			elseif ($type == 'F') {
-				$itemno = array();
-				$itemamt = array();
-				$itemdate = array();
-				if (is_positiveInt($content['sp_1']) && is_validDate($content['date_sp_1'])) {
-					array_push($itemno, 'sp_1');
-					array_push($itemamt, $content['sp_1']);
-					array_push($itemdate, $content['date_sp_1']);
-				}
-				elseif (!is_nonnegativeInt($content['sp_1'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['sp_1'] != 0 && !is_validDate($content['date_sp_1'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['sp_2']) && is_validDate($content['date_sp_2'])) {
-					array_push($itemno, 'sp_2');
-					array_push($itemamt, $content['sp_2']);
-					array_push($itemdate, $content['date_sp_2']);
-				}
-				elseif (!is_nonnegativeInt($content['sp_2'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['sp_2'] != 0 && !is_validDate($content['date_sp_2'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['sp_3']) && is_validDate($content['date_sp_3'])) {
-					array_push($itemno, 'sp_3');
-					array_push($itemamt, $content['sp_3']);
-					array_push($itemdate, $content['date_sp_3']);
-				}
-				elseif (!is_nonnegativeInt($content['sp_3'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['sp_3'] != 0 && !is_validDate($content['date_sp_3'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['ss_1']) && is_validDate($content['date_ss_1'])) {
-					array_push($itemno, 'ss_1');
-					array_push($itemamt, $content['ss_1']);
-					array_push($itemdate, $content['date_ss_1']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_1'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_1'] != 0 && !is_validDate($content['date_ss_1'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['ss_2']) && is_validDate($content['date_ss_2'])) {
-					array_push($itemno, 'ss_2');
-					array_push($itemamt, $content['ss_2']);
-					array_push($itemdate, $content['date_ss_2']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_2'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_2'] != 0 && !is_validDate($content['date_ss_2'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['ss_3']) && is_validDate($content['date_ss_3'])) {
-					array_push($itemno, 'ss_3');
-					array_push($itemamt, $content['ss_3']);
-					array_push($itemdate, $content['date_ss_3']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_3'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_3'] != 0 && !is_validDate($content['date_ss_3'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['ss_4']) && is_validDate($content['date_ss_4'])) {
-					array_push($itemno, 'ss_4');
-					array_push($itemamt, $content['ss_4']);
-					array_push($itemdate, $content['date_ss_4']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_4'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_4'] != 0 && !is_validDate($content['date_ss_4'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['ss_5']) && is_validDate($content['date_ss_5'])) {
-					array_push($itemno, 'ss_5');
-					array_push($itemamt, $content['ss_5']);
-					array_push($itemdate, $content['date_ss_5']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_5'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_5'] != 0 && !is_validDate($content['date_ss_5'])) {
-					return 'Wrong date format';
-				}
-				if (is_positiveInt($content['ss_6']) && is_validDate($content['date_ss_6'])) {
-					array_push($itemno, 'ss_6');
-					array_push($itemamt, $content['ss_6']);
-					array_push($itemdate, $content['date_ss_6']);
-				}
-				elseif (!is_nonnegativeInt($content['ss_6'])) {
-					return 'Wrong amount format';
-				}
-				elseif ($content['ss_6'] != 0 && !is_validDate($content['date_ss_6'])) {
-					return 'Wrong date format';
-				}
-				if (count($itemno) == 0) {
-					return 'Empty command';
-				}
-				date_default_timezone_set('Asia/Taipei');
-				$date = date("Y-m-d H:i:s");
-				$cmdno = get_cmdno();
-				$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Taitung', 'A', 'C', '$memo', '$date', '$date', '$date')";
-				if (mysql_query($sql2)) {
-					if (update_cmdno()) {
-						for ($i = 0; $i < count($itemno); $i++) {
-							$no = $itemno[$i];
-							$nm = query_name($no);
-							$amt = $itemamt[$i];
-							$date = $itemdate[$i];
-							mysql_query("INSERT INTO CMDDTLMAS (CMDNO, ITEMNO, ITEMNM, ITEMAMT, CMDDATE) VALUES ('$cmdno', '$no', '$nm', '$amt', '$date')");
-						}
-						return array('message' => 'Success', 'index' => $cmdno);
-					}
-					else {
-						return 'Unable to update request number';
-					}
-				}
-				else {
-					return 'Unable to create command';
-				}
+			else {
+				return 'Wrong command type';
 			}
 		}
 	}
@@ -1246,30 +1121,14 @@ function check_checked($account, $token, $index, $itemno) {
 	}
 }
 
-function get_cmdno() {
-	$sql = mysql_query("SELECT NEXT_CMDNO FROM CONTROLMAS");
+function get_no() {
+	$sql = mysql_query("SELECT NEXT_NO FROM CONTROLMAS");
 	$fetch = mysql_fetch_row($sql);
 	return $fetch[0];
 }
 
-function update_cmdno() {
-	$sql = "UPDATE CONTROLMAS SET NEXT_CMDNO=NEXT_CMDNO+1";
-	if (mysql_query($sql)) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-function get_rqstno() {
-	$sql = mysql_query("SELECT NEXT_RQSTNO FROM CONTROLMAS");
-	$fetch = mysql_fetch_row($sql);
-	return $fetch[0];
-}
-
-function update_rqstno() {
-	$sql = "UPDATE CONTROLMAS SET NEXT_RQSTNO=NEXT_RQSTNO+1";
+function update_no() {
+	$sql = "UPDATE CONTROLMAS SET NEXT_NO=NEXT_NO+1";
 	if (mysql_query($sql)) {
 		return true;
 	}
