@@ -208,6 +208,9 @@ function adjust() {
 				if (confirm(data.check) == true) {
 					adjust_checked();
 				}
+				else {
+					adjust_whouse();
+				}
 			}
 			else {
 				alert(data.message);
@@ -528,16 +531,7 @@ function whouse() {
 
 function command() {
 	var command = document.getElementById("command").value;
-	if (command == '') {
-		document.getElementById("command_content").style.display = 'none';
-		document.getElementById("commandA").style.display = 'none';
-		document.getElementById("commandB").style.display = 'none';
-		document.getElementById("commandC").style.display = 'none';
-		document.getElementById("commandD").style.display = 'none';
-		document.getElementById("commandE").style.display = 'none';
-		document.getElementById("commandF").style.display = 'none';
-	}
-	else if (command == 'A') {
+	if (command == 'A') {
 		document.getElementById("command_content").style.display = null;
 		document.getElementById("commandA").style.display = null;
 		document.getElementById("commandB").style.display = 'none';
@@ -545,6 +539,7 @@ function command() {
 		document.getElementById("commandD").style.display = 'none';
 		document.getElementById("commandE").style.display = 'none';
 		document.getElementById("commandF").style.display = 'none';
+		document.getElementById("commandDEF").style.display = 'none';
 	}
 	else if (command == 'B') {
 		document.getElementById("command_content").style.display = null;
@@ -554,6 +549,7 @@ function command() {
 		document.getElementById("commandD").style.display = 'none';
 		document.getElementById("commandE").style.display = 'none';
 		document.getElementById("commandF").style.display = 'none';
+		document.getElementById("commandDEF").style.display = 'none';
 	}
 	else if (command == 'C') {
 		document.getElementById("command_content").style.display = null;
@@ -563,6 +559,7 @@ function command() {
 		document.getElementById("commandD").style.display = 'none';
 		document.getElementById("commandE").style.display = 'none';
 		document.getElementById("commandF").style.display = 'none';
+		document.getElementById("commandDEF").style.display = 'none';
 	}
 	else if (command == 'D') {
 		$(function() { $('.datepicker').datepick(); });
@@ -573,6 +570,7 @@ function command() {
 		document.getElementById("commandD").style.display = null;
 		document.getElementById("commandE").style.display = 'none';
 		document.getElementById("commandF").style.display = 'none';
+		document.getElementById("commandDEF").style.display = null;
 	}
 	else if (command == 'E') {
 		$(function() { $('.datepicker').datepick(); });
@@ -583,6 +581,7 @@ function command() {
 		document.getElementById("commandD").style.display = 'none';
 		document.getElementById("commandE").style.display = null;
 		document.getElementById("commandF").style.display = 'none';
+		document.getElementById("commandDEF").style.display = null;
 	}
 	else if (command == 'F') {
 		$(function() { $('.datepicker').datepick(); });
@@ -593,13 +592,23 @@ function command() {
 		document.getElementById("commandD").style.display = 'none';
 		document.getElementById("commandE").style.display = 'none';
 		document.getElementById("commandF").style.display = null;
+		document.getElementById("commandDEF").style.display = null;
+	}
+	else {
+		document.getElementById("command_content").style.display = 'none';
+		document.getElementById("commandA").style.display = 'none';
+		document.getElementById("commandB").style.display = 'none';
+		document.getElementById("commandC").style.display = 'none';
+		document.getElementById("commandD").style.display = 'none';
+		document.getElementById("commandE").style.display = 'none';
+		document.getElementById("commandF").style.display = 'none';
+		document.getElementById("commandDEF").style.display = 'none';
 	}
 }
 
 function command_check() {
 	var command = document.getElementById("command").value;
 	var command_memo = document.getElementById("command_memo").value;
-	var data = null;
 	if (command == 'A') {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
@@ -613,9 +622,22 @@ function command_check() {
 		var oil_8 = document.getElementById("commandA_oil_8").value;
 		var oil_9 = document.getElementById("commandA_oil_9").value;
 		var NaOH = document.getElementById("commandA_NaOH").value;
+		var command_memo = document.getElementById("command_memo").value;
 		data = "module=command&event=send&type=A&command_memo=" + command_memo + "&oil_1=" + oil_1 + "&oil_2=" + oil_2 + "&oil_3=" + oil_3 + "&oil_4=" + oil_4 + "&oil_5=" + oil_5 + "&oil_6=" + oil_6 + "&oil_7=" + oil_7 + "&oil_8=" + oil_8 + "&oil_9=" + oil_9 + "&NaOH=" + NaOH;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
+		request.onreadystatechange = function() {
+			if (request.readyState === 4 && request.status === 200) {
+				var data = JSON.parse(request.responseText);
+				if (data.message == 'Success') {
+					alert("成功下單，訂單編號：" + data.index);
+					location.reload();
+				}
+				else {
+					alert(data.message);
+				}
+			}
+		}
 	}
 	else if (command == 'B') {
 		var request = new XMLHttpRequest();
@@ -630,9 +652,22 @@ function command_check() {
 		var oil_8 = document.getElementById("commandB_oil_8").value;
 		var oil_9 = document.getElementById("commandB_oil_9").value;
 		var NaOH = document.getElementById("commandB_NaOH").value;
+		var command_memo = document.getElementById("command_memo").value;
 		data = "module=command&event=send&type=B&command_memo=" + command_memo + "&oil_1=" + oil_1 + "&oil_2=" + oil_2 + "&oil_3=" + oil_3 + "&oil_4=" + oil_4 + "&oil_5=" + oil_5 + "&oil_6=" + oil_6 + "&oil_7=" + oil_7 + "&oil_8=" + oil_8 + "&oil_9=" + oil_9 + "&NaOH=" + NaOH;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
+		request.onreadystatechange = function() {
+			if (request.readyState === 4 && request.status === 200) {
+				var data = JSON.parse(request.responseText);
+				if (data.message == 'Success') {
+					alert("成功下單，訂單編號：" + data.index);
+					location.reload();
+				}
+				else {
+					alert(data.message);
+				}
+			}
+		}
 	}
 	else if (command == 'C') {
 		var request = new XMLHttpRequest();
@@ -645,28 +680,53 @@ function command_check() {
 		var product_ss_2 = document.getElementById("commandC_product_ss_2").value;
 		var product_ss_3 = document.getElementById("commandC_product_ss_3").value;
 		var product_ss_box = document.getElementById("commandC_product_ss_box").value;
+		var command_memo = document.getElementById("command_memo").value;
 		data = "module=command&event=send&type=C&command_memo=" + command_memo + "&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
+		request.onreadystatechange = function() {
+			if (request.readyState === 4 && request.status === 200) {
+				var data = JSON.parse(request.responseText);
+				if (data.message == 'Success') {
+					alert("成功下單，訂單編號：" + data.index);
+					location.reload();
+				}
+				else {
+					alert(data.message);
+				}
+			}
+		}
 	}
 	else if (command == 'D') {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
+		var sp_1 = document.getElementById("commandD_sp_1").value;
+		var sp_2 = document.getElementById("commandD_sp_2").value;
+		var sp_3 = document.getElementById("commandD_sp_3").value;
 		var ss_1 = document.getElementById("commandD_ss_1").value;
 		var ss_2 = document.getElementById("commandD_ss_2").value;
 		var ss_3 = document.getElementById("commandD_ss_3").value;
 		var ss_4 = document.getElementById("commandD_ss_4").value;
 		var ss_5 = document.getElementById("commandD_ss_5").value;
 		var ss_6 = document.getElementById("commandD_ss_6").value;
-		var date_ss_1 = document.getElementById("date_commandD_ss_1").value;
-		var date_ss_2 = document.getElementById("date_commandD_ss_2").value;
-		var date_ss_3 = document.getElementById("date_commandD_ss_3").value;
-		var date_ss_4 = document.getElementById("date_commandD_ss_4").value;
-		var date_ss_5 = document.getElementById("date_commandD_ss_5").value;
-		var date_ss_6 = document.getElementById("date_commandD_ss_6").value;
-		data = "module=command&event=send&type=D&command_memo=" + command_memo + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6 + "&date_ss_1=" + date_ss_1 + "&date_ss_2=" + date_ss_2 + "&date_ss_3=" + date_ss_3 + "&date_ss_4=" + date_ss_4 + "&date_ss_5=" + date_ss_5 + "&date_ss_6=" + date_ss_6;
+		var command_memo = document.getElementById("command_memo").value;
+		var date_start = document.getElementById("date_start").value;
+		var date_end = document.getElementById("date_end").value;
+		data = "module=command&event=send&type=D&command_memo=" + command_memo + "&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3 + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6 + "&date_start=" + date_start + "&date_end=" + date_end;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
+		request.onreadystatechange = function() {
+			if (request.readyState === 4 && request.status === 200) {
+				var data = JSON.parse(request.responseText);
+				if (data.message == 'Success') {
+					command_file();
+					alert("成功下單，訂單編號：" + data.index);
+				}
+				else {
+					alert(data.message);
+				}
+			}
+		}
 	}
 	else if (command == 'E') {
 		var request = new XMLHttpRequest();
@@ -674,12 +734,24 @@ function command_check() {
 		var sp_1_houshanpi = document.getElementById("commandE_sp_1").value;
 		var sp_2_houshanpi = document.getElementById("commandE_sp_2").value;
 		var sp_3_houshanpi = document.getElementById("commandE_sp_3").value;
-		var date_sp_1_houshanpi = document.getElementById("date_commandE_sp_1").value;
-		var date_sp_2_houshanpi = document.getElementById("date_commandE_sp_2").value;
-		var date_sp_3_houshanpi = document.getElementById("date_commandE_sp_3").value;
-		data = "module=command&event=send&type=E&command_memo=" + command_memo + "&sp_1_houshanpi=" + sp_1_houshanpi + "&sp_2_houshanpi=" + sp_2_houshanpi + "&sp_3_houshanpi=" + sp_3_houshanpi + "&date_sp_1_houshanpi=" + date_sp_1_houshanpi + "&date_sp_2_houshanpi=" + date_sp_2_houshanpi + "&date_sp_3_houshanpi=" + date_sp_3_houshanpi;
+		var command_memo = document.getElementById("command_memo").value;
+		var date_start = document.getElementById("date_start").value;
+		var date_end = document.getElementById("date_end").value;
+		data = "module=command&event=send&type=E&command_memo=" + command_memo + "&sp_1_houshanpi=" + sp_1_houshanpi + "&sp_2_houshanpi=" + sp_2_houshanpi + "&sp_3_houshanpi=" + sp_3_houshanpi + "&date_start=" + date_start + "&date_end=" + date_end;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
+		request.onreadystatechange = function() {
+			if (request.readyState === 4 && request.status === 200) {
+				var data = JSON.parse(request.responseText);
+				if (data.message == 'Success') {
+					command_file();
+					alert("成功下單，訂單編號：" + data.index);
+				}
+				else {
+					alert(data.message);
+				}
+			}
+		}
 	}
 	else if (command == 'F') {
 		var request = new XMLHttpRequest();
@@ -693,30 +765,42 @@ function command_check() {
 		var ss_4 = document.getElementById("commandF_ss_4").value;
 		var ss_5 = document.getElementById("commandF_ss_5").value;
 		var ss_6 = document.getElementById("commandF_ss_6").value;
-		var date_sp_1 = document.getElementById("date_commandF_sp_1").value;
-		var date_sp_2 = document.getElementById("date_commandF_sp_2").value;
-		var date_sp_3 = document.getElementById("date_commandF_sp_3").value;
-		var date_ss_1 = document.getElementById("date_commandF_ss_1").value;
-		var date_ss_2 = document.getElementById("date_commandF_ss_2").value;
-		var date_ss_3 = document.getElementById("date_commandF_ss_3").value;
-		var date_ss_4 = document.getElementById("date_commandF_ss_4").value;
-		var date_ss_5 = document.getElementById("date_commandF_ss_5").value;
-		var date_ss_6 = document.getElementById("date_commandF_ss_6").value;
-		data = "module=command&event=send&type=F&command_memo=" + command_memo + "&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3 + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6 + "&date_sp_1=" + date_sp_1 + "&date_sp_2=" + date_sp_2 + "&date_sp_3=" + date_sp_3 + "&date_ss_1=" + date_ss_1 + "&date_ss_2=" + date_ss_2 + "&date_ss_3=" + date_ss_3 + "&date_ss_4=" + date_ss_4 + "&date_ss_5=" + date_ss_5 + "&date_ss_6=" + date_ss_6;
+		var command_memo = document.getElementById("command_memo").value;
+		var date_start = document.getElementById("date_start").value;
+		var date_end = document.getElementById("date_end").value;
+		data = "module=command&event=send&type=F&command_memo=" + command_memo + "&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3 + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6 + "&date_start=" + date_start + "&date_end=" + date_end;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
-	}
-	if (data != null) {
 		request.onreadystatechange = function() {
 			if (request.readyState === 4 && request.status === 200) {
 				var data = JSON.parse(request.responseText);
 				if (data.message == 'Success') {
+					command_file();
 					alert("成功下單，訂單編號：" + data.index);
-					location.reload();
 				}
 				else {
 					alert(data.message);
 				}
+			}
+		}
+	}
+}
+
+function command_file() {
+	var commandFile = document.getElementById("commandData");
+	var dataFile = new FormData(commandFile);
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php", true);
+	request.send(dataFile);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("檔案附加成功");
+				location.reload();
+			}
+			else {
+				alert(data.message);
 			}
 		}
 	}
@@ -991,65 +1075,124 @@ function whouse_search() {
 	}
 }
 
+function sp_box_change() {
+	var sp_box_num = document.getElementById("package_sp_box").value;
+	document.getElementById("sp_1_type1").value = 0;
+	document.getElementById("sp_2_type1").value = 0;
+	document.getElementById("sp_3_type1").value = 0;
+	document.getElementById("sp_1_type2").value = sp_box_num;
+	document.getElementById("sp_2_type2").value = sp_box_num;
+	document.getElementById("sp_3_type2").value = sp_box_num;
+}
+
+function ss_box_change() {
+	var ss_box_num = document.getElementById("package_ss_box").value;
+	document.getElementById("ss_1_type1").value = ss_box_num * 2;
+	document.getElementById("ss_2_type1").value = ss_box_num * 2;
+	document.getElementById("ss_3_type1").value = ss_box_num * 2;
+}
+
 function package() {
-	var request = new XMLHttpRequest();
-	request.open("POST", "index.php");
 	var product_sp_1 = document.getElementById("package_sp_1").value;
 	var product_sp_2 = document.getElementById("package_sp_2").value;
 	var product_sp_3 = document.getElementById("package_sp_3").value;
-	var product_sp_box1 = document.getElementById("package_sp_box1").value;
-	var product_sp_box2 = document.getElementById("package_sp_box2").value;
+	var product_sp_box = document.getElementById("package_sp_box").value;
 	var product_ss_1 = document.getElementById("package_ss_1").value;
 	var product_ss_2 = document.getElementById("package_ss_2").value;
 	var product_ss_3 = document.getElementById("package_ss_3").value;
 	var product_ss_box = document.getElementById("package_ss_box").value;
-	var data = "module=item&event=package&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box1=" + product_sp_box1 + "&product_sp_box2=" + product_sp_box2 + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
-	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	request.send(data);
-	request.onreadystatechange = function() {
-		if (request.readyState === 4 && request.status === 200) {
-			var data = JSON.parse(request.responseText);
-			if (data.message == 'Success') {
-				document.getElementById("packageQueryResult").innerHTML = data.query;
-				document.getElementById("packageQuery").style.display = null;
-				document.getElementById("pack").style.display = null;
-			}
-			else {
-				alert(data.message);
+	var sp_1_type1 = Number(document.getElementById("sp_1_type1").value);
+	var sp_2_type1 = Number(document.getElementById("sp_2_type1").value);
+	var sp_3_type1 = Number(document.getElementById("sp_3_type1").value);
+	var sp_1_type2 = Number(document.getElementById("sp_1_type2").value);
+	var sp_2_type2 = Number(document.getElementById("sp_2_type2").value);
+	var sp_3_type2 = Number(document.getElementById("sp_3_type2").value);
+	var ss_1_type1 = Number(document.getElementById("ss_1_type1").value);
+	var ss_2_type1 = Number(document.getElementById("ss_2_type1").value);
+	var ss_3_type1 = Number(document.getElementById("ss_3_type1").value);
+	if (sp_1_type1 + sp_1_type2 != product_sp_box) {
+		alert("米皂包裝原料與禮盒數量不符");
+	}
+	else if (sp_2_type1 + sp_2_type2 != product_sp_box) {
+		alert("金針皂包裝原料與禮盒數量不符");
+	}
+	else if (sp_3_type1 + sp_3_type2 != product_sp_box) {
+		alert("釋迦皂包裝原料與禮盒數量不符");
+	}
+	else if (ss_1_type1 + ss_2_type1 + ss_3_type1 != product_ss_box * 6) {
+		alert("皂絲包裝原料與禮盒數量不符");
+	}
+	else {
+		var request = new XMLHttpRequest();
+		request.open("POST", "index.php");
+		var data = "module=item&event=package&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&sp_1_type1=" + sp_1_type1 + "&sp_2_type1=" + sp_2_type1 + "&sp_3_type1=" + sp_3_type1 + "&sp_1_type2=" + sp_1_type2 + "&sp_2_type2=" + sp_2_type2 + "&sp_3_type2=" + sp_3_type2 + "&ss_1_type1=" + ss_1_type1 + "&ss_2_type1=" + ss_2_type1 + "&ss_3_type1=" + ss_3_type1;
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.send(data);
+		request.onreadystatechange = function() {
+			if (request.readyState === 4 && request.status === 200) {
+				var data = JSON.parse(request.responseText);
+				if (data.message == 'Success') {
+					document.getElementById("packageQueryResult").innerHTML = data.query;
+					document.getElementById("packageQuery").style.display = null;
+					document.getElementById("pack").style.display = null;
+				}
+				else {
+					alert(data.message);
+				}
 			}
 		}
 	}
-	
 }
 
 function pack() {
-	var request = new XMLHttpRequest();
-	request.open("POST", "index.php");
 	var product_sp_1 = document.getElementById("package_sp_1").value;
 	var product_sp_2 = document.getElementById("package_sp_2").value;
 	var product_sp_3 = document.getElementById("package_sp_3").value;
-	var product_sp_box1 = document.getElementById("package_sp_box1").value;
-	var product_sp_box2 = document.getElementById("package_sp_box2").value;
+	var product_sp_box = document.getElementById("package_sp_box").value;
 	var product_ss_1 = document.getElementById("package_ss_1").value;
 	var product_ss_2 = document.getElementById("package_ss_2").value;
 	var product_ss_3 = document.getElementById("package_ss_3").value;
 	var product_ss_box = document.getElementById("package_ss_box").value;
-	var data = "module=item&event=pack&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box1=" + product_sp_box1 + "&product_sp_box2=" + product_sp_box2 + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
-	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	request.send(data);
-	request.onreadystatechange = function() {
-		if (request.readyState === 4 && request.status === 200) {
-			var data = JSON.parse(request.responseText);
-			if (data.message == 'Success') {
-				alert("成功包裝");
-				location.reload();
-			}
-			else {
-				alert(data.message);
+	var sp_1_type1 = Number(document.getElementById("sp_1_type1").value);
+	var sp_2_type1 = Number(document.getElementById("sp_2_type1").value);
+	var sp_3_type1 = Number(document.getElementById("sp_3_type1").value);
+	var sp_1_type2 = Number(document.getElementById("sp_1_type2").value);
+	var sp_2_type2 = Number(document.getElementById("sp_2_type2").value);
+	var sp_3_type2 = Number(document.getElementById("sp_3_type2").value);
+	var ss_1_type1 = Number(document.getElementById("ss_1_type1").value);
+	var ss_2_type1 = Number(document.getElementById("ss_2_type1").value);
+	var ss_3_type1 = Number(document.getElementById("ss_3_type1").value);
+	if (sp_1_type1 + sp_1_type2 != product_sp_box) {
+		alert("米皂包裝原料與禮盒數量不符");
+	}
+	else if (sp_2_type1 + sp_2_type2 != package_sp_box) {
+		alert("金針皂包裝原料與禮盒數量不符");
+	}
+	else if (sp_3_type1 + sp_3_type2 != package_sp_box) {
+		alert("釋迦皂包裝原料與禮盒數量不符");
+	}
+	else if (ss_1_type1 + ss_2_type1 + ss_3_type1 != product_ss_box * 6) {
+		alert("皂絲包裝原料與禮盒數量不符");
+	}
+	else {
+		var request = new XMLHttpRequest();
+		request.open("POST", "index.php");
+		var data = "module=item&event=pack&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&sp_1_type1=" + sp_1_type1 + "&sp_2_type1=" + sp_2_type1 + "&sp_3_type1=" + sp_3_type1 + "&sp_1_type2=" + sp_1_type2 + "&sp_2_type2=" + sp_2_type2 + "&sp_3_type2=" + sp_3_type2 + "&ss_1_type1=" + ss_1_type1 + "&ss_2_type1=" + ss_2_type1 + "&ss_3_type1=" + ss_3_type1;
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.send(data);
+		request.onreadystatechange = function() {
+			if (request.readyState === 4 && request.status === 200) {
+				var data = JSON.parse(request.responseText);
+				if (data.message == 'Success') {
+					alert("成功包裝");
+					location.reload();
+				}
+				else {
+					alert(data.message);
+				}
 			}
 		}
 	}
-	
 }
 
 function request_view() {
@@ -1231,18 +1374,6 @@ function sender() {
 		option3.text = '後山埤'; option3.value = 'Houshanpi'; receiver.add(option3);
 		option4.text = '台東'; option4.value = 'Taitung'; receiver.add(option4);
 	}
-	else if (sender == 'Beitou') {
-		var option1 = document.createElement("option");
-		option1.text = '出貨'; option1.value = 'Trisoap'; receiver.add(option1);
-	}
-	else if (sender == 'Houshanpi') {
-		var option1 = document.createElement("option");
-		var option2 = document.createElement("option");
-		var option3 = document.createElement("option");
-		option1.text = '請選擇'; option1.value = ''; receiver.add(option1);
-		option2.text = '北投'; option2.value = 'Beitou'; receiver.add(option2);
-		option3.text = '台東'; option3.value = 'Taitung'; receiver.add(option3);
-	}
 	else if (sender == 'Taitung') {
 		var option1 = document.createElement("option");
 		option1.text = '北投'; option1.value = 'Beitou'; receiver.add(option1);
@@ -1254,178 +1385,78 @@ function receiver() {
 	var sender = document.getElementById("sender").value;
 	var receiver = document.getElementById("receiver").value;
 	if (sender == 'Trisoap') {
-		if (receiver == 'Beitou' || receiver == 'Taitung') {
-			document.getElementsByClassName("material_A")[0].style.display = 'none';
-			document.getElementsByClassName("material_A")[1].style.display = 'none';
+		if (receiver == 'Beitou') {
 			document.getElementsByClassName("material_B")[0].style.display = null;
 			document.getElementsByClassName("material_B")[1].style.display = null;
 			document.getElementsByClassName("material_C")[0].style.display = null;
 			document.getElementsByClassName("material_C")[1].style.display = null;
-			document.getElementsByClassName("material_D")[0].style.display = 'none';
-			document.getElementsByClassName("material_D")[1].style.display = 'none';
 			document.getElementsByClassName("material_E")[0].style.display = 'none';
 			document.getElementsByClassName("material_E")[1].style.display = 'none';
-			document.getElementsByClassName("material_H")[0].style.display = 'none';
-			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("ship").style.display = 'none';
 			document.getElementById("content").style.display = null;
 		}
 		else if (receiver == 'Houshanpi') {
-			document.getElementsByClassName("material_A")[0].style.display = 'none';
-			document.getElementsByClassName("material_A")[1].style.display = 'none';
 			document.getElementsByClassName("material_B")[0].style.display = null;
 			document.getElementsByClassName("material_B")[1].style.display = null;
 			document.getElementsByClassName("material_C")[0].style.display = 'none';
 			document.getElementsByClassName("material_C")[1].style.display = 'none';
-			document.getElementsByClassName("material_D")[0].style.display = 'none';
-			document.getElementsByClassName("material_D")[1].style.display = 'none';
 			document.getElementsByClassName("material_E")[0].style.display = 'none';
 			document.getElementsByClassName("material_E")[1].style.display = 'none';
-			document.getElementsByClassName("material_H")[0].style.display = 'none';
-			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("ship").style.display = 'none';
-			document.getElementById("content").style.display = null;
-		}
-		else {
-			document.getElementsByClassName("material_A")[0].style.display = 'none';
-			document.getElementsByClassName("material_A")[1].style.display = 'none';
-			document.getElementsByClassName("material_B")[0].style.display = 'none';
-			document.getElementsByClassName("material_B")[1].style.display = 'none';
-			document.getElementsByClassName("material_C")[0].style.display = 'none';
-			document.getElementsByClassName("material_C")[1].style.display = 'none';
-			document.getElementsByClassName("material_D")[0].style.display = 'none';
-			document.getElementsByClassName("material_D")[1].style.display = 'none';
-			document.getElementsByClassName("material_E")[0].style.display = 'none';
-			document.getElementsByClassName("material_E")[1].style.display = 'none';
-			document.getElementsByClassName("material_H")[0].style.display = 'none';
-			document.getElementsByClassName("material_H")[1].style.display = 'none';
-			document.getElementById("ship").style.display = 'none';
-			document.getElementById("content").style.display = 'none';
-		}
-	}
-	else if (sender == 'Beitou') {
-		if (receiver == 'Trisoap') {
-			document.getElementsByClassName("material_A")[0].style.display = 'none';
-			document.getElementsByClassName("material_A")[1].style.display = 'none';
-			document.getElementsByClassName("material_B")[0].style.display = 'none';
-			document.getElementsByClassName("material_B")[1].style.display = 'none';
-			document.getElementsByClassName("material_C")[0].style.display = 'none';
-			document.getElementsByClassName("material_C")[1].style.display = 'none';
-			document.getElementsByClassName("material_D")[0].style.display = null;
-			document.getElementsByClassName("material_D")[1].style.display = null;
-			document.getElementsByClassName("material_E")[0].style.display = 'none';
-			document.getElementsByClassName("material_E")[1].style.display = 'none';
-			document.getElementsByClassName("material_H")[0].style.display = 'none';
-			document.getElementsByClassName("material_H")[1].style.display = 'none';
-			document.getElementById("ship").style.display = 'none';
-			document.getElementById("content").style.display = null;
-		}
-		else {
-			document.getElementsByClassName("material_A")[0].style.display = 'none';
-			document.getElementsByClassName("material_A")[1].style.display = 'none';
-			document.getElementsByClassName("material_B")[0].style.display = 'none';
-			document.getElementsByClassName("material_B")[1].style.display = 'none';
-			document.getElementsByClassName("material_C")[0].style.display = 'none';
-			document.getElementsByClassName("material_C")[1].style.display = 'none';
-			document.getElementsByClassName("material_D")[0].style.display = 'none';
-			document.getElementsByClassName("material_D")[1].style.display = 'none';
-			document.getElementsByClassName("material_E")[0].style.display = 'none';
-			document.getElementsByClassName("material_E")[1].style.display = 'none';
-			document.getElementsByClassName("material_H")[0].style.display = 'none';
-			document.getElementsByClassName("material_H")[1].style.display = 'none';
-			document.getElementById("ship").style.display = 'none';
-			document.getElementById("content").style.display = 'none';
-		}
-	}
-	else if (sender == 'Houshanpi') {
-		if (receiver == 'Beitou') {
-			document.getElementsByClassName("material_A")[0].style.display = null;
-			document.getElementsByClassName("material_A")[1].style.display = null;
-			document.getElementsByClassName("material_H")[0].style.display = null;
-			document.getElementsByClassName("material_H")[1].style.display = null;
-			if (document.getElementsByClassName("material_B").length != 0) {
-				document.getElementsByClassName("material_B")[0].style.display = 'none';
-				document.getElementsByClassName("material_B")[1].style.display = 'none';
-				document.getElementsByClassName("material_C")[0].style.display = 'none';
-				document.getElementsByClassName("material_C")[1].style.display = 'none';
-				document.getElementsByClassName("material_D")[0].style.display = 'none';
-				document.getElementsByClassName("material_D")[1].style.display = 'none';
-				document.getElementsByClassName("material_E")[0].style.display = 'none';
-				document.getElementsByClassName("material_E")[1].style.display = 'none';
-				document.getElementById("ship").style.display = 'none';
-			}
 			document.getElementById("content").style.display = null;
 		}
 		else if (receiver == 'Taitung') {
-			document.getElementsByClassName("material_A")[0].style.display = null;
-			document.getElementsByClassName("material_A")[1].style.display = null;
-			document.getElementsByClassName("material_H")[0].style.display = 'none';
-			document.getElementsByClassName("material_H")[1].style.display = 'none';
-			if (document.getElementsByClassName("material_B").length != 0) {
-				document.getElementsByClassName("material_B")[0].style.display = 'none';
-				document.getElementsByClassName("material_B")[1].style.display = 'none';
-				document.getElementsByClassName("material_C")[0].style.display = 'none';
-				document.getElementsByClassName("material_C")[1].style.display = 'none';
-				document.getElementsByClassName("material_D")[0].style.display = 'none';
-				document.getElementsByClassName("material_D")[1].style.display = 'none';
-				document.getElementsByClassName("material_E")[0].style.display = 'none';
-				document.getElementsByClassName("material_E")[1].style.display = 'none';
-				document.getElementById("ship").style.display = 'none';
-			}
+			document.getElementsByClassName("material_B")[0].style.display = null;
+			document.getElementsByClassName("material_B")[1].style.display = null;
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementById("ship").style.display = 'none';
 			document.getElementById("content").style.display = null;
 		}
 		else {
-			document.getElementsByClassName("material_A")[0].style.display = 'none';
-			document.getElementsByClassName("material_A")[1].style.display = 'none';
-			document.getElementsByClassName("material_H")[0].style.display = 'none';
-			document.getElementsByClassName("material_H")[1].style.display = 'none';
-			if (document.getElementsByClassName("material_B").length != 0) {
-				document.getElementsByClassName("material_B")[0].style.display = 'none';
-				document.getElementsByClassName("material_B")[1].style.display = 'none';
-				document.getElementsByClassName("material_C")[0].style.display = 'none';
-				document.getElementsByClassName("material_C")[1].style.display = 'none';
-				document.getElementsByClassName("material_D")[0].style.display = 'none';
-				document.getElementsByClassName("material_D")[1].style.display = 'none';
-				document.getElementsByClassName("material_E")[0].style.display = 'none';
-				document.getElementsByClassName("material_E")[1].style.display = 'none';
-				document.getElementById("ship").style.display = 'none';
-			}
+			document.getElementsByClassName("material_B")[0].style.display = 'none';
+			document.getElementsByClassName("material_B")[1].style.display = 'none';
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementById("ship").style.display = 'none';
 			document.getElementById("content").style.display = 'none';
 		}
 	}
 	else if (sender == 'Taitung') {
 		if (receiver == 'Beitou') {
-			document.getElementsByClassName("material_A")[0].style.display = 'none';
-			document.getElementsByClassName("material_A")[1].style.display = 'none';
 			document.getElementsByClassName("material_B")[0].style.display = 'none';
 			document.getElementsByClassName("material_B")[1].style.display = 'none';
 			document.getElementsByClassName("material_C")[0].style.display = 'none';
 			document.getElementsByClassName("material_C")[1].style.display = 'none';
-			document.getElementsByClassName("material_D")[0].style.display = 'none';
-			document.getElementsByClassName("material_D")[1].style.display = 'none';
 			document.getElementsByClassName("material_E")[0].style.display = null;
 			document.getElementsByClassName("material_E")[1].style.display = null;
-			document.getElementsByClassName("material_H")[0].style.display = 'none';
-			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("ship").style.display = null;
 			document.getElementById("content").style.display = null;
 		}
 		else {
-			document.getElementsByClassName("material_A")[0].style.display = 'none';
-			document.getElementsByClassName("material_A")[1].style.display = 'none';
 			document.getElementsByClassName("material_B")[0].style.display = 'none';
 			document.getElementsByClassName("material_B")[1].style.display = 'none';
 			document.getElementsByClassName("material_C")[0].style.display = 'none';
 			document.getElementsByClassName("material_C")[1].style.display = 'none';
-			document.getElementsByClassName("material_D")[0].style.display = 'none';
-			document.getElementsByClassName("material_D")[1].style.display = 'none';
 			document.getElementsByClassName("material_E")[0].style.display = 'none';
 			document.getElementsByClassName("material_E")[1].style.display = 'none';
-			document.getElementsByClassName("material_H")[0].style.display = 'none';
-			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("ship").style.display = 'none';
 			document.getElementById("content").style.display = 'none';
 		}
+	}
+	else {
+		document.getElementsByClassName("material_B")[0].style.display = 'none';
+		document.getElementsByClassName("material_B")[1].style.display = 'none';
+		document.getElementsByClassName("material_C")[0].style.display = 'none';
+		document.getElementsByClassName("material_C")[1].style.display = 'none';
+		document.getElementsByClassName("material_E")[0].style.display = 'none';
+		document.getElementsByClassName("material_E")[1].style.display = 'none';
+		document.getElementById("ship").style.display = 'none';
+		document.getElementById("content").style.display = 'none';
 	}
 }
 
@@ -1443,28 +1474,6 @@ function send() {
 		shipfee = 0;
 	}
 	var data = "module=request&event=send&memo=" + memo + "&sender=" + sender + "&receiver=" + receiver + "&shipfee=" + shipfee;
-	if (sender == 'Houshanpi') {
-		var oil_1 = document.getElementById("send_oil_1").value;
-		if (oil_1 != null && oil_1 != 0) data = data + "&oil_1=" + oil_1;
-		var oil_2 = document.getElementById("send_oil_2").value;
-		if (oil_2 != null && oil_2 != 0) data = data + "&oil_2=" + oil_2;
-		var oil_3 = document.getElementById("send_oil_3").value;
-		if (oil_3 != null && oil_3 != 0) data = data + "&oil_3=" + oil_3;
-		var oil_4 = document.getElementById("send_oil_4").value;
-		if (oil_4 != null && oil_4 != 0) data = data + "&oil_4=" + oil_4;
-		var oil_5 = document.getElementById("send_oil_5").value;
-		if (oil_5 != null && oil_5 != 0) data = data + "&oil_5=" + oil_5;
-		var oil_6 = document.getElementById("send_oil_6").value;
-		if (oil_6 != null && oil_6 != 0) data = data + "&oil_6=" + oil_6;
-		var oil_7 = document.getElementById("send_oil_7").value;
-		if (oil_7 != null && oil_7 != 0) data = data + "&oil_7=" + oil_7;
-		var oil_8 = document.getElementById("send_oil_8").value;
-		if (oil_8 != null && oil_8 != 0) data = data + "&oil_8=" + oil_8;
-		var oil_9 = document.getElementById("send_oil_9").value;
-		if (oil_9 != null && oil_9 != 0) data = data + "&oil_9=" + oil_9;
-		var NaOH = document.getElementById("send_NaOH").value;
-		if (NaOH != null && NaOH != 0) data = data + "&NaOH=" + NaOH;
-	}
 	if (sender == 'Trisoap') {
 		var additive_1 = document.getElementById("send_additive_1").value;
 		if (additive_1 != null && additive_1 != 0) data = data + "&additive_1=" + additive_1;
@@ -1505,25 +1514,7 @@ function send() {
 		var package_8 = document.getElementById("send_package_8").value;
 		if (package_8 != null && package_8 != 0) data = data + "&package_8=" + package_8;
 	}
-	if (sender == 'Beitou') {
-		var product_sp_1 = document.getElementById("send_product_sp_1").value;
-		if (product_sp_1 != null && product_sp_1 != 0) data = data + "&product_sp_1=" + product_sp_1;
-		var product_sp_2 = document.getElementById("send_product_sp_2").value;
-		if (product_sp_2 != null && product_sp_2 != 0) data = data + "&product_sp_2=" + product_sp_2;
-		var product_sp_3 = document.getElementById("send_product_sp_3").value;
-		if (product_sp_3 != null && product_sp_3 != 0) data = data + "&product_sp_3=" + product_sp_3;
-		var product_sp_box = document.getElementById("send_product_sp_box").value;
-		if (product_sp_box != null && product_sp_box != 0) data = data + "&product_sp_box=" + product_sp_box;
-		var product_ss_1 = document.getElementById("send_product_ss_1").value;
-		if (product_ss_1 != null && product_ss_1 != 0) data = data + "&product_ss_1=" + product_ss_1;
-		var product_ss_2 = document.getElementById("send_product_ss_2").value;
-		if (product_ss_2 != null && product_ss_2 != 0) data = data + "&product_ss_2=" + product_ss_2;
-		var product_ss_3 = document.getElementById("send_product_ss_3").value;
-		if (product_ss_3 != null && product_ss_3 != 0) data = data + "&product_ss_3=" + product_ss_3;
-		var product_ss_box = document.getElementById("send_product_ss_box").value;
-		if (product_ss_box != null && product_ss_box != 0) data = data + "&product_ss_box=" + product_ss_box;
-	}
-	if (sender == 'Beitou' || sender == 'Taitung') {
+	if (sender == 'Taitung') {
 		var sp_1 = document.getElementById("send_sp_1").value;
 		if (sp_1 != null && sp_1 != 0) data = data + "&sp_1=" + sp_1;
 		var sp_2 = document.getElementById("send_sp_2").value;
@@ -1543,14 +1534,6 @@ function send() {
 		var ss_6 = document.getElementById("send_ss_6").value;
 		if (ss_6 != null && ss_6 != 0) data = data + "&ss_6=" + ss_6;
 	}
-	if (sender == 'Beitou' || sender == 'Houshanpi') {
-		var sp_1_houshanpi = document.getElementById("send_sp_1_houshanpi").value;
-		if (sp_1_houshanpi != null && sp_1_houshanpi != 0) data = data + "&sp_1_houshanpi=" + sp_1_houshanpi;
-		var sp_2_houshanpi = document.getElementById("send_sp_2_houshanpi").value;
-		if (sp_2_houshanpi != null && sp_2_houshanpi != 0) data = data + "&sp_2_houshanpi=" + sp_2_houshanpi;
-		var sp_3_houshanpi = document.getElementById("send_sp_3_houshanpi").value;
-		if (sp_3_houshanpi != null && sp_3_houshanpi != 0) data = data + "&sp_3_houshanpi=" + sp_3_houshanpi;
-	}
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 	request.onreadystatechange = function() {
@@ -1568,16 +1551,6 @@ function send() {
 }
 
 function send_refresh() {
-	if (document.getElementById("send_oil_1") != null) document.getElementById("send_oil_1").value = 0;
-	if (document.getElementById("send_oil_2") != null) document.getElementById("send_oil_2").value = 0;
-	if (document.getElementById("send_oil_3") != null) document.getElementById("send_oil_3").value = 0;
-	if (document.getElementById("send_oil_4") != null) document.getElementById("send_oil_4").value = 0;
-	if (document.getElementById("send_oil_5") != null) document.getElementById("send_oil_5").value = 0;
-	if (document.getElementById("send_oil_6") != null) document.getElementById("send_oil_6").value = 0;
-	if (document.getElementById("send_oil_7") != null) document.getElementById("send_oil_7").value = 0;
-	if (document.getElementById("send_oil_8") != null) document.getElementById("send_oil_8").value = 0;
-	if (document.getElementById("send_oil_9") != null) document.getElementById("send_oil_9").value = 0;
-	if (document.getElementById("send_NaOH") != null) document.getElementById("send_NaOH").value = 0;
 	if (document.getElementById("send_additive_1") != null) document.getElementById("send_additive_1").value = 0;
 	if (document.getElementById("send_additive_2") != null) document.getElementById("send_additive_2").value = 0;
 	if (document.getElementById("send_additive_3") != null) document.getElementById("send_additive_3").value = 0;
@@ -1596,14 +1569,6 @@ function send_refresh() {
 	if (document.getElementById("send_package_6") != null) document.getElementById("send_package_6").value = 0;
 	if (document.getElementById("send_package_7") != null) document.getElementById("send_package_7").value = 0;
 	if (document.getElementById("send_package_8") != null) document.getElementById("send_package_8").value = 0;
-	if (document.getElementById("send_product_sp_1") != null) document.getElementById("send_product_sp_1").value = 0;
-	if (document.getElementById("send_product_sp_2") != null) document.getElementById("send_product_sp_2").value = 0;
-	if (document.getElementById("send_product_sp_3") != null) document.getElementById("send_product_sp_3").value = 0;
-	if (document.getElementById("send_product_sp_box") != null) document.getElementById("send_product_sp_box").value = 0;
-	if (document.getElementById("send_product_ss_1") != null) document.getElementById("send_product_ss_1").value = 0;
-	if (document.getElementById("send_product_ss_2") != null) document.getElementById("send_product_ss_2").value = 0;
-	if (document.getElementById("send_product_ss_3") != null) document.getElementById("send_product_ss_3").value = 0;
-	if (document.getElementById("send_product_ss_box") != null) document.getElementById("send_product_ss_box").value = 0;
 	if (document.getElementById("send_sp_1") != null) document.getElementById("send_sp_1").value = 0;
 	if (document.getElementById("send_sp_2") != null) document.getElementById("send_sp_2").value = 0;
 	if (document.getElementById("send_sp_3") != null) document.getElementById("send_sp_3").value = 0;
@@ -1613,9 +1578,6 @@ function send_refresh() {
 	if (document.getElementById("send_ss_4") != null) document.getElementById("send_ss_4").value = 0;
 	if (document.getElementById("send_ss_5") != null) document.getElementById("send_ss_5").value = 0;
 	if (document.getElementById("send_ss_6") != null) document.getElementById("send_ss_6").value = 0;
-	if (document.getElementById("send_sp_1_houshanpi") != null) document.getElementById("send_sp_1_houshanpi").value = 0;
-	if (document.getElementById("send_sp_2_houshanpi") != null) document.getElementById("send_sp_2_houshanpi").value = 0;
-	if (document.getElementById("send_sp_3_houshanpi") != null) document.getElementById("send_sp_3_houshanpi").value = 0;
 }
 
 function member_view() {
@@ -1918,3 +1880,10 @@ function check_checked(index, itemno) {
 		}
 	}
 }
+
+function ask_adjust(itemno, itemnm) {
+	if (confirm('確定要更改 ' + itemnm + ' 之存量？') != true) {
+		document.getElementById(itemno).blur();
+	}
+}
+

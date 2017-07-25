@@ -479,25 +479,38 @@ function package($content) {
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_sp_box1'])) {
-				$ingredient['sp_1'] += $content['product_sp_box1'];
-				$ingredient['sp_2'] += $content['product_sp_box1'];
-				$ingredient['sp_3'] += $content['product_sp_box1'];
-				$ingredient['package_3'] += $content['product_sp_box1'];
-				$ingredient['package_5'] += $content['product_sp_box1'];
-				$ingredient['package_6'] += $content['product_sp_box1'];
-				$ingredient['package_7'] += $content['product_sp_box1'];
-				$ingredient['package_8'] += $content['product_sp_box1'];
-			}
-			else {
-				return 'Wrong input format';
-			}
-			if (is_nonnegativeInt($content['product_sp_box2'])) {
-				$ingredient['product_sp_1'] += $content['product_sp_box2'];
-				$ingredient['product_sp_2'] += $content['product_sp_box2'];
-				$ingredient['product_sp_3'] += $content['product_sp_box2'];
-				$ingredient['package_3'] += $content['product_sp_box2'];
-				$ingredient['package_5'] += $content['product_sp_box2'];
+			if (is_nonnegativeInt($content['product_sp_box'])) {
+				$sp_1_type1 = $content['sp_1_type1'];
+				$sp_2_type1 = $content['sp_2_type1'];
+				$sp_3_type1 = $content['sp_3_type1'];
+				$sp_1_type2 = $content['sp_1_type2'];
+				$sp_2_type2 = $content['sp_2_type2'];
+				$sp_3_type2 = $content['sp_3_type2'];
+				if (!is_nonnegativeInt($sp_1_type1) || !is_nonnegativeInt($sp_2_type1) || !is_nonnegativeInt($sp_3_type1) || !is_nonnegativeInt($sp_1_type2) || !is_nonnegativeInt($sp_2_type2) || !is_nonnegativeInt($sp_3_type2)) {
+					return 'Wrong input format';
+				}
+				elseif ($sp_1_type1 + $sp_1_type2 != $content['product_sp_box']){
+					return 'Wrong sp_1 series amount';
+				}
+				elseif ($sp_2_type1 + $sp_2_type2 != $content['product_sp_box']){
+					return 'Wrong sp_2 series amount';
+				}
+				elseif ($sp_3_type1 + $sp_3_type2 != $content['product_sp_box']){
+					return 'Wrong sp_3 series amount';
+				}
+				else {
+					$ingredient['sp_1'] += $sp_1_type1;
+					$ingredient['sp_2'] += $sp_2_type1;
+					$ingredient['sp_3'] += $sp_3_type1;
+					$ingredient['package_6'] += $sp_1_type1;
+					$ingredient['package_7'] += $sp_2_type1;
+					$ingredient['package_8'] += $sp_3_type1;
+					$ingredient['product_sp_1'] += $sp_1_type2;
+					$ingredient['product_sp_2'] += $sp_2_type2;
+					$ingredient['product_sp_3'] += $sp_3_type2;
+					$ingredient['package_3'] += $content['product_sp_box'];
+					$ingredient['package_5'] += $content['product_sp_box'];
+				}
 			}
 			else {
 				return 'Wrong input format';
@@ -530,10 +543,21 @@ function package($content) {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_ss_box'])) {
-				$ingredient['product_ss_1'] += 2 * $content['product_ss_box'];
-				$ingredient['product_ss_2'] += 2 * $content['product_ss_box'];
-				$ingredient['product_ss_3'] += 2 * $content['product_ss_box'];
-				$ingredient['package_4'] += $content['product_ss_box'];
+				$ss_1_type1 = $content['ss_1_type1'];
+				$ss_2_type1 = $content['ss_2_type1'];
+				$ss_3_type1 = $content['ss_3_type1'];
+				if (!is_nonnegativeInt($ss_1_type1) || !is_nonnegativeInt($ss_2_type1) || !is_nonnegativeInt($ss_3_type1)) {
+					return 'Wrong input format';
+				}
+				elseif ($ss_1_type1 + $ss_2_type1 + $ss_3_type1 != $content['product_ss_box'] * 6){
+					return 'Wrong ss series amount';
+				}
+				else {
+					$ingredient['product_ss_1'] += $ss_1_type1;
+					$ingredient['product_ss_2'] += $ss_2_type1;
+					$ingredient['product_ss_3'] += $ss_3_type1;
+					$ingredient['package_4'] += $content['product_ss_box'];
+				}
 			}
 			else {
 				return 'Wrong input format';
@@ -587,25 +611,38 @@ function packing($content) {
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_sp_box1'])) {
-				$ingredient['sp_1'] += $content['product_sp_box1'];
-				$ingredient['sp_2'] += $content['product_sp_box1'];
-				$ingredient['sp_3'] += $content['product_sp_box1'];
-				$ingredient['package_3'] += $content['product_sp_box1'];
-				$ingredient['package_5'] += $content['product_sp_box1'];
-				$ingredient['package_6'] += $content['product_sp_box1'];
-				$ingredient['package_7'] += $content['product_sp_box1'];
-				$ingredient['package_8'] += $content['product_sp_box1'];
-			}
-			else {
-				return 'Wrong input format';
-			}
-			if (is_nonnegativeInt($content['product_sp_box2'])) {
-				$ingredient['product_sp_1'] += $content['product_sp_box2'];
-				$ingredient['product_sp_2'] += $content['product_sp_box2'];
-				$ingredient['product_sp_3'] += $content['product_sp_box2'];
-				$ingredient['package_3'] += $content['product_sp_box2'];
-				$ingredient['package_5'] += $content['product_sp_box2'];
+			if (is_nonnegativeInt($content['product_sp_box'])) {
+				$sp_1_type1 = $content['sp_1_type1'];
+				$sp_2_type1 = $content['sp_2_type1'];
+				$sp_3_type1 = $content['sp_3_type1'];
+				$sp_1_type2 = $content['sp_1_type2'];
+				$sp_2_type2 = $content['sp_2_type2'];
+				$sp_3_type2 = $content['sp_3_type2'];
+				if (!is_nonnegativeInt($sp_1_type1) || !is_nonnegativeInt($sp_2_type1) || !is_nonnegativeInt($sp_3_type1) || !is_nonnegativeInt($sp_1_type2) || !is_nonnegativeInt($sp_2_type2) || !is_nonnegativeInt($sp_3_type2)) {
+					return 'Wrong input format';
+				}
+				elseif ($sp_1_type1 + $sp_1_type2 != $content['product_sp_box']){
+					return 'Wrong sp_1 series amount';
+				}
+				elseif ($sp_2_type1 + $sp_2_type2 != $content['product_sp_box']){
+					return 'Wrong sp_2 series amount';
+				}
+				elseif ($sp_3_type1 + $sp_3_type2 != $content['product_sp_box']){
+					return 'Wrong sp_3 series amount';
+				}
+				else {
+					$ingredient['sp_1'] += $sp_1_type1;
+					$ingredient['sp_2'] += $sp_2_type1;
+					$ingredient['sp_3'] += $sp_3_type1;
+					$ingredient['package_6'] += $sp_1_type1;
+					$ingredient['package_7'] += $sp_2_type1;
+					$ingredient['package_8'] += $sp_3_type1;
+					$ingredient['product_sp_1'] += $sp_1_type2;
+					$ingredient['product_sp_2'] += $sp_2_type2;
+					$ingredient['product_sp_3'] += $sp_3_type2;
+					$ingredient['package_3'] += $content['product_sp_box'];
+					$ingredient['package_5'] += $content['product_sp_box'];
+				}
 			}
 			else {
 				return 'Wrong input format';
@@ -638,10 +675,21 @@ function packing($content) {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_ss_box'])) {
-				$ingredient['product_ss_1'] += 2 * $content['product_ss_box'];
-				$ingredient['product_ss_2'] += 2 * $content['product_ss_box'];
-				$ingredient['product_ss_3'] += 2 * $content['product_ss_box'];
-				$ingredient['package_4'] += $content['product_ss_box'];
+				$ss_1_type1 = $content['ss_1_type1'];
+				$ss_2_type1 = $content['ss_2_type1'];
+				$ss_3_type1 = $content['ss_3_type1'];
+				if (!is_nonnegativeInt($ss_1_type1) || !is_nonnegativeInt($ss_2_type1) || !is_nonnegativeInt($ss_3_type1)) {
+					return 'Wrong input format';
+				}
+				elseif ($ss_1_type1 + $ss_2_type1 + $ss_3_type1 != $content['product_ss_box'] * 6){
+					return 'Wrong ss series amount';
+				}
+				else {
+					$ingredient['product_ss_1'] += $ss_1_type1;
+					$ingredient['product_ss_2'] += $ss_2_type1;
+					$ingredient['product_ss_3'] += $ss_3_type1;
+					$ingredient['package_4'] += $content['product_ss_box'];
+				}
 			}
 			else {
 				return 'Wrong input format';
@@ -1000,14 +1048,9 @@ function package_to_product($package, $product) {
 		$amount = $product['product_sp_3'];
 		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
 	}
-	if (is_positiveInt($product['product_sp_box1'])) {
+	if (is_positiveInt($product['product_sp_box'])) {
 		$ITEMNO = 'product_sp_box';
-		$amount = $product['product_sp_box1'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
-	}
-	if (is_positiveInt($product['product_sp_box2'])) {
-		$ITEMNO = 'product_sp_box';
-		$amount = $product['product_sp_box2'];
+		$amount = $product['product_sp_box'];
 		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
 	}
 	if (is_positiveInt($product['product_ss_1'])) {

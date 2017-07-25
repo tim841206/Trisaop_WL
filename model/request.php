@@ -1185,7 +1185,7 @@ function send($content) {
 	elseif (empty($token)) {
 		return 'Empty token';
 	}
-	elseif (!in_array($sender, array('Trisoap', 'Beitou', 'Houshanpi', 'Taitung'))) {
+	elseif (!in_array($sender, array('Trisoap', 'Taitung'))) {
 		return 'Unregistered sender';
 	}
 	elseif (!in_array($receiver, array('Trisoap', 'Beitou', 'Houshanpi', 'Taitung'))) {
@@ -1225,53 +1225,7 @@ function send($content) {
 				}
 				elseif ($sender == 'Trisoap' && $receiver == 'Taitung') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7', 'package_8'))) {
-							array_push($itemno, $key[$i]);
-							array_push($itemamt, $content[$key[$i]]);
-						}
-					}
-				}
-				elseif ($sender == 'Beitou' && $receiver == 'Trisoap') {
-					$message = '';
-					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('product_sp_1', 'product_sp_2', 'product_sp_3', 'product_sp_box', 'product_ss_1', 'product_ss_2', 'product_ss_3', 'product_ss_box'))) { 
-							if (inventory('Beitou', $key[$i]) < $content[$key[$i]]) {
-								$message .= query_name($key[$i]) . "存量不足\n";
-							}
-							else {
-								array_push($itemno, $key[$i]);
-								array_push($itemamt, $content[$key[$i]]);
-							}
-						}
-					}
-					if (!empty($message)) {
-						return $message;
-					}
-				}
-				elseif ($sender == 'Houshanpi' && $receiver == 'Beitou') {
-					$message = '';
-					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH'))) {
-							array_push($itemno, $key[$i]);
-							array_push($itemamt, $content[$key[$i]]);
-						}
-						elseif (in_array($key[$i], array('sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
-							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
-								$message .= query_name($key[$i]) . "存量不足\n";
-							}
-							else {
-								array_push($itemno, $key[$i]);
-								array_push($itemamt, $content[$key[$i]]);
-							}
-						}
-					}
-					if (!empty($message)) {
-						return $message;
-					}
-				}
-				elseif ($sender == 'Houshanpi' && $receiver == 'Taitung') {
-					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH'))) {
+						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1292,62 +1246,6 @@ function send($content) {
 					}
 					if (!empty($message)) {
 						return $message;
-					}
-				}
-				else {
-					return 'No authority';
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'B') {
-				if ($sender == 'Beitou' && $receiver == 'Trisoap') {
-					$message = '';
-					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('product_sp_1', 'product_sp_2', 'product_sp_3', 'product_sp_box', 'product_ss_1', 'product_ss_2', 'product_ss_3', 'product_ss_box'))) { 
-							if (inventory('Beitou', $key[$i]) < $content[$key[$i]]) {
-								$message .= query_name($key[$i]) . "存量不足\n";
-							}
-							else {
-								array_push($itemno, $key[$i]);
-								array_push($itemamt, $content[$key[$i]]);
-							}
-						}
-					}
-					if (!empty($message)) {
-						return $message;
-					}
-				}
-				else {
-					return 'No authority';
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'C') {
-				if ($sender == 'Houshanpi' && $receiver == 'Beitou') {
-					$message = '';
-					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH'))) {
-							array_push($itemno, $key[$i]);
-							array_push($itemamt, $content[$key[$i]]);
-						}
-						elseif (in_array($key[$i], array('sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
-							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
-								$message .= query_name($key[$i]) . "存量不足\n";
-							}
-							else {
-								array_push($itemno, $key[$i]);
-								array_push($itemamt, $content[$key[$i]]);
-							}
-						}
-					}
-					if (!empty($message)) {
-						return $message;
-					}
-				}
-				elseif ($sender == 'Houshanpi' && $receiver == 'Taitung') {
-					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8', 'oil_9', 'NaOH'))) {
-							array_push($itemno, $key[$i]);
-							array_push($itemamt, $content[$key[$i]]);
-						}
 					}
 				}
 				else {
@@ -1376,7 +1274,7 @@ function send($content) {
 					return 'No authority';
 				}
 			}
-			elseif ($fetch1['AUTHORITY'] == 'E') {
+			else {
 				return 'No authority';
 			}
 			if (count($itemno) == 0) {
@@ -1385,10 +1283,10 @@ function send($content) {
 			else {
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
-				$rqstno = get_rqstno();
+				$rqstno = get_no();
 				$sql2 = "INSERT INTO RQSTMAS (RQSTNO, SENDER, RECEIVER, SENDERDATE, RQSTSTAT, SHIPFEE, NOTICE, CREATEDATE, UPDATEDATE) VALUES ('$rqstno', '$sender', '$receiver', '$date', 'A', '$shipfee', '$memo', '$date', '$date')";
 				if (mysql_query($sql2)) {
-					if (update_rqstno()) {
+					if (update_no()) {
 						for ($i = 0; $i < count($itemno); $i++) {
 							$no = $itemno[$i];
 							$nm = query_name($no);
@@ -1451,14 +1349,14 @@ function set_shipfee($account, $token, $index, $shipfee) {
 	}
 }
 
-function get_rqstno() {
-	$sql = mysql_query("SELECT NEXT_RQSTNO FROM CONTROLMAS");
+function get_no() {
+	$sql = mysql_query("SELECT NEXT_NO FROM CONTROLMAS");
 	$fetch = mysql_fetch_row($sql);
 	return $fetch[0];
 }
 
-function update_rqstno() {
-	$sql = "UPDATE CONTROLMAS SET NEXT_RQSTNO=NEXT_RQSTNO+1";
+function update_no() {
+	$sql = "UPDATE CONTROLMAS SET NEXT_NO=NEXT_NO+1";
 	if (mysql_query($sql)) {
 		return true;
 	}
