@@ -1165,10 +1165,10 @@ function pack() {
 	if (sp_1_type1 + sp_1_type2 != product_sp_box) {
 		alert("米皂包裝原料與禮盒數量不符");
 	}
-	else if (sp_2_type1 + sp_2_type2 != package_sp_box) {
+	else if (sp_2_type1 + sp_2_type2 != product_sp_box) {
 		alert("金針皂包裝原料與禮盒數量不符");
 	}
-	else if (sp_3_type1 + sp_3_type2 != package_sp_box) {
+	else if (sp_3_type1 + sp_3_type2 != product_sp_box) {
 		alert("釋迦皂包裝原料與禮盒數量不符");
 	}
 	else if (ss_1_type1 + ss_2_type1 + ss_3_type1 != product_ss_box * 6) {
