@@ -211,6 +211,21 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);
 			}
+			elseif ($_POST['event'] == 'search_index') {
+				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
+				$post = array_merge($id, $_POST);
+				echo curl_post($post, $_POST['module']);
+			}
+			elseif ($_POST['event'] == 'search_type') {
+				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
+				$post = array_merge($id, $_POST);
+				echo curl_post($post, $_POST['module']);
+			}
+			elseif ($_POST['event'] == 'search_date') {
+				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
+				$post = array_merge($id, $_POST);
+				echo curl_post($post, $_POST['module']);
+			}
 			elseif ($_POST['event'] == 'view_index') {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);

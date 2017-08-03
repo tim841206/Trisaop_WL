@@ -473,36 +473,36 @@ function search_date($account, $token, $year, $month, $day) {
 				if (empty($year)) {
 					if (empty($month)) {
 						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou')");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi')");
 						}
 						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
 						}
 					}
 					else {
 						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
 						}
 						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
 						}
 					}
 				}
 				else {
 					if (empty($month)) {
 						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
 						}
 						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
 						}
 					}
 					else {
 						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
 						}
 						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
 						}
 					}
 				}
@@ -511,36 +511,36 @@ function search_date($account, $token, $year, $month, $day) {
 				if (empty($year)) {
 					if (empty($month)) {
 						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou')");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung')");
 						}
 						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
 						}
 					}
 					else {
 						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
 						}
 						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
 						}
 					}
 				}
 				else {
 					if (empty($month)) {
 						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
 						}
 						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
 						}
 					}
 					else {
 						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
 						}
 						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
+							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
 						}
 					}
 				}
@@ -1185,7 +1185,7 @@ function send($content) {
 	elseif (empty($token)) {
 		return 'Empty token';
 	}
-	elseif (!in_array($sender, array('Trisoap', 'Taitung'))) {
+	elseif (!in_array($sender, array('Trisoap', 'Houshanpi', 'Taitung'))) {
 		return 'Unregistered sender';
 	}
 	elseif (!in_array($receiver, array('Trisoap', 'Beitou', 'Houshanpi', 'Taitung'))) {
@@ -1231,11 +1231,50 @@ function send($content) {
 						}
 					}
 				}
+				elseif ($sender == 'Houshanpi' && $receiver == 'Beitou') {
+					$message = '';
+					for ($i = 0; $i < count($content); $i++) {
+						if (in_array($key[$i], array('sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
+							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
+								$message .= query_name($key[$i]) . "存量不足\n";
+							}
+							else {
+								array_push($itemno, $key[$i]);
+								array_push($itemamt, $content[$key[$i]]);
+							}
+						}
+					}
+					if (!empty($message)) {
+						return $message;
+					}
+				}
 				elseif ($sender == 'Taitung' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
 						if (in_array($key[$i], array('sp_1', 'sp_2', 'sp_3', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
 							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
+								$message .= query_name($key[$i]) . "存量不足\n";
+							}
+							else {
+								array_push($itemno, $key[$i]);
+								array_push($itemamt, $content[$key[$i]]);
+							}
+						}
+					}
+					if (!empty($message)) {
+						return $message;
+					}
+				}
+				else {
+					return 'No authority';
+				}
+			}
+			elseif ($fetch1['AUTHORITY'] == 'C') {
+				if ($sender == 'Houshanpi' && $receiver == 'Beitou') {
+					$message = '';
+					for ($i = 0; $i < count($content); $i++) {
+						if (in_array($key[$i], array('sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
+							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
 							else {

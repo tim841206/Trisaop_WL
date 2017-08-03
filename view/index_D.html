@@ -201,6 +201,31 @@
 					<h3>訂單一覽</h3>
 					<p id="command_view_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 					<p id="command_view_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
+					<h3>進階查詢</h3>
+					<table>
+						<tr>
+							<td>訂單編號</td>
+							<td><input type="text" id="command_index"></td>
+							<td><button onclick="command_search_index()">查詢</button></td>
+						</tr>
+						<tr>
+							<td>訂單種類</td>
+							<td>
+								<select id="command_type">
+									<option value="">請選擇</option>
+									<option value="C">製皂</option>
+								</select>
+							</td>
+							<td><button onclick="command_search_type()">查詢</button></td>
+						</tr>
+						<tr>
+							<td>訂單建立日期</td>
+							<td><input type="text" id="command_year">年<input type="text" id="command_month">月<input type="text" id="command_day">日</td>
+							<td><button onclick="command_search_date()">查詢</button></td>
+						</tr>
+					</table>
+					<p id="command_search_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
+					<p id="command_search_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 				</div>
 				<div id="menu6" class="tab-pane fade">
 					<h3>使用者一覽</h3>
