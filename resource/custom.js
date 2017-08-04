@@ -1298,6 +1298,71 @@ function search_date() {
 	}
 }
 
+function command_search_index() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var index = document.getElementById("command_index").value;
+	var data = "module=command&event=search_index&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("command_search_content").innerHTML = data.content;
+			}
+			else {
+				document.getElementById("command_search_content").innerHTML = null;
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function command_search_type() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var type = document.getElementById("command_type").value;
+	var data = "module=command&event=search_type&type=" + type;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("command_search_content").innerHTML = data.content;
+			}
+			else {
+				document.getElementById("command_search_content").innerHTML = null;
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function command_search_date() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var year = document.getElementById("command_year").value;
+	var month = document.getElementById("command_month").value;
+	var day = document.getElementById("command_day").value;
+	var data = "module=command&event=search_date&year=" + year + "&month=" + month + "&day=" + day;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("command_search_content").innerHTML = data.content;
+			}
+			else {
+				document.getElementById("command_search_content").innerHTML = null;
+				alert(data.message);
+			}
+		}
+	}
+}
+
 function view_index_notice(index) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
@@ -1358,6 +1423,46 @@ function view_index_search(index) {
 	}
 }
 
+function view_index_search(index) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=request&event=view_index&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("request_search_detail").innerHTML = data.content;
+			}
+			else {
+				document.getElementById("request_search_detail").innerHTML = null;
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function command_view_index_search(index) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=command&event=view_index&index=" + index;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("command_search_detail").innerHTML = data.content;
+			}
+			else {
+				document.getElementById("command_search_detail").innerHTML = null;
+				alert(data.message);
+			}
+		}
+	}
+}
+
 function sender() {
 	var sender = document.getElementById("sender").value;
 	var receiver = document.getElementById("receiver");
@@ -1373,6 +1478,10 @@ function sender() {
 		option2.text = '北投'; option2.value = 'Beitou'; receiver.add(option2);
 		option3.text = '後山埤'; option3.value = 'Houshanpi'; receiver.add(option3);
 		option4.text = '台東'; option4.value = 'Taitung'; receiver.add(option4);
+	}
+	else if (sender == 'Houshanpi') {
+		var option1 = document.createElement("option");
+		option1.text = '北投'; option1.value = 'Beitou'; receiver.add(option1);
 	}
 	else if (sender == 'Taitung') {
 		var option1 = document.createElement("option");
@@ -1392,6 +1501,8 @@ function receiver() {
 			document.getElementsByClassName("material_C")[1].style.display = null;
 			document.getElementsByClassName("material_E")[0].style.display = 'none';
 			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("ship").style.display = 'none';
 			document.getElementById("content").style.display = null;
 		}
@@ -1402,6 +1513,8 @@ function receiver() {
 			document.getElementsByClassName("material_C")[1].style.display = 'none';
 			document.getElementsByClassName("material_E")[0].style.display = 'none';
 			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("ship").style.display = 'none';
 			document.getElementById("content").style.display = null;
 		}
@@ -1412,6 +1525,8 @@ function receiver() {
 			document.getElementsByClassName("material_C")[1].style.display = 'none';
 			document.getElementsByClassName("material_E")[0].style.display = 'none';
 			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("ship").style.display = 'none';
 			document.getElementById("content").style.display = null;
 		}
@@ -1422,6 +1537,34 @@ function receiver() {
 			document.getElementsByClassName("material_C")[1].style.display = 'none';
 			document.getElementsByClassName("material_E")[0].style.display = 'none';
 			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
+			document.getElementById("ship").style.display = 'none';
+			document.getElementById("content").style.display = 'none';
+		}
+	}
+	else if (sender == 'Houshanpi') {
+		if (receiver == 'Beitou') {
+			document.getElementsByClassName("material_B")[0].style.display = 'none';
+			document.getElementsByClassName("material_B")[1].style.display = 'none';
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = null;
+			document.getElementsByClassName("material_H")[1].style.display = null;
+			document.getElementById("ship").style.display = 'none';
+			document.getElementById("content").style.display = null;
+		}
+		else {
+			document.getElementsByClassName("material_B")[0].style.display = 'none';
+			document.getElementsByClassName("material_B")[1].style.display = 'none';
+			document.getElementsByClassName("material_C")[0].style.display = 'none';
+			document.getElementsByClassName("material_C")[1].style.display = 'none';
+			document.getElementsByClassName("material_E")[0].style.display = 'none';
+			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("ship").style.display = 'none';
 			document.getElementById("content").style.display = 'none';
 		}
@@ -1434,6 +1577,8 @@ function receiver() {
 			document.getElementsByClassName("material_C")[1].style.display = 'none';
 			document.getElementsByClassName("material_E")[0].style.display = null;
 			document.getElementsByClassName("material_E")[1].style.display = null;
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("ship").style.display = null;
 			document.getElementById("content").style.display = null;
 		}
@@ -1444,6 +1589,8 @@ function receiver() {
 			document.getElementsByClassName("material_C")[1].style.display = 'none';
 			document.getElementsByClassName("material_E")[0].style.display = 'none';
 			document.getElementsByClassName("material_E")[1].style.display = 'none';
+			document.getElementsByClassName("material_H")[0].style.display = 'none';
+			document.getElementsByClassName("material_H")[1].style.display = 'none';
 			document.getElementById("ship").style.display = 'none';
 			document.getElementById("content").style.display = 'none';
 		}
@@ -1455,6 +1602,8 @@ function receiver() {
 		document.getElementsByClassName("material_C")[1].style.display = 'none';
 		document.getElementsByClassName("material_E")[0].style.display = 'none';
 		document.getElementsByClassName("material_E")[1].style.display = 'none';
+		document.getElementsByClassName("material_H")[0].style.display = 'none';
+		document.getElementsByClassName("material_H")[1].style.display = 'none';
 		document.getElementById("ship").style.display = 'none';
 		document.getElementById("content").style.display = 'none';
 	}
@@ -1533,6 +1682,14 @@ function send() {
 		if (ss_5 != null && ss_5 != 0) data = data + "&ss_5=" + ss_5;
 		var ss_6 = document.getElementById("send_ss_6").value;
 		if (ss_6 != null && ss_6 != 0) data = data + "&ss_6=" + ss_6;
+	}
+	if (sender == 'Houshanpi') {
+		var sp_1_houshanpi = document.getElementById("send_sp_1_houshanpi").value;
+		if (sp_1_houshanpi != null && sp_1_houshanpi != 0) data = data + "&sp_1_houshanpi=" + sp_1_houshanpi;
+		var sp_2_houshanpi = document.getElementById("send_sp_2_houshanpi").value;
+		if (sp_2_houshanpi != null && sp_2_houshanpi != 0) data = data + "&sp_2_houshanpi=" + sp_2_houshanpi;
+		var sp_3_houshanpi = document.getElementById("send_sp_3_houshanpi").value;
+		if (sp_3_houshanpi != null && sp_3_houshanpi != 0) data = data + "&sp_3_houshanpi=" + sp_3_houshanpi;
 	}
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);

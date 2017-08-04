@@ -166,6 +166,7 @@
 								<select id="sender" onchange="sender()">
 									<option value="">請選擇</option>
 									<option value="Trisoap">進貨</option>
+									<option value="Houshanpi">後山埤</option>
 									<option value="Taitung">台東</option>
 								</select>
 							</td>
@@ -181,6 +182,7 @@
 								<th class="material_B" style="display: none;">添加物</th>
 								<th class="material_C" style="display: none;">包裝</th>
 								<th class="material_E" style="display: none;">產品</th>
+								<th class="material_H" style="display: none;">後山埤的產品</th>
 							</tr>
 							<tr>
 								<td class="material_B" style="display: none;">
@@ -222,6 +224,13 @@
 										<tr><td>紅棕梠皂絲</td><td><input type="number" id="send_ss_6" value="0" min="0">g</td></tr>
 									</table>
 								</td>
+								<td class="material_H" style="display: none;">
+									<table>
+										<tr><td>後山埤的米皂</td><td><input type="number" id="send_sp_1_houshanpi" value="0" min="0">顆</td></tr>
+										<tr><td>後山埤的金針皂</td><td><input type="number" id="send_sp_2_houshanpi" value="0" min="0">顆</td></tr>
+										<tr><td>後山埤的釋迦皂</td><td><input type="number" id="send_sp_3_houshanpi" value="0" min="0">顆</td></tr>
+									</table>
+								</td>
 							</tr>
 							<tr id="ship"><td>運費：<input type="text" id="shipfee" value="0"></td></tr>
 							<tr><td>備註：<textarea type="text" id="memo"></textarea></td></tr>
@@ -234,6 +243,33 @@
 					<h3>訂單一覽</h3>
 					<p id="command_view_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 					<p id="command_view_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
+					<h3>進階查詢</h3>
+					<table>
+						<tr>
+							<td>訂單編號</td>
+							<td><input type="text" id="command_index"></td>
+							<td><button onclick="command_search_index()">查詢</button></td>
+						</tr>
+						<tr>
+							<td>訂單種類</td>
+							<td>
+								<select id="command_type">
+									<option value="">請選擇</option>
+									<option value="A">油品</option>
+									<option value="B">出貨</option>
+									<option value="C">製皂</option>
+								</select>
+							</td>
+							<td><button onclick="command_search_type()">查詢</button></td>
+						</tr>
+						<tr>
+							<td>訂單建立日期</td>
+							<td><input type="text" id="command_year">年<input type="text" id="command_month">月<input type="text" id="command_day">日</td>
+							<td><button onclick="command_search_date()">查詢</button></td>
+						</tr>
+					</table>
+					<p id="command_search_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
+					<p id="command_search_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 				</div>
 				<div id="menu7" class="tab-pane fade">
 					<h3>建立訂單</h3>

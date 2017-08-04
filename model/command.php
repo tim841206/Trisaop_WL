@@ -25,6 +25,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 				return;
 			}
 		}
+		elseif ($_GET['event'] == 'search_index') {
+			$message = search_index($_GET['account'], $_GET['token'], $_GET['index']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_GET['event'] == 'search_type') {
+			$message = search_type($_GET['account'], $_GET['token'], $_GET['type']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_GET['event'] == 'search_date') {
+			$message = search_date($_GET['account'], $_GET['token'], $_GET['year'], $_GET['month'], $_GET['day']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
 		elseif ($_GET['event'] == 'notice') {
 			$message = notice($_GET['account'], $_GET['token']);
 			if (is_array($message)) {
@@ -94,6 +127,39 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if ($_POST['module'] == 'command') {
 		if ($_POST['event'] == 'view') {
 			$message = view($_POST['account'], $_POST['token']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_POST['event'] == 'search_index') {
+			$message = search_index($_POST['account'], $_POST['token'], $_POST['index']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_POST['event'] == 'search_type') {
+			$message = search_type($_POST['account'], $_POST['token'], $_POST['type']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_POST['event'] == 'search_date') {
+			$message = search_date($_POST['account'], $_POST['token'], $_POST['year'], $_POST['month'], $_POST['day']);
 			if (is_array($message)) {
 				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
 				return;
@@ -224,6 +290,284 @@ function view($account, $token) {
 				$content = '<table><tr><th>訂單編號</th><th>建立時間</th><td>下單對象</td><th>類別</th><th>訂單狀態</th></tr>';
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$content .= '<tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.LocationToName($fetch2['TARGET']).'</td><td>'.translate($fetch2['CMDTYPE']).'</td><td>'.transfer_state($fetch2['CMDSTAT'], $fetch2['CMDTYPE']).'</td><td><button onclick="view_command('.$fetch2['CMDNO'].')">查看</button></td></tr>';
+				}
+				$content .= '</table>';
+			}
+			return array('message' => 'Success', 'content' => $content);
+		}
+	}
+}
+
+function search_index($account, $token, $index) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDNO='$index' AND ACTCODE='1'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Empty token';
+	}
+	elseif (empty($index)) {
+		return 'Empty index';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	elseif ($sql2 == false) {
+		return 'Unregistered command';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		$fetch2 = mysql_fetch_array($sql2);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		elseif ($fetch1['AUTHORITY'] == 'B' && $fetch2['TARGET'] != 'Beitou') {
+			return 'No authority';
+		}
+		elseif ($fetch1['AUTHORITY'] == 'C' && $fetch2['TARGET'] != 'Houshanpi') {
+			return 'No authority';
+		}
+		elseif ($fetch1['AUTHORITY'] == 'D' && $fetch2['TARGET'] != 'Taitung') {
+			return 'No authority';
+		}
+		else {
+			$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>下單對象</th><th>類別</th><th>訂單狀態</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.LocationToName($fetch2['TARGET']).'</td><td>'.translate($fetch2['CMDTYPE']).'</td><td>'.transfer_state($fetch2['CMDSTAT'], $fetch2['CMDTYPE']).'</td><td><button onclick="command_view_index_search('.$fetch2['CMDNO'].')">查看</button></td></tr></table>';
+			return array('message' => 'Success', 'content' => $content);
+		}
+	}
+}
+
+function search_type($account, $token, $type) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Empty token';
+	}
+	elseif (empty($type)) {
+		return 'Empty type';
+	}
+	elseif (!in_array($type, array('A', 'B', 'C'))) {
+		return 'Wrong type format';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		else {
+			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
+				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDTYPE='$type' AND ACTCODE='1'");
+			}
+			elseif ($fetch1['AUTHORITY'] == 'B') {
+				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDTYPE='$type' AND TARGET='Beitou' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
+			}
+			elseif ($fetch1['AUTHORITY'] == 'C') {
+				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDTYPE='$type' AND TARGET='Houshanpi' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
+			}
+			elseif ($fetch1['AUTHORITY'] == 'D') {
+				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDTYPE='$type' AND TARGET='Taitung' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
+			}
+			$content = '';
+			if ($sql2 == false) {
+				$content = '查無資料';
+			}
+			else {
+				$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>下單對象</th><th>類別</th><th>訂單狀態</th></tr>';
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$content .= '<tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.LocationToName($fetch2['TARGET']).'</td><td>'.translate($fetch2['CMDTYPE']).'</td><td>'.transfer_state($fetch2['CMDSTAT'], $fetch2['CMDTYPE']).'</td><td><button onclick="command_view_index_search('.$fetch2['CMDNO'].')">查看</button></td></tr>';
+				}
+				$content .= '</table>';
+			}
+			return array('message' => 'Success', 'content' => $content);
+		}
+	}
+}
+
+function search_date($account, $token, $year, $month, $day) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Empty token';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		else {
+			$month = process_date($month);
+			$day = process_date($day);
+			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
+				if (empty($year)) {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
+						}
+					}
+				}
+				else {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
+						}
+					}
+				}
+			}
+			elseif ($fetch1['AUTHORITY'] == 'B') {
+				if (empty($year)) {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
+						}
+					}
+				}
+				else {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
+						}
+					}
+				}
+			}
+			elseif ($fetch1['AUTHORITY'] == 'C') {
+				if (empty($year)) {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
+						}
+					}
+				}
+				else {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
+						}
+					}
+				}
+			}
+			elseif ($fetch1['AUTHORITY'] == 'D') {
+				if (empty($year)) {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
+						}
+					}
+				}
+				else {
+					if (empty($month)) {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
+						}
+					}
+					else {
+						if (empty($day)) {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
+						}
+						else {
+							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
+						}
+					}
+				}
+			}
+			$content = '';
+			if ($sql2 == false) {
+				$content = '查無資料';
+			}
+			else {
+				$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>下單對象</th><th>類別</th><th>訂單狀態</th></tr>';
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$content .= '<tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.LocationToName($fetch2['TARGET']).'</td><td>'.translate($fetch2['CMDTYPE']).'</td><td>'.transfer_state($fetch2['CMDSTAT'], $fetch2['CMDTYPE']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td><td><button onclick="command_view_index_search('.$fetch2['CMDNO'].')">查看</button></td></tr>';
 				}
 				$content .= '</table>';
 			}
@@ -1232,5 +1576,14 @@ function translate_check($checkstat, $cmdno, $itemno) {
 	}
 	else {
 		return '已完成';
+	}
+}
+
+function process_date($value) {
+	if ($value < 10) {
+		return '0'.$value;
+	}
+	else {
+		return $value;
 	}
 }
