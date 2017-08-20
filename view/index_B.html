@@ -75,18 +75,33 @@
 				<div id="menu2" class="tab-pane fade">
 					<h3>商品包裝</h3>
 					<div style="width: 45%; display: inline-block">
-						<table>
-							<tr><th>商品</th><th>數量</th></tr>
-							<tr><td>田靜山巒禾風皂</td><td><input type="number" id="package_sp_1" value="0" min="0"></td></tr>
-							<tr><td>金絲森林渲染皂</td><td><input type="number" id="package_sp_2" value="0" min="0"></td></tr>
-							<tr><td>釋迦手感果力皂</td><td><input type="number" id="package_sp_3" value="0" min="0"></td></tr>
-							<tr><td>三三台東意象禮盒組</td><td><input type="number" id="package_sp_box" value="0" min="0" onchange="sp_box_change()"></td></tr>
-							<tr><td>洛神紅麴旅用皂絲</td><td><input type="number" id="package_ss_1" value="0" min="0"></td></tr>
-							<tr><td>暖暖薑黃旅用皂絲</td><td><input type="number" id="package_ss_2" value="0" min="0"></td></tr>
-							<tr><td>萱草米黃旅用皂絲</td><td><input type="number" id="package_ss_3" value="0" min="0"></td></tr>
-							<tr><td>三三台東意象皂絲旅行組</td><td><input type="number" id="package_ss_box" value="0" min="0" onchange="ss_box_change()"></td></tr>
-						</table>
+						<h4>日常商品</h4>
+						<div>
+							<table>
+								<tr><th>商品</th><th>數量</th></tr>
+								<tr><td>田靜山巒禾風皂</td><td><input type="number" id="package_sp_1" value="0" min="0"></td></tr>
+								<tr><td>金絲森林渲染皂</td><td><input type="number" id="package_sp_2" value="0" min="0"></td></tr>
+								<tr><td>釋迦手感果力皂</td><td><input type="number" id="package_sp_3" value="0" min="0"></td></tr>
+								<tr><td>三三台東意象禮盒組</td><td><input type="number" id="package_sp_box" value="0" min="0" onchange="sp_box_change()"></td></tr>
+								<tr><td>洛神紅麴旅用皂絲</td><td><input type="number" id="package_ss_1" value="0" min="0"></td></tr>
+								<tr><td>暖暖薑黃旅用皂絲</td><td><input type="number" id="package_ss_2" value="0" min="0"></td></tr>
+								<tr><td>萱草米黃旅用皂絲</td><td><input type="number" id="package_ss_3" value="0" min="0"></td></tr>
+								<tr><td>三三台東意象皂絲旅行組</td><td><input type="number" id="package_ss_box" value="0" min="0" onchange="ss_box_change()"></td></tr>
+							</table>
+						</div>
+						<h4>中秋期間限定商品</h4>
+						<div>
+							<table>
+								<tr><th>商品</th><th>數量</th></tr>
+								<tr><td>中秋禮皂-月兔捉迷藏</td><td><input type="number" id="moon_box_1" value="0" min="0"></td></tr>
+								<tr><td>中秋禮皂-熱氣球登月</td><td><input type="number" id="moon_box_2" value="0" min="0"></td></tr>
+								<tr><td>中秋小禮盒(米皂)</td><td><input type="number" id="moon_box_3" value="0" min="0"></td></tr>
+								<tr><td>中秋小禮盒(金針皂)</td><td><input type="number" id="moon_box_4" value="0" min="0"></td></tr>
+								<tr><td>中秋小禮盒(釋迦皂)</td><td><input type="number" id="moon_box_5" value="0" min="0"></td></tr>
+							</table>
+						</div>
 					</div>
+
 					<div style="width: 45%; display: inline-block; vertical-align: top;">
 						<h4>三三台東意象禮盒組包裝原料</h4>
 						<table>
@@ -103,7 +118,7 @@
 								<td><input type="number" id="sp_3_type2" value="0" min="0" onchange="document.getElementById('sp_1_type1').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_1_type2').value)"></td>
 							</tr>
 						</table>
-						<h4>請設定三三台東意象皂絲旅行組包裝原料</h4>
+						<h4>三三台東意象皂絲旅行組包裝原料</h4>
 						<table>
 							<tr><th>洛神紅麴旅用皂絲</th><th>暖暖薑黃旅用皂絲</th><th>萱草米黃旅用皂絲</th></tr>
 							<tr>

@@ -491,12 +491,18 @@ function adjust_search($account, $token, $whouseno) {
 								<tr><th colspan="2">包裝</th></tr>
 								<tr><td>不織布包</td><td><input type="text" class="adjust_C" id="adjust_package_1" value="'.$inventory['package_1'].'" onclick="ask_adjust(\'adjust_package_1\', \''.query_name('package_1').'\')"></td></tr>
 								<tr><td>鋁包</td><td><input type="text" class="adjust_C" id="adjust_package_2" value="'.$inventory['package_2'].'" onclick="ask_adjust(\'adjust_package_2\', \''.query_name('package_2').'\')"></td></tr>
-								<tr><td>大禮盒</td><td><input type="text" class="adjust_C" id="adjust_package_3" value="'.$inventory['package_3'].'" onclick="ask_adjust(\'adjust_package_3\', \''.query_name('package_3').'\')"></td></tr>
+								<tr><td>大禮盒封套</td><td><input type="text" class="adjust_C" id="adjust_package_3" value="'.$inventory['package_3'].'" onclick="ask_adjust(\'adjust_package_3\', \''.query_name('package_3').'\')"></td></tr>
 								<tr><td>小禮盒</td><td><input type="text" class="adjust_C" id="adjust_package_4" value="'.$inventory['package_4'].'" onclick="ask_adjust(\'adjust_package_4\', \''.query_name('package_4').'\')"></td></tr>
 								<tr><td>內襯</td><td><input type="text" class="adjust_C" id="adjust_package_5" value="'.$inventory['package_5'].'" onclick="ask_adjust(\'adjust_package_5\', \''.query_name('package_5').'\')"></td></tr>
 								<tr><td>米皂外盒</td><td><input type="text" class="adjust_C" id="adjust_package_6" value="'.$inventory['package_6'].'" onclick="ask_adjust(\'adjust_package_6\', \''.query_name('package_6').'\')"></td></tr>
 								<tr><td>金針皂外盒</td><td><input type="text" class="adjust_C" id="adjust_package_7" value="'.$inventory['package_7'].'" onclick="ask_adjust(\'adjust_package_7\', \''.query_name('package_7').'\')"></td></tr>
 								<tr><td>釋迦皂外盒</td><td><input type="text" class="adjust_C" id="adjust_package_8" value="'.$inventory['package_8'].'" onclick="ask_adjust(\'adjust_package_8\', \''.query_name('package_8').'\')"></td></tr>
+								<tr><td>大禮盒內盒</td><td><input type="text" class="adjust_C" id="adjust_package_9" value="'.$inventory['package_9'].'" onclick="ask_adjust(\'adjust_package_9\', \''.query_name('package_9').'\')"></td></tr>
+								<tr><td>中秋大禮盒上蓋(兔子)</td><td><input type="text" class="adjust_C" id="adjust_moon_package_1" value="'.$inventory['moon_package_1'].'" onclick="ask_adjust(\'adjust_moon_package_1\', \''.query_name('moon_package_1').'\')"></td></tr>
+								<tr><td>中秋大禮盒上蓋(熱氣球)</td><td><input type="text" class="adjust_C" id="adjust_moon_package_2" value="'.$inventory['moon_package_2'].'" onclick="ask_adjust(\'adjust_moon_package_2\', \''.query_name('moon_package_2').'\')"></td></tr>
+								<tr><td>中秋大禮盒底座</td><td><input type="text" class="adjust_C" id="adjust_moon_package_3" value="'.$inventory['moon_package_3'].'" onclick="ask_adjust(\'adjust_moon_package_3\', \''.query_name('moon_package_3').'\')"></td></tr>
+								<tr><td>中秋大禮盒內襯</td><td><input type="text" class="adjust_C" id="adjust_moon_package_4" value="'.$inventory['moon_package_4'].'" onclick="ask_adjust(\'adjust_moon_package_4\', \''.query_name('moon_package_4').'\')"></td></tr>
+								<tr><td>中秋小禮盒封套</td><td><input type="text" class="adjust_C" id="adjust_moon_package_5" value="'.$inventory['moon_package_5'].'" onclick="ask_adjust(\'adjust_moon_package_5\', \''.query_name('moon_package_5').'\')"></td></tr>
 							</table></td>
 							<td><table>
 								<tr><th colspan="2">商品</th></tr>
@@ -508,6 +514,11 @@ function adjust_search($account, $token, $whouseno) {
 								<tr><td>暖暖薑黃旅用皂絲</td><td><input type="text" class="adjust_D" id="adjust_product_ss_2" value="'.$inventory['product_ss_2'].'" onclick="ask_adjust(\'adjust_product_ss_2\', \''.query_name('product_ss_2').'\')"></td></tr>
 								<tr><td>萱草米黃旅用皂絲</td><td><input type="text" class="adjust_D" id="adjust_product_ss_3" value="'.$inventory['product_ss_3'].'" onclick="ask_adjust(\'adjust_product_ss_3\', \''.query_name('product_ss_3').'\')"></td></tr>
 								<tr><td>三三台東意象皂絲旅行組</td><td><input type="text" class="adjust_D" id="adjust_product_ss_box" value="'.$inventory['product_ss_box'].'" onclick="ask_adjust(\'adjust_product_ss_box\', \''.query_name('product_ss_box').'\')"></td></tr>
+								<tr><td>中秋禮皂-月兔捉迷藏</td><td><input type="text" class="adjust_D" id="adjust_moon_box_1" value="'.$inventory['moon_box_1'].'" onclick="ask_adjust(\'adjust_moon_box_1\', \''.query_name('moon_box_1').'\')"></td></tr>
+								<tr><td>中秋禮皂-熱氣球登月</td><td><input type="text" class="adjust_D" id="adjust_moon_box_2" value="'.$inventory['moon_box_2'].'" onclick="ask_adjust(\'adjust_moon_box_2\', \''.query_name('moon_box_2').'\')"></td></tr>
+								<tr><td>中秋小禮盒(米皂)</td><td><input type="text" class="adjust_D" id="adjust_moon_box_3" value="'.$inventory['moon_box_3'].'" onclick="ask_adjust(\'adjust_moon_box_3\', \''.query_name('moon_box_3').'\')"></td></tr>
+								<tr><td>中秋小禮盒(金針皂)</td><td><input type="text" class="adjust_D" id="adjust_moon_box_4" value="'.$inventory['moon_box_4'].'" onclick="ask_adjust(\'adjust_moon_box_4\', \''.query_name('moon_box_4').'\')"></td></tr>
+								<tr><td>中秋小禮盒(釋迦皂)</td><td><input type="text" class="adjust_D" id="adjust_moon_box_5" value="'.$inventory['moon_box_5'].'" onclick="ask_adjust(\'adjust_moon_box_5\', \''.query_name('moon_box_5').'\')"></td></tr>
 							</table></td>
 							<td><table>
 								<tr><th colspan="2">產品</th></tr>
