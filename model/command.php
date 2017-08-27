@@ -1421,13 +1421,7 @@ function check($account, $token, $index, $itemno) {
 						return 'Checked item';
 					}
 					else {
-						$content = '';
-						if (substr($fetch3['ITEMNO'], 0, 2) == 'sp') {
-							$content = '確定已完成 ' . $fetch3['ITEMAMT'] . ' 顆 ' . $fetch3['ITEMNM'] . ' 的製作？';
-						}
-						else {
-							$content = '確定已完成 ' . $fetch3['ITEMAMT'] . ' 克 ' . $fetch3['ITEMNM'] . ' 的製作？';
-						}
+						$content = '確定已完成 ' . $fetch3['ITEMAMT'] . ' 克 ' . $fetch3['ITEMNM'] . ' 的製作？';
 						return array('message' => 'Success', 'check' => $content);
 					}
 				}

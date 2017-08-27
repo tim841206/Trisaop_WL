@@ -42,26 +42,27 @@
 
 			<ul class="nav nav-tabs nav-justified">
 				<li><a data-toggle="tab" href="#menu1">原料試算</a></li>
-				<li><a data-toggle="tab" href="#menu2">商品包裝</a></li>
-				<li><a data-toggle="tab" href="#menu3" onclick="whouse_view()">庫存一覽</a></li>
-				<li><a data-toggle="tab" href="#menu4" onclick="request_view()">物流一覽</a></li>
-				<li><a data-toggle="tab" href="#menu5" onclick="command_view()">訂單一覽</a></li>
-				<li><a data-toggle="tab" href="#menu6" onclick="member_view()">使用者一覽</a></li>
+				<li><a data-toggle="tab" href="#menu2" onclick="mature_search()">產品切皂</a></li>
+				<li><a data-toggle="tab" href="#menu3">商品包裝</a></li>
+				<li><a data-toggle="tab" href="#menu4" onclick="whouse_view()">庫存一覽</a></li>
+				<li><a data-toggle="tab" href="#menu5" onclick="request_view()">物流一覽</a></li>
+				<li><a data-toggle="tab" href="#menu6" onclick="command_view()">訂單一覽</a></li>
+				<li><a data-toggle="tab" href="#menu7" onclick="member_view()">使用者一覽</a></li>
 			</ul>
 			<div class="tab-content">
 				<div id="menu1" class="tab-pane fade">
 					<h3>製皂內容</h3>
 					<table>
-						<tr><th>產品</th><th>單位</th><th></th><th>數量</th></tr>
-						<tr><td>米皂</td><td><input type="number" id="calculate_sp_1" value="0" min="0" onchange="document.getElementById('result_calculate_sp_1').innerHTML = this.value*10 + '顆'"></td><td>x 10 =</td><td id="result_calculate_sp_1">0</td></tr>
-						<tr><td>金針皂</td><td><input type="number" id="calculate_sp_2" value="0" min="0" onchange="document.getElementById('result_calculate_sp_2').innerHTML = this.value*10 + '顆'"></td><td>x 10 =</td><td id="result_calculate_sp_2">0</td></tr>
-						<tr><td>釋迦皂</td><td><input type="number" id="calculate_sp_3" value="0" min="0" onchange="document.getElementById('result_calculate_sp_3').innerHTML = this.value*10 + '顆'"></td><td>x 10 =</td><td id="result_calculate_sp_3">0</td></tr>
-						<tr><td>洛神皂絲</td><td><input type="number" id="calculate_ss_1" value="0" min="0" onchange="document.getElementById('result_calculate_ss_1').innerHTML = this.value*1000 + 'g'"></td><td>x 1000 =</td><td id="result_calculate_ss_1">0</td></tr>
-						<tr><td>紅麴皂絲</td><td><input type="number" id="calculate_ss_2" value="0" min="0" onchange="document.getElementById('result_calculate_ss_2').innerHTML = this.value*1000 + 'g'"></td><td>x 1000 =</td><td id="result_calculate_ss_2">0</td></tr>
-						<tr><td>薑黃皂絲</td><td><input type="number" id="calculate_ss_3" value="0" min="0" onchange="document.getElementById('result_calculate_ss_3').innerHTML = this.value*1000 + 'g'"></td><td>x 1000 =</td><td id="result_calculate_ss_3">0</td></tr>
-						<tr><td>蕁麻葉皂絲</td><td><input type="number" id="calculate_ss_4" value="0" min="0" onchange="document.getElementById('result_calculate_ss_4').innerHTML = this.value*1000 + 'g'"></td><td>x 1000 =</td><td id="result_calculate_ss_4">0</td></tr>
-						<tr><td>金針皂絲</td><td><input type="number" id="calculate_ss_5" value="0" min="0" onchange="document.getElementById('result_calculate_ss_5').innerHTML = this.value*1000 + 'g'"></td><td>x 1000 =</td><td id="result_calculate_ss_5">0</td></tr>
-						<tr><td>紅棕梠皂絲</td><td><input type="number" id="calculate_ss_6" value="0" min="0" onchange="document.getElementById('result_calculate_ss_56').innerHTML = this.value*1000 + 'g'"></td><td>x 1000 =</td><td id="result_calculate_ss_6">0</td></tr>
+						<tr><th>產品</th><th>單位</th><th>數量</th></tr>
+						<tr><td>米皂</td><td><input type="number" id="calculate_sp_1" value="0" min="0" onchange="document.getElementById('result_calculate_sp_1').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_sp_1">0</td></tr>
+						<tr><td>金針皂</td><td><input type="number" id="calculate_sp_2" value="0" min="0" onchange="document.getElementById('result_calculate_sp_2').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_sp_2">0</td></tr>
+						<tr><td>釋迦皂</td><td><input type="number" id="calculate_sp_3" value="0" min="0" onchange="document.getElementById('result_calculate_sp_3').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_sp_3">0</td></tr>
+						<tr><td>洛神皂絲</td><td><input type="number" id="calculate_ss_1" value="0" min="0" onchange="document.getElementById('result_calculate_ss_1').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_1">0</td></tr>
+						<tr><td>紅麴皂絲</td><td><input type="number" id="calculate_ss_2" value="0" min="0" onchange="document.getElementById('result_calculate_ss_2').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_2">0</td></tr>
+						<tr><td>薑黃皂絲</td><td><input type="number" id="calculate_ss_3" value="0" min="0" onchange="document.getElementById('result_calculate_ss_3').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_3">0</td></tr>
+						<tr><td>蕁麻葉皂絲</td><td><input type="number" id="calculate_ss_4" value="0" min="0" onchange="document.getElementById('result_calculate_ss_4').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_4">0</td></tr>
+						<tr><td>金針皂絲</td><td><input type="number" id="calculate_ss_5" value="0" min="0" onchange="document.getElementById('result_calculate_ss_5').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_5">0</td></tr>
+						<tr><td>紅棕梠皂絲</td><td><input type="number" id="calculate_ss_6" value="0" min="0" onchange="document.getElementById('result_calculate_ss_56').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_6">0</td></tr>
 						
 					</table>
 					<button onclick="calculate_search()">查詢</button>
@@ -73,6 +74,10 @@
 					<button id="produce" onclick="produce()" style="display: none;">確定製作</button>
 				</div>
 				<div id="menu2" class="tab-pane fade">
+					<h3>產品切皂</h3>
+					<p id="mature_search_content"></p>
+				</div>
+				<div id="menu3" class="tab-pane fade">
 					<h3>商品包裝</h3>
 					<div style="width: 45%; display: inline-block">
 						<h4>日常商品</h4>
@@ -135,7 +140,7 @@
 					</div>
 					<button id="pack" onclick="pack()" style="display: none;">確定包裝</button>
 				</div>
-				<div id="menu3" class="tab-pane fade">
+				<div id="menu4" class="tab-pane fade">
 					<h3>庫存一覽</h3>
 					<p id="whouse_view_content"></p>
 					<h3>進階查詢</h3>
@@ -180,7 +185,7 @@
 					<button onclick="whouse_search()">查詢</button>
 					<p id="whouse_search_content"></p>
 				</div>
-				<div id="menu4" class="tab-pane fade">
+				<div id="menu5" class="tab-pane fade">
 					<h3>物流一覽</h3>
 					<p id="request_view_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 					<p id="request_view_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
@@ -214,7 +219,7 @@
 					<p id="request_search_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 					<p id="request_search_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 				</div>
-				<div id="menu5" class="tab-pane fade">
+				<div id="menu6" class="tab-pane fade">
 					<h3>訂單一覽</h3>
 					<p id="command_view_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 					<p id="command_view_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
@@ -245,7 +250,7 @@
 					<p id="command_search_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 					<p id="command_search_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 				</div>
-				<div id="menu6" class="tab-pane fade">
+				<div id="menu7" class="tab-pane fade">
 					<h3>使用者一覽</h3>
 					<p id="member_view_content" style="max-height: 300px; overflow: scroll;"></p>
 					<h3>進階查詢</h3>
