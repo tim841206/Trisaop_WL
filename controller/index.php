@@ -4,22 +4,7 @@ include_once("../resource/database.php");
 if (isset($_GET['module']) || isset($_POST['module'])) {
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if ($_POST['module'] == 'item') {
-			if ($_POST['event'] == 'search') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'produce') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'package') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'pack') {
+			if (in_array($_POST['event'], array('search', 'produce', 'package', 'pack'))) {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);
@@ -76,37 +61,7 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 			elseif ($_POST['event'] == 'logon') {
 				echo curl_post($_POST, $_POST['module']);
 			}
-			elseif ($_POST['event'] == 'change_password') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'search_account') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'search_auth') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'view') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'notice') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'auth') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'release') {
+			elseif (in_array($_POST['event'], array('change_password', 'search_account', 'search_auth', 'view', 'notice', 'auth', 'release'))) {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);
@@ -116,52 +71,7 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 			}
 		}
 		elseif ($_POST['module'] == 'request') {
-			if ($_POST['event'] == 'view') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'search_index') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'search_state') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'search_date') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'view_index') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'notice') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'accept') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'reject') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'send') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'set_shipfee') {
+			if (in_array($_POST['event'], array('view', 'search_index', 'search_state', 'search_date', 'view_index', 'notice', 'accept', 'reject', 'send', 'set_shipfee'))) {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);
@@ -171,32 +81,7 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 			}
 		}
 		elseif ($_POST['module'] == 'whouse') {
-			if ($_POST['event'] == 'view') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'search') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'adjust_search') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'adjust') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'adjust_checked') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'mature') {
+			if (in_array($_POST['event'], array('view', 'search', 'adjust_search', 'adjust', 'adjust_checked', 'mature', 'mature_search', 'cut'))) {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);
@@ -206,57 +91,7 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 			}
 		}
 		elseif ($_POST['module'] == 'command') {
-			if ($_POST['event'] == 'view') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'search_index') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'search_type') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'search_date') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'view_index') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'notice') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'deliver') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'refuse') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'send') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'check') {
-				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
-				$post = array_merge($id, $_POST);
-				echo curl_post($post, $_POST['module']);
-			}
-			elseif ($_POST['event'] == 'check_checked') {
+			if (in_array($_POST['event'], array('view', 'search_index', 'search_type', 'search_date', 'view_index', 'notice', 'deliver', 'refuse', 'send', 'check', 'check_checked'))) {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);

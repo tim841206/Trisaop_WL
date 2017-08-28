@@ -1234,7 +1234,7 @@ function send($content) {
 				elseif ($sender == 'Houshanpi' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
+						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_1_50_houshanpi', 'sp_2_100_houshanpi', 'sp_2_50_houshanpi', 'sp_3_100_houshanpi', 'sp_3_50_houshanpi'))) {
 							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
@@ -1251,7 +1251,7 @@ function send($content) {
 				elseif ($sender == 'Taitung' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1', 'sp_2', 'sp_3', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+						if (in_array($key[$i], array('sp_1_100', 'sp_1_50', 'sp_2_100', 'sp_2_50', 'sp_3_100', 'sp_3_50', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
 							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
@@ -1273,9 +1273,10 @@ function send($content) {
 				if ($sender == 'Houshanpi' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_houshanpi', 'sp_2_houshanpi', 'sp_3_houshanpi'))) {
+						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_1_50_houshanpi', 'sp_2_100_houshanpi', 'sp_2_50_houshanpi', 'sp_3_100_houshanpi', 'sp_3_50_houshanpi'))) {
 							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
-								$message .= query_name($key[$i]) . "存量不足\n";
+								$processedName = explode('的', query_name($key[$i]));
+								$message .= $processedName[1] . "存量不足\n";
 							}
 							else {
 								array_push($itemno, $key[$i]);
@@ -1295,7 +1296,7 @@ function send($content) {
 				if ($sender == 'Taitung' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1', 'sp_2', 'sp_3', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+						if (in_array($key[$i], array('sp_1_100', 'sp_1_50', 'sp_2_100', 'sp_2_50', 'sp_3_100', 'sp_3_50', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
 							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
