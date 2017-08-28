@@ -1342,7 +1342,7 @@ function mature($account, $token) {
 							$content .= $TOTALAMT . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成。<br>';
 						}
 						else {
-							$content .= $TOTALAMT . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成。<a href="#menu2">點我</a>進行切皂<br>';
+							$content .= $TOTALAMT . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成，請至產品切皂頁面進行切皂。<br>';
 						}
 					}
 				}
@@ -1354,7 +1354,7 @@ function mature($account, $token) {
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$difference = (strtotime($date) - strtotime($fetch2['UPDATEDATE'])) / (60 * 60 * 24);
 					if ($difference >= $matureDay) {
-						$content .= $fetch2['TOTALAMT'] . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成。<a href="#menu2">點我</a>進行切皂<br>';
+						$content .= $fetch2['TOTALAMT'] . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成，請至產品切皂頁面進行切皂。<br>';
 					}
 				}
 				return array('message' => 'Success', 'content' => $content);
@@ -1374,7 +1374,7 @@ function mature($account, $token) {
 							$content .= $TOTALAMT . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成。<br>';
 						}
 						else {
-							$content .= $TOTALAMT . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成。<a href="#menu2">點我</a>進行切皂<br>';
+							$content .= $TOTALAMT . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成，請至產品切皂頁面進行切皂。<br>';
 						}
 					}
 				}
@@ -1422,7 +1422,6 @@ function mature_search($account, $token) {
 						}
 					}
 				}
-				return array('message' => 'Success', 'content' => $content);
 			}
 			elseif ($fetch1['AUTHORITY'] == 'C') {
 				$matureDay = 14;
@@ -1433,7 +1432,6 @@ function mature_search($account, $token) {
 						$content .= '<table><tr><th colspan="5">'.$fetch2['ITEMNM'].' '.$fetch2['TOTALAMT'].' g</th></tr><tr><td>100g</td><td><input type="number" min="0" value="'.($fetch2['TOTALAMT']/100).'" id="'.$fetch2['ITEMNO'].'_100g">個</td><td>50g</td><td><input type="number" min="0" value="0" id="'.$fetch2['ITEMNO'].'_50g">個</td><td><button onclick="cut(\''.$fetch2['ITEMNO'].'\', '.$fetch2['TOTALAMT'].')">確定</button></td></tr></table>';
 					}
 				}
-				return array('message' => 'Success', 'content' => $content);
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
 				$matureDay = 33;
@@ -1447,10 +1445,12 @@ function mature_search($account, $token) {
 						}
 					}
 				}
-				return array('message' => 'Success', 'content' => $content);
+			}
+			if (empty($content)) {
+				return array('message' => 'Success', 'content' => '沒有待切割的皂');
 			}
 			else {
-				return 'No notice';
+				return array('message' => 'Success', 'content' => $content);
 			}
 		}
 	}
@@ -1497,8 +1497,8 @@ function cut($account, $token, $itemno, $_100g, $_50g) {
 							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
 							$item_100 = $processedITEMNO . '_100';
 							$item_50 = $processedITEMNO . '_50';
-							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$item_100'");
-							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$item_50'");
+							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$_100g', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$item_100'");
+							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$_50g', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$item_50'");
 							return 'Success';
 						}
 					}

@@ -886,13 +886,13 @@ function itemclass() {
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '不織布包'; option1.value = 'package_1'; item.add(option1);
 			option2.text = '鋁包'; option2.value = 'package_2'; item.add(option2);
-			option3.text = '大禮盒封套'; option3.value = 'package_3'; item.add(option3);
-			option4.text = '小禮盒'; option4.value = 'package_4'; item.add(option4);
-			option5.text = '內襯'; option5.value = 'package_5'; item.add(option5);
-			option6.text = '米皂外盒'; option6.value = 'package_6'; item.add(option6);
-			option7.text = '金針皂外盒'; option7.value = 'package_7'; item.add(option7);
-			option8.text = '釋迦皂外盒'; option8.value = 'package_8'; item.add(option8);
-			option9.text = '大禮盒內盒'; option9.value = 'package_9'; item.add(option9);
+			option3.text = '單顆皂禮盒封套'; option3.value = 'package_3'; item.add(option3);
+			option4.text = '單顆皂禮盒內盒'; option4.value = 'package_4'; item.add(option4);
+			option5.text = '皂絲禮盒'; option5.value = 'package_5'; item.add(option5);
+			option6.text = '內襯'; option6.value = 'package_6'; item.add(option6);
+			option7.text = '米皂外盒'; option7.value = 'package_7'; item.add(option7);
+			option8.text = '金針皂外盒'; option8.value = 'package_8'; item.add(option8);
+			option9.text = '釋迦皂外盒'; option9.value = 'package_9'; item.add(option9);
 			option10.text = '中秋大禮盒上蓋(兔子)'; option10.value = 'moon_package_1'; item.add(option10);
 			option11.text = '中秋大禮盒上蓋(熱氣球)'; option11.value = 'moon_package_2'; item.add(option11);
 			option12.text = '中秋小禮盒(米皂)'; option12.value = 'moon_package_3'; item.add(option12);
@@ -2183,6 +2183,7 @@ function cut_checked(itemno, _100g, _50g) {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				alert("成功切皂");
+				mature_notice();
 				mature_search();
 			}
 			else {

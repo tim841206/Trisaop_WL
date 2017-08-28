@@ -460,21 +460,21 @@ function package($content) {
 			$ingredient = array('sp_1_100' => 0, 'sp_1_50' => 0, 'sp_2_100' => 0, 'sp_2_50' => 0, 'sp_3_100' => 0, 'sp_3_50' => 0, 'ss_1' => 0, 'ss_2' => 0, 'ss_3' => 0, 'ss_4' => 0, 'ss_5' => 0, 'ss_6' => 0, 'package_1' => 0, 'package_2' => 0, 'package_3' => 0, 'package_4' => 0, 'package_5' => 0, 'package_6' => 0, 'package_7' => 0, 'package_8' => 0, 'package_9' => 0, 'moon_package_1' => 0, 'moon_package_2' => 0, 'moon_package_3' => 0, 'moon_package_4' => 0, 'moon_package_5' => 0, 'product_sp_1' => 0, 'product_sp_2' => 0, 'product_sp_3' => 0, 'product_ss_1' => 0, 'product_ss_2' => 0, 'product_ss_3' => 0);
 			if (is_nonnegativeInt($content['product_sp_1'])) {
 				$ingredient['sp_1_100'] += $content['product_sp_1'];
-				$ingredient['package_6'] += $content['product_sp_1'];
+				$ingredient['package_7'] += $content['product_sp_1'];
 			}
 			else {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_sp_2'])) {
 				$ingredient['sp_2_100'] += $content['product_sp_2'];
-				$ingredient['package_7'] += $content['product_sp_2'];
+				$ingredient['package_8'] += $content['product_sp_2'];
 			}
 			else {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_sp_3'])) {
 				$ingredient['sp_3_100'] += $content['product_sp_3'];
-				$ingredient['package_8'] += $content['product_sp_3'];
+				$ingredient['package_9'] += $content['product_sp_3'];
 			}
 			else {
 				return 'Wrong input format';
@@ -502,15 +502,15 @@ function package($content) {
 					$ingredient['sp_1_100'] += $sp_1_type1;
 					$ingredient['sp_2_100'] += $sp_2_type1;
 					$ingredient['sp_3_100'] += $sp_3_type1;
-					$ingredient['package_6'] += $sp_1_type1;
-					$ingredient['package_7'] += $sp_2_type1;
-					$ingredient['package_8'] += $sp_3_type1;
+					$ingredient['package_7'] += $sp_1_type1;
+					$ingredient['package_8'] += $sp_2_type1;
+					$ingredient['package_9'] += $sp_3_type1;
 					$ingredient['product_sp_1'] += $sp_1_type2;
 					$ingredient['product_sp_2'] += $sp_2_type2;
 					$ingredient['product_sp_3'] += $sp_3_type2;
 					$ingredient['package_3'] += $content['product_sp_box'];
-					$ingredient['package_5'] += $content['product_sp_box'];
-					$ingredient['package_9'] += $content['product_sp_box'];
+					$ingredient['package_4'] += $content['product_sp_box'];
+					$ingredient['package_6'] += $content['product_sp_box'];
 				}
 			}
 			else {
@@ -557,7 +557,7 @@ function package($content) {
 					$ingredient['product_ss_1'] += $ss_1_type1;
 					$ingredient['product_ss_2'] += $ss_2_type1;
 					$ingredient['product_ss_3'] += $ss_3_type1;
-					$ingredient['package_4'] += $content['product_ss_box'];
+					$ingredient['package_5'] += $content['product_ss_box'];
 				}
 			}
 			else {
@@ -567,9 +567,9 @@ function package($content) {
 				$ingredient['sp_1_50'] += 2 * $content['moon_box_1'];
 				$ingredient['sp_2_50'] += 2 * $content['moon_box_1'];
 				$ingredient['sp_3_50'] += 2 * $content['moon_box_1'];
-				$ingredient['package_6'] += 2 * $content['moon_box_1'];
 				$ingredient['package_7'] += 2 * $content['moon_box_1'];
 				$ingredient['package_8'] += 2 * $content['moon_box_1'];
+				$ingredient['package_9'] += 2 * $content['moon_box_1'];
 				$ingredient['moon_package_1'] += $content['moon_box_1'];
 				$ingredient['moon_package_3'] += $content['moon_box_1'];
 				$ingredient['moon_package_4'] += 2 * $content['moon_box_1'];
@@ -584,9 +584,9 @@ function package($content) {
 				$ingredient['sp_1_50'] += 2 * $content['moon_box_2'];
 				$ingredient['sp_2_50'] += 2 * $content['moon_box_2'];
 				$ingredient['sp_3_50'] += 2 * $content['moon_box_2'];
-				$ingredient['package_6'] += 2 * $content['moon_box_2'];
 				$ingredient['package_7'] += 2 * $content['moon_box_2'];
 				$ingredient['package_8'] += 2 * $content['moon_box_2'];
+				$ingredient['package_9'] += 2 * $content['moon_box_2'];
 				$ingredient['moon_package_2'] += $content['moon_box_2'];
 				$ingredient['moon_package_3'] += $content['moon_box_2'];
 				$ingredient['moon_package_4'] += 2 * $content['moon_box_2'];
@@ -599,8 +599,8 @@ function package($content) {
 			}
 			if (is_nonnegativeInt($content['moon_box_3'])) {
 				$ingredient['product_sp_1'] += $content['moon_box_3'];
-				$ingredient['package_5'] += $content['moon_box_3'];
-				$ingredient['package_9'] += $content['moon_box_3'];
+				$ingredient['package_4'] += $content['moon_box_3'];
+				$ingredient['package_6'] += $content['moon_box_3'];
 				$ingredient['moon_package_5'] += $content['moon_box_3'];
 				$ingredient['product_ss_1'] += $content['moon_box_3'];
 				$ingredient['product_ss_2'] += $content['moon_box_3'];
@@ -611,8 +611,8 @@ function package($content) {
 			}
 			if (is_nonnegativeInt($content['moon_box_4'])) {
 				$ingredient['product_sp_2'] += $content['moon_box_4'];
-				$ingredient['package_5'] += $content['moon_box_4'];
-				$ingredient['package_9'] += $content['moon_box_4'];
+				$ingredient['package_4'] += $content['moon_box_4'];
+				$ingredient['package_6'] += $content['moon_box_4'];
 				$ingredient['moon_package_5'] += $content['moon_box_4'];
 				$ingredient['product_ss_1'] += $content['moon_box_4'];
 				$ingredient['product_ss_2'] += $content['moon_box_4'];
@@ -623,8 +623,8 @@ function package($content) {
 			}
 			if (is_nonnegativeInt($content['moon_box_5'])) {
 				$ingredient['product_sp_3'] += $content['moon_box_5'];
-				$ingredient['package_5'] += $content['moon_box_5'];
-				$ingredient['package_9'] += $content['moon_box_5'];
+				$ingredient['package_4'] += $content['moon_box_5'];
+				$ingredient['package_6'] += $content['moon_box_5'];
 				$ingredient['moon_package_5'] += $content['moon_box_5'];
 				$ingredient['product_ss_1'] += $content['moon_box_5'];
 				$ingredient['product_ss_2'] += $content['moon_box_5'];
@@ -663,21 +663,21 @@ function packing($content) {
 			$ingredient = array('sp_1_100' => 0, 'sp_1_50' => 0, 'sp_2_100' => 0, 'sp_2_50' => 0, 'sp_3_100' => 0, 'sp_3_50' => 0, 'ss_1' => 0, 'ss_2' => 0, 'ss_3' => 0, 'ss_4' => 0, 'ss_5' => 0, 'ss_6' => 0, 'package_1' => 0, 'package_2' => 0, 'package_3' => 0, 'package_4' => 0, 'package_5' => 0, 'package_6' => 0, 'package_7' => 0, 'package_8' => 0, 'package_9' => 0, 'moon_package_1' => 0, 'moon_package_2' => 0, 'moon_package_3' => 0, 'moon_package_4' => 0, 'moon_package_5' => 0, 'product_sp_1' => 0, 'product_sp_2' => 0, 'product_sp_3' => 0, 'product_ss_1' => 0, 'product_ss_2' => 0, 'product_ss_3' => 0);
 			if (is_nonnegativeInt($content['product_sp_1'])) {
 				$ingredient['sp_1_100'] += $content['product_sp_1'];
-				$ingredient['package_6'] += $content['product_sp_1'];
+				$ingredient['package_7'] += $content['product_sp_1'];
 			}
 			else {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_sp_2'])) {
 				$ingredient['sp_2_100'] += $content['product_sp_2'];
-				$ingredient['package_7'] += $content['product_sp_2'];
+				$ingredient['package_8'] += $content['product_sp_2'];
 			}
 			else {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_sp_3'])) {
 				$ingredient['sp_3_100'] += $content['product_sp_3'];
-				$ingredient['package_8'] += $content['product_sp_3'];
+				$ingredient['package_9'] += $content['product_sp_3'];
 			}
 			else {
 				return 'Wrong input format';
@@ -705,15 +705,15 @@ function packing($content) {
 					$ingredient['sp_1_100'] += $sp_1_type1;
 					$ingredient['sp_2_100'] += $sp_2_type1;
 					$ingredient['sp_3_100'] += $sp_3_type1;
-					$ingredient['package_6'] += $sp_1_type1;
-					$ingredient['package_7'] += $sp_2_type1;
-					$ingredient['package_8'] += $sp_3_type1;
+					$ingredient['package_7'] += $sp_1_type1;
+					$ingredient['package_8'] += $sp_2_type1;
+					$ingredient['package_9'] += $sp_3_type1;
 					$ingredient['product_sp_1'] += $sp_1_type2;
 					$ingredient['product_sp_2'] += $sp_2_type2;
 					$ingredient['product_sp_3'] += $sp_3_type2;
 					$ingredient['package_3'] += $content['product_sp_box'];
-					$ingredient['package_5'] += $content['product_sp_box'];
-					$ingredient['package_9'] += $content['product_sp_box'];
+					$ingredient['package_4'] += $content['product_sp_box'];
+					$ingredient['package_6'] += $content['product_sp_box'];
 				}
 			}
 			else {
@@ -760,7 +760,7 @@ function packing($content) {
 					$ingredient['product_ss_1'] += $ss_1_type1;
 					$ingredient['product_ss_2'] += $ss_2_type1;
 					$ingredient['product_ss_3'] += $ss_3_type1;
-					$ingredient['package_4'] += $content['product_ss_box'];
+					$ingredient['package_5'] += $content['product_ss_box'];
 				}
 			}
 			else {
@@ -770,9 +770,9 @@ function packing($content) {
 				$ingredient['sp_1_50'] += 2 * $content['moon_box_1'];
 				$ingredient['sp_2_50'] += 2 * $content['moon_box_1'];
 				$ingredient['sp_3_50'] += 2 * $content['moon_box_1'];
-				$ingredient['package_6'] += 2 * $content['moon_box_1'];
 				$ingredient['package_7'] += 2 * $content['moon_box_1'];
 				$ingredient['package_8'] += 2 * $content['moon_box_1'];
+				$ingredient['package_9'] += 2 * $content['moon_box_1'];
 				$ingredient['moon_package_1'] += $content['moon_box_1'];
 				$ingredient['moon_package_3'] += $content['moon_box_1'];
 				$ingredient['moon_package_4'] += 2 * $content['moon_box_1'];
@@ -787,9 +787,9 @@ function packing($content) {
 				$ingredient['sp_1_50'] += 2 * $content['moon_box_2'];
 				$ingredient['sp_2_50'] += 2 * $content['moon_box_2'];
 				$ingredient['sp_3_50'] += 2 * $content['moon_box_2'];
-				$ingredient['package_6'] += 2 * $content['moon_box_2'];
 				$ingredient['package_7'] += 2 * $content['moon_box_2'];
 				$ingredient['package_8'] += 2 * $content['moon_box_2'];
+				$ingredient['package_9'] += 2 * $content['moon_box_2'];
 				$ingredient['moon_package_2'] += $content['moon_box_2'];
 				$ingredient['moon_package_3'] += $content['moon_box_2'];
 				$ingredient['moon_package_4'] += 2 * $content['moon_box_2'];
@@ -802,8 +802,8 @@ function packing($content) {
 			}
 			if (is_nonnegativeInt($content['moon_box_3'])) {
 				$ingredient['product_sp_1'] += $content['moon_box_3'];
-				$ingredient['package_5'] += $content['moon_box_3'];
-				$ingredient['package_9'] += $content['moon_box_3'];
+				$ingredient['package_4'] += $content['moon_box_3'];
+				$ingredient['package_6'] += $content['moon_box_3'];
 				$ingredient['moon_package_5'] += $content['moon_box_3'];
 				$ingredient['product_ss_1'] += $content['moon_box_3'];
 				$ingredient['product_ss_2'] += $content['moon_box_3'];
@@ -814,8 +814,8 @@ function packing($content) {
 			}
 			if (is_nonnegativeInt($content['moon_box_4'])) {
 				$ingredient['product_sp_2'] += $content['moon_box_4'];
-				$ingredient['package_5'] += $content['moon_box_4'];
-				$ingredient['package_9'] += $content['moon_box_4'];
+				$ingredient['package_4'] += $content['moon_box_4'];
+				$ingredient['package_6'] += $content['moon_box_4'];
 				$ingredient['moon_package_5'] += $content['moon_box_4'];
 				$ingredient['product_ss_1'] += $content['moon_box_4'];
 				$ingredient['product_ss_2'] += $content['moon_box_4'];
@@ -826,8 +826,8 @@ function packing($content) {
 			}
 			if (is_nonnegativeInt($content['moon_box_5'])) {
 				$ingredient['product_sp_3'] += $content['moon_box_5'];
-				$ingredient['package_5'] += $content['moon_box_5'];
-				$ingredient['package_9'] += $content['moon_box_5'];
+				$ingredient['package_4'] += $content['moon_box_5'];
+				$ingredient['package_6'] += $content['moon_box_5'];
 				$ingredient['moon_package_5'] += $content['moon_box_5'];
 				$ingredient['product_ss_1'] += $content['moon_box_5'];
 				$ingredient['product_ss_2'] += $content['moon_box_5'];
@@ -975,13 +975,13 @@ function queryPackageTable($query) {
 	if ($query['ss_6'] != 0) $queryResult .= '<tr><td>蕁麻葉皂絲</td><td>'.$query['ss_6'].'</td><td>'.inventory('Beitou', 'ss_6').'</td>'.compare($query['ss_6'], inventory('Beitou', 'ss_6')).'</tr>';
 	if ($query['package_1'] != 0) $queryResult .= '<tr><td>不織布包</td><td>'.$query['package_1'].'</td><td>'.inventory('Beitou', 'package_1').'</td>'.compare($query['package_1'], inventory('Beitou', 'package_1')).'</tr>';
 	if ($query['package_2'] != 0) $queryResult .= '<tr><td>鋁包</td><td>'.$query['package_2'].'</td><td>'.inventory('Beitou', 'package_2').'</td>'.compare($query['package_2'], inventory('Beitou', 'package_2')).'</tr>';
-	if ($query['package_3'] != 0) $queryResult .= '<tr><td>大禮盒封套</td><td>'.$query['package_3'].'</td><td>'.inventory('Beitou', 'package_3').'</td>'.compare($query['package_3'], inventory('Beitou', 'package_3')).'</tr>';
-	if ($query['package_4'] != 0) $queryResult .= '<tr><td>小禮盒</td><td>'.$query['package_4'].'</td><td>'.inventory('Beitou', 'package_4').'</td>'.compare($query['package_4'], inventory('Beitou', 'package_4')).'</tr>';
-	if ($query['package_5'] != 0) $queryResult .= '<tr><td>內襯</td><td>'.$query['package_5'].'</td><td>'.inventory('Beitou', 'package_5').'</td>'.compare($query['package_5'], inventory('Beitou', 'package_5')).'</tr>';
-	if ($query['package_6'] != 0) $queryResult .= '<tr><td>米皂外盒</td><td>'.$query['package_6'].'</td><td>'.inventory('Beitou', 'package_6').'</td>'.compare($query['package_6'], inventory('Beitou', 'package_6')).'</tr>';
-	if ($query['package_7'] != 0) $queryResult .= '<tr><td>金針皂外盒</td><td>'.$query['package_7'].'</td><td>'.inventory('Beitou', 'package_7').'</td>'.compare($query['package_7'], inventory('Beitou', 'package_7')).'</tr>';
-	if ($query['package_8'] != 0) $queryResult .= '<tr><td>釋迦皂外盒</td><td>'.$query['package_8'].'</td><td>'.inventory('Beitou', 'package_8').'</td>'.compare($query['package_8'], inventory('Beitou', 'package_8')).'</tr>';
-	if ($query['package_9'] != 0) $queryResult .= '<tr><td>大禮盒內盒</td><td>'.$query['package_9'].'</td><td>'.inventory('Beitou', 'package_9').'</td>'.compare($query['package_9'], inventory('Beitou', 'package_9')).'</tr>';
+	if ($query['package_3'] != 0) $queryResult .= '<tr><td>單顆皂禮盒封套</td><td>'.$query['package_3'].'</td><td>'.inventory('Beitou', 'package_3').'</td>'.compare($query['package_3'], inventory('Beitou', 'package_3')).'</tr>';
+	if ($query['package_4'] != 0) $queryResult .= '<tr><td>單顆皂禮盒內盒</td><td>'.$query['package_4'].'</td><td>'.inventory('Beitou', 'package_4').'</td>'.compare($query['package_4'], inventory('Beitou', 'package_4')).'</tr>';
+	if ($query['package_5'] != 0) $queryResult .= '<tr><td>皂絲禮盒</td><td>'.$query['package_5'].'</td><td>'.inventory('Beitou', 'package_5').'</td>'.compare($query['package_5'], inventory('Beitou', 'package_5')).'</tr>';
+	if ($query['package_6'] != 0) $queryResult .= '<tr><td>內襯</td><td>'.$query['package_6'].'</td><td>'.inventory('Beitou', 'package_6').'</td>'.compare($query['package_6'], inventory('Beitou', 'package_6')).'</tr>';
+	if ($query['package_7'] != 0) $queryResult .= '<tr><td>米皂外盒</td><td>'.$query['package_7'].'</td><td>'.inventory('Beitou', 'package_7').'</td>'.compare($query['package_7'], inventory('Beitou', 'package_7')).'</tr>';
+	if ($query['package_8'] != 0) $queryResult .= '<tr><td>金針皂外盒</td><td>'.$query['package_8'].'</td><td>'.inventory('Beitou', 'package_8').'</td>'.compare($query['package_8'], inventory('Beitou', 'package_8')).'</tr>';
+	if ($query['package_9'] != 0) $queryResult .= '<tr><td>釋迦皂外盒</td><td>'.$query['package_9'].'</td><td>'.inventory('Beitou', 'package_9').'</td>'.compare($query['package_9'], inventory('Beitou', 'package_9')).'</tr>';
 	if ($query['moon_package_1'] != 0) $queryResult .= '<tr><td>中秋大禮盒上蓋(兔子)</td><td>'.$query['moon_package_1'].'</td><td>'.inventory('Beitou', 'moon_package_1').'</td>'.compare($query['moon_package_1'], inventory('Beitou', 'moon_package_1')).'</tr>';
 	if ($query['moon_package_2'] != 0) $queryResult .= '<tr><td>中秋大禮盒上蓋(熱氣球)</td><td>'.$query['moon_package_2'].'</td><td>'.inventory('Beitou', 'moon_package_2').'</td>'.compare($query['moon_package_2'], inventory('Beitou', 'moon_package_2')).'</tr>';
 	if ($query['moon_package_3'] != 0) $queryResult .= '<tr><td>中秋大禮盒底座</td><td>'.$query['moon_package_3'].'</td><td>'.inventory('Beitou', 'moon_package_3').'</td>'.compare($query['moon_package_3'], inventory('Beitou', 'moon_package_3')).'</tr>';
