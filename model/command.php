@@ -619,7 +619,7 @@ function view_index($account, $token, $index) {
 						}
 						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
 						while ($fetch3 = mysql_fetch_array($sql3)) {
-							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).unit($fetch3['ITEMNO']).'</td></tr>');
 						}
 						$content .= '</table>';
 					}
@@ -630,7 +630,7 @@ function view_index($account, $token, $index) {
 						}
 						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
 						while ($fetch3 = mysql_fetch_array($sql3)) {
-							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).unit($fetch3['ITEMNO']).'</td></tr>');
 						}
 						$content .= '</table>';
 					}
@@ -996,7 +996,7 @@ function send($content) {
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
 	}
-	elseif (strlen($memo) > 50) {
+	elseif (strlen($memo) > 200) {
 		return 'Memo exceed length limit';
 	}
 	else {
@@ -1614,5 +1614,14 @@ function process_date($value) {
 	}
 	else {
 		return $value;
+	}
+}
+
+function unit($itemno) {
+	if (in_array($itemno, array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8'))) {
+		return 'c.c.';
+	}
+	elseif (in_array($itemno, array('oil_9', 'NaOH'))) {
+		return 'g';
 	}
 }
