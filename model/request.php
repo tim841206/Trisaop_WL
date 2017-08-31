@@ -1197,7 +1197,7 @@ function send($content) {
 	elseif (!is_nonnegativeInt($shipfee)) {
 		return 'Wrong shipfee format';
 	}
-	elseif (strlen($memo) > 50) {
+	elseif (strlen($memo) > 200) {
 		return 'Memo exceed length limit';
 	}
 	else {

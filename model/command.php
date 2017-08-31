@@ -996,7 +996,7 @@ function send($content) {
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
 	}
-	elseif (strlen($memo) > 50) {
+	elseif (strlen($memo) > 200) {
 		return 'Memo exceed length limit';
 	}
 	else {
