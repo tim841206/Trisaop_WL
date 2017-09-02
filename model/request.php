@@ -1209,7 +1209,7 @@ function send($content) {
 			if ($fetch1['AUTHORITY'] == 'A') {
 				if ($sender == 'Trisoap' && $receiver == 'Beitou') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7', 'package_8', 'package_9', 'moon_package_1', 'moon_package_2', 'moon_package_3', 'moon_package_4', 'moon_package_5'))) {
+						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7', 'package_8', 'package_9', 'package_10', 'package_11', 'package_12', 'moon_package_1', 'moon_package_2', 'moon_package_3', 'moon_package_4', 'moon_package_5'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
