@@ -552,11 +552,13 @@ function adjust_search($account, $token, $whouseno) {
 								<tr><td>暖暖薑黃旅用皂絲</td><td><input type="text" class="adjust_D" id="adjust_product_ss_2" value="'.$inventory['product_ss_2'].'" onclick="ask_adjust(\'adjust_product_ss_2\', \''.query_name('product_ss_2').'\')"></td></tr>
 								<tr><td>萱草米黃旅用皂絲</td><td><input type="text" class="adjust_D" id="adjust_product_ss_3" value="'.$inventory['product_ss_3'].'" onclick="ask_adjust(\'adjust_product_ss_3\', \''.query_name('product_ss_3').'\')"></td></tr>
 								<tr><td>三三台東意象皂絲旅行組</td><td><input type="text" class="adjust_D" id="adjust_product_ss_box" value="'.$inventory['product_ss_box'].'" onclick="ask_adjust(\'adjust_product_ss_box\', \''.query_name('product_ss_box').'\')"></td></tr>
-								<tr><td>中秋禮皂-月兔捉迷藏</td><td><input type="text" class="adjust_D" id="adjust_moon_box_1" value="'.$inventory['moon_box_1'].'" onclick="ask_adjust(\'adjust_moon_box_1\', \''.query_name('moon_box_1').'\')"></td></tr>
-								<tr><td>中秋禮皂-熱氣球登月</td><td><input type="text" class="adjust_D" id="adjust_moon_box_2" value="'.$inventory['moon_box_2'].'" onclick="ask_adjust(\'adjust_moon_box_2\', \''.query_name('moon_box_2').'\')"></td></tr>
-								<tr><td>中秋小禮盒(米皂)</td><td><input type="text" class="adjust_D" id="adjust_moon_box_3" value="'.$inventory['moon_box_3'].'" onclick="ask_adjust(\'adjust_moon_box_3\', \''.query_name('moon_box_3').'\')"></td></tr>
-								<tr><td>中秋小禮盒(金針皂)</td><td><input type="text" class="adjust_D" id="adjust_moon_box_4" value="'.$inventory['moon_box_4'].'" onclick="ask_adjust(\'adjust_moon_box_4\', \''.query_name('moon_box_4').'\')"></td></tr>
-								<tr><td>中秋小禮盒(釋迦皂)</td><td><input type="text" class="adjust_D" id="adjust_moon_box_5" value="'.$inventory['moon_box_5'].'" onclick="ask_adjust(\'adjust_moon_box_5\', \''.query_name('moon_box_5').'\')"></td></tr>
+								<tr><td>中秋禮皂-月兔捉迷藏100g</td><td><input type="text" class="adjust_D" id="adjust_moon_box_1" value="'.$inventory['moon_box_1'].'" onclick="ask_adjust(\'adjust_moon_box_1\', \''.query_name('moon_box_1').'\')"></td></tr>
+								<tr><td>中秋禮皂-月兔捉迷藏50g</td><td><input type="text" class="adjust_D" id="adjust_moon_box_2" value="'.$inventory['moon_box_2'].'" onclick="ask_adjust(\'adjust_moon_box_2\', \''.query_name('moon_box_2').'\')"></td></tr>
+								<tr><td>中秋禮皂-熱氣球登月100g</td><td><input type="text" class="adjust_D" id="adjust_moon_box_3" value="'.$inventory['moon_box_3'].'" onclick="ask_adjust(\'adjust_moon_box_3\', \''.query_name('moon_box_3').'\')"></td></tr>
+								<tr><td>中秋禮皂-熱氣球登月50g</td><td><input type="text" class="adjust_D" id="adjust_moon_box_4" value="'.$inventory['moon_box_4'].'" onclick="ask_adjust(\'adjust_moon_box_4\', \''.query_name('moon_box_4').'\')"></td></tr>
+								<tr><td>中秋小禮盒(米皂)</td><td><input type="text" class="adjust_D" id="adjust_moon_box_5" value="'.$inventory['moon_box_5'].'" onclick="ask_adjust(\'adjust_moon_box_5\', \''.query_name('moon_box_5').'\')"></td></tr>
+								<tr><td>中秋小禮盒(金針皂)</td><td><input type="text" class="adjust_D" id="adjust_moon_box_6" value="'.$inventory['moon_box_6'].'" onclick="ask_adjust(\'adjust_moon_box_6\', \''.query_name('moon_box_6').'\')"></td></tr>
+								<tr><td>中秋小禮盒(釋迦皂)</td><td><input type="text" class="adjust_D" id="adjust_moon_box_7" value="'.$inventory['moon_box_7'].'" onclick="ask_adjust(\'adjust_moon_box_7\', \''.query_name('moon_box_7').'\')"></td></tr>
 							</table></td>
 							<td><table>
 								<tr><th colspan="2">產品</th></tr>
@@ -1352,7 +1354,12 @@ function mature($account, $token) {
 						}
 					}
 				}
-				return array('message' => 'Success', 'content' => $content);
+				if (empty($content)) {
+					return 'No notice';
+				}
+				else {
+					return array('message' => 'Success', 'content' => $content);
+				}
 			}
 			elseif ($fetch1['AUTHORITY'] == 'C') {
 				$matureDay = 14;
@@ -1363,7 +1370,12 @@ function mature($account, $token) {
 						$content .= $fetch2['TOTALAMT'] . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成，請至產品切皂頁面進行切皂。<br>';
 					}
 				}
-				return array('message' => 'Success', 'content' => $content);
+				if (empty($content)) {
+					return 'No notice';
+				}
+				else {
+					return array('message' => 'Success', 'content' => $content);
+				}
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
 				$matureDay = 33;
@@ -1384,7 +1396,12 @@ function mature($account, $token) {
 						}
 					}
 				}
-				return array('message' => 'Success', 'content' => $content);
+				if (empty($content)) {
+					return 'No notice';
+				}
+				else {
+					return array('message' => 'Success', 'content' => $content);
+				}
 			}
 			else {
 				return 'No notice';

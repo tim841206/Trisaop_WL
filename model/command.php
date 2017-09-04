@@ -1221,6 +1221,20 @@ function send($content) {
 				elseif (!is_nonnegativeInt($content['moon_box_5'])) {
 					return 'Wrong amount format';
 				}
+				if (is_positiveInt($content['moon_box_6'])) {
+					array_push($itemno, 'moon_box_6');
+					array_push($itemamt, $content['moon_box_6']);
+				}
+				elseif (!is_nonnegativeInt($content['moon_box_6'])) {
+					return 'Wrong amount format';
+				}
+				if (is_positiveInt($content['moon_box_7'])) {
+					array_push($itemno, 'moon_box_7');
+					array_push($itemamt, $content['moon_box_7']);
+				}
+				elseif (!is_nonnegativeInt($content['moon_box_7'])) {
+					return 'Wrong amount format';
+				}
 				if (count($itemno) == 0) {
 					return 'Empty command';
 				}

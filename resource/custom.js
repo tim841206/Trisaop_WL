@@ -688,8 +688,10 @@ function command_check() {
 		var moon_box_3 = document.getElementById("commandC_moon_box_3").value;
 		var moon_box_4 = document.getElementById("commandC_moon_box_4").value;
 		var moon_box_5 = document.getElementById("commandC_moon_box_5").value;
+		var moon_box_6 = document.getElementById("commandC_moon_box_6").value;
+		var moon_box_7 = document.getElementById("commandC_moon_box_7").value;
 		var command_memo = document.getElementById("command_memo").value;
-		data = "module=command&event=send&type=C&command_memo=" + command_memo + "&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_4=" + product_sp_4 + "&product_sp_5=" + product_sp_5 + "&product_sp_6=" + product_sp_6 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5;
+		data = "module=command&event=send&type=C&command_memo=" + command_memo + "&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_4=" + product_sp_4 + "&product_sp_5=" + product_sp_5 + "&product_sp_6=" + product_sp_6 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5 + "&moon_box_6=" + moon_box_6 + "&moon_box_7=" + moon_box_7;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -926,6 +928,8 @@ function itemclass() {
 			var option14 = document.createElement("option");
 			var option15 = document.createElement("option");
 			var option16 = document.createElement("option");
+			var option17 = document.createElement("option");
+			var option18 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '田靜山巒禾風皂100g'; option1.value = 'product_sp_1'; item.add(option1);
 			option2.text = '田靜山巒禾風皂50g'; option2.value = 'product_sp_2'; item.add(option2);
@@ -938,11 +942,13 @@ function itemclass() {
 			option9.text = '暖暖薑黃旅用皂絲'; option9.value = 'product_ss_2'; item.add(option9);
 			option10.text = '萱草米黃旅用皂絲'; option10.value = 'product_ss_3'; item.add(option10);
 			option11.text = '三三台東意象皂絲旅行組'; option11.value = 'product_ss_box'; item.add(option11);
-			option12.text = '中秋禮皂-月兔捉迷藏'; option12.value = 'moon_box_1'; item.add(option12);
-			option13.text = '中秋禮皂-熱氣球登月'; option13.value = 'moon_box_2'; item.add(option13);
-			option14.text = '中秋小禮盒(米皂)'; option14.value = 'moon_box_3'; item.add(option14);
-			option15.text = '中秋小禮盒(金針皂)'; option15.value = 'moon_box_4'; item.add(option15);
-			option16.text = '中秋小禮盒(釋迦皂)'; option16.value = 'moon_box_5'; item.add(option16);
+			option12.text = '中秋禮皂-月兔捉迷藏100g'; option12.value = 'moon_box_1'; item.add(option12);
+			option13.text = '中秋禮皂-月兔捉迷藏50g'; option13.value = 'moon_box_2'; item.add(option13);
+			option14.text = '中秋禮皂-熱氣球登月100g'; option14.value = 'moon_box_3'; item.add(option14);
+			option15.text = '中秋禮皂-熱氣球登月50g'; option15.value = 'moon_box_4'; item.add(option15);
+			option16.text = '中秋小禮盒(米皂)'; option16.value = 'moon_box_5'; item.add(option16);
+			option17.text = '中秋小禮盒(金針皂)'; option17.value = 'moon_box_6'; item.add(option17);
+			option18.text = '中秋小禮盒(釋迦皂)'; option18.value = 'moon_box_7'; item.add(option18);
 		}
 		else if (itemclass == 'E') {
 			var option0 = document.createElement("option");
@@ -1175,6 +1181,8 @@ function package() {
 	var moon_box_3 = document.getElementById("moon_box_3").value;
 	var moon_box_4 = document.getElementById("moon_box_4").value;
 	var moon_box_5 = document.getElementById("moon_box_5").value;
+	var moon_box_6 = document.getElementById("moon_box_6").value;
+	var moon_box_7 = document.getElementById("moon_box_7").value;
 	var sp_1_type1 = Number(document.getElementById("sp_1_type1").value);
 	var sp_2_type1 = Number(document.getElementById("sp_2_type1").value);
 	var sp_3_type1 = Number(document.getElementById("sp_3_type1").value);
@@ -1199,7 +1207,7 @@ function package() {
 	else {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
-		var data = "module=item&event=package&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_4=" + product_sp_4 + "&product_sp_5=" + product_sp_5 + "&product_sp_6=" + product_sp_6 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5 + "&sp_1_type1=" + sp_1_type1 + "&sp_2_type1=" + sp_2_type1 + "&sp_3_type1=" + sp_3_type1 + "&sp_1_type2=" + sp_1_type2 + "&sp_2_type2=" + sp_2_type2 + "&sp_3_type2=" + sp_3_type2 + "&ss_1_type1=" + ss_1_type1 + "&ss_2_type1=" + ss_2_type1 + "&ss_3_type1=" + ss_3_type1;
+		var data = "module=item&event=package&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_4=" + product_sp_4 + "&product_sp_5=" + product_sp_5 + "&product_sp_6=" + product_sp_6 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5 + "&moon_box_6=" + moon_box_6 + "&moon_box_7=" + moon_box_7 + "&sp_1_type1=" + sp_1_type1 + "&sp_2_type1=" + sp_2_type1 + "&sp_3_type1=" + sp_3_type1 + "&sp_1_type2=" + sp_1_type2 + "&sp_2_type2=" + sp_2_type2 + "&sp_3_type2=" + sp_3_type2 + "&ss_1_type1=" + ss_1_type1 + "&ss_2_type1=" + ss_2_type1 + "&ss_3_type1=" + ss_3_type1;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -1234,6 +1242,8 @@ function pack() {
 	var moon_box_3 = document.getElementById("moon_box_3").value;
 	var moon_box_4 = document.getElementById("moon_box_4").value;
 	var moon_box_5 = document.getElementById("moon_box_5").value;
+	var moon_box_6 = document.getElementById("moon_box_6").value;
+	var moon_box_7 = document.getElementById("moon_box_7").value;
 	var product_ss_box = document.getElementById("package_ss_box").value;
 	var sp_1_type1 = Number(document.getElementById("sp_1_type1").value);
 	var sp_2_type1 = Number(document.getElementById("sp_2_type1").value);
@@ -1259,7 +1269,7 @@ function pack() {
 	else {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
-		var data = "module=item&event=pack&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_4=" + product_sp_4 + "&product_sp_5=" + product_sp_5 + "&product_sp_6=" + product_sp_6 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5 + "&sp_1_type1=" + sp_1_type1 + "&sp_2_type1=" + sp_2_type1 + "&sp_3_type1=" + sp_3_type1 + "&sp_1_type2=" + sp_1_type2 + "&sp_2_type2=" + sp_2_type2 + "&sp_3_type2=" + sp_3_type2 + "&ss_1_type1=" + ss_1_type1 + "&ss_2_type1=" + ss_2_type1 + "&ss_3_type1=" + ss_3_type1;
+		var data = "module=item&event=pack&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_4=" + product_sp_4 + "&product_sp_5=" + product_sp_5 + "&product_sp_6=" + product_sp_6 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5 + "&moon_box_6=" + moon_box_6 + "&moon_box_7=" + moon_box_7 + "&sp_1_type1=" + sp_1_type1 + "&sp_2_type1=" + sp_2_type1 + "&sp_3_type1=" + sp_3_type1 + "&sp_1_type2=" + sp_1_type2 + "&sp_2_type2=" + sp_2_type2 + "&sp_3_type2=" + sp_3_type2 + "&ss_1_type1=" + ss_1_type1 + "&ss_2_type1=" + ss_2_type1 + "&ss_3_type1=" + ss_3_type1;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
