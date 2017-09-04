@@ -1130,6 +1130,27 @@ function send($content) {
 				elseif (!is_nonnegativeInt($content['product_sp_3'])) {
 					return 'Wrong amount format';
 				}
+				if (is_positiveInt($content['product_sp_4'])) {
+					array_push($itemno, 'product_sp_4');
+					array_push($itemamt, $content['product_sp_4']);
+				}
+				elseif (!is_nonnegativeInt($content['product_sp_4'])) {
+					return 'Wrong amount format';
+				}
+				if (is_positiveInt($content['product_sp_5'])) {
+					array_push($itemno, 'product_sp_5');
+					array_push($itemamt, $content['product_sp_5']);
+				}
+				elseif (!is_nonnegativeInt($content['product_sp_5'])) {
+					return 'Wrong amount format';
+				}
+				if (is_positiveInt($content['product_sp_6'])) {
+					array_push($itemno, 'product_sp_6');
+					array_push($itemamt, $content['product_sp_6']);
+				}
+				elseif (!is_nonnegativeInt($content['product_sp_6'])) {
+					return 'Wrong amount format';
+				}
 				if (is_positiveInt($content['product_sp_box'])) {
 					array_push($itemno, 'product_sp_box');
 					array_push($itemamt, $content['product_sp_box']);
@@ -1198,6 +1219,20 @@ function send($content) {
 					array_push($itemamt, $content['moon_box_5']);
 				}
 				elseif (!is_nonnegativeInt($content['moon_box_5'])) {
+					return 'Wrong amount format';
+				}
+				if (is_positiveInt($content['moon_box_6'])) {
+					array_push($itemno, 'moon_box_6');
+					array_push($itemamt, $content['moon_box_6']);
+				}
+				elseif (!is_nonnegativeInt($content['moon_box_6'])) {
+					return 'Wrong amount format';
+				}
+				if (is_positiveInt($content['moon_box_7'])) {
+					array_push($itemno, 'moon_box_7');
+					array_push($itemamt, $content['moon_box_7']);
+				}
+				elseif (!is_nonnegativeInt($content['moon_box_7'])) {
 					return 'Wrong amount format';
 				}
 				if (count($itemno) == 0) {
