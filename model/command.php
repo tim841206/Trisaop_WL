@@ -664,7 +664,7 @@ function view_index($account, $token, $index) {
 						}
 						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
 						while ($fetch3 = mysql_fetch_array($sql3)) {
-							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).unit($fetch3['ITEMNO']).'</td></tr>');
 						}
 						$sql5 = mysql_query("SELECT * FROM CMDMAS WHERE CMDNO='$index' AND ACTCODE='1'");
 						$fetch5 = mysql_fetch_array($sql5);
@@ -705,7 +705,7 @@ function view_index($account, $token, $index) {
 						}
 						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
 						while ($fetch3 = mysql_fetch_array($sql3)) {
-							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).unit($fetch3['ITEMNO']).'</td></tr>');
 						}
 						$sql5 = mysql_query("SELECT * FROM CMDMAS WHERE CMDNO='$index' AND ACTCODE='1'");
 						$fetch5 = mysql_fetch_array($sql5);

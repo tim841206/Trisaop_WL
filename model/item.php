@@ -653,7 +653,8 @@ function package($content) {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['moon_box_5'])) {
-				$ingredient['product_sp_1'] += $content['moon_box_5'];
+				$ingredient['sp_1_100'] += $content['moon_box_5'];
+				$ingredient['package_7a'] += $content['moon_box_5'];
 				$ingredient['package_4'] += $content['moon_box_5'];
 				$ingredient['package_6'] += $content['moon_box_5'];
 				$ingredient['moon_package_5'] += $content['moon_box_5'];
@@ -665,7 +666,8 @@ function package($content) {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['moon_box_6'])) {
-				$ingredient['product_sp_3'] += $content['moon_box_6'];
+				$ingredient['sp_2_100'] += $content['moon_box_6'];
+				$ingredient['package_8a'] += $content['moon_box_6'];
 				$ingredient['package_4'] += $content['moon_box_6'];
 				$ingredient['package_6'] += $content['moon_box_6'];
 				$ingredient['moon_package_5'] += $content['moon_box_6'];
@@ -677,7 +679,8 @@ function package($content) {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['moon_box_7'])) {
-				$ingredient['product_sp_5'] += $content['moon_box_7'];
+				$ingredient['sp_3_100'] += $content['moon_box_7'];
+				$ingredient['package_9a'] += $content['moon_box_7'];
 				$ingredient['package_4'] += $content['moon_box_7'];
 				$ingredient['package_6'] += $content['moon_box_7'];
 				$ingredient['moon_package_5'] += $content['moon_box_7'];
@@ -911,7 +914,8 @@ function packing($content) {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['moon_box_5'])) {
-				$ingredient['product_sp_1'] += $content['moon_box_5'];
+				$ingredient['sp_1_100'] += $content['moon_box_5'];
+				$ingredient['package_7a'] += $content['moon_box_5'];
 				$ingredient['package_4'] += $content['moon_box_5'];
 				$ingredient['package_6'] += $content['moon_box_5'];
 				$ingredient['moon_package_5'] += $content['moon_box_5'];
@@ -923,7 +927,8 @@ function packing($content) {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['moon_box_6'])) {
-				$ingredient['product_sp_3'] += $content['moon_box_6'];
+				$ingredient['sp_2_100'] += $content['moon_box_6'];
+				$ingredient['package_8a'] += $content['moon_box_6'];
 				$ingredient['package_4'] += $content['moon_box_6'];
 				$ingredient['package_6'] += $content['moon_box_6'];
 				$ingredient['moon_package_5'] += $content['moon_box_6'];
@@ -935,7 +940,8 @@ function packing($content) {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['moon_box_7'])) {
-				$ingredient['product_sp_5'] += $content['moon_box_7'];
+				$ingredient['sp_3_100'] += $content['moon_box_7'];
+				$ingredient['package_9a'] += $content['moon_box_7'];
 				$ingredient['package_4'] += $content['moon_box_7'];
 				$ingredient['package_6'] += $content['moon_box_7'];
 				$ingredient['moon_package_5'] += $content['moon_box_7'];
