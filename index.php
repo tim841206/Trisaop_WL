@@ -162,7 +162,7 @@ else {
 
 function curl_post($post, $module) {
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/model/'.$module.'.php');
+	curl_setopt($ch, CURLOPT_URL, 'https://'$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/model/'.$module.'.php');
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
