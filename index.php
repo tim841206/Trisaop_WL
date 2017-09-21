@@ -1,5 +1,5 @@
 <?php
-include_once("../resource/database.php");
+include_once("resource/database.php");
 
 if (isset($_GET['module']) || isset($_POST['module'])) {
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -20,23 +20,23 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 					setcookie('account', $_POST['account']);
 					setcookie('token', $return['token']);
 					if ($return['authority'] == 'A') {
-						$content = file_get_contents("../view/index_A.html");
+						$content = file_get_contents("view/index_A.html");
 						echo json_encode(array('message' => $return['message'], 'content' => $content, 'member' => 'load', 'command' => 'load'));
 					}
 					elseif ($return['authority'] == 'B') {
-						$content = file_get_contents("../view/index_B.html");
+						$content = file_get_contents("view/index_B.html");
 						echo json_encode(array('message' => $return['message'], 'content' => $content, 'mature' => 'load', 'command' => 'load'));
 					}
 					elseif ($return['authority'] == 'C') {
-						$content = file_get_contents("../view/index_C.html");
+						$content = file_get_contents("view/index_C.html");
 						echo json_encode(array('message' => $return['message'], 'content' => $content, 'mature' => 'load', 'command' => 'load'));
 					}
 					elseif ($return['authority'] == 'D') {
-						$content = file_get_contents("../view/index_D.html");
+						$content = file_get_contents("view/index_D.html");
 						echo json_encode(array('message' => $return['message'], 'content' => $content, 'mature' => 'load', 'command' => 'load'));
 					}
 					elseif ($return['authority'] == 'E') {
-						$content = file_get_contents("../view/index_E.html");
+						$content = file_get_contents("view/index_E.html");
 						echo json_encode(array('message' => $return['message'], 'content' => $content));
 					}
 				}
@@ -51,7 +51,7 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 				if ($return['message'] == 'Success') {
 					unset($_COOKIE['account']);
 					unset($_COOKIE['token']);
-					$content = file_get_contents("../view/index.html");
+					$content = file_get_contents("view/index.html");
 					echo json_encode(array('message' => $return['message'], 'content' => $content));
 				}
 				else {
@@ -113,7 +113,7 @@ elseif (isset($_COOKIE['account']) && isset($_COOKIE['token'])) {
 		if ($_FILES['fileData']['type'] == 'application/pdf') {
 			if ($_FILES['fileData']['size'] <= 5000000) {
 				$cmdno = get_no() - 1;
-				$upload = move_uploaded_file($_FILES['fileData']['tmp_name'], '../resource/commandFile/' . $cmdno . '.pdf');
+				$upload = move_uploaded_file($_FILES['fileData']['tmp_name'], 'resource/commandFile/' . $cmdno . '.pdf');
 				if ($upload) {
 					mysql_query("UPDATE CMDMAS SET FILESTAT='1' WHERE CMDNO='$cmdno' AND ACTCODE='1'");
 					echo json_encode(array('message' => 'Success'));
@@ -134,35 +134,35 @@ elseif (isset($_COOKIE['account']) && isset($_COOKIE['token'])) {
 		$return = json_decode(curl_post(array('module' => 'member', 'event' => 'get_auth', 'account' => $_COOKIE['account'], 'token' => $_COOKIE['token']), 'member'), true);
 		if ($return['message'] == 'Success') {
 			if ($return['authority'] == 'A') {
-				include_once("../view/index_A.html");
+				include_once("view/index_A.html");
 			}
 			elseif ($return['authority'] == 'B') {
-				include_once("../view/index_B.html");
+				include_once("view/index_B.html");
 			}
 			elseif ($return['authority'] == 'C') {
-				include_once("../view/index_C.html");
+				include_once("view/index_C.html");
 			}
 			elseif ($return['authority'] == 'D') {
-				include_once("../view/index_D.html");
+				include_once("view/index_D.html");
 			}
 			elseif ($return['authority'] == 'E') {
-				include_once("../view/index_E.html");
+				include_once("view/index_E.html");
 			}
 		}
 		else {
 			unset($_COOKIE['account']);
 			unset($_COOKIE['token']);
-			include_once("../view/index.html");
+			include_once("view/index.html");
 		}
 	}
 }
 else {
-	include_once("../view/index.html");
+	include_once("view/index.html");
 }
 
 function curl_post($post, $module) {
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://trisoap.com/Trisoap_WL/model/'. $module .'.php');
+	curl_setopt($ch, CURLOPT_URL, $_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/model/'.$module.'.php');
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
