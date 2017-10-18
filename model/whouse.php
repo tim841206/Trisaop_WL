@@ -563,11 +563,8 @@ function adjust_search($account, $token, $whouseno) {
 							<td><table>
 								<tr><th colspan="2">產品</th></tr>
 								<tr><td>米皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_1_100" value="'.$inventory['sp_1_100'].'" onclick="ask_adjust(\'adjust_sp_1_100\', \''.query_name('sp_1_100').'\')"></td></tr>
-								<tr><td>米皂50g</td><td><input type="text" class="adjust_E" id="adjust_sp_1_50" value="'.$inventory['sp_1_50'].'" onclick="ask_adjust(\'adjust_sp_1_50\', \''.query_name('sp_1_50').'\')"></td></tr>
 								<tr><td>金針皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_2_100" value="'.$inventory['sp_2_100'].'" onclick="ask_adjust(\'adjust_sp_2_100\', \''.query_name('sp_2_100').'\')"></td></tr>
-								<tr><td>金針皂50g</td><td><input type="text" class="adjust_E" id="adjust_sp_2_50" value="'.$inventory['sp_2_50'].'" onclick="ask_adjust(\'adjust_sp_2_50\', \''.query_name('sp_2_50').'\')"></td></tr>
 								<tr><td>釋迦皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_3_100" value="'.$inventory['sp_3_100'].'" onclick="ask_adjust(\'adjust_sp_3_100\', \''.query_name('sp_3_100').'\')"></td></tr>
-								<tr><td>釋迦皂50g</td><td><input type="text" class="adjust_E" id="adjust_sp_3_50" value="'.$inventory['sp_3_50'].'" onclick="ask_adjust(\'adjust_sp_3_50\', \''.query_name('sp_3_50').'\')"></td></tr>
 								<tr><td>洛神皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_1" value="'.$inventory['ss_1'].'" onclick="ask_adjust(\'adjust_ss_1\', \''.query_name('ss_1').'\')"></td></tr>
 								<tr><td>紅麴皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_2" value="'.$inventory['ss_2'].'" onclick="ask_adjust(\'adjust_ss_2\', \''.query_name('ss_2').'\')"></td></tr>
 								<tr><td>薑黃皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_3" value="'.$inventory['ss_3'].'" onclick="ask_adjust(\'adjust_ss_3\', \''.query_name('ss_3').'\')"></td></tr>
@@ -689,11 +686,8 @@ function adjust_search($account, $token, $whouseno) {
 							<td><table>
 								<tr><th colspan="2">產品</th></tr>
 								<tr><td>米皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_1_100" value="'.$inventory['sp_1_100'].'" onclick="ask_adjust(\'adjust_sp_1_100\', \''.query_name('sp_1_100').'\')"></td></tr>
-								<tr><td>米皂50g</td><td><input type="text" class="adjust_E" id="adjust_sp_1_50" value="'.$inventory['sp_1_50'].'" onclick="ask_adjust(\'adjust_sp_1_50\', \''.query_name('sp_1_50').'\')"></td></tr>
 								<tr><td>金針皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_2_100" value="'.$inventory['sp_2_100'].'" onclick="ask_adjust(\'adjust_sp_2_100\', \''.query_name('sp_2_100').'\')"></td></tr>
-								<tr><td>金針皂50g</td><td><input type="text" class="adjust_E" id="adjust_sp_2_50" value="'.$inventory['sp_2_50'].'" onclick="ask_adjust(\'adjust_sp_2_50\', \''.query_name('sp_2_50').'\')"></td></tr>
 								<tr><td>釋迦皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_3_100" value="'.$inventory['sp_3_100'].'" onclick="ask_adjust(\'adjust_sp_3_100\', \''.query_name('sp_3_100').'\')"></td></tr>
-								<tr><td>釋迦皂50g</td><td><input type="text" class="adjust_E" id="adjust_sp_3_50" value="'.$inventory['sp_3_50'].'" onclick="ask_adjust(\'adjust_sp_3_50\', \''.query_name('sp_3_50').'\')"></td></tr>
 								<tr><td>洛神皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_1" value="'.$inventory['ss_1'].'" onclick="ask_adjust(\'adjust_ss_1\', \''.query_name('ss_1').'\')"></td></tr>
 								<tr><td>紅麴皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_2" value="'.$inventory['ss_2'].'" onclick="ask_adjust(\'adjust_ss_2\', \''.query_name('ss_2').'\')"></td></tr>
 								<tr><td>薑黃皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_3" value="'.$inventory['ss_3'].'" onclick="ask_adjust(\'adjust_ss_3\', \''.query_name('ss_3').'\')"></td></tr>

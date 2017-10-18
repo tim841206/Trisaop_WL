@@ -961,22 +961,16 @@ function itemclass() {
 			var option7 = document.createElement("option");
 			var option8 = document.createElement("option");
 			var option9 = document.createElement("option");
-			var option10 = document.createElement("option");
-			var option11 = document.createElement("option");
-			var option12 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '米皂100g'; option1.value = 'sp_1_100'; item.add(option1);
-			option2.text = '米皂50g'; option2.value = 'sp_1_50'; item.add(option2);
-			option3.text = '金針皂100g'; option3.value = 'sp_2_100'; item.add(option3);
-			option4.text = '金針皂50g'; option4.value = 'sp_2_50'; item.add(option4);
-			option5.text = '釋迦皂100g'; option5.value = 'sp_3_100'; item.add(option5);
-			option6.text = '釋迦皂50g'; option6.value = 'sp_3_50'; item.add(option6);
-			option7.text = '洛神皂絲'; option7.value = 'ss_1'; item.add(option7);
-			option8.text = '紅麴皂絲'; option8.value = 'ss_2'; item.add(option8);
-			option9.text = '薑黃皂絲'; option9.value = 'ss_3'; item.add(option9);
-			option10.text = '蕁麻葉皂絲'; option10.value = 'ss_4'; item.add(option10);
-			option11.text = '金針皂絲'; option11.value = 'ss_5'; item.add(option11);
-			option12.text = '紅棕梠皂絲'; option12.value = 'ss_6'; item.add(option12);
+			option2.text = '金針皂100g'; option2.value = 'sp_2_100'; item.add(option2);
+			option3.text = '釋迦皂100g'; option3.value = 'sp_3_100'; item.add(option3);
+			option4.text = '洛神皂絲'; option4.value = 'ss_1'; item.add(option4);
+			option5.text = '紅麴皂絲'; option5.value = 'ss_2'; item.add(option5);
+			option6.text = '薑黃皂絲'; option6.value = 'ss_3'; item.add(option6);
+			option7.text = '蕁麻葉皂絲'; option7.value = 'ss_4'; item.add(option7);
+			option8.text = '金針皂絲'; option8.value = 'ss_5'; item.add(option8);
+			option9.text = '紅棕梠皂絲'; option9.value = 'ss_6'; item.add(option9);
 		}
 		else if (itemclass == 'F') {
 			var option0 = document.createElement("option");
@@ -1081,22 +1075,16 @@ function itemclass() {
 			var option7 = document.createElement("option");
 			var option8 = document.createElement("option");
 			var option9 = document.createElement("option");
-			var option10 = document.createElement("option");
-			var option11 = document.createElement("option");
-			var option12 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '米皂100g'; option1.value = 'sp_1_100'; item.add(option1);
-			option2.text = '米皂50g'; option2.value = 'sp_1_50'; item.add(option2);
-			option3.text = '金針皂100g'; option3.value = 'sp_2_100'; item.add(option3);
-			option4.text = '金針皂50g'; option4.value = 'sp_2_50'; item.add(option4);
-			option5.text = '釋迦皂100g'; option5.value = 'sp_3_100'; item.add(option5);
-			option6.text = '釋迦皂50g'; option6.value = 'sp_3_50'; item.add(option6);
-			option7.text = '洛神皂絲'; option7.value = 'ss_1'; item.add(option7);
-			option8.text = '紅麴皂絲'; option8.value = 'ss_2'; item.add(option8);
-			option9.text = '薑黃皂絲'; option9.value = 'ss_3'; item.add(option9);
-			option10.text = '蕁麻葉皂絲'; option10.value = 'ss_4'; item.add(option10);
-			option11.text = '金針皂絲'; option11.value = 'ss_5'; item.add(option11);
-			option12.text = '紅棕梠皂絲'; option12.value = 'ss_6'; item.add(option12);
+			option2.text = '金針皂100g'; option2.value = 'sp_2_100'; item.add(option2);
+			option3.text = '釋迦皂100g'; option3.value = 'sp_3_100'; item.add(option3);
+			option4.text = '洛神皂絲'; option4.value = 'ss_1'; item.add(option4);
+			option5.text = '紅麴皂絲'; option5.value = 'ss_2'; item.add(option5);
+			option6.text = '薑黃皂絲'; option6.value = 'ss_3'; item.add(option6);
+			option7.text = '蕁麻葉皂絲'; option7.value = 'ss_4'; item.add(option7);
+			option8.text = '金針皂絲'; option8.value = 'ss_5'; item.add(option8);
+			option9.text = '紅棕梠皂絲'; option9.value = 'ss_6'; item.add(option9);
 		}
 		else if (itemclass == 'F') {
 			var option0 = document.createElement("option");
@@ -1776,16 +1764,10 @@ function send() {
 	if (sender == 'Taitung') {
 		var sp_1_100 = document.getElementById("send_sp_1_100").value;
 		if (sp_1_100 != null && sp_1_100 != 0) data = data + "&sp_1_100=" + sp_1_100;
-		var sp_1_50 = document.getElementById("send_sp_1_50").value;
-		if (sp_1_50 != null && sp_1_50 != 0) data = data + "&sp_1_50=" + sp_1_50;
 		var sp_2_100 = document.getElementById("send_sp_2_100").value;
 		if (sp_2_100 != null && sp_2_100 != 0) data = data + "&sp_2_100=" + sp_2_100;
-		var sp_2_50 = document.getElementById("send_sp_2_50").value;
-		if (sp_2_50 != null && sp_2_50 != 0) data = data + "&sp_2_50=" + sp_2_50;
 		var sp_3_100 = document.getElementById("send_sp_3_100").value;
 		if (sp_3_100 != null && sp_3_100 != 0) data = data + "&sp_3_100=" + sp_3_100;
-		var sp_3_50 = document.getElementById("send_sp_3_50").value;
-		if (sp_3_50 != null && sp_3_50 != 0) data = data + "&sp_3_50=" + sp_3_50;
 		var ss_1 = document.getElementById("send_ss_1").value;
 		if (ss_1 != null && ss_1 != 0) data = data + "&ss_1=" + ss_1;
 		var ss_2 = document.getElementById("send_ss_2").value;
@@ -1858,11 +1840,8 @@ function send_refresh() {
 	if (document.getElementById("send_moon_package_4") != null) document.getElementById("send_moon_package_4").value = 0;
 	if (document.getElementById("send_moon_package_5") != null) document.getElementById("send_moon_package_5").value = 0;
 	if (document.getElementById("send_sp_1_100") != null) document.getElementById("send_sp_1_100").value = 0;
-	if (document.getElementById("send_sp_1_50") != null) document.getElementById("send_sp_1_50").value = 0;
 	if (document.getElementById("send_sp_2_100") != null) document.getElementById("send_sp_2_100").value = 0;
-	if (document.getElementById("send_sp_2_50") != null) document.getElementById("send_sp_2_50").value = 0;
 	if (document.getElementById("send_sp_3_100") != null) document.getElementById("send_sp_3_100").value = 0;
-	if (document.getElementById("send_sp_3_50") != null) document.getElementById("send_sp_3_50").value = 0;
 	if (document.getElementById("send_ss_1") != null) document.getElementById("send_ss_1").value = 0;
 	if (document.getElementById("send_ss_2") != null) document.getElementById("send_ss_2").value = 0;
 	if (document.getElementById("send_ss_3") != null) document.getElementById("send_ss_3").value = 0;
