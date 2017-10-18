@@ -1251,7 +1251,7 @@ function send($content) {
 				elseif ($sender == 'Taitung' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100', 'sp_1_50', 'sp_2_100', 'sp_2_50', 'sp_3_100', 'sp_3_50', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+						if (in_array($key[$i], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
 							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
@@ -1296,7 +1296,7 @@ function send($content) {
 				if ($sender == 'Taitung' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100', 'sp_1_50', 'sp_2_100', 'sp_2_50', 'sp_3_100', 'sp_3_50', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+						if (in_array($key[$i], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
 							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
