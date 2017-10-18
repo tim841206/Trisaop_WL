@@ -1,7 +1,7 @@
 <?php
 $db_server = "localhost";
 $db_name = "WL";
-$db_user = "root";
+$db_user = "trisoap";
 $db_passwd = "n0n02016";
 
 if(!@mysql_connect($db_server, $db_user, $db_passwd))
