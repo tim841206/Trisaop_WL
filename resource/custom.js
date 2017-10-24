@@ -673,11 +673,8 @@ function command_check() {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
 		var product_sp_1 = document.getElementById("commandC_product_sp_1").value;
-		var product_sp_2 = document.getElementById("commandC_product_sp_2").value;
 		var product_sp_3 = document.getElementById("commandC_product_sp_3").value;
-		var product_sp_4 = document.getElementById("commandC_product_sp_4").value;
 		var product_sp_5 = document.getElementById("commandC_product_sp_5").value;
-		var product_sp_6 = document.getElementById("commandC_product_sp_6").value;
 		var product_sp_box = document.getElementById("commandC_product_sp_box").value;
 		var product_ss_1 = document.getElementById("commandC_product_ss_1").value;
 		var product_ss_2 = document.getElementById("commandC_product_ss_2").value;
@@ -691,7 +688,7 @@ function command_check() {
 		var moon_box_6 = document.getElementById("commandC_moon_box_6").value;
 		var moon_box_7 = document.getElementById("commandC_moon_box_7").value;
 		var command_memo = document.getElementById("command_memo").value;
-		data = "module=command&event=send&type=C&command_memo=" + command_memo + "&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_4=" + product_sp_4 + "&product_sp_5=" + product_sp_5 + "&product_sp_6=" + product_sp_6 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5 + "&moon_box_6=" + moon_box_6 + "&moon_box_7=" + moon_box_7;
+		data = "module=command&event=send&type=C&command_memo=" + command_memo + "&product_sp_1=" + product_sp_1 + "&product_sp_3=" + product_sp_3 + "&product_sp_5=" + product_sp_5 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5 + "&moon_box_6=" + moon_box_6 + "&moon_box_7=" + moon_box_7;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -888,9 +885,6 @@ function itemclass() {
 			var option12 = document.createElement("option");
 			var option13 = document.createElement("option");
 			var option14 = document.createElement("option");
-			var option15 = document.createElement("option");
-			var option16 = document.createElement("option");
-			var option17 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '不織布包'; option1.value = 'package_1'; item.add(option1);
 			option2.text = '鋁包'; option2.value = 'package_2'; item.add(option2);
@@ -899,16 +893,13 @@ function itemclass() {
 			option5.text = '皂絲禮盒'; option5.value = 'package_5'; item.add(option5);
 			option6.text = '內襯'; option6.value = 'package_6'; item.add(option6);
 			option7.text = '米皂外盒100g'; option7.value = 'package_7a'; item.add(option7);
-			option8.text = '米皂外盒50g'; option8.value = 'package_7b'; item.add(option8);
-			option9.text = '金針皂外盒100g'; option9.value = 'package_8a'; item.add(option9);
-			option10.text = '金針皂外盒50g'; option10.value = 'package_8b'; item.add(option10);
-			option11.text = '釋迦皂外盒100g'; option11.value = 'package_9a'; item.add(option11);
-			option12.text = '釋迦皂外盒50g'; option12.value = 'package_9b'; item.add(option12);
-			option13.text = '中秋大禮盒上蓋(兔子)'; option13.value = 'moon_package_1'; item.add(option13);
-			option14.text = '中秋大禮盒上蓋(熱氣球)'; option14.value = 'moon_package_2'; item.add(option14);
-			option15.text = '中秋小禮盒(米皂)'; option15.value = 'moon_package_3'; item.add(option15);
-			option16.text = '中秋小禮盒(金針皂)'; option16.value = 'moon_package_4'; item.add(option16);
-			option17.text = '中秋小禮盒(釋迦皂)'; option17.value = 'moon_package_5'; item.add(option17);
+			option8.text = '金針皂外盒100g'; option8.value = 'package_8a'; item.add(option8);
+			option9.text = '釋迦皂外盒100g'; option9.value = 'package_9a'; item.add(option9);
+			option10.text = '中秋大禮盒上蓋(兔子)'; option10.value = 'moon_package_1'; item.add(option10);
+			option11.text = '中秋大禮盒上蓋(熱氣球)'; option11.value = 'moon_package_2'; item.add(option11);
+			option12.text = '中秋小禮盒(米皂)'; option12.value = 'moon_package_3'; item.add(option12);
+			option13.text = '中秋小禮盒(金針皂)'; option13.value = 'moon_package_4'; item.add(option13);
+			option14.text = '中秋小禮盒(釋迦皂)'; option14.value = 'moon_package_5'; item.add(option14);
 		}
 		else if (itemclass == 'D') {
 			var option0 = document.createElement("option");
@@ -927,28 +918,22 @@ function itemclass() {
 			var option13 = document.createElement("option");
 			var option14 = document.createElement("option");
 			var option15 = document.createElement("option");
-			var option16 = document.createElement("option");
-			var option17 = document.createElement("option");
-			var option18 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '田靜山巒禾風皂100g'; option1.value = 'product_sp_1'; item.add(option1);
-			option2.text = '田靜山巒禾風皂50g'; option2.value = 'product_sp_2'; item.add(option2);
-			option3.text = '金絲森林渲染皂100g'; option3.value = 'product_sp_3'; item.add(option3);
-			option4.text = '金絲森林渲染皂50g'; option4.value = 'product_sp_4'; item.add(option4);
-			option5.text = '釋迦手感果力皂100g'; option5.value = 'product_sp_5'; item.add(option5);
-			option6.text = '釋迦手感果力皂50g'; option6.value = 'product_sp_6'; item.add(option6);
-			option7.text = '三三台東意象禮盒組'; option7.value = 'product_sp_box'; item.add(option7);
-			option8.text = '洛神紅麴旅用皂絲'; option8.value = 'product_ss_1'; item.add(option8);
-			option9.text = '暖暖薑黃旅用皂絲'; option9.value = 'product_ss_2'; item.add(option9);
-			option10.text = '萱草米黃旅用皂絲'; option10.value = 'product_ss_3'; item.add(option10);
-			option11.text = '三三台東意象皂絲旅行組'; option11.value = 'product_ss_box'; item.add(option11);
-			option12.text = '中秋禮皂-月兔捉迷藏100g'; option12.value = 'moon_box_1'; item.add(option12);
-			option13.text = '中秋禮皂-月兔捉迷藏50g'; option13.value = 'moon_box_2'; item.add(option13);
-			option14.text = '中秋禮皂-熱氣球登月100g'; option14.value = 'moon_box_3'; item.add(option14);
-			option15.text = '中秋禮皂-熱氣球登月50g'; option15.value = 'moon_box_4'; item.add(option15);
-			option16.text = '中秋小禮盒(米皂)'; option16.value = 'moon_box_5'; item.add(option16);
-			option17.text = '中秋小禮盒(金針皂)'; option17.value = 'moon_box_6'; item.add(option17);
-			option18.text = '中秋小禮盒(釋迦皂)'; option18.value = 'moon_box_7'; item.add(option18);
+			option2.text = '金絲森林渲染皂100g'; option2.value = 'product_sp_3'; item.add(option2);
+			option3.text = '釋迦手感果力皂100g'; option3.value = 'product_sp_5'; item.add(option3);
+			option4.text = '三三台東意象禮盒組'; option4.value = 'product_sp_box'; item.add(option4);
+			option5.text = '洛神紅麴旅用皂絲'; option5.value = 'product_ss_1'; item.add(option5);
+			option6.text = '暖暖薑黃旅用皂絲'; option6.value = 'product_ss_2'; item.add(option6);
+			option7.text = '萱草米黃旅用皂絲'; option7.value = 'product_ss_3'; item.add(option7);
+			option8.text = '三三台東意象皂絲旅行組'; option8.value = 'product_ss_box'; item.add(option8);
+			option9.text = '中秋禮皂-月兔捉迷藏100g'; option9.value = 'moon_box_1'; item.add(option9);
+			option10.text = '中秋禮皂-月兔捉迷藏50g'; option10.value = 'moon_box_2'; item.add(option10);
+			option11.text = '中秋禮皂-熱氣球登月100g'; option11.value = 'moon_box_3'; item.add(option11);
+			option12.text = '中秋禮皂-熱氣球登月50g'; option12.value = 'moon_box_4'; item.add(option12);
+			option13.text = '中秋小禮盒(米皂)'; option13.value = 'moon_box_5'; item.add(option13);
+			option14.text = '中秋小禮盒(金針皂)'; option14.value = 'moon_box_6'; item.add(option14);
+			option15.text = '中秋小禮盒(釋迦皂)'; option15.value = 'moon_box_7'; item.add(option15);
 		}
 		else if (itemclass == 'E') {
 			var option0 = document.createElement("option");
@@ -981,16 +966,10 @@ function itemclass() {
 			var option1 = document.createElement("option");
 			var option2 = document.createElement("option");
 			var option3 = document.createElement("option");
-			var option4 = document.createElement("option");
-			var option5 = document.createElement("option");
-			var option6 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '後山埤的米皂100g'; option1.value = 'sp_1_100_houshanpi'; item.add(option1);
-			option2.text = '後山埤的米皂50g'; option2.value = 'sp_1_50_houshanpi'; item.add(option2);
-			option3.text = '後山埤的金針皂100g'; option3.value = 'sp_2_100_houshanpi'; item.add(option3);
-			option4.text = '後山埤的金針皂50g'; option4.value = 'sp_2_50_houshanpi'; item.add(option4);
-			option5.text = '後山埤的釋迦皂100g'; option5.value = 'sp_3_100_houshanpi'; item.add(option5);
-			option6.text = '後山埤的釋迦皂50g'; option6.value = 'sp_3_50_houshanpi'; item.add(option6);
+			option2.text = '後山埤的金針皂100g'; option2.value = 'sp_2_100_houshanpi'; item.add(option2);
+			option3.text = '後山埤的釋迦皂100g'; option3.value = 'sp_3_100_houshanpi'; item.add(option3);
 		}
 	}
 	else if (whouse == 'Houshanpi') {
@@ -1003,16 +982,10 @@ function itemclass() {
 			var option1 = document.createElement("option");
 			var option2 = document.createElement("option");
 			var option3 = document.createElement("option");
-			var option4 = document.createElement("option");
-			var option5 = document.createElement("option");
-			var option6 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '米皂100g'; option1.value = 'sp_1_100_houshanpi'; item.add(option1);
-			option2.text = '米皂50g'; option2.value = 'sp_1_50_houshanpi'; item.add(option2);
-			option3.text = '金針皂100g'; option3.value = 'sp_2_100_houshanpi'; item.add(option3);
-			option4.text = '金針皂50g'; option4.value = 'sp_2_50_houshanpi'; item.add(option4);
-			option5.text = '釋迦皂100g'; option5.value = 'sp_3_100_houshanpi'; item.add(option5);
-			option6.text = '釋迦皂50g'; option6.value = 'sp_3_50_houshanpi'; item.add(option6);
+			option2.text = '金針皂100g'; option2.value = 'sp_2_100_houshanpi'; item.add(option2);
+			option3.text = '釋迦皂100g'; option3.value = 'sp_3_100_houshanpi'; item.add(option3);
 		}
 	}
 	else if (whouse == 'Taitung') {
@@ -1154,11 +1127,8 @@ function ss_box_change() {
 
 function package() {
 	var product_sp_1 = document.getElementById("package_sp_1").value;
-	var product_sp_2 = document.getElementById("package_sp_2").value;
 	var product_sp_3 = document.getElementById("package_sp_3").value;
-	var product_sp_4 = document.getElementById("package_sp_4").value;
 	var product_sp_5 = document.getElementById("package_sp_5").value;
-	var product_sp_6 = document.getElementById("package_sp_6").value;
 	var product_sp_box = document.getElementById("package_sp_box").value;
 	var product_ss_1 = document.getElementById("package_ss_1").value;
 	var product_ss_2 = document.getElementById("package_ss_2").value;
@@ -1195,7 +1165,7 @@ function package() {
 	else {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
-		var data = "module=item&event=package&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_4=" + product_sp_4 + "&product_sp_5=" + product_sp_5 + "&product_sp_6=" + product_sp_6 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5 + "&moon_box_6=" + moon_box_6 + "&moon_box_7=" + moon_box_7 + "&sp_1_type1=" + sp_1_type1 + "&sp_2_type1=" + sp_2_type1 + "&sp_3_type1=" + sp_3_type1 + "&sp_1_type2=" + sp_1_type2 + "&sp_2_type2=" + sp_2_type2 + "&sp_3_type2=" + sp_3_type2 + "&ss_1_type1=" + ss_1_type1 + "&ss_2_type1=" + ss_2_type1 + "&ss_3_type1=" + ss_3_type1;
+		var data = "module=item&event=package&product_sp_1=" + product_sp_1 + "&product_sp_3=" + product_sp_3 + "&product_sp_5=" + product_sp_5 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5 + "&moon_box_6=" + moon_box_6 + "&moon_box_7=" + moon_box_7 + "&sp_1_type1=" + sp_1_type1 + "&sp_2_type1=" + sp_2_type1 + "&sp_3_type1=" + sp_3_type1 + "&sp_1_type2=" + sp_1_type2 + "&sp_2_type2=" + sp_2_type2 + "&sp_3_type2=" + sp_3_type2 + "&ss_1_type1=" + ss_1_type1 + "&ss_2_type1=" + ss_2_type1 + "&ss_3_type1=" + ss_3_type1;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -1216,11 +1186,8 @@ function package() {
 
 function pack() {
 	var product_sp_1 = document.getElementById("package_sp_1").value;
-	var product_sp_2 = document.getElementById("package_sp_2").value;
 	var product_sp_3 = document.getElementById("package_sp_3").value;
-	var product_sp_4 = document.getElementById("package_sp_4").value;
 	var product_sp_5 = document.getElementById("package_sp_5").value;
-	var product_sp_6 = document.getElementById("package_sp_6").value;
 	var product_sp_box = document.getElementById("package_sp_box").value;
 	var product_ss_1 = document.getElementById("package_ss_1").value;
 	var product_ss_2 = document.getElementById("package_ss_2").value;
@@ -1257,7 +1224,7 @@ function pack() {
 	else {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
-		var data = "module=item&event=pack&product_sp_1=" + product_sp_1 + "&product_sp_2=" + product_sp_2 + "&product_sp_3=" + product_sp_3 + "&product_sp_4=" + product_sp_4 + "&product_sp_5=" + product_sp_5 + "&product_sp_6=" + product_sp_6 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5 + "&moon_box_6=" + moon_box_6 + "&moon_box_7=" + moon_box_7 + "&sp_1_type1=" + sp_1_type1 + "&sp_2_type1=" + sp_2_type1 + "&sp_3_type1=" + sp_3_type1 + "&sp_1_type2=" + sp_1_type2 + "&sp_2_type2=" + sp_2_type2 + "&sp_3_type2=" + sp_3_type2 + "&ss_1_type1=" + ss_1_type1 + "&ss_2_type1=" + ss_2_type1 + "&ss_3_type1=" + ss_3_type1;
+		var data = "module=item&event=pack&product_sp_1=" + product_sp_1 + "&product_sp_3=" + product_sp_3 + "&product_sp_5=" + product_sp_5 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box + "&moon_box_1=" + moon_box_1 + "&moon_box_2=" + moon_box_2 + "&moon_box_3=" + moon_box_3 + "&moon_box_4=" + moon_box_4 + "&moon_box_5=" + moon_box_5 + "&moon_box_6=" + moon_box_6 + "&moon_box_7=" + moon_box_7 + "&sp_1_type1=" + sp_1_type1 + "&sp_2_type1=" + sp_2_type1 + "&sp_3_type1=" + sp_3_type1 + "&sp_1_type2=" + sp_1_type2 + "&sp_2_type2=" + sp_2_type2 + "&sp_3_type2=" + sp_3_type2 + "&ss_1_type1=" + ss_1_type1 + "&ss_2_type1=" + ss_2_type1 + "&ss_3_type1=" + ss_3_type1;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -1740,16 +1707,10 @@ function send() {
 		if (package_6 != null && package_6 != 0) data = data + "&package_6=" + package_6;
 		var package_7a = document.getElementById("send_package_7a").value;
 		if (package_7a != null && package_7a != 0) data = data + "&package_7a=" + package_7a;
-		var package_7b = document.getElementById("send_package_7b").value;
-		if (package_7b != null && package_7b != 0) data = data + "&package_7b=" + package_7b;
 		var package_8a = document.getElementById("send_package_8a").value;
 		if (package_8a != null && package_8a != 0) data = data + "&package_8a=" + package_8a;
-		var package_8b = document.getElementById("send_package_8b").value;
-		if (package_8b != null && package_8b != 0) data = data + "&package_8b=" + package_8b;
 		var package_9a = document.getElementById("send_package_9a").value;
 		if (package_9a != null && package_9a != 0) data = data + "&package_9a=" + package_9a;
-		var package_9b = document.getElementById("send_package_9b").value;
-		if (package_9b != null && package_9b != 0) data = data + "&package_9b=" + package_9b;
 		var moon_package_1 = document.getElementById("send_moon_package_1").value;
 		if (moon_package_1 != null && moon_package_1 != 0) data = data + "&moon_package_1=" + moon_package_1;
 		var moon_package_2 = document.getElementById("send_moon_package_2").value;
@@ -1784,16 +1745,10 @@ function send() {
 	if (sender == 'Houshanpi') {
 		var sp_1_100_houshanpi = document.getElementById("send_sp_1_100_houshanpi").value;
 		if (sp_1_100_houshanpi != null && sp_1_100_houshanpi != 0) data = data + "&sp_1_100_houshanpi=" + sp_1_100_houshanpi;
-		var sp_1_50_houshanpi = document.getElementById("send_sp_1_50_houshanpi").value;
-		if (sp_1_50_houshanpi != null && sp_1_50_houshanpi != 0) data = data + "&sp_1_50_houshanpi=" + sp_1_50_houshanpi;
 		var sp_2_100_houshanpi = document.getElementById("send_sp_2_100_houshanpi").value;
 		if (sp_2_100_houshanpi != null && sp_2_100_houshanpi != 0) data = data + "&sp_2_100_houshanpi=" + sp_2_100_houshanpi;
-		var sp_2_50_houshanpi = document.getElementById("send_sp_2_50_houshanpi").value;
-		if (sp_2_50_houshanpi != null && sp_2_50_houshanpi != 0) data = data + "&sp_2_50_houshanpi=" + sp_2_50_houshanpi;
 		var sp_3_100_houshanpi = document.getElementById("send_sp_3_100_houshanpi").value;
 		if (sp_3_100_houshanpi != null && sp_3_100_houshanpi != 0) data = data + "&sp_3_100_houshanpi=" + sp_3_100_houshanpi;
-		var sp_3_50_houshanpi = document.getElementById("send_sp_3_50_houshanpi").value;
-		if (sp_3_50_houshanpi != null && sp_3_50_houshanpi != 0) data = data + "&sp_3_50_houshanpi=" + sp_3_50_houshanpi;
 	}
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
@@ -1829,11 +1784,8 @@ function send_refresh() {
 	if (document.getElementById("send_package_5") != null) document.getElementById("send_package_5").value = 0;
 	if (document.getElementById("send_package_6") != null) document.getElementById("send_package_6").value = 0;
 	if (document.getElementById("send_package_7a") != null) document.getElementById("send_package_7a").value = 0;
-	if (document.getElementById("send_package_7b") != null) document.getElementById("send_package_7b").value = 0;
 	if (document.getElementById("send_package_8a") != null) document.getElementById("send_package_8a").value = 0;
-	if (document.getElementById("send_package_8b") != null) document.getElementById("send_package_8b").value = 0;
 	if (document.getElementById("send_package_9a") != null) document.getElementById("send_package_9a").value = 0;
-	if (document.getElementById("send_package_9b") != null) document.getElementById("send_package_9b").value = 0;
 	if (document.getElementById("send_moon_package_1") != null) document.getElementById("send_moon_package_1").value = 0;
 	if (document.getElementById("send_moon_package_2") != null) document.getElementById("send_moon_package_2").value = 0;
 	if (document.getElementById("send_moon_package_3") != null) document.getElementById("send_moon_package_3").value = 0;

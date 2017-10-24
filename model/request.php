@@ -1209,7 +1209,7 @@ function send($content) {
 			if ($fetch1['AUTHORITY'] == 'A') {
 				if ($sender == 'Trisoap' && $receiver == 'Beitou') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_7b', 'package_8a', 'package_8b', 'package_9a', 'package_9b', 'moon_package_1', 'moon_package_2', 'moon_package_3', 'moon_package_4', 'moon_package_5'))) {
+						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_8a', 'package_9a', 'moon_package_1', 'moon_package_2', 'moon_package_3', 'moon_package_4', 'moon_package_5'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1234,7 +1234,7 @@ function send($content) {
 				elseif ($sender == 'Houshanpi' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_1_50_houshanpi', 'sp_2_100_houshanpi', 'sp_2_50_houshanpi', 'sp_3_100_houshanpi', 'sp_3_50_houshanpi'))) {
+						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_2_100_houshanpi', 'sp_3_100_houshanpi'))) {
 							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
@@ -1273,7 +1273,7 @@ function send($content) {
 				if ($sender == 'Houshanpi' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_1_50_houshanpi', 'sp_2_100_houshanpi', 'sp_2_50_houshanpi', 'sp_3_100_houshanpi', 'sp_3_50_houshanpi'))) {
+						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_2_100_houshanpi', 'sp_3_100_houshanpi'))) {
 							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
 								$processedName = explode('的', query_name($key[$i]));
 								$message .= $processedName[1] . "存量不足\n";

@@ -418,7 +418,7 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 			elseif ($fetch1['AUTHORITY'] == 'D' && $whouseno != 'Taitung') {
 				return 'No authority';
 			}
-			elseif ($fetch1['AUTHORITY'] == 'E' && ($whouseno == 'Houshanpi' || $itemclass == 'H' || in_array($itemno, array('sp_1_100_houshanpi', 'sp_1_50_houshanpi', 'sp_2_100_houshanpi', 'sp_2_50_houshanpi', 'sp_3_100_houshanpi', 'sp_3_50_houshanpi')))) {
+			elseif ($fetch1['AUTHORITY'] == 'E' && ($whouseno == 'Houshanpi' || $itemclass == 'H' || in_array($itemno, array('sp_1_100_houshanpi', 'sp_2_100_houshanpi', 'sp_3_100_houshanpi')))) {
 				return 'No authority';
 			}
 			else {
@@ -528,11 +528,8 @@ function adjust_search($account, $token, $whouseno) {
 								<tr><td>皂絲禮盒</td><td><input type="text" class="adjust_C" id="adjust_package_5" value="'.$inventory['package_5'].'" onclick="ask_adjust(\'adjust_package_5\', \''.query_name('package_5').'\')"></td></tr>
 								<tr><td>內襯</td><td><input type="text" class="adjust_C" id="adjust_package_6" value="'.$inventory['package_6'].'" onclick="ask_adjust(\'adjust_package_6\', \''.query_name('package_6').'\')"></td></tr>
 								<tr><td>米皂外盒100g</td><td><input type="text" class="adjust_C" id="adjust_package_7a" value="'.$inventory['package_7a'].'" onclick="ask_adjust(\'adjust_package_7a\', \''.query_name('package_7a').'\')"></td></tr>
-								<tr><td>米皂外盒50g</td><td><input type="text" class="adjust_C" id="adjust_package_7b" value="'.$inventory['package_7b'].'" onclick="ask_adjust(\'adjust_package_7b\', \''.query_name('package_7b').'\')"></td></tr>
 								<tr><td>金針皂外盒100g</td><td><input type="text" class="adjust_C" id="adjust_package_8a" value="'.$inventory['package_8a'].'" onclick="ask_adjust(\'adjust_package_8a\', \''.query_name('package_8a').'\')"></td></tr>
-								<tr><td>金針皂外盒50g</td><td><input type="text" class="adjust_C" id="adjust_package_8b" value="'.$inventory['package_8b'].'" onclick="ask_adjust(\'adjust_package_8b\', \''.query_name('package_8b').'\')"></td></tr>
 								<tr><td>釋迦皂外盒100g</td><td><input type="text" class="adjust_C" id="adjust_package_9a" value="'.$inventory['package_9a'].'" onclick="ask_adjust(\'adjust_package_9a\', \''.query_name('package_9a').'\')"></td></tr>
-								<tr><td>釋迦皂外盒50g</td><td><input type="text" class="adjust_C" id="adjust_package_9b" value="'.$inventory['package_9b'].'" onclick="ask_adjust(\'adjust_package_9b\', \''.query_name('package_9b').'\')"></td></tr>
 								<tr><td>中秋大禮盒上蓋(兔子)</td><td><input type="text" class="adjust_C" id="adjust_moon_package_1" value="'.$inventory['moon_package_1'].'" onclick="ask_adjust(\'adjust_moon_package_1\', \''.query_name('moon_package_1').'\')"></td></tr>
 								<tr><td>中秋大禮盒上蓋(熱氣球)</td><td><input type="text" class="adjust_C" id="adjust_moon_package_2" value="'.$inventory['moon_package_2'].'" onclick="ask_adjust(\'adjust_moon_package_2\', \''.query_name('moon_package_2').'\')"></td></tr>
 								<tr><td>中秋大禮盒底座</td><td><input type="text" class="adjust_C" id="adjust_moon_package_3" value="'.$inventory['moon_package_3'].'" onclick="ask_adjust(\'adjust_moon_package_3\', \''.query_name('moon_package_3').'\')"></td></tr>
@@ -542,11 +539,8 @@ function adjust_search($account, $token, $whouseno) {
 							<td><table>
 								<tr><th colspan="2">商品</th></tr>
 								<tr><td>田靜山巒禾風皂100g</td><td><input type="text" class="adjust_D" id="adjust_product_sp_1" value="'.$inventory['product_sp_1'].'" onclick="ask_adjust(\'adjust_product_sp_1\', \''.query_name('product_sp_1').'\')"></td></tr>
-								<tr><td>田靜山巒禾風皂50g</td><td><input type="text" class="adjust_D" id="adjust_product_sp_2" value="'.$inventory['product_sp_2'].'" onclick="ask_adjust(\'adjust_product_sp_2\', \''.query_name('product_sp_2').'\')"></td></tr>
 								<tr><td>金絲森林渲染皂100g</td><td><input type="text" class="adjust_D" id="adjust_product_sp_3" value="'.$inventory['product_sp_3'].'" onclick="ask_adjust(\'adjust_product_sp_3\', \''.query_name('product_sp_3').'\')"></td></tr>
-								<tr><td>金絲森林渲染皂50g</td><td><input type="text" class="adjust_D" id="adjust_product_sp_4" value="'.$inventory['product_sp_4'].'" onclick="ask_adjust(\'adjust_product_sp_4\', \''.query_name('product_sp_4').'\')"></td></tr>
 								<tr><td>釋迦手感果力皂100g</td><td><input type="text" class="adjust_D" id="adjust_product_sp_5" value="'.$inventory['product_sp_5'].'" onclick="ask_adjust(\'adjust_product_sp_5\', \''.query_name('product_sp_5').'\')"></td></tr>
-								<tr><td>釋迦手感果力皂50g</td><td><input type="text" class="adjust_D" id="adjust_product_sp_6" value="'.$inventory['product_sp_6'].'" onclick="ask_adjust(\'adjust_product_sp_6\', \''.query_name('product_sp_6').'\')"></td></tr>
 								<tr><td>三三台東意象禮盒組</td><td><input type="text" class="adjust_D" id="adjust_product_sp_box" value="'.$inventory['product_sp_box'].'" onclick="ask_adjust(\'adjust_product_sp_box\', \''.query_name('product_sp_box').'\')"></td></tr>
 								<tr><td>洛神紅麴旅用皂絲</td><td><input type="text" class="adjust_D" id="adjust_product_ss_1" value="'.$inventory['product_ss_1'].'" onclick="ask_adjust(\'adjust_product_ss_1\', \''.query_name('product_ss_1').'\')"></td></tr>
 								<tr><td>暖暖薑黃旅用皂絲</td><td><input type="text" class="adjust_D" id="adjust_product_ss_2" value="'.$inventory['product_ss_2'].'" onclick="ask_adjust(\'adjust_product_ss_2\', \''.query_name('product_ss_2').'\')"></td></tr>
@@ -586,11 +580,8 @@ function adjust_search($account, $token, $whouseno) {
 							<td><table>
 								<tr><th colspan="2">後山埤的產品</th></tr>
 								<tr><td>後山埤的米皂100g</td><td><input type="text" class="adjust_H" id="adjust_sp_1_100_houshanpi" value="'.$inventory['sp_1_100_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_1_100_houshanpi\', \''.query_name('sp_1_100_houshanpi').'\')"></td></tr>
-								<tr><td>後山埤的米皂50g</td><td><input type="text" class="adjust_H" id="adjust_sp_1_50_houshanpi" value="'.$inventory['sp_1_50_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_1_50_houshanpi\', \''.query_name('sp_1_50_houshanpi').'\')"></td></tr>
 								<tr><td>後山埤的金針皂100g</td><td><input type="text" class="adjust_H" id="adjust_sp_2_100_houshanpi" value="'.$inventory['sp_2_100_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_2_100_houshanpi\', \''.query_name('sp_2_100_houshanpi').'\')"></td></tr>
-								<tr><td>後山埤的金針皂50g</td><td><input type="text" class="adjust_H" id="adjust_sp_2_50_houshanpi" value="'.$inventory['sp_2_50_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_2_50_houshanpi\', \''.query_name('sp_2_50_houshanpi').'\')"></td></tr>
 								<tr><td>後山埤的釋迦皂100g</td><td><input type="text" class="adjust_H" id="adjust_sp_3_100_houshanpi" value="'.$inventory['sp_3_100_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_3_100_houshanpi\', \''.query_name('sp_3_100_houshanpi').'\')"></td></tr>
-								<tr><td>後山埤的釋迦皂50g</td><td><input type="text" class="adjust_H" id="adjust_sp_3_50_houshanpi" value="'.$inventory['sp_3_50_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_3_50_houshanpi\', \''.query_name('sp_3_50_houshanpi').'\')"></td></tr>
 							</table></td>
 							</tr></table>';
 				return array('message' => 'Success', 'content' => $content);
@@ -635,11 +626,8 @@ function adjust_search($account, $token, $whouseno) {
 							<td><table>
 								<tr><th colspan="2">後山埤的產品</th></tr>
 								<tr><td>後山埤的米皂100g</td><td><input type="text" class="adjust_H" id="adjust_sp_1_100_houshanpi" value="'.$inventory['sp_1_100_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_1_100_houshanpi\', \''.query_name('sp_1_100_houshanpi').'\')"></td></tr>
-								<tr><td>後山埤的米皂50g</td><td><input type="text" class="adjust_H" id="adjust_sp_1_50_houshanpi" value="'.$inventory['sp_1_50_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_1_50_houshanpi\', \''.query_name('sp_1_50_houshanpi').'\')"></td></tr>
 								<tr><td>後山埤的金針皂100g</td><td><input type="text" class="adjust_H" id="adjust_sp_2_100_houshanpi" value="'.$inventory['sp_2_100_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_2_100_houshanpi\', \''.query_name('sp_2_100_houshanpi').'\')"></td></tr>
-								<tr><td>後山埤的金針皂50g</td><td><input type="text" class="adjust_H" id="adjust_sp_2_50_houshanpi" value="'.$inventory['sp_2_50_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_2_50_houshanpi\', \''.query_name('sp_2_50_houshanpi').'\')"></td></tr>
 								<tr><td>後山埤的釋迦皂100g</td><td><input type="text" class="adjust_H" id="adjust_sp_3_100_houshanpi" value="'.$inventory['sp_3_100_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_3_100_houshanpi\', \''.query_name('sp_3_100_houshanpi').'\')"></td></tr>
-								<tr><td>後山埤的釋迦皂50g</td><td><input type="text" class="adjust_H" id="adjust_sp_3_50_houshanpi" value="'.$inventory['sp_3_50_houshanpi'].'" onclick="ask_adjust(\'adjust_sp_3_50_houshanpi\', \''.query_name('sp_3_50_houshanpi').'\')"></td></tr>
 							</table></td>
 							</tr></table>';
 				return array('message' => 'Success', 'content' => $content);
@@ -1610,13 +1598,13 @@ function is_positiveInt($value) {
 }
 
 function inventory($whouse, $item) {
-	$sqlQuery = mysql_query("SELECT TOTALAMT FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$item' AND ACTCODE='1'");
-	if ($sqlQuery == false) {
+	$query = mysql_query("SELECT TOTALAMT FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$item' AND ACTCODE='1'");
+	if ($query == false) {
 		return 0;
 	}
 	else {
-		$sqlFetch = mysql_fetch_row($sqlQuery);
-		return $sqlFetch[0];
+		$fetch = mysql_fetch_row($query);
+		return $fetch[0];
 	}
 }
 

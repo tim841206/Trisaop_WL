@@ -1116,13 +1116,6 @@ function send($content) {
 				elseif (!is_nonnegativeInt($content['product_sp_1'])) {
 					return 'Wrong amount format';
 				}
-				if (is_positiveInt($content['product_sp_2'])) {
-					array_push($itemno, 'product_sp_2');
-					array_push($itemamt, $content['product_sp_2']);
-				}
-				elseif (!is_nonnegativeInt($content['product_sp_2'])) {
-					return 'Wrong amount format';
-				}
 				if (is_positiveInt($content['product_sp_3'])) {
 					array_push($itemno, 'product_sp_3');
 					array_push($itemamt, $content['product_sp_3']);
@@ -1130,25 +1123,11 @@ function send($content) {
 				elseif (!is_nonnegativeInt($content['product_sp_3'])) {
 					return 'Wrong amount format';
 				}
-				if (is_positiveInt($content['product_sp_4'])) {
-					array_push($itemno, 'product_sp_4');
-					array_push($itemamt, $content['product_sp_4']);
-				}
-				elseif (!is_nonnegativeInt($content['product_sp_4'])) {
-					return 'Wrong amount format';
-				}
 				if (is_positiveInt($content['product_sp_5'])) {
 					array_push($itemno, 'product_sp_5');
 					array_push($itemamt, $content['product_sp_5']);
 				}
 				elseif (!is_nonnegativeInt($content['product_sp_5'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['product_sp_6'])) {
-					array_push($itemno, 'product_sp_6');
-					array_push($itemamt, $content['product_sp_6']);
-				}
-				elseif (!is_nonnegativeInt($content['product_sp_6'])) {
 					return 'Wrong amount format';
 				}
 				if (is_positiveInt($content['product_sp_box'])) {

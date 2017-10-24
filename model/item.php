@@ -457,17 +457,10 @@ function package($content) {
 			return 'No authority';
 		}
 		else {
-			$ingredient = array('sp_1_100' => 0, 'sp_1_50' => 0, 'sp_2_100' => 0, 'sp_2_50' => 0, 'sp_3_100' => 0, 'sp_3_50' => 0, 'ss_1' => 0, 'ss_2' => 0, 'ss_3' => 0, 'ss_4' => 0, 'ss_5' => 0, 'ss_6' => 0, 'package_1' => 0, 'package_2' => 0, 'package_3' => 0, 'package_4' => 0, 'package_5' => 0, 'package_6' => 0, 'package_7a' => 0, 'package_7b' => 0, 'package_8a' => 0, 'package_8b' => 0, 'package_9a' => 0, 'package_9b' => 0, 'moon_package_1' => 0, 'moon_package_2' => 0, 'moon_package_3' => 0, 'moon_package_4' => 0, 'moon_package_5' => 0, 'product_sp_1' => 0, 'product_sp_2' => 0, 'product_sp_3' => 0, 'product_sp_4' => 0, 'product_sp_5' => 0, 'product_sp_6' => 0, 'product_ss_1' => 0, 'product_ss_2' => 0, 'product_ss_3' => 0);
+			$ingredient = array('sp_1_100' => 0, 'sp_2_100' => 0, 'sp_3_100' => 0, 'ss_1' => 0, 'ss_2' => 0, 'ss_3' => 0, 'ss_4' => 0, 'ss_5' => 0, 'ss_6' => 0, 'package_1' => 0, 'package_2' => 0, 'package_3' => 0, 'package_4' => 0, 'package_5' => 0, 'package_6' => 0, 'package_7a' => 0, 'package_8a' => 0, 'package_9a' => 0, 'moon_package_1' => 0, 'moon_package_2' => 0, 'moon_package_3' => 0, 'moon_package_4' => 0, 'moon_package_5' => 0, 'product_sp_1' => 0, 'product_sp_3' => 0, 'product_sp_5' => 0, 'product_ss_1' => 0, 'product_ss_2' => 0, 'product_ss_3' => 0);
 			if (is_nonnegativeInt($content['product_sp_1'])) {
 				$ingredient['sp_1_100'] += $content['product_sp_1'];
 				$ingredient['package_7a'] += $content['product_sp_1'];
-			}
-			else {
-				return 'Wrong input format';
-			}
-			if (is_nonnegativeInt($content['product_sp_2'])) {
-				$ingredient['sp_1_50'] += $content['product_sp_2'];
-				$ingredient['package_7b'] += $content['product_sp_2'];
 			}
 			else {
 				return 'Wrong input format';
@@ -479,23 +472,9 @@ function package($content) {
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_sp_4'])) {
-				$ingredient['sp_2_50'] += $content['product_sp_4'];
-				$ingredient['package_8b'] += $content['product_sp_4'];
-			}
-			else {
-				return 'Wrong input format';
-			}
 			if (is_nonnegativeInt($content['product_sp_5'])) {
 				$ingredient['sp_3_100'] += $content['product_sp_5'];
 				$ingredient['package_9a'] += $content['product_sp_5'];
-			}
-			else {
-				return 'Wrong input format';
-			}
-			if (is_nonnegativeInt($content['product_sp_6'])) {
-				$ingredient['sp_3_50'] += $content['product_sp_6'];
-				$ingredient['package_9b'] += $content['product_sp_6'];
 			}
 			else {
 				return 'Wrong input format';
@@ -718,17 +697,10 @@ function packing($content) {
 			return 'No authority';
 		}
 		else {
-			$ingredient = array('sp_1_100' => 0, 'sp_1_50' => 0, 'sp_2_100' => 0, 'sp_2_50' => 0, 'sp_3_100' => 0, 'sp_3_50' => 0, 'ss_1' => 0, 'ss_2' => 0, 'ss_3' => 0, 'ss_4' => 0, 'ss_5' => 0, 'ss_6' => 0, 'package_1' => 0, 'package_2' => 0, 'package_3' => 0, 'package_4' => 0, 'package_5' => 0, 'package_6' => 0, 'package_7a' => 0, 'package_7b' => 0, 'package_8a' => 0, 'package_8b' => 0, 'package_9a' => 0, 'package_9b' => 0, 'moon_package_1' => 0, 'moon_package_2' => 0, 'moon_package_3' => 0, 'moon_package_4' => 0, 'moon_package_5' => 0, 'product_sp_1' => 0, 'product_sp_2' => 0, 'product_sp_3' => 0, 'product_sp_4' => 0, 'product_sp_5' => 0, 'product_sp_6' => 0, 'product_ss_1' => 0, 'product_ss_2' => 0, 'product_ss_3' => 0);
+			$ingredient = array('sp_1_100' => 0, 'sp_2_100' => 0, 'sp_3_100' => 0, 'ss_1' => 0, 'ss_2' => 0, 'ss_3' => 0, 'ss_4' => 0, 'ss_5' => 0, 'ss_6' => 0, 'package_1' => 0, 'package_2' => 0, 'package_3' => 0, 'package_4' => 0, 'package_5' => 0, 'package_6' => 0, 'package_7a' => 0, 'package_8a' => 0, 'package_9a' => 0, 'moon_package_1' => 0, 'moon_package_2' => 0, 'moon_package_3' => 0, 'moon_package_4' => 0, 'moon_package_5' => 0, 'product_sp_1' => 0, 'product_sp_3' => 0, 'product_sp_5' => 0, 'product_ss_1' => 0, 'product_ss_2' => 0, 'product_ss_3' => 0);
 			if (is_nonnegativeInt($content['product_sp_1'])) {
 				$ingredient['sp_1_100'] += $content['product_sp_1'];
 				$ingredient['package_7a'] += $content['product_sp_1'];
-			}
-			else {
-				return 'Wrong input format';
-			}
-			if (is_nonnegativeInt($content['product_sp_2'])) {
-				$ingredient['sp_1_50'] += $content['product_sp_2'];
-				$ingredient['package_7b'] += $content['product_sp_2'];
 			}
 			else {
 				return 'Wrong input format';
@@ -740,23 +712,9 @@ function packing($content) {
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_sp_4'])) {
-				$ingredient['sp_2_50'] += $content['product_sp_4'];
-				$ingredient['package_8b'] += $content['product_sp_4'];
-			}
-			else {
-				return 'Wrong input format';
-			}
 			if (is_nonnegativeInt($content['product_sp_5'])) {
 				$ingredient['sp_3_100'] += $content['product_sp_5'];
 				$ingredient['package_9a'] += $content['product_sp_5'];
-			}
-			else {
-				return 'Wrong input format';
-			}
-			if (is_nonnegativeInt($content['product_sp_6'])) {
-				$ingredient['sp_3_50'] += $content['product_sp_6'];
-				$ingredient['package_9b'] += $content['product_sp_6'];
 			}
 			else {
 				return 'Wrong input format';
@@ -955,7 +913,7 @@ function packing($content) {
 			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ACTCODE='1'");
 			$message = '';
 			while ($fetch2 = mysql_fetch_array($sql2)) {
-				if (in_array($fetch2['ITEMNO'], array('sp_1_100', 'sp_1_50', 'sp_2_100', 'sp_2_50', 'sp_3_100', 'sp_3_50', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_7b', 'package_8a', 'package_8b', 'package_9a', 'package_9b', 'moon_package_1', 'moon_package_2', 'moon_package_3', 'moon_package_4', 'moon_package_5', 'product_sp_1', 'product_sp_2', 'product_sp_3', 'product_sp_4', 'product_sp_5', 'product_sp_6', 'product_ss_1', 'product_ss_2', 'product_ss_3'))) {
+				if (in_array($fetch2['ITEMNO'], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_8a', 'package_9a', 'moon_package_1', 'moon_package_2', 'moon_package_3', 'moon_package_4', 'moon_package_5', 'product_sp_1', 'product_sp_3', 'product_sp_5', 'product_ss_1', 'product_ss_2', 'product_ss_3'))) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					$ITEMNM = $fetch2['ITEMNM'];
 					$amount = $ingredient[$ITEMNO];
@@ -1078,11 +1036,8 @@ function querySearchTable($query, $authority) {
 function queryPackageTable($query) {
 	$queryResult = '<table><tr><th>原料</th><th>所需數量</th><th>庫存數量</th></tr>';
 	if ($query['sp_1_100'] != 0) $queryResult .= '<tr><td>米皂100g</td><td>'.$query['sp_1_100'].'</td><td>'.inventory('Beitou', 'sp_1_100').'</td>'.compare($query['sp_1_100'], inventory('Beitou', 'sp_1_100')).'</tr>';
-	if ($query['sp_1_50'] != 0) $queryResult .= '<tr><td>米皂50g</td><td>'.$query['sp_1_50'].'</td><td>'.inventory('Beitou', 'sp_1_50').'</td>'.compare($query['sp_1_50'], inventory('Beitou', 'sp_1_50')).'</tr>';
 	if ($query['sp_2_100'] != 0) $queryResult .= '<tr><td>金針皂100g</td><td>'.$query['sp_2_100'].'</td><td>'.inventory('Beitou', 'sp_2_100').'</td>'.compare($query['sp_2_100'], inventory('Beitou', 'sp_2_100')).'</tr>';
-	if ($query['sp_2_50'] != 0) $queryResult .= '<tr><td>金針皂50g</td><td>'.$query['sp_2_50'].'</td><td>'.inventory('Beitou', 'sp_2_50').'</td>'.compare($query['sp_2_50'], inventory('Beitou', 'sp_2_50')).'</tr>';
 	if ($query['sp_3_100'] != 0) $queryResult .= '<tr><td>釋迦皂100g</td><td>'.$query['sp_3_100'].'</td><td>'.inventory('Beitou', 'sp_3_100').'</td>'.compare($query['sp_3_100'], inventory('Beitou', 'sp_3_100')).'</tr>';
-	if ($query['sp_3_50'] != 0) $queryResult .= '<tr><td>釋迦皂50g</td><td>'.$query['sp_3_50'].'</td><td>'.inventory('Beitou', 'sp_3_50').'</td>'.compare($query['sp_3_50'], inventory('Beitou', 'sp_3_50')).'</tr>';
 	if ($query['ss_1'] != 0) $queryResult .= '<tr><td>洛神皂絲</td><td>'.$query['ss_1'].'</td><td>'.inventory('Beitou', 'ss_1').'</td>'.compare($query['ss_1'], inventory('Beitou', 'ss_1')).'</tr>';
 	if ($query['ss_2'] != 0) $queryResult .= '<tr><td>紅麴皂絲</td><td>'.$query['ss_2'].'</td><td>'.inventory('Beitou', 'ss_2').'</td>'.compare($query['ss_2'], inventory('Beitou', 'ss_2')).'</tr>';
 	if ($query['ss_3'] != 0) $queryResult .= '<tr><td>薑黃皂絲</td><td>'.$query['ss_3'].'</td><td>'.inventory('Beitou', 'ss_3').'</td>'.compare($query['ss_3'], inventory('Beitou', 'ss_3')).'</tr>';
@@ -1096,22 +1051,16 @@ function queryPackageTable($query) {
 	if ($query['package_5'] != 0) $queryResult .= '<tr><td>皂絲禮盒</td><td>'.$query['package_5'].'</td><td>'.inventory('Beitou', 'package_5').'</td>'.compare($query['package_5'], inventory('Beitou', 'package_5')).'</tr>';
 	if ($query['package_6'] != 0) $queryResult .= '<tr><td>內襯</td><td>'.$query['package_6'].'</td><td>'.inventory('Beitou', 'package_6').'</td>'.compare($query['package_6'], inventory('Beitou', 'package_6')).'</tr>';
 	if ($query['package_7a'] != 0) $queryResult .= '<tr><td>米皂外盒100g</td><td>'.$query['package_7a'].'</td><td>'.inventory('Beitou', 'package_7a').'</td>'.compare($query['package_7a'], inventory('Beitou', 'package_7a')).'</tr>';
-	if ($query['package_7b'] != 0) $queryResult .= '<tr><td>米皂外盒50g</td><td>'.$query['package_7b'].'</td><td>'.inventory('Beitou', 'package_7b').'</td>'.compare($query['package_7b'], inventory('Beitou', 'package_7b')).'</tr>';
 	if ($query['package_8a'] != 0) $queryResult .= '<tr><td>金針皂外盒100g</td><td>'.$query['package_8a'].'</td><td>'.inventory('Beitou', 'package_8a').'</td>'.compare($query['package_8a'], inventory('Beitou', 'package_8a')).'</tr>';
-	if ($query['package_8b'] != 0) $queryResult .= '<tr><td>金針皂外盒50g</td><td>'.$query['package_8b'].'</td><td>'.inventory('Beitou', 'package_8b').'</td>'.compare($query['package_8b'], inventory('Beitou', 'package_8b')).'</tr>';
 	if ($query['package_9a'] != 0) $queryResult .= '<tr><td>釋迦皂外盒100g</td><td>'.$query['package_9a'].'</td><td>'.inventory('Beitou', 'package_9a').'</td>'.compare($query['package_9a'], inventory('Beitou', 'package_9a')).'</tr>';
-	if ($query['package_9b'] != 0) $queryResult .= '<tr><td>釋迦皂外盒50g</td><td>'.$query['package_9b'].'</td><td>'.inventory('Beitou', 'package_9b').'</td>'.compare($query['package_9b'], inventory('Beitou', 'package_9b')).'</tr>';
 	if ($query['moon_package_1'] != 0) $queryResult .= '<tr><td>中秋大禮盒上蓋(兔子)</td><td>'.$query['moon_package_1'].'</td><td>'.inventory('Beitou', 'moon_package_1').'</td>'.compare($query['moon_package_1'], inventory('Beitou', 'moon_package_1')).'</tr>';
 	if ($query['moon_package_2'] != 0) $queryResult .= '<tr><td>中秋大禮盒上蓋(熱氣球)</td><td>'.$query['moon_package_2'].'</td><td>'.inventory('Beitou', 'moon_package_2').'</td>'.compare($query['moon_package_2'], inventory('Beitou', 'moon_package_2')).'</tr>';
 	if ($query['moon_package_3'] != 0) $queryResult .= '<tr><td>中秋大禮盒底座</td><td>'.$query['moon_package_3'].'</td><td>'.inventory('Beitou', 'moon_package_3').'</td>'.compare($query['moon_package_3'], inventory('Beitou', 'moon_package_3')).'</tr>';
 	if ($query['moon_package_4'] != 0) $queryResult .= '<tr><td>中秋大禮盒內襯</td><td>'.$query['moon_package_4'].'</td><td>'.inventory('Beitou', 'moon_package_4').'</td>'.compare($query['moon_package_4'], inventory('Beitou', 'moon_package_4')).'</tr>';
 	if ($query['moon_package_5'] != 0) $queryResult .= '<tr><td>中秋小禮盒封套</td><td>'.$query['moon_package_5'].'</td><td>'.inventory('Beitou', 'moon_package_5').'</td>'.compare($query['moon_package_5'], inventory('Beitou', 'moon_package_5')).'</tr>';
 	if ($query['product_sp_1'] != 0) $queryResult .= '<tr><td>田靜山巒禾風皂100g</td><td>'.$query['product_sp_1'].'</td><td>'.inventory('Beitou', 'product_sp_1').'</td>'.compare($query['product_sp_1'], inventory('Beitou', 'product_sp_1')).'</tr>';
-	if ($query['product_sp_2'] != 0) $queryResult .= '<tr><td>田靜山巒禾風皂50g</td><td>'.$query['product_sp_2'].'</td><td>'.inventory('Beitou', 'product_sp_2').'</td>'.compare($query['product_sp_2'], inventory('Beitou', 'product_sp_2')).'</tr>';
 	if ($query['product_sp_3'] != 0) $queryResult .= '<tr><td>金絲森林渲染皂100g</td><td>'.$query['product_sp_3'].'</td><td>'.inventory('Beitou', 'product_sp_3').'</td>'.compare($query['product_sp_3'], inventory('Beitou', 'product_sp_3')).'</tr>';
-	if ($query['product_sp_4'] != 0) $queryResult .= '<tr><td>金絲森林渲染皂50g</td><td>'.$query['product_sp_4'].'</td><td>'.inventory('Beitou', 'product_sp_4').'</td>'.compare($query['product_sp_4'], inventory('Beitou', 'product_sp_4')).'</tr>';
 	if ($query['product_sp_5'] != 0) $queryResult .= '<tr><td>釋迦手感果力皂100g</td><td>'.$query['product_sp_5'].'</td><td>'.inventory('Beitou', 'product_sp_5').'</td>'.compare($query['product_sp_5'], inventory('Beitou', 'product_sp_5')).'</tr>';
-	if ($query['product_sp_6'] != 0) $queryResult .= '<tr><td>釋迦手感果力皂50g</td><td>'.$query['product_sp_6'].'</td><td>'.inventory('Beitou', 'product_sp_6').'</td>'.compare($query['product_sp_6'], inventory('Beitou', 'product_sp_6')).'</tr>';
 	if ($query['product_ss_1'] != 0) $queryResult .= '<tr><td>洛神紅麴旅用皂絲</td><td>'.$query['product_ss_1'].'</td><td>'.inventory('Beitou', 'product_ss_1').'</td>'.compare($query['product_ss_1'], inventory('Beitou', 'product_ss_1')).'</tr>';
 	if ($query['product_ss_2'] != 0) $queryResult .= '<tr><td>暖暖薑黃旅用皂絲</td><td>'.$query['product_ss_2'].'</td><td>'.inventory('Beitou', 'product_ss_2').'</td>'.compare($query['product_ss_2'], inventory('Beitou', 'product_ss_2')).'</tr>';
 	if ($query['product_ss_3'] != 0) $queryResult .= '<tr><td>萱草米黃旅用皂絲</td><td>'.$query['product_ss_3'].'</td><td>'.inventory('Beitou', 'product_ss_3').'</td>'.compare($query['product_ss_3'], inventory('Beitou', 'product_ss_3')).'</tr>';
@@ -1297,7 +1246,7 @@ function package_to_product($package, $product) {
 	$today = date("Ymd");
 	$sql1 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ACTCODE='1'");
 	while ($fetch1 = mysql_fetch_array($sql1)) {
-		if (in_array($fetch1['ITEMNO'], array('sp_1_100', 'sp_1_50', 'sp_2_100', 'sp_2_50', 'sp_3_100', 'sp_3_50', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_7b', 'package_8a', 'package_8b', 'package_9a', 'package_9b', 'moon_package_1', 'moon_package_2', 'moon_package_3', 'moon_package_4', 'moon_package_5', 'product_sp_1', 'product_sp_2', 'product_sp_3', 'product_sp_4', 'product_sp_5', 'product_sp_6', 'product_ss_1', 'product_ss_2', 'product_ss_3'))) {
+		if (in_array($fetch1['ITEMNO'], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_8a', 'package_9a', 'moon_package_1', 'moon_package_2', 'moon_package_3', 'moon_package_4', 'moon_package_5', 'product_sp_1', 'product_sp_3', 'product_sp_5', 'product_ss_1', 'product_ss_2', 'product_ss_3'))) {
 			$ITEMNO = $fetch1['ITEMNO'];
 			$ITEMNM = $fetch1['ITEMNM'];
 			$amount = $package[$ITEMNO];
@@ -1311,29 +1260,14 @@ function package_to_product($package, $product) {
 		$amount = $product['product_sp_1'];
 		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
 	}
-	if (is_positiveInt($product['product_sp_2'])) {
-		$ITEMNO = 'product_sp_2';
-		$amount = $product['product_sp_2'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
-	}
 	if (is_positiveInt($product['product_sp_3'])) {
 		$ITEMNO = 'product_sp_3';
 		$amount = $product['product_sp_3'];
 		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
 	}
-	if (is_positiveInt($product['product_sp_4'])) {
-		$ITEMNO = 'product_sp_4';
-		$amount = $product['product_sp_4'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
-	}
 	if (is_positiveInt($product['product_sp_5'])) {
 		$ITEMNO = 'product_sp_5';
 		$amount = $product['product_sp_5'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
-	}
-	if (is_positiveInt($product['product_sp_6'])) {
-		$ITEMNO = 'product_sp_6';
-		$amount = $product['product_sp_6'];
 		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
 	}
 	if (is_positiveInt($product['product_sp_box'])) {
