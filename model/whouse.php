@@ -75,7 +75,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			}
 		}
 		elseif ($_GET['event'] == 'cut') {
-			$message = cut($_GET['account'], $_GET['token'], $_GET['itemno'], $_GET['_100g'], $_GET['_50g']);
+			$message = cut($_GET['account'], $_GET['token'], $_GET['itemno'], $_GET['_100g']);
+			echo json_encode(array('message' => $message));
+			return;
+		}
+		elseif ($_GET['event'] == 'slice_search') {
+			$message = slice_search($_GET['account'], $_GET['token'], $_GET['slice']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_GET['event'] == 'slice') {
+			$message = slice($_GET['account'], $_GET['token'], $_GET['slice'], $_GET['ingredient'], $_GET['result']);
 			echo json_encode(array('message' => $message));
 			return;
 		}
@@ -164,7 +180,23 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			}
 		}
 		elseif ($_POST['event'] == 'cut') {
-			$message = cut($_POST['account'], $_POST['token'], $_POST['itemno'], $_POST['_100g'], $_POST['_50g']);
+			$message = cut($_POST['account'], $_POST['token'], $_POST['itemno'], $_POST['_100g']);
+			echo json_encode(array('message' => $message));
+			return;
+		}
+		elseif ($_POST['event'] == 'slice_search') {
+			$message = slice_search($_POST['account'], $_POST['token'], $_POST['slice']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'content' => $message['content']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
+		elseif ($_POST['event'] == 'slice') {
+			$message = slice($_POST['account'], $_POST['token'], $_POST['slice'], $_POST['ingredient'], $_POST['result']);
 			echo json_encode(array('message' => $message));
 			return;
 		}
@@ -559,12 +591,18 @@ function adjust_search($account, $token, $whouseno) {
 								<tr><td>米皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_1_100" value="'.$inventory['sp_1_100'].'" onclick="ask_adjust(\'adjust_sp_1_100\', \''.query_name('sp_1_100').'\')"></td></tr>
 								<tr><td>金針皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_2_100" value="'.$inventory['sp_2_100'].'" onclick="ask_adjust(\'adjust_sp_2_100\', \''.query_name('sp_2_100').'\')"></td></tr>
 								<tr><td>釋迦皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_3_100" value="'.$inventory['sp_3_100'].'" onclick="ask_adjust(\'adjust_sp_3_100\', \''.query_name('sp_3_100').'\')"></td></tr>
-								<tr><td>洛神皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_1" value="'.$inventory['ss_1'].'" onclick="ask_adjust(\'adjust_ss_1\', \''.query_name('ss_1').'\')"></td></tr>
-								<tr><td>紅麴皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_2" value="'.$inventory['ss_2'].'" onclick="ask_adjust(\'adjust_ss_2\', \''.query_name('ss_2').'\')"></td></tr>
-								<tr><td>薑黃皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_3" value="'.$inventory['ss_3'].'" onclick="ask_adjust(\'adjust_ss_3\', \''.query_name('ss_3').'\')"></td></tr>
-								<tr><td>蕁麻葉皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_4" value="'.$inventory['ss_4'].'" onclick="ask_adjust(\'adjust_ss_4\', \''.query_name('ss_4').'\')"></td></tr>
-								<tr><td>金針皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_5" value="'.$inventory['ss_5'].'" onclick="ask_adjust(\'adjust_ss_5\', \''.query_name('ss_5').'\')"></td></tr>
-								<tr><td>紅棕梠皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_6" value="'.$inventory['ss_6'].'" onclick="ask_adjust(\'adjust_ss_6\', \''.query_name('ss_6').'\')"></td></tr>
+								<tr><td>洛神皂</td><td><input type="text" class="adjust_E" id="adjust_ss_1" value="'.$inventory['ss_1'].'" onclick="ask_adjust(\'adjust_ss_1\', \''.query_name('ss_1').'\')"></td></tr>
+								<tr><td>洛神皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_1_slice" value="'.$inventory['ss_1_slice'].'" onclick="ask_adjust(\'adjust_ss_1_slice\', \''.query_name('ss_1_slice').'\')"></td></tr>
+								<tr><td>紅麴皂</td><td><input type="text" class="adjust_E" id="adjust_ss_2" value="'.$inventory['ss_2'].'" onclick="ask_adjust(\'adjust_ss_2\', \''.query_name('ss_2').'\')"></td></tr>
+								<tr><td>紅麴皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_2_slice" value="'.$inventory['ss_2_slice'].'" onclick="ask_adjust(\'adjust_ss_2_slice\', \''.query_name('ss_2_slice').'\')"></td></tr>
+								<tr><td>薑黃皂</td><td><input type="text" class="adjust_E" id="adjust_ss_3" value="'.$inventory['ss_3'].'" onclick="ask_adjust(\'adjust_ss_3\', \''.query_name('ss_3').'\')"></td></tr>
+								<tr><td>薑黃皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_3_slice" value="'.$inventory['ss_3_slice'].'" onclick="ask_adjust(\'adjust_ss_3_slice\', \''.query_name('ss_3_slice').'\')"></td></tr>
+								<tr><td>蕁麻葉皂</td><td><input type="text" class="adjust_E" id="adjust_ss_4" value="'.$inventory['ss_4'].'" onclick="ask_adjust(\'adjust_ss_4\', \''.query_name('ss_4').'\')"></td></tr>
+								<tr><td>蕁麻葉皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_4_slice" value="'.$inventory['ss_4_slice'].'" onclick="ask_adjust(\'adjust_ss_4_slice\', \''.query_name('ss_4_slice').'\')"></td></tr>
+								<tr><td>金針皂</td><td><input type="text" class="adjust_E" id="adjust_ss_5" value="'.$inventory['ss_5'].'" onclick="ask_adjust(\'adjust_ss_5\', \''.query_name('ss_5').'\')"></td></tr>
+								<tr><td>金針皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_5_slice" value="'.$inventory['ss_5_slice'].'" onclick="ask_adjust(\'adjust_ss_5_slice\', \''.query_name('ss_5_slice').'\')"></td></tr>
+								<tr><td>紅棕梠皂</td><td><input type="text" class="adjust_E" id="adjust_ss_6" value="'.$inventory['ss_6'].'" onclick="ask_adjust(\'adjust_ss_6\', \''.query_name('ss_6').'\')"></td></tr>
+								<tr><td>紅棕梠皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_6_slice" value="'.$inventory['ss_6_slice'].'" onclick="ask_adjust(\'adjust_ss_6_slice\', \''.query_name('ss_6_slice').'\')"></td></tr>
 							</table></td>
 							<td><table>
 								<tr><th colspan="2">半成品</th></tr>';
@@ -676,12 +714,12 @@ function adjust_search($account, $token, $whouseno) {
 								<tr><td>米皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_1_100" value="'.$inventory['sp_1_100'].'" onclick="ask_adjust(\'adjust_sp_1_100\', \''.query_name('sp_1_100').'\')"></td></tr>
 								<tr><td>金針皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_2_100" value="'.$inventory['sp_2_100'].'" onclick="ask_adjust(\'adjust_sp_2_100\', \''.query_name('sp_2_100').'\')"></td></tr>
 								<tr><td>釋迦皂100g</td><td><input type="text" class="adjust_E" id="adjust_sp_3_100" value="'.$inventory['sp_3_100'].'" onclick="ask_adjust(\'adjust_sp_3_100\', \''.query_name('sp_3_100').'\')"></td></tr>
-								<tr><td>洛神皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_1" value="'.$inventory['ss_1'].'" onclick="ask_adjust(\'adjust_ss_1\', \''.query_name('ss_1').'\')"></td></tr>
-								<tr><td>紅麴皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_2" value="'.$inventory['ss_2'].'" onclick="ask_adjust(\'adjust_ss_2\', \''.query_name('ss_2').'\')"></td></tr>
-								<tr><td>薑黃皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_3" value="'.$inventory['ss_3'].'" onclick="ask_adjust(\'adjust_ss_3\', \''.query_name('ss_3').'\')"></td></tr>
-								<tr><td>蕁麻葉皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_4" value="'.$inventory['ss_4'].'" onclick="ask_adjust(\'adjust_ss_4\', \''.query_name('ss_4').'\')"></td></tr>
-								<tr><td>金針皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_5" value="'.$inventory['ss_5'].'" onclick="ask_adjust(\'adjust_ss_5\', \''.query_name('ss_5').'\')"></td></tr>
-								<tr><td>紅棕梠皂絲</td><td><input type="text" class="adjust_E" id="adjust_ss_6" value="'.$inventory['ss_6'].'" onclick="ask_adjust(\'adjust_ss_6\', \''.query_name('ss_6').'\')"></td></tr>
+								<tr><td>洛神皂</td><td><input type="text" class="adjust_E" id="adjust_ss_1" value="'.$inventory['ss_1'].'" onclick="ask_adjust(\'adjust_ss_1\', \''.query_name('ss_1').'\')"></td></tr>
+								<tr><td>紅麴皂</td><td><input type="text" class="adjust_E" id="adjust_ss_2" value="'.$inventory['ss_2'].'" onclick="ask_adjust(\'adjust_ss_2\', \''.query_name('ss_2').'\')"></td></tr>
+								<tr><td>薑黃皂</td><td><input type="text" class="adjust_E" id="adjust_ss_3" value="'.$inventory['ss_3'].'" onclick="ask_adjust(\'adjust_ss_3\', \''.query_name('ss_3').'\')"></td></tr>
+								<tr><td>蕁麻葉皂</td><td><input type="text" class="adjust_E" id="adjust_ss_4" value="'.$inventory['ss_4'].'" onclick="ask_adjust(\'adjust_ss_4\', \''.query_name('ss_4').'\')"></td></tr>
+								<tr><td>金針皂</td><td><input type="text" class="adjust_E" id="adjust_ss_5" value="'.$inventory['ss_5'].'" onclick="ask_adjust(\'adjust_ss_5\', \''.query_name('ss_5').'\')"></td></tr>
+								<tr><td>紅棕梠皂</td><td><input type="text" class="adjust_E" id="adjust_ss_6" value="'.$inventory['ss_6'].'" onclick="ask_adjust(\'adjust_ss_6\', \''.query_name('ss_6').'\')"></td></tr>
 							</table></td>
 							<td><table>
 								<tr><th colspan="2">半成品</th></tr>';
@@ -1329,10 +1367,10 @@ function mature($account, $token) {
 						if (substr($processedITEMNO, 0, 2) == 'ss') {
 							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$ITEMNO'");
 							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$processedITEMNO'");
-							$content .= $TOTALAMT . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成。<br>';
+							$content .= $TOTALAMT . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成，請至產品切皂/切絲頁面進行切皂。<br>';
 						}
 						else {
-							$content .= $TOTALAMT . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成，請至產品切皂頁面進行切皂。<br>';
+							$content .= $TOTALAMT . ' 克 ' . $fetch2['ITEMNM'] . ' 已熟成，請至產品切皂/切絲頁面進行切皂。<br>';
 						}
 					}
 				}
@@ -1423,7 +1461,7 @@ function mature_search($account, $token) {
 					$difference = (strtotime($date) - strtotime($fetch2['UPDATEDATE'])) / (60 * 60 * 24);
 					if ($difference >= $matureDay) {
 						if (substr($processedITEMNO, 0, 2) == 'sp') {
-							$content .= '<table><tr><th colspan="5">'.$fetch2['ITEMNM'].' '.$fetch2['TOTALAMT'].' g</th></tr><tr><td>100g</td><td><input type="number" min="0" value="'.($fetch2['TOTALAMT']/100).'" id="'.$fetch2['ITEMNO'].'_100g">個</td><td>50g</td><td><input type="number" min="0" value="0" id="'.$fetch2['ITEMNO'].'_50g">個</td><td><button onclick="cut(\''.$fetch2['ITEMNO'].'\', '.$fetch2['TOTALAMT'].')">確定</button></td></tr></table>';
+							$content .= '<table><tr><th colspan="5">'.$fetch2['ITEMNM'].' '.$fetch2['TOTALAMT'].' g</th></tr><tr><td>100g</td><td><input type="number" min="0" value="'.($fetch2['TOTALAMT']/100).'" id="'.$fetch2['ITEMNO'].'_100g">個</td><td><button onclick="cut(\''.$fetch2['ITEMNO'].'\', '.$fetch2['TOTALAMT'].')">確定</button></td></tr></table>';
 						}
 					}
 				}
@@ -1434,7 +1472,7 @@ function mature_search($account, $token) {
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$difference = (strtotime($date) - strtotime($fetch2['UPDATEDATE'])) / (60 * 60 * 24);
 					if ($difference >= $matureDay) {
-						$content .= '<table><tr><th colspan="5">'.$fetch2['ITEMNM'].' '.$fetch2['TOTALAMT'].' g</th></tr><tr><td>100g</td><td><input type="number" min="0" value="'.($fetch2['TOTALAMT']/100).'" id="'.$fetch2['ITEMNO'].'_100g">個</td><td>50g</td><td><input type="number" min="0" value="0" id="'.$fetch2['ITEMNO'].'_50g">個</td><td><button onclick="cut(\''.$fetch2['ITEMNO'].'\', '.$fetch2['TOTALAMT'].')">確定</button></td></tr></table>';
+						$content .= '<table><tr><th colspan="5">'.$fetch2['ITEMNM'].' '.$fetch2['TOTALAMT'].' g</th></tr><tr><td>100g</td><td><input type="number" min="0" value="'.($fetch2['TOTALAMT']/100).'" id="'.$fetch2['ITEMNO'].'_100g">個</td><td><button onclick="cut(\''.$fetch2['ITEMNO'].'\', '.$fetch2['TOTALAMT'].')">確定</button></td></tr></table>';
 					}
 				}
 			}
@@ -1446,7 +1484,7 @@ function mature_search($account, $token) {
 					$difference = (strtotime($date) - strtotime($fetch2['UPDATEDATE'])) / (60 * 60 * 24);
 					if ($difference >= $matureDay) {
 						if (substr($processedITEMNO, 0, 2) == 'sp') {
-							$content .= '<table><tr><th colspan="5">'.$fetch2['ITEMNM'].' '.$fetch2['TOTALAMT'].' g</th></tr><tr><td>100g</td><td><input type="number" min="0" value="'.($fetch2['TOTALAMT']/100).'" id="'.$fetch2['ITEMNO'].'_100g">個</td><td>50g</td><td><input type="number" min="0" value="0" id="'.$fetch2['ITEMNO'].'_50g">個</td><td><button onclick="cut(\''.$fetch2['ITEMNO'].'\', '.$fetch2['TOTALAMT'].')">確定</button></td></tr></table>';
+							$content .= '<table><tr><th colspan="5">'.$fetch2['ITEMNM'].' '.$fetch2['TOTALAMT'].' g</th></tr><tr><td>100g</td><td><input type="number" min="0" value="'.($fetch2['TOTALAMT']/100).'" id="'.$fetch2['ITEMNO'].'_100g">個</td><td><button onclick="cut(\''.$fetch2['ITEMNO'].'\', '.$fetch2['TOTALAMT'].')">確定</button></td></tr></table>';
 						}
 					}
 				}
@@ -1461,7 +1499,7 @@ function mature_search($account, $token) {
 	}
 }
 
-function cut($account, $token, $itemno, $_100g, $_50g) {
+function cut($account, $token, $itemno, $_100g) {
 	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';
@@ -1495,15 +1533,13 @@ function cut($account, $token, $itemno, $_100g, $_50g) {
 					$processedITEMNO = substr($itemno, 0, -9);
 					$difference = (strtotime($date) - strtotime($fetch2['UPDATEDATE'])) / (60 * 60 * 24);
 					if ($difference >= $matureDay) {
-						if ($_100g * 100 + $_50g * 50 > $fetch2['TOTALAMT']) {
+						if ($_100g * 100 > $fetch2['TOTALAMT']) {
 							return 'Output enceed ingredient';
 						}
 						else {
 							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
 							$item_100 = $processedITEMNO . '_100';
-							$item_50 = $processedITEMNO . '_50';
 							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$_100g', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$item_100'");
-							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$_50g', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$item_50'");
 							return 'Success';
 						}
 					}
@@ -1523,15 +1559,13 @@ function cut($account, $token, $itemno, $_100g, $_50g) {
 					$processedITEMNO = substr($itemno, 0, -9);
 					$difference = (strtotime($date) - strtotime($fetch2['UPDATEDATE'])) / (60 * 60 * 24);
 					if ($difference >= $matureDay) {
-						if ($_100g * 100 + $_50g * 50 > $fetch2['TOTALAMT']) {
+						if ($_100g * 100 > $fetch2['TOTALAMT']) {
 							return 'Output enceed ingredient';
 						}
 						else {
 							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$itemno'");
 							$item_100 = $processedITEMNO . '_100';
-							$item_50 = $processedITEMNO . '_50';
 							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$item_100'");
-							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Houshanpi' AND ITEMNO='$item_50'");
 							return 'Success';
 						}
 					}
@@ -1551,15 +1585,13 @@ function cut($account, $token, $itemno, $_100g, $_50g) {
 					$processedITEMNO = substr($itemno, 0, -9);
 					$difference = (strtotime($date) - strtotime($fetch2['UPDATEDATE'])) / (60 * 60 * 24);
 					if ($difference >= $matureDay) {
-						if ($_100g * 100 + $_50g * 50 > $fetch2['TOTALAMT']) {
+						if ($_100g * 100 > $fetch2['TOTALAMT']) {
 							return 'Output enceed ingredient';
 						}
 						else {
 							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$itemno'");
 							$item_100 = $processedITEMNO . '_100';
-							$item_50 = $processedITEMNO . '_50';
 							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$item_100'");
-							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$TOTALAMT', UPDATEDATE='$date' WHERE WHOUSENO='Taitung' AND ITEMNO='$item_50'");
 							return 'Success';
 						}
 					}
@@ -1570,6 +1602,85 @@ function cut($account, $token, $itemno, $_100g, $_50g) {
 			}
 		}
 	}
+}
+
+function slice_search($account, $token, $slice) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Empty token';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	elseif (!in_array($slice, array('ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+		return 'Unregistered item';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		elseif ($fetch1['AUTHORITY'] != 'B') {
+			return 'No authority';
+		}
+		else {
+			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$slice'");
+			$fetch2 = mysql_fetch_array($sql2);
+			$content = '<table><tr><td>切絲品項</td><td>現有存量</td><td>原料重量</td><td>產品重量</td></tr><tr><td>'.query_name($slice).'</td><td>'.$fetch2['TOTALAMT'].'</td><td><input type="text" id="slice_ingredient"></td><td><input type="text" id="slice_result"></td></tr></table><button onclick="slice()">確定切絲</button>';
+			return array('message' => 'Success', 'content' => $content);
+		}
+	}
+}
+
+function slice($account, $token, $slice, $ingredient, $result) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Empty token';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	elseif (!in_array($slice, array('ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+		return 'Unregistered item';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		elseif ($fetch1['AUTHORITY'] != 'B') {
+			return 'No authority';
+		}
+		else {
+			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$slice'");
+			$fetch2 = mysql_fetch_array($sql2);
+			if ($ingredient > $fetch2['TOTALAMT']) {
+				return 'Ingredient enceed inventory';
+			}
+			elseif ($result > $ingredient) {
+				return 'Output enceed ingredient';
+			}
+			elseif (!is_positiveInt($ingredient) || !is_positiveInt($result)) {
+				return 'Wrong amount format';
+			}
+			else {
+				$id = $slice.'_slice';
+				date_default_timezone_set('Asia/Taipei');
+				$date = date("Y-m-d H:i:s");
+				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT-'$ingredient', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$slice'");
+				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$result', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$id'");
+				return 'Success';
+			}
+		}
+	}
+	date_default_timezone_set('Asia/Taipei');
+	$date = date("Y-m-d H:i:s");
 }
 
 function transfer($whouseno) {

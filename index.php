@@ -81,7 +81,7 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 			}
 		}
 		elseif ($_POST['module'] == 'whouse') {
-			if (in_array($_POST['event'], array('view', 'search', 'adjust_search', 'adjust', 'adjust_checked', 'mature', 'mature_search', 'cut'))) {
+			if (in_array($_POST['event'], array('view', 'search', 'adjust_search', 'adjust', 'adjust_checked', 'mature', 'mature_search', 'cut', 'slice_search', 'slice'))) {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);

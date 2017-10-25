@@ -813,6 +813,49 @@ function command_file() {
 	}
 }
 
+function slice_search() {
+	var slice = document.getElementById("slice").value;
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=whouse&event=slice_search&slice=" + slice;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				document.getElementById("slice_search_content").innerHTML = data.content;
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
+function slice() {
+	var slice = document.getElementById("slice").value;
+	var ingredient = document.getElementById("slice_ingredient").value;
+	var result = document.getElementById("slice_result").value;
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var data = "module=whouse&event=slice&slice=" + slice + "&ingredient=" + ingredient + "&result=" + result;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功切絲");
+				slice_search();
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
 function itemclass() {
 	var whouse = document.getElementById("whouse").value;
 	var itemclass = document.getElementById("itemclass").value;
@@ -950,12 +993,12 @@ function itemclass() {
 			option1.text = '米皂100g'; option1.value = 'sp_1_100'; item.add(option1);
 			option2.text = '金針皂100g'; option2.value = 'sp_2_100'; item.add(option2);
 			option3.text = '釋迦皂100g'; option3.value = 'sp_3_100'; item.add(option3);
-			option4.text = '洛神皂絲'; option4.value = 'ss_1'; item.add(option4);
-			option5.text = '紅麴皂絲'; option5.value = 'ss_2'; item.add(option5);
-			option6.text = '薑黃皂絲'; option6.value = 'ss_3'; item.add(option6);
-			option7.text = '蕁麻葉皂絲'; option7.value = 'ss_4'; item.add(option7);
-			option8.text = '金針皂絲'; option8.value = 'ss_5'; item.add(option8);
-			option9.text = '紅棕梠皂絲'; option9.value = 'ss_6'; item.add(option9);
+			option4.text = '洛神皂'; option4.value = 'ss_1'; item.add(option4);
+			option5.text = '紅麴皂'; option5.value = 'ss_2'; item.add(option5);
+			option6.text = '薑黃皂'; option6.value = 'ss_3'; item.add(option6);
+			option7.text = '蕁麻葉皂'; option7.value = 'ss_4'; item.add(option7);
+			option8.text = '金針皂'; option8.value = 'ss_5'; item.add(option8);
+			option9.text = '紅棕梠皂'; option9.value = 'ss_6'; item.add(option9);
 		}
 		else if (itemclass == 'F') {
 			var option0 = document.createElement("option");
@@ -1052,12 +1095,12 @@ function itemclass() {
 			option1.text = '米皂100g'; option1.value = 'sp_1_100'; item.add(option1);
 			option2.text = '金針皂100g'; option2.value = 'sp_2_100'; item.add(option2);
 			option3.text = '釋迦皂100g'; option3.value = 'sp_3_100'; item.add(option3);
-			option4.text = '洛神皂絲'; option4.value = 'ss_1'; item.add(option4);
-			option5.text = '紅麴皂絲'; option5.value = 'ss_2'; item.add(option5);
-			option6.text = '薑黃皂絲'; option6.value = 'ss_3'; item.add(option6);
-			option7.text = '蕁麻葉皂絲'; option7.value = 'ss_4'; item.add(option7);
-			option8.text = '金針皂絲'; option8.value = 'ss_5'; item.add(option8);
-			option9.text = '紅棕梠皂絲'; option9.value = 'ss_6'; item.add(option9);
+			option4.text = '洛神皂'; option4.value = 'ss_1'; item.add(option4);
+			option5.text = '紅麴皂'; option5.value = 'ss_2'; item.add(option5);
+			option6.text = '薑黃皂'; option6.value = 'ss_3'; item.add(option6);
+			option7.text = '蕁麻葉皂'; option7.value = 'ss_4'; item.add(option7);
+			option8.text = '金針皂'; option8.value = 'ss_5'; item.add(option8);
+			option9.text = '紅棕梠皂'; option9.value = 'ss_6'; item.add(option9);
 		}
 		else if (itemclass == 'F') {
 			var option0 = document.createElement("option");
@@ -1170,6 +1213,7 @@ function package() {
 		request.send(data);
 		request.onreadystatechange = function() {
 			if (request.readyState === 4 && request.status === 200) {
+				alert(request.responseText);
 				var data = JSON.parse(request.responseText);
 				if (data.message == 'Success') {
 					document.getElementById("packageQueryResult").innerHTML = data.query;
@@ -1229,6 +1273,7 @@ function pack() {
 		request.send(data);
 		request.onreadystatechange = function() {
 			if (request.readyState === 4 && request.status === 200) {
+				alert(request.responseText);
 				var data = JSON.parse(request.responseText);
 				if (data.message == 'Success') {
 					alert("成功包裝");
@@ -2130,23 +2175,22 @@ function mature_search() {
 
 function cut(itemno, amt) {
 	var _100g = document.getElementById(itemno + "_100g").value;
-	var _50g = document.getElementById(itemno + "_50g").value;
-	var totalAmount = Number(_100g) * 100 + Number(_50g) * 50;
+	var totalAmount = Number(_100g) * 100;
 	if (totalAmount > amt) {
 		alert("產品總量超過原料總量");
 	}
 	else {
 		var waste = amt - totalAmount;
 		if (confirm("將產生" + waste + "克耗損，是否繼續？") == true) {
-			cut_checked(itemno, _100g, _50g);
+			cut_checked(itemno, _100g);
 		}
 	}
 }
 
-function cut_checked(itemno, _100g, _50g) {
+function cut_checked(itemno, _100g) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var data = "module=whouse&event=cut&itemno=" + itemno + "&_100g=" + _100g + "&_50g=" + _50g;
+	var data = "module=whouse&event=cut&itemno=" + itemno + "&_100g=" + _100g;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 	request.onreadystatechange = function() {
