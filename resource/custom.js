@@ -1213,7 +1213,6 @@ function package() {
 		request.send(data);
 		request.onreadystatechange = function() {
 			if (request.readyState === 4 && request.status === 200) {
-				alert(request.responseText);
 				var data = JSON.parse(request.responseText);
 				if (data.message == 'Success') {
 					document.getElementById("packageQueryResult").innerHTML = data.query;
@@ -1273,7 +1272,6 @@ function pack() {
 		request.send(data);
 		request.onreadystatechange = function() {
 			if (request.readyState === 4 && request.status === 200) {
-				alert(request.responseText);
 				var data = JSON.parse(request.responseText);
 				if (data.message == 'Success') {
 					alert("成功包裝");
