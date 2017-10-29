@@ -341,14 +341,9 @@ function search_state($account, $token, $state) {
 			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
 				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND ACTCODE='1'");
 			}
-			elseif ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'C') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+				$location = authorityToName($fetch1['AUTHORITY']);
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='$location' OR RECEIVER='$location') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
 			$content = '';
 			if ($sql2 == false) {
@@ -393,155 +388,40 @@ function search_date($account, $token, $year, $month, $day) {
 		else {
 			$month = process_date($month);
 			$day = process_date($day);
-			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
+			if (in_array($fetch1['AUTHORITY'], array('A', 'E'))) {
 				if (empty($year)) {
 					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
 					}
 					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m')='$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
 					}
 				}
 				else {
 					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
 					}
 					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
 					}
 				}
 			}
-			elseif ($fetch1['AUTHORITY'] == 'B') {
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+				$location = authorityToName($fetch1['AUTHORITY']);
 				if (empty($year)) {
 					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou')");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location')") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
 					}
 					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%m')='$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
 					}
 				}
 				else {
 					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
 					}
 					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Beitou' OR RECEIVER='Beitou') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
-						}
-					}
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'C') {
-				if (empty($year)) {
-					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi')");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
-						}
-					}
-					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
-						}
-					}
-				}
-				else {
-					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
-						}
-					}
-					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Houshanpi' OR RECEIVER='Houshanpi') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
-						}
-					}
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'D') {
-				if (empty($year)) {
-					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung')");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
-						}
-					}
-					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
-						}
-					}
-				}
-				else {
-					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
-						}
-					}
-					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='Taitung' OR RECEIVER='Taitung') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
 					}
 				}
 			}
@@ -599,50 +479,11 @@ function view_index($account, $token, $index) {
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
 				$sql4 = '';
-				if ($fetch1['AUTHORITY'] == 'A') {
-					if ($fetch2['SENDER'] == 'Trisoap') {
+				if (in_array($fetch1['AUTHORITY'], array('A', 'B', 'C', 'D'))) {
+					if ($fetch2['SENDER'] == authorityToName($fetch1['AUTHORITY'])) {
 						$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
 					}
-					elseif ($fetch2['RECEIVER'] == 'Trisoap') {
-						if ($fetch2['RQSTSTAT'] == 'A') {
-							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'";
-						}
-						else {
-							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date' WHERE RQSTNO='$index'";
-						}
-					}
-				}
-				elseif ($fetch1['AUTHORITY'] == 'B') {
-					if ($fetch2['SENDER'] == 'Beitou') {
-						$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
-					}
-					elseif ($fetch2['RECEIVER'] == 'Beitou') {
-						if ($fetch2['RQSTSTAT'] == 'A') {
-							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'";
-						}
-						else {
-							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date' WHERE RQSTNO='$index'";
-						}
-					}
-				}
-				elseif ($fetch1['AUTHORITY'] == 'C') {
-					if ($fetch2['SENDER'] == 'Houshanpi') {
-						$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
-					}
-					elseif ($fetch2['RECEIVER'] == 'Houshanpi') {
-						if ($fetch2['RQSTSTAT'] == 'A') {
-							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'";
-						}
-						else {
-							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date' WHERE RQSTNO='$index'";
-						}
-					}
-				}
-				elseif ($fetch1['AUTHORITY'] == 'D') {
-					if ($fetch2['SENDER'] == 'Taitung') {
-						$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
-					}
-					elseif ($fetch2['RECEIVER'] == 'Taitung') {
+					elseif ($fetch2['RECEIVER'] == authorityToName($fetch1['AUTHORITY'])) {
 						if ($fetch2['RQSTSTAT'] == 'A') {
 							$sql4 = "UPDATE RQSTMAS SET RECEIVERDATE='$date', RQSTSTAT='B', UPDATEDATE='$date' WHERE RQSTNO='$index'";
 						}
@@ -875,21 +716,10 @@ function notice($account, $token) {
 			return 'Wrong token';
 		}
 		else {
-			if ($fetch1['AUTHORITY'] == 'A') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Trisoap' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Trisoap' AND (RQSTSTAT='A' OR RQSTSTAT='B') AND ACTCODE='1'");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Beitou' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Beitou' AND (RQSTSTAT='A' OR RQSTSTAT='B') AND ACTCODE='1'");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'C') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Houshanpi' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Houshanpi' AND (RQSTSTAT='A' OR RQSTSTAT='B') AND ACTCODE='1'");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='Taitung' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
-				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='Taitung' AND (RQSTSTAT='A' OR RQSTSTAT='B') AND ACTCODE='1'");
+			if (in_array($fetch1['AUTHORITY'], array('A', 'B', 'C', 'D'))) {
+				$location = authorityToName($fetch1['AUTHORITY']);
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='$location' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
+				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='$location' AND (RQSTSTAT='A' OR RQSTSTAT='B') AND ACTCODE='1'");
 			}
 			else {
 				return 'No notice';

@@ -270,14 +270,9 @@ function view($account, $token) {
 			if ($fetch1['AUTHORITY'] == 'A') {
 				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
-			elseif ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE TARGET='Beitou' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'C') {
-				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE TARGET='Houshanpi' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE TARGET='Taitung' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+				$location = AuthToLocation($fetch1['AUTHORITY']);
+				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE TARGET='$location' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
 			elseif ($fetch1['AUTHORITY'] == 'E') {
 				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND (TARGET!='Houshanpi' OR CMDTYPE!='C') ORDER BY UPDATEDATE DESC");
@@ -364,14 +359,9 @@ function search_type($account, $token, $type) {
 			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
 				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDTYPE='$type' AND ACTCODE='1'");
 			}
-			elseif ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDTYPE='$type' AND TARGET='Beitou' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'C') {
-				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDTYPE='$type' AND TARGET='Houshanpi' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDTYPE='$type' AND TARGET='Taitung' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+				$location = AuthToLocation($fetch1['AUTHORITY']);
+				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDTYPE='$type' AND TARGET='$location' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
 			$content = '';
 			if ($sql2 == false) {
@@ -411,152 +401,37 @@ function search_date($account, $token, $year, $month, $day) {
 			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
 				if (empty($year)) {
 					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1'") : mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
 					}
 					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m')='$month'") : mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
 					}
 				}
 				else {
 					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'") : mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
 					}
 					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'") : mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
 					}
 				}
 			}
-			elseif ($fetch1['AUTHORITY'] == 'B') {
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+				$location = AuthToLocation($fetch1['AUTHORITY']);
 				if (empty($year)) {
 					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='$location'") : mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='$location' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
 					}
 					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='$location' AND DATE_FORMAT(CREATEDATE,'%m')='$month'") : mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='$location' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
 					}
 				}
 				else {
 					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='$location' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'") : mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='$location' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
 					}
 					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Beitou' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
-						}
-					}
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'C') {
-				if (empty($year)) {
-					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
-						}
-					}
-					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
-						}
-					}
-				}
-				else {
-					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
-						}
-					}
-					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Houshanpi' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
-						}
-					}
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'D') {
-				if (empty($year)) {
-					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
-						}
-					}
-					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%m')='$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
-						}
-					}
-				}
-				else {
-					if (empty($month)) {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
-						}
-					}
-					else {
-						if (empty($day)) {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'");
-						}
-						else {
-							$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='Taitung' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
-						}
+						$sql2 = empty($day) ? mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='$location' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'") : mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' AND TARGET='$location' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
 					}
 				}
 			}
@@ -797,32 +672,9 @@ function notice($account, $token) {
 					return array('message' => 'Success', 'content' => $content);
 				}
 			}
-			elseif ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE TARGET='Beitou' AND (CMDSTAT='A' OR CMDSTAT='B') AND ACTCODE='1'");
-				if (mysql_num_rows($sql2) == 0) {
-					return 'No notice';
-				}
-				else {
-					while ($fetch2 = mysql_fetch_array($sql2)) {
-						$content .= '<span style="color: red;">您有一個' . translate($fetch2['CMDTYPE']) . '訂單，訂單編號 ' . $fetch2['CMDNO'] . ' 。</span><button onclick="view_command_notice('.$fetch2['CMDNO'].')">查看</button><br>';
-					}
-					return array('message' => 'Success', 'content' => $content);
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'C') {
-				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE TARGET='Houshanpi' AND (CMDSTAT='A' OR CMDSTAT='B') AND ACTCODE='1'");
-				if (mysql_num_rows($sql2) == 0) {
-					return 'No notice';
-				}
-				else {
-					while ($fetch2 = mysql_fetch_array($sql2)) {
-						$content .= '<span style="color: red;">您有一個' . translate($fetch2['CMDTYPE']) . '訂單，訂單編號 ' . $fetch2['CMDNO'] . ' 。</span><button onclick="view_command_notice('.$fetch2['CMDNO'].')">查看</button><br>';
-					}
-					return array('message' => 'Success', 'content' => $content);
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE TARGET='Taitung' AND (CMDSTAT='A' OR CMDSTAT='B') AND ACTCODE='1'");
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+				$location = AuthToLocation($fetch1['AUTHORITY']);
+				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE TARGET='$location' AND (CMDSTAT='A' OR CMDSTAT='B') AND ACTCODE='1'");
 				if (mysql_num_rows($sql2) == 0) {
 					return 'No notice';
 				}
@@ -1638,4 +1490,12 @@ function unit($itemno) {
 	elseif (in_array($itemno, array('oil_9', 'NaOH'))) {
 		return 'g';
 	}
+}
+
+function AuthToLocation($auth) {
+	if ($auth == 'A') return 'Trisoap';
+	elseif ($auth == 'B') return 'Beitou';
+	elseif ($auth == 'C') return 'Houshanpi';
+	elseif ($auth == 'D') return 'Taitung';
+	elseif ($auth == 'E') return 'Intern';
 }
