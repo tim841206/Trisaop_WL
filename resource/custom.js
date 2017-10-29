@@ -1117,7 +1117,6 @@ function whouse_view() {
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
-			alert(request.responseText);
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				document.getElementById("whouse_view_content").innerHTML = data.content;
@@ -1140,7 +1139,6 @@ function whouse_search() {
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
-			alert(request.responseText);
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				document.getElementById("whouse_search_content").innerHTML = data.content;
