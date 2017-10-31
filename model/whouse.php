@@ -1223,13 +1223,13 @@ function slice($account, $token, $slice, $ingredient, $result) {
 			}
 			else {
 				if (in_array($slice, array('ss_1', 'ss_2'))) {
-					$id = 'ss_1_slice';
+					$id = 'slice_ss_1';
 				}
 				elseif (in_array($slice, array('ss_3', 'ss_4'))) {
-					$id = 'ss_2_slice';
+					$id = 'slice_ss_2';
 				}
 				elseif (in_array($slice, array('ss_5', 'ss_6'))) {
-					$id = 'ss_3_slice';
+					$id = 'slice_ss_3';
 				}
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
