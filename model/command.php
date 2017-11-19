@@ -929,8 +929,8 @@ function send($content) {
 	$token = $content['token'];
 	$type = $content['type'];
 	$memo = $content['command_memo'];
-	$startdate = $content['date_start'];
-	$enddate = $content['date_end'];
+	$startdate = isset($content['date_start']) ? $content['date_start'] : '';
+	$enddate = isset($content['date_end']) ? $content['date_end'] : '';
 	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
 	if (empty($account)) {
 		return 'Empty account';

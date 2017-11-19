@@ -541,19 +541,17 @@ function command() {
 		document.getElementById("command_content").style.display = null;
 		document.getElementById("commandA").style.display = null;
 		document.getElementById("commandB").style.display = 'none';
-		document.getElementById("commandD").style.display = 'none';
-		document.getElementById("commandE").style.display = 'none';
-		document.getElementById("commandF").style.display = 'none';
-		document.getElementById("commandDEF").style.display = 'none';
+		document.getElementById("commandC1").style.display = 'none';
+		document.getElementById("commandC2").style.display = 'none';
+		document.getElementById("commandC").style.display = 'none';
 	}
 	else if (command == 'B1' || command == 'B2') {
 		document.getElementById("command_content").style.display = null;
 		document.getElementById("commandA").style.display = 'none';
 		document.getElementById("commandB").style.display = null;
-		document.getElementById("commandD").style.display = 'none';
-		document.getElementById("commandE").style.display = 'none';
-		document.getElementById("commandF").style.display = 'none';
-		document.getElementById("commandDEF").style.display = 'none';
+		document.getElementById("commandC1").style.display = 'none';
+		document.getElementById("commandC2").style.display = 'none';
+		document.getElementById("commandC").style.display = 'none';
 	}
 	else if (command == 'C1' || command == 'C3' || command == 'C4') {
 		$(function() { $('.datepicker').datepick(); });
@@ -1444,7 +1442,7 @@ function sender() {
 		option2.text = '北投'; option2.value = 'Beitou'; receiver.add(option2);
 		option3.text = '後山埤'; option3.value = 'Houshanpi'; receiver.add(option3);
 		option4.text = '台東'; option4.value = 'Taitung'; receiver.add(option4);
-		option5.text = '宜蘭'; option2.value = 'Yilan'; receiver.add(option5);
+		option5.text = '宜蘭'; option5.value = 'Yilan'; receiver.add(option5);
 	}
 	else if (sender == 'Houshanpi') {
 		var option1 = document.createElement("option");
