@@ -196,6 +196,9 @@ function adjust() {
 	else if (whouseno == 'Taitung') {
 		var data = "module=whouse&event=adjust&whouseno=Taitung&adjust_A_no=" + adjust_A_no + "&adjust_A_amt=" + adjust_A_amt + "&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_E_no=" + adjust_E_no + "&adjust_E_amt=" + adjust_E_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt;
 	}
+	else if (whouseno == 'Yilan') {
+		var data = "module=whouse&event=adjust&whouseno=Yilan&adjust_A_no=" + adjust_A_no + "&adjust_A_amt=" + adjust_A_amt + "&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_C_no=" + adjust_C_no + "&adjust_C_amt=" + adjust_C_amt + "&adjust_D_no=" + adjust_D_no + "&adjust_D_amt=" + adjust_D_amt + "&adjust_E_no=" + adjust_E_no + "&adjust_E_amt=" + adjust_E_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt + "&adjust_H_no=" + adjust_H_no + "&adjust_H_amt=" + adjust_H_amt;
+	}
 	else {
 		var data = "module=whouse&event=adjust";
 	}
@@ -273,6 +276,9 @@ function adjust_checked() {
 	}
 	else if (whouseno == 'Taitung') {
 		var data = "module=whouse&event=adjust_checked&whouseno=Taitung&adjust_A_no=" + adjust_A_no + "&adjust_A_amt=" + adjust_A_amt + "&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_E_no=" + adjust_E_no + "&adjust_E_amt=" + adjust_E_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt;
+	}
+	else if (whouseno == 'Yilan') {
+		var data = "module=whouse&event=adjust_checked&whouseno=Yilan&adjust_A_no=" + adjust_A_no + "&adjust_A_amt=" + adjust_A_amt + "&adjust_B_no=" + adjust_B_no + "&adjust_B_amt=" + adjust_B_amt + "&adjust_C_no=" + adjust_C_no + "&adjust_C_amt=" + adjust_C_amt + "&adjust_D_no=" + adjust_D_no + "&adjust_D_amt=" + adjust_D_amt + "&adjust_E_no=" + adjust_E_no + "&adjust_E_amt=" + adjust_E_amt + "&adjust_F_no=" + adjust_F_no + "&adjust_F_amt=" + adjust_F_amt + "&adjust_H_no=" + adjust_H_no + "&adjust_H_amt=" + adjust_H_amt;
 	}
 	else {
 		var data = "module=whouse&event=adjust_checked";
@@ -494,7 +500,7 @@ function whouse() {
 	while (itemclass.options.length) {
 		itemclass.options.remove(0);
 	}
-	if (whouse == 'all' || whouse == 'Beitou') {
+	if (whouse == 'all' || whouse == 'Beitou' || whouse == 'Yilan') {
 		var option1 = document.createElement("option");
 		var option2 = document.createElement("option");
 		var option3 = document.createElement("option");
@@ -531,85 +537,56 @@ function whouse() {
 
 function command() {
 	var command = document.getElementById("command").value;
-	if (command == 'A') {
+	if (command == 'A1' || command == 'A2' || command == 'A3') {
 		document.getElementById("command_content").style.display = null;
 		document.getElementById("commandA").style.display = null;
 		document.getElementById("commandB").style.display = 'none';
-		document.getElementById("commandC").style.display = 'none';
 		document.getElementById("commandD").style.display = 'none';
 		document.getElementById("commandE").style.display = 'none';
 		document.getElementById("commandF").style.display = 'none';
 		document.getElementById("commandDEF").style.display = 'none';
 	}
-	else if (command == 'B') {
+	else if (command == 'B1' || command == 'B2') {
 		document.getElementById("command_content").style.display = null;
 		document.getElementById("commandA").style.display = 'none';
 		document.getElementById("commandB").style.display = null;
-		document.getElementById("commandC").style.display = 'none';
 		document.getElementById("commandD").style.display = 'none';
 		document.getElementById("commandE").style.display = 'none';
 		document.getElementById("commandF").style.display = 'none';
 		document.getElementById("commandDEF").style.display = 'none';
 	}
-	else if (command == 'C') {
+	else if (command == 'C1' || command == 'C3' || command == 'C4') {
+		$(function() { $('.datepicker').datepick(); });
 		document.getElementById("command_content").style.display = null;
 		document.getElementById("commandA").style.display = 'none';
 		document.getElementById("commandB").style.display = 'none';
+		document.getElementById("commandC1").style.display = null;
+		document.getElementById("commandC2").style.display = 'none';
 		document.getElementById("commandC").style.display = null;
-		document.getElementById("commandD").style.display = 'none';
-		document.getElementById("commandE").style.display = 'none';
-		document.getElementById("commandF").style.display = 'none';
-		document.getElementById("commandDEF").style.display = 'none';
 	}
-	else if (command == 'D') {
+	else if (command == 'C2') {
 		$(function() { $('.datepicker').datepick(); });
 		document.getElementById("command_content").style.display = null;
 		document.getElementById("commandA").style.display = 'none';
 		document.getElementById("commandB").style.display = 'none';
-		document.getElementById("commandC").style.display = 'none';
-		document.getElementById("commandD").style.display = null;
-		document.getElementById("commandE").style.display = 'none';
-		document.getElementById("commandF").style.display = 'none';
-		document.getElementById("commandDEF").style.display = null;
-	}
-	else if (command == 'E') {
-		$(function() { $('.datepicker').datepick(); });
-		document.getElementById("command_content").style.display = null;
-		document.getElementById("commandA").style.display = 'none';
-		document.getElementById("commandB").style.display = 'none';
-		document.getElementById("commandC").style.display = 'none';
-		document.getElementById("commandD").style.display = 'none';
-		document.getElementById("commandE").style.display = null;
-		document.getElementById("commandF").style.display = 'none';
-		document.getElementById("commandDEF").style.display = null;
-	}
-	else if (command == 'F') {
-		$(function() { $('.datepicker').datepick(); });
-		document.getElementById("command_content").style.display = null;
-		document.getElementById("commandA").style.display = 'none';
-		document.getElementById("commandB").style.display = 'none';
-		document.getElementById("commandC").style.display = 'none';
-		document.getElementById("commandD").style.display = 'none';
-		document.getElementById("commandE").style.display = 'none';
-		document.getElementById("commandF").style.display = null;
-		document.getElementById("commandDEF").style.display = null;
+		document.getElementById("commandC1").style.display = 'none';
+		document.getElementById("commandC2").style.display = null;
+		document.getElementById("commandC").style.display = null;
 	}
 	else {
 		document.getElementById("command_content").style.display = 'none';
 		document.getElementById("commandA").style.display = 'none';
 		document.getElementById("commandB").style.display = 'none';
+		document.getElementById("commandC1").style.display = 'none';
+		document.getElementById("commandC2").style.display = 'none';
 		document.getElementById("commandC").style.display = 'none';
-		document.getElementById("commandD").style.display = 'none';
-		document.getElementById("commandE").style.display = 'none';
-		document.getElementById("commandF").style.display = 'none';
-		document.getElementById("commandDEF").style.display = 'none';
 	}
 }
 
 function command_check() {
 	var command = document.getElementById("command").value;
 	var command_memo = document.getElementById("command_memo").value;
-	if (command == 'A') {
+	if (command == 'A1' || command == 'A2' || command == 'A3') {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
 		var oil_1 = document.getElementById("commandA_oil_1").value;
@@ -623,7 +600,7 @@ function command_check() {
 		var oil_9 = document.getElementById("commandA_oil_9").value;
 		var NaOH = document.getElementById("commandA_NaOH").value;
 		var command_memo = document.getElementById("command_memo").value;
-		data = "module=command&event=send&type=A&command_memo=" + command_memo + "&oil_1=" + oil_1 + "&oil_2=" + oil_2 + "&oil_3=" + oil_3 + "&oil_4=" + oil_4 + "&oil_5=" + oil_5 + "&oil_6=" + oil_6 + "&oil_7=" + oil_7 + "&oil_8=" + oil_8 + "&oil_9=" + oil_9 + "&NaOH=" + NaOH;
+		data = "module=command&event=send&type=" + command + "&command_memo=" + command_memo + "&oil_1=" + oil_1 + "&oil_2=" + oil_2 + "&oil_3=" + oil_3 + "&oil_4=" + oil_4 + "&oil_5=" + oil_5 + "&oil_6=" + oil_6 + "&oil_7=" + oil_7 + "&oil_8=" + oil_8 + "&oil_9=" + oil_9 + "&NaOH=" + NaOH;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -639,21 +616,19 @@ function command_check() {
 			}
 		}
 	}
-	else if (command == 'B') {
+	else if (command == 'B1' || command == 'B2') {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
-		var oil_1 = document.getElementById("commandB_oil_1").value;
-		var oil_2 = document.getElementById("commandB_oil_2").value;
-		var oil_3 = document.getElementById("commandB_oil_3").value;
-		var oil_4 = document.getElementById("commandB_oil_4").value;
-		var oil_5 = document.getElementById("commandB_oil_5").value;
-		var oil_6 = document.getElementById("commandB_oil_6").value;
-		var oil_7 = document.getElementById("commandB_oil_7").value;
-		var oil_8 = document.getElementById("commandB_oil_8").value;
-		var oil_9 = document.getElementById("commandB_oil_9").value;
-		var NaOH = document.getElementById("commandB_NaOH").value;
+		var product_sp_1 = document.getElementById("commandB_product_sp_1").value;
+		var product_sp_3 = document.getElementById("commandB_product_sp_3").value;
+		var product_sp_5 = document.getElementById("commandB_product_sp_5").value;
+		var product_sp_box = document.getElementById("commandB_product_sp_box").value;
+		var product_ss_1 = document.getElementById("commandB_product_ss_1").value;
+		var product_ss_2 = document.getElementById("commandB_product_ss_2").value;
+		var product_ss_3 = document.getElementById("commandB_product_ss_3").value;
+		var product_ss_box = document.getElementById("commandB_product_ss_box").value;
 		var command_memo = document.getElementById("command_memo").value;
-		data = "module=command&event=send&type=B&command_memo=" + command_memo + "&oil_1=" + oil_1 + "&oil_2=" + oil_2 + "&oil_3=" + oil_3 + "&oil_4=" + oil_4 + "&oil_5=" + oil_5 + "&oil_6=" + oil_6 + "&oil_7=" + oil_7 + "&oil_8=" + oil_8 + "&oil_9=" + oil_9 + "&NaOH=" + NaOH;
+		data = "module=command&event=send&type=" + command + "&command_memo=" + command_memo + "&product_sp_1=" + product_sp_1 + "&product_sp_3=" + product_sp_3 + "&product_sp_5=" + product_sp_5 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -669,50 +644,22 @@ function command_check() {
 			}
 		}
 	}
-	else if (command == 'C') {
+	else if (command == 'C1' || command == 'C3' || command == 'C4') {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
-		var product_sp_1 = document.getElementById("commandC_product_sp_1").value;
-		var product_sp_3 = document.getElementById("commandC_product_sp_3").value;
-		var product_sp_5 = document.getElementById("commandC_product_sp_5").value;
-		var product_sp_box = document.getElementById("commandC_product_sp_box").value;
-		var product_ss_1 = document.getElementById("commandC_product_ss_1").value;
-		var product_ss_2 = document.getElementById("commandC_product_ss_2").value;
-		var product_ss_3 = document.getElementById("commandC_product_ss_3").value;
-		var product_ss_box = document.getElementById("commandC_product_ss_box").value;
-		var command_memo = document.getElementById("command_memo").value;
-		data = "module=command&event=send&type=C&command_memo=" + command_memo + "&product_sp_1=" + product_sp_1 + "&product_sp_3=" + product_sp_3 + "&product_sp_5=" + product_sp_5 + "&product_sp_box=" + product_sp_box + "&product_ss_1=" + product_ss_1 + "&product_ss_2=" + product_ss_2 + "&product_ss_3=" + product_ss_3 + "&product_ss_box=" + product_ss_box;
-		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		request.send(data);
-		request.onreadystatechange = function() {
-			if (request.readyState === 4 && request.status === 200) {
-				var data = JSON.parse(request.responseText);
-				if (data.message == 'Success') {
-					alert("成功下單，訂單編號：" + data.index);
-					location.reload();
-				}
-				else {
-					alert(data.message);
-				}
-			}
-		}
-	}
-	else if (command == 'D') {
-		var request = new XMLHttpRequest();
-		request.open("POST", "index.php");
-		var sp_1 = document.getElementById("commandD_sp_1").value;
-		var sp_2 = document.getElementById("commandD_sp_2").value;
-		var sp_3 = document.getElementById("commandD_sp_3").value;
-		var ss_1 = document.getElementById("commandD_ss_1").value;
-		var ss_2 = document.getElementById("commandD_ss_2").value;
-		var ss_3 = document.getElementById("commandD_ss_3").value;
-		var ss_4 = document.getElementById("commandD_ss_4").value;
-		var ss_5 = document.getElementById("commandD_ss_5").value;
-		var ss_6 = document.getElementById("commandD_ss_6").value;
+		var sp_1 = document.getElementById("commandC1_sp_1").value;
+		var sp_2 = document.getElementById("commandC1_sp_2").value;
+		var sp_3 = document.getElementById("commandC1_sp_3").value;
+		var ss_1 = document.getElementById("commandC1_ss_1").value;
+		var ss_2 = document.getElementById("commandC1_ss_2").value;
+		var ss_3 = document.getElementById("commandC1_ss_3").value;
+		var ss_4 = document.getElementById("commandC1_ss_4").value;
+		var ss_5 = document.getElementById("commandC1_ss_5").value;
+		var ss_6 = document.getElementById("commandC1_ss_6").value;
 		var command_memo = document.getElementById("command_memo").value;
 		var date_start = document.getElementById("date_start").value;
 		var date_end = document.getElementById("date_end").value;
-		data = "module=command&event=send&type=D&command_memo=" + command_memo + "&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3 + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6 + "&date_start=" + date_start + "&date_end=" + date_end;
+		data = "module=command&event=send&type=" + command + "&command_memo=" + command_memo + "&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3 + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6 + "&date_start=" + date_start + "&date_end=" + date_end;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -728,47 +675,16 @@ function command_check() {
 			}
 		}
 	}
-	else if (command == 'E') {
+	else if (command == 'C2') {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
-		var sp_1_houshanpi = document.getElementById("commandE_sp_1").value;
-		var sp_2_houshanpi = document.getElementById("commandE_sp_2").value;
-		var sp_3_houshanpi = document.getElementById("commandE_sp_3").value;
+		var sp_1_houshanpi = document.getElementById("commandC2_sp_1").value;
+		var sp_2_houshanpi = document.getElementById("commandC2_sp_2").value;
+		var sp_3_houshanpi = document.getElementById("commandC2_sp_3").value;
 		var command_memo = document.getElementById("command_memo").value;
 		var date_start = document.getElementById("date_start").value;
 		var date_end = document.getElementById("date_end").value;
-		data = "module=command&event=send&type=E&command_memo=" + command_memo + "&sp_1_houshanpi=" + sp_1_houshanpi + "&sp_2_houshanpi=" + sp_2_houshanpi + "&sp_3_houshanpi=" + sp_3_houshanpi + "&date_start=" + date_start + "&date_end=" + date_end;
-		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		request.send(data);
-		request.onreadystatechange = function() {
-			if (request.readyState === 4 && request.status === 200) {
-				var data = JSON.parse(request.responseText);
-				if (data.message == 'Success') {
-					command_file();
-					alert("成功下單，訂單編號：" + data.index);
-				}
-				else {
-					alert(data.message);
-				}
-			}
-		}
-	}
-	else if (command == 'F') {
-		var request = new XMLHttpRequest();
-		request.open("POST", "index.php");
-		var sp_1 = document.getElementById("commandF_sp_1").value;
-		var sp_2 = document.getElementById("commandF_sp_2").value;
-		var sp_3 = document.getElementById("commandF_sp_3").value;
-		var ss_1 = document.getElementById("commandF_ss_1").value;
-		var ss_2 = document.getElementById("commandF_ss_2").value;
-		var ss_3 = document.getElementById("commandF_ss_3").value;
-		var ss_4 = document.getElementById("commandF_ss_4").value;
-		var ss_5 = document.getElementById("commandF_ss_5").value;
-		var ss_6 = document.getElementById("commandF_ss_6").value;
-		var command_memo = document.getElementById("command_memo").value;
-		var date_start = document.getElementById("date_start").value;
-		var date_end = document.getElementById("date_end").value;
-		data = "module=command&event=send&type=F&command_memo=" + command_memo + "&sp_1=" + sp_1 + "&sp_2=" + sp_2 + "&sp_3=" + sp_3 + "&ss_1=" + ss_1 + "&ss_2=" + ss_2 + "&ss_3=" + ss_3 + "&ss_4=" + ss_4 + "&ss_5=" + ss_5 + "&ss_6=" + ss_6 + "&date_start=" + date_start + "&date_end=" + date_end;
+		data = "module=command&event=send&type=" + command + "&command_memo=" + command_memo + "&sp_1_houshanpi=" + sp_1_houshanpi + "&sp_2_houshanpi=" + sp_2_houshanpi + "&sp_3_houshanpi=" + sp_3_houshanpi + "&date_start=" + date_start + "&date_end=" + date_end;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -856,7 +772,7 @@ function itemclass() {
 	while (item.options.length) {
 		item.options.remove(0);
 	}
-	if (whouse == 'all' || whouse == 'Beitou') {
+	if (whouse == 'all' || whouse == 'Beitou' || whouse == 'Yilan') {
 		if (itemclass == 'A') {
 			var option0 = document.createElement("option");
 			var option1 = document.createElement("option");
@@ -916,16 +832,20 @@ function itemclass() {
 			var option7 = document.createElement("option");
 			var option8 = document.createElement("option");
 			var option9 = document.createElement("option");
+			var option10 = document.createElement("option");
+			var option11 = document.createElement("option");
 			option0.text = '全部'; option0.value = 'all'; item.add(option0);
 			option1.text = '不織布包'; option1.value = 'package_1'; item.add(option1);
-			option2.text = '鋁包'; option2.value = 'package_2'; item.add(option2);
-			option3.text = '單顆皂禮盒封套'; option3.value = 'package_3'; item.add(option3);
-			option4.text = '單顆皂禮盒內盒'; option4.value = 'package_4'; item.add(option4);
-			option5.text = '皂絲禮盒'; option5.value = 'package_5'; item.add(option5);
-			option6.text = '內襯'; option6.value = 'package_6'; item.add(option6);
-			option7.text = '米皂外盒100g'; option7.value = 'package_7a'; item.add(option7);
-			option8.text = '金針皂外盒100g'; option8.value = 'package_8a'; item.add(option8);
-			option9.text = '釋迦皂外盒100g'; option9.value = 'package_9a'; item.add(option9);
+			option2.text = '洛神紅麴皂絲鋁包'; option2.value = 'package_2a'; item.add(option2);
+			option3.text = '暖暖薑黃皂絲鋁包'; option3.value = 'package_2b'; item.add(option3);
+			option4.text = '萱草米黃皂絲鋁包'; option4.value = 'package_2c'; item.add(option4);
+			option5.text = '單顆皂禮盒封套'; option5.value = 'package_3'; item.add(option5);
+			option6.text = '單顆皂禮盒內盒'; option6.value = 'package_4'; item.add(option6);
+			option7.text = '皂絲禮盒'; option7.value = 'package_5'; item.add(option7);
+			option8.text = '內襯'; option8.value = 'package_6'; item.add(option8);
+			option9.text = '米皂外盒100g'; option9.value = 'package_7a'; item.add(option9);
+			option10.text = '金針皂外盒100g'; option10.value = 'package_8a'; item.add(option10);
+			option11.text = '釋迦皂外盒100g'; option11.value = 'package_9a'; item.add(option11);
 		}
 		else if (itemclass == 'D') {
 			var option0 = document.createElement("option");
@@ -1519,18 +1439,24 @@ function sender() {
 		var option2 = document.createElement("option");
 		var option3 = document.createElement("option");
 		var option4 = document.createElement("option");
+		var option5 = document.createElement("option");
 		option1.text = '請選擇'; option1.value = ''; receiver.add(option1);
 		option2.text = '北投'; option2.value = 'Beitou'; receiver.add(option2);
 		option3.text = '後山埤'; option3.value = 'Houshanpi'; receiver.add(option3);
 		option4.text = '台東'; option4.value = 'Taitung'; receiver.add(option4);
+		option5.text = '宜蘭'; option2.value = 'Yilan'; receiver.add(option5);
 	}
 	else if (sender == 'Houshanpi') {
 		var option1 = document.createElement("option");
+		var option2 = document.createElement("option");
 		option1.text = '北投'; option1.value = 'Beitou'; receiver.add(option1);
+		option2.text = '宜蘭'; option2.value = 'Yilan'; receiver.add(option2);
 	}
 	else if (sender == 'Taitung') {
 		var option1 = document.createElement("option");
+		var option2 = document.createElement("option");
 		option1.text = '北投'; option1.value = 'Beitou'; receiver.add(option1);
+		option2.text = '宜蘭'; option2.value = 'Yilan'; receiver.add(option2);
 	}
 	document.getElementById("receiver").onchange();
 }
@@ -1539,7 +1465,7 @@ function receiver() {
 	var sender = document.getElementById("sender").value;
 	var receiver = document.getElementById("receiver").value;
 	if (sender == 'Trisoap') {
-		if (receiver == 'Beitou') {
+		if (receiver == 'Beitou' || receiver == 'Yilan') {
 			document.getElementsByClassName("material_B")[0].style.display = null;
 			document.getElementsByClassName("material_B")[1].style.display = null;
 			document.getElementsByClassName("material_C")[0].style.display = null;
@@ -1589,7 +1515,7 @@ function receiver() {
 		}
 	}
 	else if (sender == 'Houshanpi') {
-		if (receiver == 'Beitou') {
+		if (receiver == 'Beitou' || receiver == 'Yilan') {
 			document.getElementsByClassName("material_B")[0].style.display = 'none';
 			document.getElementsByClassName("material_B")[1].style.display = 'none';
 			document.getElementsByClassName("material_C")[0].style.display = 'none';
@@ -1615,7 +1541,7 @@ function receiver() {
 		}
 	}
 	else if (sender == 'Taitung') {
-		if (receiver == 'Beitou') {
+		if (receiver == 'Beitou' || receiver == 'Yilan') {
 			document.getElementsByClassName("material_B")[0].style.display = 'none';
 			document.getElementsByClassName("material_B")[1].style.display = 'none';
 			document.getElementsByClassName("material_C")[0].style.display = 'none';
@@ -1693,8 +1619,12 @@ function send() {
 	if (sender == 'Trisoap') {
 		var package_1 = document.getElementById("send_package_1").value;
 		if (package_1 != null && package_1 != 0) data = data + "&package_1=" + package_1;
-		var package_2 = document.getElementById("send_package_2").value;
-		if (package_2 != null && package_2 != 0) data = data + "&package_2=" + package_2;
+		var package_2a = document.getElementById("send_package_2a").value;
+		if (package_2a != null && package_2a != 0) data = data + "&package_2a=" + package_2a;
+		var package_2b = document.getElementById("send_package_2b").value;
+		if (package_2b != null && package_2b != 0) data = data + "&package_2b=" + package_2b;
+		var package_2c = document.getElementById("send_package_2c").value;
+		if (package_2c != null && package_2c != 0) data = data + "&package_2c=" + package_2c;
 		var package_3 = document.getElementById("send_package_3").value;
 		if (package_3 != null && package_3 != 0) data = data + "&package_3=" + package_3;
 		var package_4 = document.getElementById("send_package_4").value;
@@ -1766,7 +1696,9 @@ function send_refresh() {
 	if (document.getElementById("send_additive_9") != null) document.getElementById("send_additive_9").value = 0;
 	if (document.getElementById("send_additive_10") != null) document.getElementById("send_additive_10").value = 0;
 	if (document.getElementById("send_package_1") != null) document.getElementById("send_package_1").value = 0;
-	if (document.getElementById("send_package_2") != null) document.getElementById("send_package_2").value = 0;
+	if (document.getElementById("send_package_2a") != null) document.getElementById("send_package_2a").value = 0;
+	if (document.getElementById("send_package_2b") != null) document.getElementById("send_package_2b").value = 0;
+	if (document.getElementById("send_package_2c") != null) document.getElementById("send_package_2c").value = 0;
 	if (document.getElementById("send_package_3") != null) document.getElementById("send_package_3").value = 0;
 	if (document.getElementById("send_package_4") != null) document.getElementById("send_package_4").value = 0;
 	if (document.getElementById("send_package_5") != null) document.getElementById("send_package_5").value = 0;

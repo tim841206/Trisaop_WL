@@ -294,7 +294,7 @@ function logon($account, $name, $password1, $password2, $authority) {
 	elseif (!ctype_alnum($password1) || !ctype_alnum($password2)) {
 		return 'Wrong password format';
 	}
-	elseif (!in_array($authority, array('A', 'B', 'C', 'D', 'E'))) {
+	elseif (!in_array($authority, array('A', 'B', 'C', 'D', 'E', 'I'))) {
 		return 'Wrong authority format';
 	}
 	else {
@@ -398,6 +398,9 @@ function search_account($account, $token, $index) {
 			elseif ($fetch1['AUTHORITY'] == 'D' && $fetch2['AUTHORITY'] != 'D') {
 				return 'No authority';
 			}
+			elseif ($fetch1['AUTHORITY'] == 'I' && $fetch2['AUTHORITY'] != 'I') {
+				return 'No authority';
+			}
 			else { 
 				$content = '<table><tr><th>使用者帳號</th><th>使用者名稱</th><th>帳號建立日期</th><th>帳號最後登入日期</th><th>權限</th></tr><tr><td>'.$fetch2['ACCOUNT'].'</td><td>'.$fetch2['NAME'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.$fetch2['ONLINEDATE'].'</td><td>'.transfer($fetch2['AUTHORITY']).'</td></tr></table>';
 				return array('message' => 'Success', 'content' => $content);
@@ -417,7 +420,7 @@ function search_auth($account, $token, $auth) {
 	elseif (empty($auth)) {
 		return 'Empty auth';
 	}
-	elseif (!in_array($auth, array('A', 'B', 'C', 'D', 'E'))) {
+	elseif (!in_array($auth, array('A', 'B', 'C', 'D', 'E', 'I'))) {
 		return 'Wrong auth format';
 	}
 	elseif ($sql1 == false) {
@@ -435,6 +438,9 @@ function search_auth($account, $token, $auth) {
 			return 'No authority';
 		}
 		elseif ($fetch1['AUTHORITY'] == 'D' && $auth != 'D') {
+			return 'No authority';
+		}
+		elseif ($fetch1['AUTHORITY'] == 'I' && $auth != 'I') {
 			return 'No authority';
 		}
 		else {
@@ -471,21 +477,8 @@ function view($account, $token) {
 			return 'Wrong token';
 		}
 		else {
-			if ($fetch1['AUTHORITY'] == 'A') {
-				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACTCODE='1' ORDER BY ONLINEDATE DESC");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='B' AND ACTCODE='1' ORDER BY ONLINEDATE DESC");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'C') {
-				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='C' AND ACTCODE='1' ORDER BY ONLINEDATE DESC");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='D' AND ACTCODE='1' ORDER BY ONLINEDATE DESC");
-			}
-			elseif ($fetch1['AUTHORITY'] == 'E') {
-				$sql2 = mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='E' AND ACTCODE='1' ORDER BY ONLINEDATE DESC");
-			}
+			$authority = $fetch1['AUTHORITY'];
+			$sql2 = ($authority == 'A') ? mysql_query("SELECT * FROM MEMBERMAS WHERE ACTCODE='1' ORDER BY ONLINEDATE DESC") : mysql_query("SELECT * FROM MEMBERMAS WHERE AUTHORITY='$authority' AND ACTCODE='1' ORDER BY ONLINEDATE DESC");
 			if ($sql2 == false) {
 				$content = '查無資料';
 			}
@@ -670,5 +663,6 @@ function transfer($authority) {
 	elseif ($authority == 'C') return '後山埤';
 	elseif ($authority == 'D') return '台東';
 	elseif ($authority == 'E') return '實習';
+	elseif ($authority == 'I') return '宜蘭';
 	else return 'Unknown';
 }

@@ -39,6 +39,10 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 						$content = file_get_contents("view/index_E.html");
 						echo json_encode(array('message' => $return['message'], 'content' => $content));
 					}
+					elseif ($return['authority'] == 'I') {
+						$content = file_get_contents("view/index_I.html");
+						echo json_encode(array('message' => $return['message'], 'content' => $content, 'mature' => 'load', 'command' => 'load'));
+					}
 				}
 				else {
 					echo json_encode(array('message' => $return['message']));
@@ -147,6 +151,9 @@ elseif (isset($_COOKIE['account']) && isset($_COOKIE['token'])) {
 			}
 			elseif ($return['authority'] == 'E') {
 				include_once("view/index_E.html");
+			}
+			elseif ($return['authority'] == 'I') {
+				include_once("view/index_I.html");
 			}
 		}
 		else {

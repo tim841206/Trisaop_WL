@@ -245,6 +245,9 @@ function view($account, $token) {
 			elseif ($fetch1['AUTHORITY'] == 'D') {
 				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE (SENDER='Taitung' OR RECEIVER='Taitung') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
+			elseif ($fetch1['AUTHORITY'] == 'I') {
+				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE (SENDER='Yilan' OR RECEIVER='Yilan') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
+			}
 			$content = '';
 			if (mysql_num_rows($sql2) == 0) {
 				$content = '查無資料';
@@ -302,6 +305,9 @@ function search_index($account, $token, $index) {
 		elseif ($fetch1['AUTHORITY'] == 'D' && $fetch2['SENDER'] != 'Taitung' && $fetch2['RECEIVER'] != 'Taitung') {
 			return 'No authority';
 		}
+		elseif ($fetch1['AUTHORITY'] == 'I' && $fetch2['SENDER'] != 'Yilan' && $fetch2['RECEIVER'] != 'Yilan') {
+			return 'No authority';
+		}
 		else {
 			if ($fetch1['AUTHORITY'] == 'C') {
 				$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td><button onclick="view_index_search('.$fetch2['RQSTNO'].')">查看</button></td></tr></table>';
@@ -341,7 +347,7 @@ function search_state($account, $token, $state) {
 			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
 				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND ACTCODE='1'");
 			}
-			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D', 'I'))) {
 				$location = authorityToName($fetch1['AUTHORITY']);
 				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTSTAT='$state' AND (SENDER='$location' OR RECEIVER='$location') AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
@@ -406,7 +412,7 @@ function search_date($account, $token, $year, $month, $day) {
 					}
 				}
 			}
-			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D', 'I'))) {
 				$location = authorityToName($fetch1['AUTHORITY']);
 				if (empty($year)) {
 					if (empty($month)) {
@@ -479,7 +485,7 @@ function view_index($account, $token, $index) {
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
 				$sql4 = '';
-				if (in_array($fetch1['AUTHORITY'], array('A', 'B', 'C', 'D'))) {
+				if (in_array($fetch1['AUTHORITY'], array('A', 'B', 'C', 'D', 'I'))) {
 					if ($fetch2['SENDER'] == authorityToName($fetch1['AUTHORITY'])) {
 						$sql4 = "UPDATE RQSTMAS SET SENDERDATE='$date' WHERE RQSTNO='$index'";
 					}
@@ -497,6 +503,7 @@ function view_index($account, $token, $index) {
 						return 'Unable to update review date';
 					}
 				}
+				// 到這
 				if ($fetch2['SENDER'] == 'Trisoap' && $fetch2['RECEIVER'] == 'Beitou') {
 					if (in_array($fetch1['AUTHORITY'], array('A', 'B', 'E'))) {
 						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th><th>運費</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td></tr>';
@@ -518,8 +525,61 @@ function view_index($account, $token, $index) {
 						return 'No authority';
 					}
 				}
+				elseif ($fetch2['SENDER'] == 'Trisoap' && $fetch2['RECEIVER'] == 'Yilan') {
+					if (in_array($fetch1['AUTHORITY'], array('A', 'E', 'I'))) {
+						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th><th>運費</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td></tr>';
+						if ($fetch2['NOTICE'] != null) {
+							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
+						while ($fetch3 = mysql_fetch_array($sql3)) {
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+						}
+						$sql5 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
+						$fetch5 = mysql_fetch_array($sql5);
+						if ($fetch5['RQSTSTAT'] == 'A' || $fetch5['RQSTSTAT'] == 'B') {
+							$content .= '<tr><td colspan="2"><button onclick="accept('.$index.')">確認</button> <button onclick="reject('.$index.')">拒絕</button></td></tr></table>';
+						}
+						return array('message' => 'Success', 'content' => $content);
+					}
+					else {
+						return 'No authority';
+					}
+				}
 				elseif ($fetch2['SENDER'] == 'Taitung' && $fetch2['RECEIVER'] == 'Beitou') {
 					if (in_array($fetch1['AUTHORITY'], array('A', 'B', 'E'))) {
+						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th><th>運費</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td></tr>';
+						if ($fetch2['NOTICE'] != null) {
+							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
+						while ($fetch3 = mysql_fetch_array($sql3)) {
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+						}
+						$sql5 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
+						$fetch5 = mysql_fetch_array($sql5);
+						if ($fetch5['RQSTSTAT'] == 'A' || $fetch5['RQSTSTAT'] == 'B') {
+							$content .= '<tr><td colspan="2"><button onclick="accept('.$index.')">確認</button> <button onclick="reject('.$index.')">拒絕</button></td></tr></table>';
+						}
+						return array('message' => 'Success', 'content' => $content);
+					}
+					elseif ($fetch1['AUTHORITY'] == 'D') {
+						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th><th>運費</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td></tr>';
+						if ($fetch2['NOTICE'] != null) {
+							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
+						while ($fetch3 = mysql_fetch_array($sql3)) {
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+						}
+						return array('message' => 'Success', 'content' => $content);
+					}
+					else {
+						return 'No authority';
+					}
+				}
+				elseif ($fetch2['SENDER'] == 'Taitung' && $fetch2['RECEIVER'] == 'Yilan') {
+					if (in_array($fetch1['AUTHORITY'], array('A', 'E', 'I'))) {
 						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th><th>運費</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td></tr>';
 						if ($fetch2['NOTICE'] != null) {
 							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
@@ -595,6 +655,51 @@ function view_index($account, $token, $index) {
 						return 'No authority';
 					}
 				}
+				elseif ($fetch2['SENDER'] == 'Houshanpi' && $fetch2['RECEIVER'] == 'Yilan') {
+					if (in_array($fetch1['AUTHORITY'], array('A', 'I'))) {
+						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th><th>運費</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td></tr>';
+						if ($fetch2['NOTICE'] != null) {
+							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
+						while ($fetch3 = mysql_fetch_array($sql3)) {
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+						}
+						$sql5 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
+						$fetch5 = mysql_fetch_array($sql5);
+						if ($fetch5['RQSTSTAT'] == 'A' || $fetch5['RQSTSTAT'] == 'B') {
+							$content .= '<tr><td colspan="2"><button onclick="accept('.$index.')">確認</button> <button onclick="reject('.$index.')">拒絕</button></td></tr></table>';
+						}
+						return array('message' => 'Success', 'content' => $content);
+					}
+					elseif ($fetch1['AUTHORITY'] == 'C') {
+						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td></tr>';
+						if ($fetch2['NOTICE'] != null) {
+							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
+						while ($fetch3 = mysql_fetch_array($sql3)) {
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+						}
+						return array('message' => 'Success', 'content' => $content);
+					}
+					elseif ($fetch1['AUTHORITY'] == 'E') {
+						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th><th>運費</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td></tr>';
+						if ($fetch2['NOTICE'] != null) {
+							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
+						while ($fetch3 = mysql_fetch_array($sql3)) {
+							if (substr($fetch3['ITEMNO'], -9) != 'houshanpi') {
+								$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+							}
+						}
+						return array('message' => 'Success', 'content' => $content);
+					}
+					else {
+						return 'No authority';
+					}
+				}
 				elseif ($fetch2['SENDER'] == 'Beitou' && $fetch2['RECEIVER'] == 'Trisoap') {
 					if ($fetch1['AUTHORITY'] == 'A') {
 						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th><th>運費</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td></tr>';
@@ -617,6 +722,42 @@ function view_index($account, $token, $index) {
 						return array('message' => 'Success', 'content' => $content);
 					}
 					elseif (in_array($fetch1['AUTHORITY'], array('B', 'E'))) {
+						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td></tr>';
+						if ($fetch2['NOTICE'] != null) {
+							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
+						while ($fetch3 = mysql_fetch_array($sql3)) {
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+						}
+						return array('message' => 'Success', 'content' => $content);
+					}
+					else {
+						return 'No authority';
+					}
+				}
+				elseif ($fetch2['SENDER'] == 'Yilan' && $fetch2['RECEIVER'] == 'Trisoap') {
+					if ($fetch1['AUTHORITY'] == 'A') {
+						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th><th>運費</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td></tr>';
+						if ($fetch2['NOTICE'] != null) {
+							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
+						while ($fetch3 = mysql_fetch_array($sql3)) {
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td></tr>');
+						}
+						$sql5 = mysql_query("SELECT * FROM RQSTMAS WHERE RQSTNO='$index' AND ACTCODE='1'");
+						$fetch5 = mysql_fetch_array($sql5);
+						if ($fetch5['RQSTSTAT'] == 'A' || $fetch5['RQSTSTAT'] == 'B') {
+							$content .= '<tr><td colspan="2"><button onclick="accept('.$index.')">確認</button> <button onclick="reject('.$index.')">拒絕</button></td></tr></table>';
+							$content .= '<table><tr><td>設定運費</td><td><input type="text" id="set_shipfee" value="'.$fetch2['SHIPFEE'].'"></td><td><button onclick="set_shipfee('.$index.')">設定</button></td></tr></table>';
+						}
+						elseif ($fetch5['RQSTSTAT'] == 'C' || $fetch5['RQSTSTAT'] == 'E') {
+							$content .= '<table><tr><td>設定運費</td><td><input type="text" id="set_shipfee" value="'.$fetch2['SHIPFEE'].'"></td><td><button onclick="set_shipfee('.$index.')">設定</button></td></tr></table>';
+						}
+						return array('message' => 'Success', 'content' => $content);
+					}
+					elseif (in_array($fetch1['AUTHORITY'], array('E', 'I'))) {
 						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td></tr>';
 						if ($fetch2['NOTICE'] != null) {
 							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
@@ -716,7 +857,7 @@ function notice($account, $token) {
 			return 'Wrong token';
 		}
 		else {
-			if (in_array($fetch1['AUTHORITY'], array('A', 'B', 'C', 'D'))) {
+			if (in_array($fetch1['AUTHORITY'], array('A', 'B', 'C', 'D', 'I'))) {
 				$location = authorityToName($fetch1['AUTHORITY']);
 				$sql2 = mysql_query("SELECT * FROM RQSTMAS WHERE SENDER='$location' AND SENDERDATE<UPDATEDATE AND ACTCODE='1'");
 				$sql3 = mysql_query("SELECT * FROM RQSTMAS WHERE RECEIVER='$location' AND (RQSTSTAT='A' OR RQSTSTAT='B') AND ACTCODE='1'");
@@ -871,6 +1012,56 @@ function accept($account, $token, $index) {
 					return 'Database operation error';
 				}
 			}
+			elseif ($fetch2['RECEIVER'] == 'Yilan') {
+				if ($fetch2['SENDER'] == 'Trisoap' || $fetch2['SENDER'] == 'Taitung') {
+					if (in_array($fetch1['AUTHORITY'], array('A', 'E', 'I'))) {
+						$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='C', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
+						if (mysql_query($sql3)) {
+							$RECEIVER = $fetch2['RECEIVER'];
+							$sql4 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index'");
+							while ($fetch4 = mysql_fetch_array($sql4)) {
+								$ITEMNO = $fetch4['ITEMNO'];
+								$ITEMAMT = $fetch4['ITEMAMT'];
+								if (in_array($ITEMNO, array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8'))) {
+									$ITEMAMT = ceil($ITEMAMT * 0.9);
+								}
+								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
+							}
+							return 'Success';
+						}
+						else {
+							return 'Database operation error';
+						}
+					}
+					else {
+						return 'No authority';
+					}
+				}
+				elseif ($fetch2['SENDER'] == 'Houshanpi') {
+					if (in_array($fetch1['AUTHORITY'], array('A', 'I'))) {
+						$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='C', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
+						if (mysql_query($sql3)) {
+							$RECEIVER = $fetch2['RECEIVER'];
+							$sql4 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index'");
+							while ($fetch4 = mysql_fetch_array($sql4)) {
+								$ITEMNO = $fetch4['ITEMNO'];
+								$ITEMAMT = $fetch4['ITEMAMT'];
+								if (in_array($ITEMNO, array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8'))) {
+									$ITEMAMT = ceil($ITEMAMT * 0.9);
+								}
+								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
+							}
+							return 'Success';
+						}
+						else {
+							return 'Database operation error';
+						}
+					}
+					else {
+						return 'No authority';
+					}
+				}
+			}
 			else {
 				return 'No authority';
 			}
@@ -991,6 +1182,50 @@ function reject($account, $token, $index) {
 					return 'Database operation error';
 				}
 			}
+			elseif ($fetch2['RECEIVER'] == 'Yilan') { 
+				if ($fetch2['SENDER'] == 'Trisoap' || $fetch2['SENDER'] == 'Taitung') {
+					if (in_array($fetch1['AUTHORITY'], array('A', 'E', 'I'))) {
+						$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='D', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
+						if (mysql_query($sql3)) {
+							$SENDER = $fetch2['SENDER'];
+							$sql4 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index'");
+							while ($fetch4 = mysql_fetch_array($sql4)) {
+								$ITEMNO = $fetch4['ITEMNO'];
+								$ITEMAMT = $fetch4['ITEMAMT'];
+								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$SENDER' AND ITEMNO='$ITEMNO'");
+							}
+							return 'Success';
+						}
+						else {
+							return 'Database operation error';
+						}
+					}
+					else {
+						return 'No authority';
+					}
+				}
+				elseif ($fetch2['SENDER'] == 'Houshanpi') {
+					if (in_array($fetch1['AUTHORITY'], array('A', 'I'))) {
+						$sql3 = "UPDATE RQSTMAS SET RQSTSTAT='D', RECEIVERDATE='$date', UPDATEDATE='$date' WHERE RQSTNO='$index'";
+						if (mysql_query($sql3)) {
+							$SENDER = $fetch2['SENDER'];
+							$sql4 = mysql_query("SELECT * FROM RQSTDTLMAS WHERE RQSTNO='$index'");
+							while ($fetch4 = mysql_fetch_array($sql4)) {
+								$ITEMNO = $fetch4['ITEMNO'];
+								$ITEMAMT = $fetch4['ITEMAMT'];
+								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$SENDER' AND ITEMNO='$ITEMNO'");
+							}
+							return 'Success';
+						}
+						else {
+							return 'Database operation error';
+						}
+					}
+					else {
+						return 'No authority';
+					}
+				}
+			}
 			else {
 				return 'No authority';
 			}
@@ -1018,7 +1253,7 @@ function send($content) {
 	elseif (!in_array($sender, array('Trisoap', 'Houshanpi', 'Taitung'))) {
 		return 'Unregistered sender';
 	}
-	elseif (!in_array($receiver, array('Trisoap', 'Beitou', 'Houshanpi', 'Taitung'))) {
+	elseif (!in_array($receiver, array('Trisoap', 'Beitou', 'Houshanpi', 'Taitung', 'Yilan'))) {
 		return 'Unregistered receiver';
 	}
 	elseif ($sql1 == false) {
@@ -1039,7 +1274,7 @@ function send($content) {
 			if ($fetch1['AUTHORITY'] == 'A') {
 				if ($sender == 'Trisoap' && $receiver == 'Beitou') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_8a', 'package_9a'))) {
+						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2a', 'package_2b', 'package_2c', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_8a', 'package_9a'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1056,6 +1291,14 @@ function send($content) {
 				elseif ($sender == 'Trisoap' && $receiver == 'Taitung') {
 					for ($i = 0; $i < count($content); $i++) {
 						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10'))) {
+							array_push($itemno, $key[$i]);
+							array_push($itemamt, $content[$key[$i]]);
+						}
+					}
+				}
+				elseif ($sender == 'Trisoap' && $receiver == 'Yilan') {
+					for ($i = 0; $i < count($content); $i++) {
+						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2a', 'package_2b', 'package_2c', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_8a', 'package_9a'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1078,7 +1321,41 @@ function send($content) {
 						return $message;
 					}
 				}
+				elseif ($sender == 'Houshanpi' && $receiver == 'Yilan') {
+					$message = '';
+					for ($i = 0; $i < count($content); $i++) {
+						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_2_100_houshanpi', 'sp_3_100_houshanpi'))) {
+							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
+								$message .= query_name($key[$i]) . "存量不足\n";
+							}
+							else {
+								array_push($itemno, $key[$i]);
+								array_push($itemamt, $content[$key[$i]]);
+							}
+						}
+					}
+					if (!empty($message)) {
+						return $message;
+					}
+				}
 				elseif ($sender == 'Taitung' && $receiver == 'Beitou') {
+					$message = '';
+					for ($i = 0; $i < count($content); $i++) {
+						if (in_array($key[$i], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
+								$message .= query_name($key[$i]) . "存量不足\n";
+							}
+							else {
+								array_push($itemno, $key[$i]);
+								array_push($itemamt, $content[$key[$i]]);
+							}
+						}
+					}
+					if (!empty($message)) {
+						return $message;
+					}
+				}
+				elseif ($sender == 'Taitung' && $receiver == 'Yilan') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
 						if (in_array($key[$i], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
@@ -1118,12 +1395,47 @@ function send($content) {
 						return $message;
 					}
 				}
+				elseif ($sender == 'Houshanpi' && $receiver == 'Yilan') {
+					$message = '';
+					for ($i = 0; $i < count($content); $i++) {
+						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_2_100_houshanpi', 'sp_3_100_houshanpi'))) {
+							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
+								$processedName = explode('的', query_name($key[$i]));
+								$message .= $processedName[1] . "存量不足\n";
+							}
+							else {
+								array_push($itemno, $key[$i]);
+								array_push($itemamt, $content[$key[$i]]);
+							}
+						}
+					}
+					if (!empty($message)) {
+						return $message;
+					}
+				}
 				else {
 					return 'No authority';
 				}
 			}
 			elseif ($fetch1['AUTHORITY'] == 'D') {
 				if ($sender == 'Taitung' && $receiver == 'Beitou') {
+					$message = '';
+					for ($i = 0; $i < count($content); $i++) {
+						if (in_array($key[$i], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
+								$message .= query_name($key[$i]) . "存量不足\n";
+							}
+							else {
+								array_push($itemno, $key[$i]);
+								array_push($itemamt, $content[$key[$i]]);
+							}
+						}
+					}
+					if (!empty($message)) {
+						return $message;
+					}
+				}
+				elseif ($sender == 'Taitung' && $receiver == 'Yilan') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
 						if (in_array($key[$i], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
@@ -1203,7 +1515,7 @@ function set_shipfee($account, $token, $index, $shipfee) {
 		}
 		else {
 			$fetch2 = mysql_fetch_array($sql2);
-			if ($fetch2['SENDER'] != 'Beitou' || $fetch2['RECEIVER'] != 'Trisoap') {
+			if (($fetch2['SENDER'] != 'Beitou' && $fetch2['SENDER'] != 'Yilan') || $fetch2['RECEIVER'] != 'Trisoap') {
 				return 'No authority';
 			}
 			else {
@@ -1260,6 +1572,7 @@ function translate($whouseno) {
 	elseif ($whouseno == 'Beitou') return '北投';
 	elseif ($whouseno == 'Houshanpi') return '後山埤';
 	elseif ($whouseno == 'Taitung') return '台東';
+	elseif ($whouseno == 'Yilan') return '宜蘭';
 	else return 'Unknown';
 }
 
@@ -1289,6 +1602,7 @@ function authorityToName($authority) {
 	elseif ($authority == 'C') return 'Houshanpi';
 	elseif ($authority == 'D') return 'Taitung';
 	elseif ($authority == 'E') return 'Intern';
+	elseif ($authority == 'I') return 'Yilan';
 	else return 'Unknown';
 }
 

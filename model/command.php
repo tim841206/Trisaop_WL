@@ -270,7 +270,7 @@ function view($account, $token) {
 			if ($fetch1['AUTHORITY'] == 'A') {
 				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
-			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D', 'I'))) {
 				$location = AuthToLocation($fetch1['AUTHORITY']);
 				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE TARGET='$location' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
@@ -326,6 +326,9 @@ function search_index($account, $token, $index) {
 		elseif ($fetch1['AUTHORITY'] == 'D' && $fetch2['TARGET'] != 'Taitung') {
 			return 'No authority';
 		}
+		elseif ($fetch1['AUTHORITY'] == 'I' && $fetch2['TARGET'] != 'Yilan') {
+			return 'No authority';
+		}
 		else {
 			$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>下單對象</th><th>類別</th><th>訂單狀態</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.LocationToName($fetch2['TARGET']).'</td><td>'.translate($fetch2['CMDTYPE']).'</td><td>'.transfer_state($fetch2['CMDSTAT'], $fetch2['CMDTYPE']).'</td><td><button onclick="command_view_index_search('.$fetch2['CMDNO'].')">查看</button></td></tr></table>';
 			return array('message' => 'Success', 'content' => $content);
@@ -359,7 +362,7 @@ function search_type($account, $token, $type) {
 			if ($fetch1['AUTHORITY'] == 'A' || $fetch1['AUTHORITY'] == 'E') {
 				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDTYPE='$type' AND ACTCODE='1'");
 			}
-			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D', 'I'))) {
 				$location = AuthToLocation($fetch1['AUTHORITY']);
 				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE CMDTYPE='$type' AND TARGET='$location' AND ACTCODE='1' ORDER BY UPDATEDATE DESC");
 			}
@@ -416,7 +419,7 @@ function search_date($account, $token, $year, $month, $day) {
 					}
 				}
 			}
-			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D', 'I'))) {
 				$location = AuthToLocation($fetch1['AUTHORITY']);
 				if (empty($year)) {
 					if (empty($month)) {
@@ -630,6 +633,47 @@ function view_index($account, $token, $index) {
 					}
 					return array('message' => 'Success', 'content' => $content);
 				}
+				elseif ($fetch1['AUTHORITY'] == 'I' && $fetch2['TARGET'] == 'Yilan') {
+					if ($fetch2['CMDSTAT'] == 'A') {
+						$sql4 = "UPDATE CMDMAS SET CMDSTAT='B', UPDATEDATE='$date' WHERE CMDNO='$index'";
+						if (!mysql_query($sql4)) {
+							return 'Unable to update review date';
+						}
+					}
+					if ($fetch2['CMDTYPE'] == 'B') {
+						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th><th>訂單狀態</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>出貨</td><td>'.transfer_state($fetch2['CMDSTAT'], $fetch2['CMDTYPE']).'</td></tr>';
+						if ($fetch2['NOTICE'] != null) {
+							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
+						while ($fetch3 = mysql_fetch_array($sql3)) {
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).unit($fetch3['ITEMNO']).'</td></tr>');
+						}
+						$sql5 = mysql_query("SELECT * FROM CMDMAS WHERE CMDNO='$index' AND ACTCODE='1'");
+						$fetch5 = mysql_fetch_array($sql5);
+						if ($fetch5['CMDSTAT'] == 'B') {
+							$content .= '<tr><td colspan="2"><button onclick="deliver('.$index.')">送出</button> <button onclick="refuse('.$index.')">拒絕</button></td></tr></table>';
+						}
+						else {
+							$content .= '</table>';
+						}
+					}
+					elseif ($fetch2['CMDTYPE'] == 'C') {
+						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th><th>開始日期</th><th>結束日期</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>製皂</td><td>'.$fetch2['STARTDATE'].'</td><td>'.$fetch2['ENDDATE'].'</td></tr>';
+						if ($fetch2['NOTICE'] != null) {
+							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
+						}
+						if ($fetch2['FILESTAT'] == 1) {
+							$content .= '<tr><td colspan="10"><a href="../resource/download.php?cmdno='.$fetch2['CMDNO'].'">下載檔案</a></td></tr>';
+						}
+						$content .= '</table><table><tr><th>名稱</th><th>數量</th><th>完成狀態</th></tr>';
+						while ($fetch3 = mysql_fetch_array($sql3)) {
+							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td><td>'.translate_check($fetch3['CHECKSTAT'], $index, $fetch3['ITEMNO']).'</td></tr>');
+						}
+						$content .= '</table>';
+					}
+					return array('message' => 'Success', 'content' => $content);
+				}
 				else {
 					return 'No authority';
 				}
@@ -672,7 +716,7 @@ function notice($account, $token) {
 					return array('message' => 'Success', 'content' => $content);
 				}
 			}
-			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D', 'I'))) {
 				$location = AuthToLocation($fetch1['AUTHORITY']);
 				$sql2 = mysql_query("SELECT * FROM CMDMAS WHERE TARGET='$location' AND (CMDSTAT='A' OR CMDSTAT='B') AND ACTCODE='1'");
 				if (mysql_num_rows($sql2) == 0) {
@@ -778,6 +822,46 @@ function deliver($account, $token, $index) {
 					return 'Unable to create request';
 				}
 			}
+			elseif ($fetch1['AUTHORITY'] == 'I' && $fetch2['TARGET'] == 'Yilan' && $fetch2['CMDTYPE'] == 'B') {
+				$content = '';
+				$itemno = array();
+				$itemamt = array();
+				$sql3 = mysql_query("SELECT * FROM CMDDTLMAS WHERE CMDNO='$index'");
+				while ($fetch3 = mysql_fetch_array($sql3)) {
+					if ($fetch3['ITEMAMT'] > inventory('Yilan', $fetch3['ITEMNO'])) {
+						$content .= $fetch3['ITEMNM'] . "存量不足\n";
+					}
+					else {
+						array_push($itemno, $fetch3['ITEMNO']);
+						array_push($itemamt, $fetch3['ITEMAMT']);
+					}
+				}
+				if (!empty($content)) {
+					return $content;
+				}
+				else {
+					$sql4 = "INSERT INTO RQSTMAS (RQSTNO, SENDER, RECEIVER, SENDERDATE, RQSTSTAT, CREATEDATE, UPDATEDATE) VALUES ('$index', 'Yilan', 'Trisoap', '$date', 'A', '$date', '$date')";
+					if (mysql_query($sql4)) {
+						for ($i = 0; $i < count($itemno); $i++) {
+							$no = $itemno[$i];
+							$nm = query_name($no);
+							$amt = $itemamt[$i];
+							mysql_query("INSERT INTO RQSTDTLMAS (RQSTNO, ITEMNO, ITEMNM, ITEMAMT) VALUES ('$index', '$no', '$nm', '$amt')");
+							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT-'$amt' WHERE WHOUSENO='Yilan' AND ITEMNO='$no'");
+						}
+						$sql5 = "UPDATE CMDMAS SET CMDSTAT='C', UPDATEDATE='$date' WHERE CMDNO='$index'";
+						if (mysql_query($sql5)) {
+							return array('message' => 'Success', 'index' => $index);
+						}
+						else {
+							return 'Database operation error';
+						}
+					}
+					else {
+						return 'Unable to create request';
+					}
+				}
+			}
 			else {
 				return 'No authority';
 			}
@@ -824,6 +908,15 @@ function refuse($account, $token, $index) {
 					return 'Database operation error';
 				}
 			}
+			elseif ($fetch1['AUTHORITY'] == 'I' && $fetch2['TARGET'] == 'Yilan' && $fetch2['CMDTYPE'] == 'B') {
+				$sql3 = "UPDATE CMDMAS SET CMDSTAT='D', UPDATEDATE='$date' WHERE CMDNO='$index'";
+				if (mysql_query($sql3)) {
+					return 'Success';
+				}
+				else {
+					return 'Database operation error';
+				}
+			}
 			else {
 				return 'No authority';
 			}
@@ -860,7 +953,7 @@ function send($content) {
 			return 'No authority';
 		}
 		else {
-			if ($type == 'A' || $type == 'B') {
+			if ($type == 'A1' || $type == 'A2' || $type == 'A3') {
 				$itemno = array();
 				$itemamt = array();
 				if (is_positiveInt($content['oil_1'])) {
@@ -939,7 +1032,15 @@ function send($content) {
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
 				$cmdno = get_no();
-				$sql2 = ($type == 'A') ? "INSERT INTO CMDMAS (CMDNO, TARGET, SENDER, RECEIVER, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Houshanpi', 'Houshanpi', 'Beitou', 'A', 'A', '$memo', '$date', '$date', '$date')" : "INSERT INTO CMDMAS (CMDNO, TARGET, SENDER, RECEIVER, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Houshanpi', 'Houshanpi', 'Taitung', 'A', 'A', '$memo', '$date', '$date', '$date')";
+				if ($type == 'A1') {
+					$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, SENDER, RECEIVER, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Houshanpi', 'Houshanpi', 'Beitou', 'A', 'A', '$memo', '$date', '$date', '$date')";
+				}
+				elseif ($type == 'A2') {
+					$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, SENDER, RECEIVER, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Houshanpi', 'Houshanpi', 'Taitung', 'A', 'A', '$memo', '$date', '$date', '$date')";
+				}
+				elseif ($type == 'A3') {
+					$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, SENDER, RECEIVER, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Houshanpi', 'Houshanpi', 'Yilan', 'A', 'A', '$memo', '$date', '$date', '$date')";
+				}
 				if (mysql_query($sql2)) {
 					if (update_no()) {
 						for ($i = 0; $i < count($itemno); $i++) {
@@ -958,7 +1059,7 @@ function send($content) {
 					return 'Unable to create command';
 				}
 			}
-			elseif ($type == 'C') {
+			elseif ($type == 'B1' || $type == 'B2') {
 				$itemno = array();
 				$itemamt = array();
 				if (is_positiveInt($content['product_sp_1'])) {
@@ -1023,7 +1124,7 @@ function send($content) {
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
 				$cmdno = get_no();
-				$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, SENDER, RECEIVER, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Beitou', 'Beitou', 'Trisoap', 'A', 'B', '$memo', '$date', '$date', '$date')";
+				$sql2 = ($type == 'B1') ? "INSERT INTO CMDMAS (CMDNO, TARGET, SENDER, RECEIVER, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Beitou', 'Beitou', 'Trisoap', 'A', 'B', '$memo', '$date', '$date', '$date')" : "INSERT INTO CMDMAS (CMDNO, TARGET, SENDER, RECEIVER, CMDSTAT, CMDTYPE, NOTICE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Yilan', 'Yilan', 'Trisoap', 'A', 'B', '$memo', '$date', '$date', '$date')";
 				if (mysql_query($sql2)) {
 					if (update_no()) {
 						for ($i = 0; $i < count($itemno); $i++) {
@@ -1042,7 +1143,7 @@ function send($content) {
 					return 'Unable to create command';
 				}
 			}
-			elseif ($type == 'D' || $type == 'F') {
+			elseif ($type == 'C1' || $type == 'C3' || $type == 'C4') {
 				if (is_validDate($startdate) && is_validDate($enddate)) {
 					$itemno = array();
 					$itemamt = array();
@@ -1115,7 +1216,15 @@ function send($content) {
 					date_default_timezone_set('Asia/Taipei');
 					$date = date("Y-m-d H:i:s");
 					$cmdno = get_no();
-					$sql2 = ($type == 'D') ? "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Beitou', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')" : "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Taitung', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')";
+					if ($type == 'C1') {
+						$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Beitou', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')";
+					}
+					elseif ($type == 'C3') {
+						$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Taitung', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')";
+					}
+					elseif ($type == 'C4') {
+						$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Yilan', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')";
+					}
 					if (mysql_query($sql2)) {
 						if (update_no()) {
 							for ($i = 0; $i < count($itemno); $i++) {
@@ -1138,7 +1247,7 @@ function send($content) {
 					return 'Wrong date format';
 				}
 			}
-			elseif ($type == 'E') {
+			elseif ($type == 'C2') {
 				if (is_validDate($startdate) && is_validDate($enddate)) {
 					$itemno = array();
 					$itemamt = array();
@@ -1225,7 +1334,7 @@ function check($account, $token, $index, $itemno) {
 		}
 		else {
 			$fetch2 = mysql_fetch_array($sql2);
-			if (($fetch1['AUTHORITY'] == 'B' && $fetch2['TARGET'] == 'Beitou') || ($fetch1['AUTHORITY'] == 'C' && $fetch2['TARGET'] == 'Houshanpi') || ($fetch1['AUTHORITY'] == 'D' && $fetch2['TARGET'] == 'Taitung')) {
+			if (($fetch1['AUTHORITY'] == 'B' && $fetch2['TARGET'] == 'Beitou') || ($fetch1['AUTHORITY'] == 'C' && $fetch2['TARGET'] == 'Houshanpi') || ($fetch1['AUTHORITY'] == 'D' && $fetch2['TARGET'] == 'Taitung') || ($fetch1['AUTHORITY'] == 'I' && $fetch2['TARGET'] == 'Yilan')) {
 				if ($fetch2['CMDTYPE'] != 'C') {
 					return 'Wrong command type';
 				}
@@ -1276,7 +1385,7 @@ function check_checked($account, $token, $index, $itemno) {
 		}
 		else {
 			$fetch2 = mysql_fetch_array($sql2);
-			if (($fetch1['AUTHORITY'] == 'B' && $fetch2['TARGET'] == 'Beitou') || ($fetch1['AUTHORITY'] == 'C' && $fetch2['TARGET'] == 'Houshanpi') || ($fetch1['AUTHORITY'] == 'D' && $fetch2['TARGET'] == 'Taitung')) {
+			if (($fetch1['AUTHORITY'] == 'B' && $fetch2['TARGET'] == 'Beitou') || ($fetch1['AUTHORITY'] == 'C' && $fetch2['TARGET'] == 'Houshanpi') || ($fetch1['AUTHORITY'] == 'D' && $fetch2['TARGET'] == 'Taitung') || ($fetch1['AUTHORITY'] == 'I' && $fetch2['TARGET'] == 'Yilan')) {
 				if ($fetch2['CMDTYPE'] != 'C') {
 					return 'Wrong command type';
 				}
@@ -1404,6 +1513,7 @@ function LocationToName($location) {
 	if ($location == 'Beitou') return '北投';
 	elseif ($location == 'Houshanpi') return '後山埤';
 	elseif ($location == 'Taitung') return '台東';
+	elseif ($location == 'Yilan') return '宜蘭';
 	else return 'Unknown';
 }
 
@@ -1449,4 +1559,5 @@ function AuthToLocation($auth) {
 	elseif ($auth == 'C') return 'Houshanpi';
 	elseif ($auth == 'D') return 'Taitung';
 	elseif ($auth == 'E') return 'Intern';
+	elseif ($auth == 'I') return 'Yilan';
 }

@@ -236,40 +236,50 @@ function view($account, $token) {
 			$content = '';
 			if ($fetch1['AUTHORITY'] == 'A') {
 				$content = '<table><tr><th>油品</th><th>添加物</th><th>包裝</th><th>商品</th><th>產品</th><th>半成品</th><th>後山埤的產品</th></tr><tr>';
-				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th></tr>';
+				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th><th>宜蘭存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
+					$fetch4 = mysql_fetch_array($sql4);
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td><td>'.number_format($fetch4['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th></tr>';
+				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th><th>宜蘭存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$fetch3 = mysql_fetch_array($sql3);
+					$fetch4 = mysql_fetch_array($sql4);
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td><td>'.number_format($fetch4['TOTALAMT']).'</td></tr>';
+				}
+				$content .= '</table></td>';
+				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>宜蘭存量</th></tr>';
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
 					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
-				}
-				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th></tr>';
+				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>宜蘭存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
+					$fetch3 = mysql_fetch_array($sql3);
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th></tr>';
+				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th><th>宜蘭存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
+					$fetch4 = mysql_fetch_array($sql4);
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td><td>'.number_format($fetch4['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table class="table_content"><tr><th>名稱</th><th>製作地點</th><th>存量</th></tr>';
@@ -278,55 +288,58 @@ function view($account, $token) {
 					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>後山埤存量</th></tr>';
+				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>後山埤存量</th><th>宜蘭存量</th></tr>';
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
+					$fetch4 = mysql_fetch_array($sql4);
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td><td>'.number_format($fetch4['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td></tr></table>';
 			}
-			elseif ($fetch1['AUTHORITY'] == 'B') {
+			elseif ($fetch1['AUTHORITY'] == 'B' || $fetch1['AUTHORITY'] == 'I') {
+				$location = AuthToLocation($fetch1['AUTHORITY']);
 				$content = '<table><tr><th>油品</th><th>添加物</th><th>包裝</th><th>商品</th><th>產品</th><th>半成品</th><th>後山埤的產品</th></tr><tr>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table class="table_content"><tr><th>名稱</th><th>存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='F' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMCLASS='F' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
@@ -453,6 +466,9 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 			elseif ($fetch1['AUTHORITY'] == 'E' && ($whouseno == 'Houshanpi' || $itemclass == 'H' || in_array($itemno, array('sp_1_100_houshanpi', 'sp_2_100_houshanpi', 'sp_3_100_houshanpi')))) {
 				return 'No authority';
 			}
+			elseif ($fetch1['AUTHORITY'] == 'I' && $whouseno != 'Yilan') {
+				return 'No authority';
+			}
 			else {
 				if ($whouseno == 'all' && $itemno == 'all') {
 					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE ITEMCLASS='$itemclass' AND ACTCODE='1'");
@@ -512,8 +528,8 @@ function adjust_search($account, $token, $whouseno) {
 			$inventory = array();
 			$f_class_no = array();
 			$f_class_nm = array();
-			if ($whouseno == 'Beitou') {
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ACTCODE='1'");
+			if ($whouseno == 'Beitou' || $whouseno == 'Yilan') {
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouseno' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					if ($fetch2['ITEMCLASS'] == 'F') {
@@ -526,31 +542,31 @@ function adjust_search($account, $token, $whouseno) {
 				}
 				$content = '<table><tr>';
 				$content .= '<td><table><tr><th colspan="2">油品</th></tr>';
-				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouseno' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch = mysql_fetch_array($sql)) {
 					$content .= '<tr><td>'.query_name($fetch['ITEMNO']).'</td><td><input type="text" class="adjust_A" id="adjust_'.$fetch['ITEMNO'].'" value="'.$inventory[$fetch['ITEMNO']].'" onclick="ask_adjust(\'adjust_'.$fetch['ITEMNO'].'\', \''.query_name($fetch['ITEMNO']).'\')"></td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th colspan="2">添加物</th></tr>';
-				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouseno' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch = mysql_fetch_array($sql)) {
 					$content .= '<tr><td>'.query_name($fetch['ITEMNO']).'</td><td><input type="text" class="adjust_B" id="adjust_'.$fetch['ITEMNO'].'" value="'.$inventory[$fetch['ITEMNO']].'" onclick="ask_adjust(\'adjust_'.$fetch['ITEMNO'].'\', \''.query_name($fetch['ITEMNO']).'\')"></td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th colspan="2">包裝</th></tr>';
-				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouseno' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch = mysql_fetch_array($sql)) {
 					$content .= '<tr><td>'.query_name($fetch['ITEMNO']).'</td><td><input type="text" class="adjust_C" id="adjust_'.$fetch['ITEMNO'].'" value="'.$inventory[$fetch['ITEMNO']].'" onclick="ask_adjust(\'adjust_'.$fetch['ITEMNO'].'\', \''.query_name($fetch['ITEMNO']).'\')"></td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th colspan="2">商品</th></tr>';
-				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouseno' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch = mysql_fetch_array($sql)) {
 					$content .= '<tr><td>'.query_name($fetch['ITEMNO']).'</td><td><input type="text" class="adjust_D" id="adjust_'.$fetch['ITEMNO'].'" value="'.$inventory[$fetch['ITEMNO']].'" onclick="ask_adjust(\'adjust_'.$fetch['ITEMNO'].'\', \''.query_name($fetch['ITEMNO']).'\')"></td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th colspan="2">產品</th></tr>';
-				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouseno' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch = mysql_fetch_array($sql)) {
 					$content .= '<tr><td>'.query_name($fetch['ITEMNO']).'</td><td><input type="text" class="adjust_E" id="adjust_'.$fetch['ITEMNO'].'" value="'.$inventory[$fetch['ITEMNO']].'" onclick="ask_adjust(\'adjust_'.$fetch['ITEMNO'].'\', \''.query_name($fetch['ITEMNO']).'\')"></td></tr>';
 				}
@@ -566,7 +582,7 @@ function adjust_search($account, $token, $whouseno) {
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th colspan="2">後山埤的產品</th></tr>';
-				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouseno' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch = mysql_fetch_array($sql)) {
 					$content .= '<tr><td>'.query_name($fetch['ITEMNO']).'</td><td><input type="text" class="adjust_H" id="adjust_'.$fetch['ITEMNO'].'" value="'.$inventory[$fetch['ITEMNO']].'" onclick="ask_adjust(\'adjust_'.$fetch['ITEMNO'].'\', \''.query_name($fetch['ITEMNO']).'\')"></td></tr>';
 				}
@@ -688,7 +704,7 @@ function adjust($content) {
 			$message = '';
 			date_default_timezone_set('Asia/Taipei');
 			$date = date("Y-m-d H:i:s");
-			if (in_array($content['whouseno'], array('Beitou', 'Taitung'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Taitung', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_A_no']);
 				$TOTALAMT = explode(',', $content['adjust_A_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -706,7 +722,7 @@ function adjust($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi', 'Taitung'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi', 'Taitung', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_B_no']);
 				$TOTALAMT = explode(',', $content['adjust_B_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -724,7 +740,7 @@ function adjust($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_C_no']);
 				$TOTALAMT = explode(',', $content['adjust_C_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -742,7 +758,7 @@ function adjust($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_D_no']);
 				$TOTALAMT = explode(',', $content['adjust_D_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -760,7 +776,7 @@ function adjust($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou', 'Taitung'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Taitung', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_E_no']);
 				$TOTALAMT = explode(',', $content['adjust_E_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -778,7 +794,7 @@ function adjust($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi', 'Taitung'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi', 'Taitung', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_F_no']);
 				$TOTALAMT = explode(',', $content['adjust_F_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -798,7 +814,7 @@ function adjust($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_H_no']);
 				$TOTALAMT = explode(',', $content['adjust_H_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -846,7 +862,7 @@ function adjust_checked($content) {
 			$message = '';
 			date_default_timezone_set('Asia/Taipei');
 			$date = date("Y-m-d H:i:s");
-			if (in_array($content['whouseno'], array('Beitou', 'Taitung'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Taitung', 'Yilan'))) {
 				$location = $content['whouseno'];
 				$ITEMNO = explode(',', $content['adjust_A_no']);
 				$TOTALAMT = explode(',', $content['adjust_A_amt']);
@@ -867,7 +883,7 @@ function adjust_checked($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi', 'Taitung'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi', 'Taitung', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_B_no']);
 				$TOTALAMT = explode(',', $content['adjust_B_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -887,7 +903,7 @@ function adjust_checked($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_C_no']);
 				$TOTALAMT = explode(',', $content['adjust_C_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -907,7 +923,7 @@ function adjust_checked($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_D_no']);
 				$TOTALAMT = explode(',', $content['adjust_D_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -927,7 +943,7 @@ function adjust_checked($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou', 'Taitung'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Taitung', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_E_no']);
 				$TOTALAMT = explode(',', $content['adjust_E_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -947,7 +963,7 @@ function adjust_checked($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi', 'Taitung'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi', 'Taitung', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_F_no']);
 				$TOTALAMT = explode(',', $content['adjust_F_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -973,7 +989,7 @@ function adjust_checked($content) {
 					}
 				}
 			}
-			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi'))) {
+			if (in_array($content['whouseno'], array('Beitou', 'Houshanpi', 'Yilan'))) {
 				$ITEMNO = explode(',', $content['adjust_H_no']);
 				$TOTALAMT = explode(',', $content['adjust_H_amt']);
 				for ($i = 0; $i < count($ITEMNO); $i++) {
@@ -1021,7 +1037,7 @@ function mature($account, $token) {
 			date_default_timezone_set('Asia/Taipei');
 			$date = date("Y-m-d H:i:s");
 			$content = '';
-			if (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+			if (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D', 'I'))) {
 				$matureDay = ($fetch1['AUTHORITY'] == 'C') ? 14 : 33;
 				$location = AuthToLocation($fetch1['AUTHORITY']);
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMCLASS='F' AND ACTCODE='1'");
@@ -1078,7 +1094,7 @@ function mature_search($account, $token) {
 			date_default_timezone_set('Asia/Taipei');
 			$date = date("Y-m-d H:i:s");
 			$content = '';
-			if (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+			if (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D', 'I'))) {
 				$matureDay = ($fetch1['AUTHORITY'] == 'C') ? 14 : 33;
 				$location = AuthToLocation($fetch1['AUTHORITY']);
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMCLASS='F' AND ACTCODE='1'");
@@ -1125,7 +1141,7 @@ function cut($account, $token, $itemno, $_100g) {
 			date_default_timezone_set('Asia/Taipei');
 			$date = date("Y-m-d H:i:s");
 			$content = '';
-			if (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D'))) {
+			if (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D', 'I'))) {
 				$matureDay = ($fetch1['AUTHORITY'] == 'C') ? 14 : 33;
 				$location = AuthToLocation($fetch1['AUTHORITY']);
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMNO='$itemno' AND ITEMCLASS='F' AND ACTCODE='1'");
@@ -1175,11 +1191,12 @@ function slice_search($account, $token, $slice) {
 		if ($fetch1['TOKEN'] != md5($account.$token)) {
 			return 'Wrong token';
 		}
-		elseif ($fetch1['AUTHORITY'] != 'B') {
+		elseif ($fetch1['AUTHORITY'] != 'B' && $fetch1['AUTHORITY'] != 'I') {
 			return 'No authority';
 		}
 		else {
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$slice'");
+			$location = AuthToLocation($fetch1['AUTHORITY']);
+			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMNO='$slice'");
 			$fetch2 = mysql_fetch_array($sql2);
 			$content = '<table><tr><td>切絲品項</td><td>現有存量</td><td>原料重量</td><td>產品重量</td></tr><tr><td>'.query_name($slice).'</td><td>'.$fetch2['TOTALAMT'].'</td><td><input type="text" id="slice_ingredient"></td><td><input type="text" id="slice_result"></td></tr></table><button onclick="slice()">確定切絲</button>';
 			return array('message' => 'Success', 'content' => $content);
@@ -1206,11 +1223,12 @@ function slice($account, $token, $slice, $ingredient, $result) {
 		if ($fetch1['TOKEN'] != md5($account.$token)) {
 			return 'Wrong token';
 		}
-		elseif ($fetch1['AUTHORITY'] != 'B') {
+		elseif ($fetch1['AUTHORITY'] != 'B' && $fetch1['AUTHORITY'] != 'I') {
 			return 'No authority';
 		}
 		else {
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$slice'");
+			$location = AuthToLocation($fetch1['AUTHORITY']);
+			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMNO='$slice'");
 			$fetch2 = mysql_fetch_array($sql2);
 			if ($ingredient > $fetch2['TOTALAMT']) {
 				return 'Ingredient enceed inventory';
@@ -1233,8 +1251,8 @@ function slice($account, $token, $slice, $ingredient, $result) {
 				}
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT-'$ingredient', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$slice'");
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$result', UPDATEDATE='$date' WHERE WHOUSENO='Beitou' AND ITEMNO='$id'");
+				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT-'$ingredient', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$slice'");
+				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$result', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$id'");
 				return 'Success';
 			}
 		}
@@ -1247,6 +1265,7 @@ function transfer($whouseno) {
 	if ($whouseno == 'Beitou') return '北投';
 	elseif ($whouseno == 'Houshanpi') return '後山埤';
 	elseif ($whouseno == 'Taitung') return '台東';
+	elseif ($whouseno == 'Yilan') return '宜蘭';
 	else return 'Unknown';
 }
 
@@ -1291,4 +1310,5 @@ function AuthToLocation($auth) {
 	elseif ($auth == 'C') return 'Houshanpi';
 	elseif ($auth == 'D') return 'Taitung';
 	elseif ($auth == 'E') return 'Intern';
+	elseif ($auth == 'I') return 'Yilan';
 }

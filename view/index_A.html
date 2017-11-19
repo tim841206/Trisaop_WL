@@ -92,6 +92,7 @@
 									<option value="Beitou">北投</option>
 									<option value="Houshanpi">後山埤</option>
 									<option value="Taitung">台東</option>
+									<option value="Yilan">宜蘭</option>
 								</select>
 							</td>
 							<td>
@@ -114,6 +115,7 @@
 						<option value="Beitou">北投</option>
 						<option value="Houshanpi">後山埤</option>
 						<option value="Taitung">台東</option>
+						<option value="Yilan">宜蘭</option>
 					</select>
 					<div id="adjust_area" style="display: none;">
 						<p id="adjust_content"></p>
@@ -202,7 +204,9 @@
 								<td class="material_C" style="display: none;">
 									<table>
 										<tr><td>不織布包</td><td><input type="number" id="send_package_1" value="0" min="0">個</td></tr>
-										<tr><td>鋁包</td><td><input type="number" id="send_package_2" value="0" min="0">個</td></tr>
+										<tr><td>洛神紅麴皂絲鋁包</td><td><input type="number" id="send_package_2a" value="0" min="0">個</td></tr>
+										<tr><td>暖暖薑黃皂絲鋁包</td><td><input type="number" id="send_package_2b" value="0" min="0">個</td></tr>
+										<tr><td>萱草米黃皂絲鋁包</td><td><input type="number" id="send_package_2c" value="0" min="0">個</td></tr>
 										<tr><td>單顆皂禮盒封套</td><td><input type="number" id="send_package_3" value="0" min="0">個</td></tr>
 										<tr><td>單顆皂禮盒內盒</td><td><input type="number" id="send_package_4" value="0" min="0">個</td></tr>
 										<tr><td>皂絲禮盒</td><td><input type="number" id="send_package_5" value="0" min="0">個</td></tr>
@@ -277,16 +281,19 @@
 					<select id="command" onchange="command()">
 						<option value="">請選擇</option>
 						<optgroup label="油品訂單">
-							<option value="A">後山埤->北投</option>
-							<option value="B">後山埤->台東</option>
+							<option value="A1">後山埤->北投</option>
+							<option value="A2">後山埤->台東</option>
+							<option value="A3">後山埤->宜蘭</option>
 						</optgroup>
 						<optgroup label="出貨訂單">
-							<option value="C">北投->總部</option>
+							<option value="B1">北投->總部</option>
+							<option value="B2">宜蘭->總部</option>
 						</optgroup>
 						<optgroup label="製皂訂單">
-							<option value="D">北投</option>
-							<option value="E">後山埤</option>
-							<option value="F">台東</option>
+							<option value="C1">北投</option>
+							<option value="C2">後山埤</option>
+							<option value="C3">台東</option>
+							<option value="C4">宜蘭</option>
 						</optgroup>
 					</select>
 					<div id="command_content" style="display: none;">
@@ -303,55 +310,32 @@
 							<tr><td>鹼</td><td><input type="number" id="commandA_NaOH" value="0" min="0">g</td></tr>
 						</table>
 						<table id="commandB" style="display: none;">
-							<tr><td>橄欖油</td><td><input type="number" id="commandB_oil_1" value="0" min="0">c.c.</td></tr>
-							<tr><td>棕梠油</td><td><input type="number" id="commandB_oil_2" value="0" min="0">c.c.</td></tr>
-							<tr><td>椰子油</td><td><input type="number" id="commandB_oil_3" value="0" min="0">c.c.</td></tr>
-							<tr><td>米糠油</td><td><input type="number" id="commandB_oil_4" value="0" min="0">c.c.</td></tr>
-							<tr><td>紅棕梠油</td><td><input type="number" id="commandB_oil_5" value="0" min="0">c.c.</td></tr>
-							<tr><td>葡萄籽油</td><td><input type="number" id="commandB_oil_6" value="0" min="0">c.c.</td></tr>
-							<tr><td>苦茶油</td><td><input type="number" id="commandB_oil_7" value="0" min="0">c.c.</td></tr>
-							<tr><td>蓖麻油</td><td><input type="number" id="commandB_oil_8" value="0" min="0">c.c.</td></tr>
-							<tr><td>乳油木果脂</td><td><input type="number" id="commandB_oil_9" value="0" min="0">g</td></tr>
-							<tr><td>鹼</td><td><input type="number" id="commandB_NaOH" value="0" min="0">g</td></tr>
+							<tr><td>田靜山巒禾風皂100g</td><td><input type="number" id="commandB_product_sp_1" value="0" min="0">個</td></tr>
+							<tr><td>金絲森林渲染皂100g</td><td><input type="number" id="commandB_product_sp_3" value="0" min="0">個</td></tr>
+							<tr><td>釋迦手感果力皂100g</td><td><input type="number" id="commandB_product_sp_5" value="0" min="0">個</td></tr>
+							<tr><td>三三台東意象禮盒組</td><td><input type="number" id="commandB_product_sp_box" value="0" min="0">個</td></tr>
+							<tr><td>洛神紅麴旅用皂絲</td><td><input type="number" id="commandB_product_ss_1" value="0" min="0">個</td></tr>
+							<tr><td>暖暖薑黃旅用皂絲</td><td><input type="number" id="commandB_product_ss_2" value="0" min="0">個</td></tr>
+							<tr><td>萱草米黃旅用皂絲</td><td><input type="number" id="commandB_product_ss_3" value="0" min="0">個</td></tr>
+							<tr><td>三三台東意象皂絲旅行組</td><td><input type="number" id="commandB_product_ss_box" value="0" min="0">個</td></tr>
+						</table>
+						<table id="commandC1" style="display: none;">
+							<tr><td>米皂</td><td><input type="number" id="commandC1_sp_1" value="0" min="0">g</td></tr>
+							<tr><td>金針皂</td><td><input type="number" id="commandC1_sp_2" value="0" min="0">g</td></tr>
+							<tr><td>釋迦皂</td><td><input type="number" id="commandC1_sp_3" value="0" min="0">g</td></tr>
+							<tr><td>洛神皂</td><td><input type="number" id="commandC1_ss_1" value="0" min="0">g</td></tr>
+							<tr><td>紅麴皂</td><td><input type="number" id="commandC1_ss_2" value="0" min="0">g</td></tr>
+							<tr><td>薑黃皂</td><td><input type="number" id="commandC1_ss_3" value="0" min="0">g</td></tr>
+							<tr><td>蕁麻葉皂</td><td><input type="number" id="commandC1_ss_4" value="0" min="0">g</td></tr>
+							<tr><td>金針皂</td><td><input type="number" id="commandC1_ss_5" value="0" min="0">g</td></tr>
+							<tr><td>紅棕梠皂</td><td><input type="number" id="commandC1_ss_6" value="0" min="0">g</td></tr>
+						</table>
+						<table id="commandC2" style="display: none;">
+							<tr><td>後山埤的米皂</td><td><input type="number" id="commandC2_sp_1" value="0" min="0">g</td></tr>
+							<tr><td>後山埤的金針皂</td><td><input type="number" id="commandC2_sp_2" value="0" min="0">g</td></tr>
+							<tr><td>後山埤的釋迦皂</td><td><input type="number" id="commandC2_sp_3" value="0" min="0">g</td></tr>
 						</table>
 						<table id="commandC" style="display: none;">
-							<tr><td>田靜山巒禾風皂100g</td><td><input type="number" id="commandC_product_sp_1" value="0" min="0">個</td></tr>
-							<tr><td>金絲森林渲染皂100g</td><td><input type="number" id="commandC_product_sp_3" value="0" min="0">個</td></tr>
-							<tr><td>釋迦手感果力皂100g</td><td><input type="number" id="commandC_product_sp_5" value="0" min="0">個</td></tr>
-							<tr><td>三三台東意象禮盒組</td><td><input type="number" id="commandC_product_sp_box" value="0" min="0">個</td></tr>
-							<tr><td>洛神紅麴旅用皂絲</td><td><input type="number" id="commandC_product_ss_1" value="0" min="0">個</td></tr>
-							<tr><td>暖暖薑黃旅用皂絲</td><td><input type="number" id="commandC_product_ss_2" value="0" min="0">個</td></tr>
-							<tr><td>萱草米黃旅用皂絲</td><td><input type="number" id="commandC_product_ss_3" value="0" min="0">個</td></tr>
-							<tr><td>三三台東意象皂絲旅行組</td><td><input type="number" id="commandC_product_ss_box" value="0" min="0">個</td></tr>
-						</table>
-						<table id="commandD" style="display: none;">
-							<tr><td>米皂</td><td><input type="number" id="commandD_sp_1" value="0" min="0">g</td></tr>
-							<tr><td>金針皂</td><td><input type="number" id="commandD_sp_2" value="0" min="0">g</td></tr>
-							<tr><td>釋迦皂</td><td><input type="number" id="commandD_sp_3" value="0" min="0">g</td></tr>
-							<tr><td>洛神皂</td><td><input type="number" id="commandD_ss_1" value="0" min="0">g</td></tr>
-							<tr><td>紅麴皂</td><td><input type="number" id="commandD_ss_2" value="0" min="0">g</td></tr>
-							<tr><td>薑黃皂</td><td><input type="number" id="commandD_ss_3" value="0" min="0">g</td></tr>
-							<tr><td>蕁麻葉皂</td><td><input type="number" id="commandD_ss_4" value="0" min="0">g</td></tr>
-							<tr><td>金針皂</td><td><input type="number" id="commandD_ss_5" value="0" min="0">g</td></tr>
-							<tr><td>紅棕梠皂</td><td><input type="number" id="commandD_ss_6" value="0" min="0">g</td></tr>
-						</table>
-						<table id="commandE" style="display: none;">
-							<tr><td>後山埤的米皂</td><td><input type="number" id="commandE_sp_1" value="0" min="0">g</td></tr>
-							<tr><td>後山埤的金針皂</td><td><input type="number" id="commandE_sp_2" value="0" min="0">g</td></tr>
-							<tr><td>後山埤的釋迦皂</td><td><input type="number" id="commandE_sp_3" value="0" min="0">g</td></tr>
-						</table>
-						<table id="commandF" style="display: none;">
-							<tr><td>米皂</td><td><input type="number" id="commandF_sp_1" value="0" min="0">g</td></tr>
-							<tr><td>金針皂</td><td><input type="number" id="commandF_sp_2" value="0" min="0">g</td></tr>
-							<tr><td>釋迦皂</td><td><input type="number" id="commandF_sp_3" value="0" min="0">g</td></tr>
-							<tr><td>洛神皂</td><td><input type="number" id="commandF_ss_1" value="0" min="0">g</td></tr>
-							<tr><td>紅麴皂</td><td><input type="number" id="commandF_ss_2" value="0" min="0">g</td></tr>
-							<tr><td>薑黃皂</td><td><input type="number" id="commandF_ss_3" value="0" min="0">g</td></tr>
-							<tr><td>蕁麻葉皂</td><td><input type="number" id="commandF_ss_4" value="0" min="0">g</td></tr>
-							<tr><td>金針皂</td><td><input type="number" id="commandF_ss_5" value="0" min="0">g</td></tr>
-							<tr><td>紅棕梠皂</td><td><input type="number" id="commandF_ss_6" value="0" min="0">g</td></tr>
-						</table>
-						<table id="commandDEF" style="display: none;">
 							<tr><td>開始日期</td><td><input id="date_start" class="datepicker"></td></tr>
 							<tr><td>結束日期</td><td><input id="date_end" class="datepicker"></td></tr>
 							<tr><td><form id="commandData"><input name="fileData" type="file"></form></td></tr>
@@ -380,6 +364,7 @@
 									<option value="C">後山埤</option>
 									<option value="D">台東</option>
 									<option value="E">實習</option>
+									<option value="I">宜蘭</option>
 								</select>
 							</td>
 							<td><button onclick="search_auth()">查詢</button></td>
