@@ -959,7 +959,7 @@ function accept($account, $token, $index) {
 							while ($fetch4 = mysql_fetch_array($sql4)) {
 								$ITEMNO = $fetch4['ITEMNO'];
 								$ITEMAMT = $fetch4['ITEMAMT'];
-								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
+								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014'))) {
 									$ITEMAMT = ceil($ITEMAMT * 0.9);
 								}
 								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
@@ -983,7 +983,7 @@ function accept($account, $token, $index) {
 							while ($fetch4 = mysql_fetch_array($sql4)) {
 								$ITEMNO = $fetch4['ITEMNO'];
 								$ITEMAMT = $fetch4['ITEMAMT'];
-								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
+								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014'))) {
 									$ITEMAMT = ceil($ITEMAMT * 0.9);
 								}
 								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
@@ -1023,7 +1023,7 @@ function accept($account, $token, $index) {
 					while ($fetch4 = mysql_fetch_array($sql4)) {
 						$ITEMNO = $fetch4['ITEMNO'];
 						$ITEMAMT = $fetch4['ITEMAMT'];
-						if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
+						if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014'))) {
 							$ITEMAMT = ceil($ITEMAMT * 0.9);
 						}
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
@@ -1044,7 +1044,7 @@ function accept($account, $token, $index) {
 							while ($fetch4 = mysql_fetch_array($sql4)) {
 								$ITEMNO = $fetch4['ITEMNO'];
 								$ITEMAMT = $fetch4['ITEMAMT'];
-								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
+								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014'))) {
 									$ITEMAMT = ceil($ITEMAMT * 0.9);
 								}
 								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
@@ -1068,7 +1068,7 @@ function accept($account, $token, $index) {
 							while ($fetch4 = mysql_fetch_array($sql4)) {
 								$ITEMNO = $fetch4['ITEMNO'];
 								$ITEMAMT = $fetch4['ITEMAMT'];
-								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
+								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014'))) {
 									$ITEMAMT = ceil($ITEMAMT * 0.9);
 								}
 								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");

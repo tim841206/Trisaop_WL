@@ -1110,7 +1110,7 @@ function send($content) {
 					}
 				}
 				else {
-					return 'Wrong date type';
+					return 'Wrong date format';
 				}
 			}
 			else {
@@ -1431,7 +1431,7 @@ function process_date($value) {
 }
 
 function unit($itemno) {
-	if (in_array($itemno, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
+	if (in_array($itemno, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014'))) {
 		return 'c.c.';
 	}
 	elseif (in_array($itemno, array('oil_009', 'NaOH'))) {
