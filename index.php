@@ -75,7 +75,7 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 			}
 		}
 		elseif ($_POST['module'] == 'request') {
-			if (in_array($_POST['event'], array('view', 'search_index', 'search_state', 'search_date', 'view_index', 'notice', 'accept', 'reject', 'send', 'set_shipfee'))) {
+			if (in_array($_POST['event'], array('view', 'search_index', 'search_state', 'search_date', 'view_index', 'notice', 'accept', 'reject', 'send', 'set_shipfee', 'request_search'))) {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);
@@ -95,7 +95,7 @@ if (isset($_GET['module']) || isset($_POST['module'])) {
 			}
 		}
 		elseif ($_POST['module'] == 'command') {
-			if (in_array($_POST['event'], array('view', 'search_index', 'search_type', 'search_date', 'view_index', 'notice', 'deliver', 'refuse', 'send', 'check', 'check_checked'))) {
+			if (in_array($_POST['event'], array('view', 'search_index', 'search_type', 'search_date', 'view_index', 'notice', 'deliver', 'refuse', 'send', 'check', 'check_checked', 'command_search'))) {
 				$id = array('account' => $_COOKIE['account'], 'token' => $_COOKIE['token']);
 				$post = array_merge($id, $_POST);
 				echo curl_post($post, $_POST['module']);

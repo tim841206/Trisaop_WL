@@ -112,6 +112,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			echo json_encode(array('message' => $message));
 			return;
 		}
+		elseif ($_GET['event'] == 'command_search') {
+			$message = command_search($_GET['account'], $_GET['token'], $_GET['command']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'command' => $message['command']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
     		return;
@@ -233,6 +244,17 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$message = check_checked($_POST['account'], $_POST['token'], $_POST['index'], $_POST['itemno']);
 			echo json_encode(array('message' => $message));
 			return;
+		}
+		elseif ($_POST['event'] == 'command_search') {
+			$message = command_search($_POST['account'], $_POST['token'], $_POST['command']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'command' => $message['command']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
 		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
@@ -954,77 +976,17 @@ function send($content) {
 		}
 		else {
 			if ($type == 'A1' || $type == 'A2' || $type == 'A3') {
+				$set = array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_009', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014', 'NaOH');
 				$itemno = array();
 				$itemamt = array();
-				if (is_positiveInt($content['oil_1'])) {
-					array_push($itemno, 'oil_1');
-					array_push($itemamt, $content['oil_1']);
-				}
-				elseif (!is_nonnegativeInt($content['oil_1'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['oil_2'])) {
-					array_push($itemno, 'oil_2');
-					array_push($itemamt, $content['oil_2']);
-				}
-				elseif (!is_nonnegativeInt($content['oil_2'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['oil_3'])) {
-					array_push($itemno, 'oil_3');
-					array_push($itemamt, $content['oil_3']);
-				}
-				elseif (!is_nonnegativeInt($content['oil_3'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['oil_4'])) {
-					array_push($itemno, 'oil_4');
-					array_push($itemamt, $content['oil_4']);
-				}
-				elseif (!is_nonnegativeInt($content['oil_4'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['oil_5'])) {
-					array_push($itemno, 'oil_5');
-					array_push($itemamt, $content['oil_5']);
-				}
-				elseif (!is_nonnegativeInt($content['oil_5'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['oil_6'])) {
-					array_push($itemno, 'oil_6');
-					array_push($itemamt, $content['oil_6']);
-				}
-				elseif (!is_nonnegativeInt($content['oil_6'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['oil_7'])) {
-					array_push($itemno, 'oil_7');
-					array_push($itemamt, $content['oil_7']);
-				}
-				elseif (!is_nonnegativeInt($content['oil_7'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['oil_8'])) {
-					array_push($itemno, 'oil_8');
-					array_push($itemamt, $content['oil_8']);
-				}
-				elseif (!is_nonnegativeInt($content['oil_8'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['oil_9'])) {
-					array_push($itemno, 'oil_9');
-					array_push($itemamt, $content['oil_9']);
-				}
-				elseif (!is_nonnegativeInt($content['oil_9'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['NaOH'])) {
-					array_push($itemno, 'NaOH');
-					array_push($itemamt, $content['NaOH']);
-				}
-				elseif (!is_nonnegativeInt($content['NaOH'])) {
-					return 'Wrong amount format';
+				while ($item = array_shift($set)) {
+					if (isset($content[$item]) && is_positiveInt($content[$item])) {
+						array_push($itemno, $item);
+						array_push($itemamt, $content[$item]);
+					}
+					elseif (isset($content[$item]) && !is_nonnegativeInt($content[$item])) {
+						return 'Wrong amount format';
+					}
 				}
 				if (count($itemno) == 0) {
 					return 'Empty command';
@@ -1060,63 +1022,17 @@ function send($content) {
 				}
 			}
 			elseif ($type == 'B1' || $type == 'B2') {
+				$set = array('product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_box', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_box');
 				$itemno = array();
 				$itemamt = array();
-				if (is_positiveInt($content['product_sp_1'])) {
-					array_push($itemno, 'product_sp_1');
-					array_push($itemamt, $content['product_sp_1']);
-				}
-				elseif (!is_nonnegativeInt($content['product_sp_1'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['product_sp_3'])) {
-					array_push($itemno, 'product_sp_3');
-					array_push($itemamt, $content['product_sp_3']);
-				}
-				elseif (!is_nonnegativeInt($content['product_sp_3'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['product_sp_5'])) {
-					array_push($itemno, 'product_sp_5');
-					array_push($itemamt, $content['product_sp_5']);
-				}
-				elseif (!is_nonnegativeInt($content['product_sp_5'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['product_sp_box'])) {
-					array_push($itemno, 'product_sp_box');
-					array_push($itemamt, $content['product_sp_box']);
-				}
-				elseif (!is_nonnegativeInt($content['product_sp_box'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['product_ss_1'])) {
-					array_push($itemno, 'product_ss_1');
-					array_push($itemamt, $content['product_ss_1']);
-				}
-				elseif (!is_nonnegativeInt($content['product_ss_1'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['product_ss_2'])) {
-					array_push($itemno, 'product_ss_2');
-					array_push($itemamt, $content['product_ss_2']);
-				}
-				elseif (!is_nonnegativeInt($content['product_ss_2'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['product_ss_3'])) {
-					array_push($itemno, 'product_ss_3');
-					array_push($itemamt, $content['product_ss_3']);
-				}
-				elseif (!is_nonnegativeInt($content['product_ss_3'])) {
-					return 'Wrong amount format';
-				}
-				if (is_positiveInt($content['product_ss_box'])) {
-					array_push($itemno, 'product_ss_box');
-					array_push($itemamt, $content['product_ss_box']);
-				}
-				elseif (!is_nonnegativeInt($content['product_ss_box'])) {
-					return 'Wrong amount format';
+				while ($item = array_shift($set)) {
+					if (isset($content[$item]) && is_positiveInt($content[$item])) {
+						array_push($itemno, $item);
+						array_push($itemamt, $content[$item]);
+					}
+					elseif (isset($content[$item]) && !is_nonnegativeInt($content[$item])) {
+						return 'Wrong amount format';
+					}
 				}
 				if (count($itemno) == 0) {
 					return 'Empty command';
@@ -1143,72 +1059,19 @@ function send($content) {
 					return 'Unable to create command';
 				}
 			}
-			elseif ($type == 'C1' || $type == 'C3' || $type == 'C4') {
+			elseif ($type == 'C1' || $type == 'C2' || $type == 'C3' || $type == 'C4') {
 				if (is_validDate($startdate) && is_validDate($enddate)) {
+					$set = array('sp_001', 'sp_002', 'sp_003', 'sp_004', 'sp_005', 'sp_006', 'ss_001', 'ss_002', 'ss_003', 'ss_004', 'ss_005', 'ss_006', 'ss_007', 'ss_008', 'ss_009', 'ss_010', 'ss_011');
 					$itemno = array();
 					$itemamt = array();
-					if (is_positiveInt($content['sp_1'])) {
-						array_push($itemno, 'sp_1');
-						array_push($itemamt, $content['sp_1']);
-					}
-					elseif (!is_nonnegativeInt($content['sp_1'])) {
-						return 'Wrong amount format';
-					}
-					if (is_positiveInt($content['sp_2'])) {
-						array_push($itemno, 'sp_2');
-						array_push($itemamt, $content['sp_2']);
-					}
-					elseif (!is_nonnegativeInt($content['sp_2'])) {
-						return 'Wrong amount format';
-					}
-					if (is_positiveInt($content['sp_3'])) {
-						array_push($itemno, 'sp_3');
-						array_push($itemamt, $content['sp_3']);
-					}
-					elseif (!is_nonnegativeInt($content['sp_3'])) {
-						return 'Wrong amount format';
-					}
-					if (is_positiveInt($content['ss_1'])) {
-						array_push($itemno, 'ss_1');
-						array_push($itemamt, $content['ss_1']);
-					}
-					elseif (!is_nonnegativeInt($content['ss_1'])) {
-						return 'Wrong amount format';
-					}
-					if (is_positiveInt($content['ss_2'])) {
-						array_push($itemno, 'ss_2');
-						array_push($itemamt, $content['ss_2']);
-					}
-					elseif (!is_nonnegativeInt($content['ss_2'])) {
-						return 'Wrong amount format';
-					}
-					if (is_positiveInt($content['ss_3'])) {
-						array_push($itemno, 'ss_3');
-						array_push($itemamt, $content['ss_3']);
-					}
-					elseif (!is_nonnegativeInt($content['ss_3'])) {
-						return 'Wrong amount format';
-					}
-					if (is_positiveInt($content['ss_4'])) {
-						array_push($itemno, 'ss_4');
-						array_push($itemamt, $content['ss_4']);
-					}
-					elseif (!is_nonnegativeInt($content['ss_4'])) {
-						return 'Wrong amount format';
-					}
-					if (is_positiveInt($content['ss_5'])) {
-						array_push($itemno, 'ss_5');
-						array_push($itemamt, $content['ss_5']);
-					}
-					elseif (!is_nonnegativeInt($content['ss_5'])) {
-						return 'Wrong amount format';
-					}
-					if (is_positiveInt($content['ss_6'])) {
-						array_push($itemno, 'ss_6');
-						array_push($itemamt, $content['ss_6']);
-					}
-					elseif (!is_nonnegativeInt($content['ss_6'])) {
-						return 'Wrong amount format';
+					while ($item = array_shift($set)) {
+						if (isset($content[$item]) && is_positiveInt($content[$item])) {
+							array_push($itemno, $item);
+							array_push($itemamt, $content[$item]);
+						}
+						elseif (isset($content[$item]) && !is_nonnegativeInt($content[$item])) {
+							return 'Wrong amount format';
+						}
 					}
 					if (count($itemno) == 0) {
 						return 'Empty command';
@@ -1219,6 +1082,9 @@ function send($content) {
 					if ($type == 'C1') {
 						$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Beitou', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')";
 					}
+					elseif ($type == 'C2') {
+						$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Houshanpi', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')";
+					}
 					elseif ($type == 'C3') {
 						$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Taitung', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')";
 					}
@@ -1228,7 +1094,7 @@ function send($content) {
 					if (mysql_query($sql2)) {
 						if (update_no()) {
 							for ($i = 0; $i < count($itemno); $i++) {
-								$no = $itemno[$i];
+								$no = ($type == 'C2') ? $itemno[$i].'_houshanpi' : $itemno[$i];
 								$nm = query_name($no);
 								$amt = $itemamt[$i];
 								mysql_query("INSERT INTO CMDDTLMAS (CMDNO, ITEMNO, ITEMNM, ITEMAMT) VALUES ('$cmdno', '$no', '$nm', '$amt')");
@@ -1244,61 +1110,7 @@ function send($content) {
 					}
 				}
 				else {
-					return 'Wrong date format';
-				}
-			}
-			elseif ($type == 'C2') {
-				if (is_validDate($startdate) && is_validDate($enddate)) {
-					$itemno = array();
-					$itemamt = array();
-					if (is_positiveInt($content['sp_1_houshanpi'])) {
-						array_push($itemno, 'sp_1_houshanpi');
-						array_push($itemamt, $content['sp_1_houshanpi']);
-					}
-					elseif (!is_nonnegativeInt($content['sp_1_houshanpi'])) {
-						return 'Wrong amount format';
-					}
-					if (is_positiveInt($content['sp_2_houshanpi'])) {
-						array_push($itemno, 'sp_2_houshanpi');
-						array_push($itemamt, $content['sp_2_houshanpi']);
-					}
-					elseif (!is_nonnegativeInt($content['sp_2_houshanpi'])) {
-						return 'Wrong amount format';
-					}
-					if (is_positiveInt($content['sp_3_houshanpi'])) {
-						array_push($itemno, 'sp_3_houshanpi');
-						array_push($itemamt, $content['sp_3_houshanpi']);
-					}
-					elseif (!is_nonnegativeInt($content['sp_3_houshanpi'])) {
-						return 'Wrong amount format';
-					}
-					if (count($itemno) == 0) {
-						return 'Empty command';
-					}
-					date_default_timezone_set('Asia/Taipei');
-					$date = date("Y-m-d H:i:s");
-					$cmdno = get_no();
-					$sql2 = "INSERT INTO CMDMAS (CMDNO, TARGET, CMDSTAT, CMDTYPE, NOTICE, STARTDATE, ENDDATE, REVIEWDATE, CREATEDATE, UPDATEDATE) VALUES ('$cmdno', 'Houshanpi', 'A', 'C', '$memo', '$startdate', '$enddate', '$date', '$date', '$date')";
-					if (mysql_query($sql2)) {
-						if (update_no()) {
-							for ($i = 0; $i < count($itemno); $i++) {
-								$no = $itemno[$i];
-								$nm = query_name($no);
-								$amt = $itemamt[$i];
-								mysql_query("INSERT INTO CMDDTLMAS (CMDNO, ITEMNO, ITEMNM, ITEMAMT) VALUES ('$cmdno', '$no', '$nm', '$amt')");
-							}
-							return array('message' => 'Success', 'index' => $cmdno);
-						}
-						else {
-							return 'Unable to update request number';
-						}
-					}
-					else {
-						return 'Unable to create command';
-					}
-				}
-				else {
-					return 'Wrong date format';
+					return 'Wrong date type';
 				}
 			}
 			else {
@@ -1416,6 +1228,80 @@ function check_checked($account, $token, $index, $itemno) {
 			else {
 				return 'No authority';
 			}
+		}
+	}
+}
+
+function command_search($account, $token, $command) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Empty token';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		elseif ($fetch1['AUTHORITY'] != 'A') {
+			return 'No authority';
+		}
+		else {
+			$content = '<table>';
+			if ($command == 'A1' || $command == 'A2') {
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='A' AND ACTCODE='1'");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$content .= ($fetch2['ITEMNO'] == 'oil_009' || $fetch2['ITEMNO'] == 'NaOH') ? '<tr><td>'.$fetch2['ITEMNM'].'</td><td><input type="number" id="command_'.$fetch2['ITEMNO'].'" value="0" min="0">g</td></tr>' : '<tr><td>'.$fetch2['ITEMNM'].'</td><td><input type="number" id="command_'.$fetch2['ITEMNO'].'" value="0" min="0">c.c.</td></tr>';
+				}
+				$content .= '</table>';
+			}
+			elseif ($command == 'A3') {
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='A' AND ACTCODE='1'");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$content .= ($fetch2['ITEMNO'] == 'oil_009' || $fetch2['ITEMNO'] == 'NaOH') ? '<tr><td>'.$fetch2['ITEMNM'].'</td><td><input type="number" id="command_'.$fetch2['ITEMNO'].'" value="0" min="0">g</td></tr>' : '<tr><td>'.$fetch2['ITEMNM'].'</td><td><input type="number" id="command_'.$fetch2['ITEMNO'].'" value="0" min="0">c.c.</td></tr>';
+				}
+				$content .= '</table>';
+			}
+			elseif ($command == 'B1' || $command == 'B2') {
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='D' AND ACTCODE='1'");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td><input type="number" id="command_'.$fetch2['ITEMNO'].'" value="0" min="0">個</td></tr>';
+				}
+				$content .= '</table>';
+			}
+			elseif ($command == 'C1' || $command == 'C3') {
+				for ($i = 1; $i <= 3; $i++) {
+					$content .= '<tr><td>'.query_name('sp_00'.$i).'</td><td><input type="number" id="command_sp_00'.$i.'" value="0" min="0">個</td></tr>';
+				}
+				for ($i = 1; $i <= 6; $i++) {
+					$content .= '<tr><td>'.query_name('ss_00'.$i).'</td><td><input type="number" id="command_ss_00'.$i.'" value="0" min="0">個</td></tr>';
+				}
+				$content .= '</table>';
+			}
+			elseif ($command == 'C2') {
+				for ($i = 1; $i <= 3; $i++) {
+					$content .= '<tr><td>'.query_name('sp_00'.$i).'</td><td><input type="number" id="command_sp_00'.$i.'" value="0" min="0">個</td></tr>';
+				}
+				$content .= '</table>';
+			}
+			elseif ($command == 'C4') {
+				for ($i = 4; $i <= 6; $i++) {
+					$content .= '<tr><td>'.query_name('sp_00'.$i).'</td><td><input type="number" id="command_sp_00'.$i.'" value="0" min="0">個</td></tr>';
+				}
+				for ($i = 7; $i <= 9; $i++) {
+					$content .= '<tr><td>'.query_name('ss_00'.$i).'</td><td><input type="number" id="command_ss_00'.$i.'" value="0" min="0">個</td></tr>';
+				}
+				for ($i = 10; $i <= 11; $i++) {
+					$content .= '<tr><td>'.query_name('ss_0'.$i).'</td><td><input type="number" id="command_ss_0'.$i.'" value="0" min="0">個</td></tr>';
+				}
+				$content .= '</table>';
+			}
+			return array('message' => 'Success', 'command' => $content);
 		}
 	}
 }
@@ -1545,10 +1431,10 @@ function process_date($value) {
 }
 
 function unit($itemno) {
-	if (in_array($itemno, array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8'))) {
+	if (in_array($itemno, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
 		return 'c.c.';
 	}
-	elseif (in_array($itemno, array('oil_9', 'NaOH'))) {
+	elseif (in_array($itemno, array('oil_009', 'NaOH'))) {
 		return 'g';
 	}
 }

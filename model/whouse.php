@@ -463,7 +463,7 @@ function search($account, $token, $whouseno, $itemclass, $itemno) {
 			elseif ($fetch1['AUTHORITY'] == 'D' && $whouseno != 'Taitung') {
 				return 'No authority';
 			}
-			elseif ($fetch1['AUTHORITY'] == 'E' && ($whouseno == 'Houshanpi' || $itemclass == 'H' || in_array($itemno, array('sp_1_100_houshanpi', 'sp_2_100_houshanpi', 'sp_3_100_houshanpi')))) {
+			elseif ($fetch1['AUTHORITY'] == 'E' && ($whouseno == 'Houshanpi' || $itemclass == 'H' || in_array($itemno, array('sp_001_100_houshanpi', 'sp_002_100_houshanpi', 'sp_003_100_houshanpi')))) {
 				return 'No authority';
 			}
 			elseif ($fetch1['AUTHORITY'] == 'I' && $whouseno != 'Yilan') {
@@ -1183,7 +1183,7 @@ function slice_search($account, $token, $slice) {
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
 	}
-	elseif (!in_array($slice, array('ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+	elseif (!in_array($slice, array('ss_001', 'ss_002', 'ss_003', 'ss_004', 'ss_005', 'ss_006', 'ss_007', 'ss_008', 'ss_009', 'ss_010', 'ss_011'))) {
 		return 'Unregistered item';
 	}
 	else {
@@ -1215,7 +1215,7 @@ function slice($account, $token, $slice, $ingredient, $result) {
 	elseif ($sql1 == false) {
 		return 'Unregistered account';
 	}
-	elseif (!in_array($slice, array('ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+	elseif (!in_array($slice, array('ss_001', 'ss_002', 'ss_003', 'ss_004', 'ss_005', 'ss_006', 'ss_007', 'ss_008', 'ss_009', 'ss_010', 'ss_011'))) {
 		return 'Unregistered item';
 	}
 	else {
@@ -1240,14 +1240,23 @@ function slice($account, $token, $slice, $ingredient, $result) {
 				return 'Wrong amount format';
 			}
 			else {
-				if (in_array($slice, array('ss_1', 'ss_2'))) {
-					$id = 'slice_ss_1';
+				if (in_array($slice, array('ss_001', 'ss_002'))) {
+					$id = 'slice_ss_001';
 				}
-				elseif (in_array($slice, array('ss_3', 'ss_4'))) {
-					$id = 'slice_ss_2';
+				elseif (in_array($slice, array('ss_003', 'ss_004'))) {
+					$id = 'slice_ss_002';
 				}
-				elseif (in_array($slice, array('ss_5', 'ss_6'))) {
-					$id = 'slice_ss_3';
+				elseif (in_array($slice, array('ss_005', 'ss_006'))) {
+					$id = 'slice_ss_003';
+				}
+				elseif (in_array($slice, array('ss_007', 'ss_008'))) {
+					$id = 'slice_ss_004';
+				}
+				elseif (in_array($slice, array('ss_009', 'ss_010'))) {
+					$id = 'slice_ss_005';
+				}
+				elseif ($slice == 'ss_011') {
+					$id = 'slice_ss_006';
 				}
 				date_default_timezone_set('Asia/Taipei');
 				$date = date("Y-m-d H:i:s");

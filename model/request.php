@@ -95,6 +95,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			echo json_encode(array('message' => $message));
 			return;
 		}
+		elseif ($_GET['event'] == 'request_search') {
+			$message = request_search($_GET['account'], $_GET['token'], $_GET['sender'], $_GET['receiver']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'material_B' => $message['material_B'], 'material_C' => $message['material_C'], 'material_E' => $message['material_E'], 'material_H' => $message['material_H']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
+		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
     		return;
@@ -199,6 +210,17 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$message = set_shipfee($_POST['account'], $_POST['token'], $_POST['index'], $_POST['shipfee']);
 			echo json_encode(array('message' => $message));
 			return;
+		}
+		elseif ($_POST['event'] == 'request_search') {
+			$message = request_search($_POST['account'], $_POST['token'], $_POST['sender'], $_POST['receiver']);
+			if (is_array($message)) {
+				echo json_encode(array('message' => $message['message'], 'material_B' => $message['material_B'], 'material_C' => $message['material_C'], 'material_E' => $message['material_E'], 'material_H' => $message['material_H']));
+				return;
+			}
+			else {
+				echo json_encode(array('message' => $message));
+				return;
+			}
 		}
 		else {
 			echo json_encode(array('message' => 'Invalid event called'));
@@ -937,7 +959,7 @@ function accept($account, $token, $index) {
 							while ($fetch4 = mysql_fetch_array($sql4)) {
 								$ITEMNO = $fetch4['ITEMNO'];
 								$ITEMAMT = $fetch4['ITEMAMT'];
-								if (in_array($ITEMNO, array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8'))) {
+								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
 									$ITEMAMT = ceil($ITEMAMT * 0.9);
 								}
 								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
@@ -961,7 +983,7 @@ function accept($account, $token, $index) {
 							while ($fetch4 = mysql_fetch_array($sql4)) {
 								$ITEMNO = $fetch4['ITEMNO'];
 								$ITEMAMT = $fetch4['ITEMAMT'];
-								if (in_array($ITEMNO, array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8'))) {
+								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
 									$ITEMAMT = ceil($ITEMAMT * 0.9);
 								}
 								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
@@ -1001,7 +1023,7 @@ function accept($account, $token, $index) {
 					while ($fetch4 = mysql_fetch_array($sql4)) {
 						$ITEMNO = $fetch4['ITEMNO'];
 						$ITEMAMT = $fetch4['ITEMAMT'];
-						if (in_array($ITEMNO, array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8'))) {
+						if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
 							$ITEMAMT = ceil($ITEMAMT * 0.9);
 						}
 						mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
@@ -1022,7 +1044,7 @@ function accept($account, $token, $index) {
 							while ($fetch4 = mysql_fetch_array($sql4)) {
 								$ITEMNO = $fetch4['ITEMNO'];
 								$ITEMAMT = $fetch4['ITEMAMT'];
-								if (in_array($ITEMNO, array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8'))) {
+								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
 									$ITEMAMT = ceil($ITEMAMT * 0.9);
 								}
 								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
@@ -1046,7 +1068,7 @@ function accept($account, $token, $index) {
 							while ($fetch4 = mysql_fetch_array($sql4)) {
 								$ITEMNO = $fetch4['ITEMNO'];
 								$ITEMAMT = $fetch4['ITEMAMT'];
-								if (in_array($ITEMNO, array('oil_1', 'oil_2', 'oil_3', 'oil_4', 'oil_5', 'oil_6', 'oil_7', 'oil_8'))) {
+								if (in_array($ITEMNO, array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008'))) {
 									$ITEMAMT = ceil($ITEMAMT * 0.9);
 								}
 								mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$ITEMAMT', UPDATEDATE='$date' WHERE WHOUSENO='$RECEIVER' AND ITEMNO='$ITEMNO'");
@@ -1274,7 +1296,7 @@ function send($content) {
 			if ($fetch1['AUTHORITY'] == 'A') {
 				if ($sender == 'Trisoap' && $receiver == 'Beitou') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2a', 'package_2b', 'package_2c', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_8a', 'package_9a'))) {
+						if (in_array($key[$i], array('additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1282,7 +1304,7 @@ function send($content) {
 				}
 				elseif ($sender == 'Trisoap' && $receiver == 'Houshanpi') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10'))) {
+						if (in_array($key[$i], array('additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1290,7 +1312,7 @@ function send($content) {
 				}
 				elseif ($sender == 'Trisoap' && $receiver == 'Taitung') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10'))) {
+						if (in_array($key[$i], array('additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1298,7 +1320,7 @@ function send($content) {
 				}
 				elseif ($sender == 'Trisoap' && $receiver == 'Yilan') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_1', 'additive_2', 'additive_3', 'additive_4', 'additive_5', 'additive_6', 'additive_7', 'additive_8', 'additive_9', 'additive_10', 'package_1', 'package_2a', 'package_2b', 'package_2c', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_8a', 'package_9a'))) {
+						if (in_array($key[$i], array('additive_004', 'additive_005', 'additive_011', 'additive_012', 'additive_013', 'additive_014', 'additive_015', 'additive_016', 'additive_017', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1307,7 +1329,7 @@ function send($content) {
 				elseif ($sender == 'Houshanpi' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_2_100_houshanpi', 'sp_3_100_houshanpi'))) {
+						if (in_array($key[$i], array('sp_001_100_houshanpi', 'sp_002_100_houshanpi', 'sp_003_100_houshanpi'))) {
 							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
@@ -1324,7 +1346,7 @@ function send($content) {
 				elseif ($sender == 'Houshanpi' && $receiver == 'Yilan') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_2_100_houshanpi', 'sp_3_100_houshanpi'))) {
+						if (in_array($key[$i], array('sp_001_100_houshanpi', 'sp_002_100_houshanpi', 'sp_003_100_houshanpi'))) {
 							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
@@ -1341,7 +1363,7 @@ function send($content) {
 				elseif ($sender == 'Taitung' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+						if (in_array($key[$i], array('sp_001_100', 'sp_002_100', 'sp_003_100', 'ss_001', 'ss_002', 'ss_003', 'ss_004', 'ss_005', 'ss_006'))) {
 							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
@@ -1358,7 +1380,7 @@ function send($content) {
 				elseif ($sender == 'Taitung' && $receiver == 'Yilan') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+						if (in_array($key[$i], array('sp_001_100', 'sp_002_100', 'sp_003_100', 'ss_001', 'ss_002', 'ss_003', 'ss_004', 'ss_005', 'ss_006'))) {
 							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
@@ -1380,7 +1402,7 @@ function send($content) {
 				if ($sender == 'Houshanpi' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_2_100_houshanpi', 'sp_3_100_houshanpi'))) {
+						if (in_array($key[$i], array('sp_001_100_houshanpi', 'sp_002_100_houshanpi', 'sp_003_100_houshanpi'))) {
 							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
 								$processedName = explode('的', query_name($key[$i]));
 								$message .= $processedName[1] . "存量不足\n";
@@ -1398,7 +1420,7 @@ function send($content) {
 				elseif ($sender == 'Houshanpi' && $receiver == 'Yilan') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100_houshanpi', 'sp_2_100_houshanpi', 'sp_3_100_houshanpi'))) {
+						if (in_array($key[$i], array('sp_001_100_houshanpi', 'sp_002_100_houshanpi', 'sp_003_100_houshanpi'))) {
 							if (inventory('Houshanpi', $key[$i]) < $content[$key[$i]]) {
 								$processedName = explode('的', query_name($key[$i]));
 								$message .= $processedName[1] . "存量不足\n";
@@ -1421,7 +1443,7 @@ function send($content) {
 				if ($sender == 'Taitung' && $receiver == 'Beitou') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+						if (in_array($key[$i], array('sp_001_100', 'sp_002_100', 'sp_003_100', 'ss_001', 'ss_002', 'ss_003', 'ss_004', 'ss_005', 'ss_006'))) {
 							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
@@ -1438,7 +1460,7 @@ function send($content) {
 				elseif ($sender == 'Taitung' && $receiver == 'Yilan') {
 					$message = '';
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'ss_1', 'ss_2', 'ss_3', 'ss_4', 'ss_5', 'ss_6'))) {
+						if (in_array($key[$i], array('sp_001_100', 'sp_002_100', 'sp_003_100', 'ss_001', 'ss_002', 'ss_003', 'ss_004', 'ss_005', 'ss_006'))) {
 							if (inventory('Taitung', $key[$i]) < $content[$key[$i]]) {
 								$message .= query_name($key[$i]) . "存量不足\n";
 							}
@@ -1527,6 +1549,55 @@ function set_shipfee($account, $token, $index, $shipfee) {
 					return 'Database operation error';
 				}
 			}
+		}
+	}
+}
+
+function request_search($account, $token, $sender, $receiver) {
+	$sql1 = mysql_query("SELECT * FROM MEMBERMAS WHERE ACCOUNT='$account' AND ACTCODE='1'");
+	if (empty($account)) {
+		return 'Empty account';
+	}
+	elseif (empty($token)) {
+		return 'Empty token';
+	}
+	elseif ($sql1 == false) {
+		return 'Unregistered account';
+	}
+	else {
+		$fetch1 = mysql_fetch_array($sql1);
+		if ($fetch1['TOKEN'] != md5($account.$token)) {
+			return 'Wrong token';
+		}
+		elseif ($fetch1['AUTHORITY'] != 'A') {
+			return 'No authority';
+		}
+		else {
+			$material_B = '<table>';
+			$material_C = '<table>';
+			$material_E = '<table>';
+			$material_H = '<table>';
+			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='B' AND ACTCODE='1'");
+			$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='C' AND ACTCODE='1'");
+			$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='E' AND ACTCODE='1'");
+			$sql5 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='H' AND ACTCODE='1'");
+			while ($fetch2 = mysql_fetch_array($sql2)) {
+				$material_B .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td><input type="number" id="send_'.$fetch2['ITEMNO'].'" value="0" min="0">g</td></tr>';
+			}
+			while ($fetch3 = mysql_fetch_array($sql3)) {
+				$material_C .= '<tr><td>'.$fetch3['ITEMNM'].'</td><td><input type="number" id="send_'.$fetch3['ITEMNO'].'" value="0" min="0">g</td></tr>';
+			}
+			while ($fetch4 = mysql_fetch_array($sql4)) {
+				$material_E .= '<tr><td>'.$fetch4['ITEMNM'].'</td><td><input type="number" id="send_'.$fetch4['ITEMNO'].'" value="0" min="0">g</td></tr>';
+			}
+			while ($fetch5 = mysql_fetch_array($sql5)) {
+				$material_H .= '<tr><td>'.$fetch5['ITEMNM'].'</td><td><input type="number" id="send_'.$fetch5['ITEMNO'].'" value="0" min="0">g</td></tr>';
+			}
+			$material_B .= '</table>';
+			$material_C .= '</table>';
+			$material_E .= '</table>';
+			$material_H .= '</table>';
+			return array('message' => 'Success', 'material_B' => $material_B, 'material_C' => $material_C, 'material_E' => $material_E, 'material_H' => $material_H);
 		}
 	}
 }

@@ -119,120 +119,249 @@ function search($content) {
 			return 'Wrong token';
 		}
 		else {
-			$ingredient = array('oil_1' => 0, 'oil_2' => 0, 'oil_3' => 0, 'oil_4' => 0, 'oil_5' => 0, 'oil_6' => 0, 'oil_7' => 0, 'oil_8' => 0, 'oil_9' => 0, 'additive_1' => 0, 'additive_2' => 0, 'additive_3' => 0, 'additive_4' => 0, 'additive_5' => 0, 'additive_6' => 0, 'additive_7' => 0, 'additive_8' => 0, 'additive_9' => 0, 'additive_10' => 0, 'NaOH' => 0);
-			if (is_nonnegativeInt($content['sp_1'])) {
-				$ingredient['oil_1'] += 360 * $content['sp_1'];
-				$ingredient['oil_2'] += 160 * $content['sp_1'];
-				$ingredient['oil_3'] += 120 * $content['sp_1'];
-				$ingredient['oil_4'] += 80 * $content['sp_1'];
-				$ingredient['oil_9'] += 80 * $content['sp_1'];
-				$ingredient['additive_4'] += 5 * $content['sp_1'];
-				$ingredient['additive_5'] += 5 * $content['sp_1'];
-				$ingredient['additive_6'] += 5 * $content['sp_1'];
-				$ingredient['NaOH'] += 108 * $content['sp_1'];
+			$ingredient = array('oil_001' => 0, 'oil_002' => 0, 'oil_003' => 0, 'oil_004' => 0, 'oil_005' => 0, 'oil_006' => 0, 'oil_007' => 0, 'oil_008' => 0, 'oil_009' => 0, 'oil_010' => 0, 'oil_011' => 0, 'oil_012' => 0, 'oil_013' => 0, 'oil_014' => 0, 'additive_001' => 0, 'additive_002' => 0, 'additive_003' => 0, 'additive_004' => 0, 'additive_005' => 0, 'additive_006' => 0, 'additive_007' => 0, 'additive_008' => 0, 'additive_009' => 0, 'additive_010' => 0, 'additive_011' => 0, 'additive_012' => 0, 'additive_013' => 0, 'additive_014' => 0, 'additive_015' => 0, 'additive_016' => 0, 'additive_017' => 0, 'NaOH' => 0);
+			if (isset($content['sp_001'])) {
+				if (is_nonnegativeInt($content['sp_001'])) {
+					$ingredient['oil_001'] += 360 * $content['sp_001'];
+					$ingredient['oil_002'] += 160 * $content['sp_001'];
+					$ingredient['oil_003'] += 120 * $content['sp_001'];
+					$ingredient['oil_004'] += 80 * $content['sp_001'];
+					$ingredient['oil_009'] += 80 * $content['sp_001'];
+					$ingredient['additive_004'] += 5 * $content['sp_001'];
+					$ingredient['additive_005'] += 5 * $content['sp_001'];
+					$ingredient['additive_006'] += 5 * $content['sp_001'];
+					$ingredient['NaOH'] += 108 * $content['sp_001'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['sp_002'])) {
+				if (is_nonnegativeInt($content['sp_002'])) {
+					$ingredient['oil_001'] += 425 * $content['sp_002'];
+					$ingredient['oil_002'] += 170 * $content['sp_002'];
+					$ingredient['oil_003'] += 170 * $content['sp_002'];
+					$ingredient['oil_009'] += 85 * $content['sp_002'];
+					$ingredient['additive_001'] += 5 * $content['sp_002'];
+					$ingredient['NaOH'] += 118 * $content['sp_002'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			if (is_nonnegativeInt($content['sp_2'])) {
-				$ingredient['oil_1'] += 425 * $content['sp_2'];
-				$ingredient['oil_2'] += 170 * $content['sp_2'];
-				$ingredient['oil_3'] += 170 * $content['sp_2'];
-				$ingredient['oil_9'] += 85 * $content['sp_2'];
-				$ingredient['additive_1'] += 5 * $content['sp_2'];
-				$ingredient['NaOH'] += 118 * $content['sp_2'];
+			if (isset($content['sp_003'])) {
+				if (is_nonnegativeInt($content['sp_003'])) {
+					$ingredient['oil_001'] += 280 * $content['sp_003'];
+					$ingredient['oil_002'] += 160 * $content['sp_003'];
+					$ingredient['oil_003'] += 200 * $content['sp_003'];
+					$ingredient['oil_006'] += 80 * $content['sp_003'];
+					$ingredient['oil_009'] += 80 * $content['sp_003'];
+					$ingredient['additive_002'] += 5 * $content['sp_003'];
+					$ingredient['additive_003'] += 60 * $content['sp_003'];
+					$ingredient['NaOH'] += 112 * $content['sp_003'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['sp_004'])) {
+				if (is_nonnegativeInt($content['sp_004'])) {
+					$ingredient['oil_003'] += 640 * $content['sp_004'];
+					$ingredient['oil_004'] += 40 * $content['sp_004'];
+					$ingredient['oil_011'] += 120 * $content['sp_004'];
+					$ingredient['additive_014'] += 50 * $content['sp_004'];
+					$ingredient['NaOH'] += 135 * $content['sp_004'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			if (is_nonnegativeInt($content['sp_3'])) {
-				$ingredient['oil_1'] += 280 * $content['sp_3'];
-				$ingredient['oil_2'] += 160 * $content['sp_3'];
-				$ingredient['oil_3'] += 200 * $content['sp_3'];
-				$ingredient['oil_6'] += 80 * $content['sp_3'];
-				$ingredient['oil_9'] += 80 * $content['sp_3'];
-				$ingredient['additive_2'] += 5 * $content['sp_3'];
-				$ingredient['additive_3'] += 60 * $content['sp_3'];
-				$ingredient['NaOH'] += 112 * $content['sp_3'];
+			if (isset($content['sp_005'])) {
+				if (is_nonnegativeInt($content['sp_005'])) {
+					$ingredient['oil_001'] += 240 * $content['sp_005'];
+					$ingredient['oil_002'] += 120 * $content['sp_005'];
+					$ingredient['oil_003'] += 120 * $content['sp_005'];
+					$ingredient['oil_014'] += 320 * $content['sp_005'];
+					$ingredient['additive_015'] += 50 * $content['sp_005'];
+					$ingredient['NaOH'] += 111 * $content['sp_005'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['sp_006'])) {
+				if (is_nonnegativeInt($content['sp_006'])) {
+					$ingredient['oil_001'] += 160 * $content['sp_006'];
+					$ingredient['oil_002'] += 80 * $content['sp_006'];
+					$ingredient['oil_003'] += 80 * $content['sp_006'];
+					$ingredient['oil_009'] += 80 * $content['sp_006'];
+					$ingredient['oil_010'] += 160 * $content['sp_006'];
+					$ingredient['oil_012'] += 240 * $content['sp_006'];
+					$ingredient['additive_016'] += 6 * $content['sp_006'];
+					$ingredient['NaOH'] += 107 * $content['sp_006'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
 			if ($fetch1['AUTHORITY'] != 'C') {
-				if (is_nonnegativeInt($content['ss_1'])) {
-					$ingredient['oil_2'] += 150 * $content['ss_1'];
-					$ingredient['oil_3'] += 225 * $content['ss_1'];
-					$ingredient['oil_4'] += 150 * $content['ss_1'];
-					$ingredient['oil_7'] += 75 * $content['ss_1'];
-					$ingredient['oil_8'] += 150 * $content['ss_1'];
-					$ingredient['additive_10'] += 6 * $content['ss_1'];
-					$ingredient['NaOH'] += 107 * $content['ss_1'];
+				if (isset($content['ss_001'])) {
+					if (is_nonnegativeInt($content['ss_001'])) {
+						$ingredient['oil_002'] += 150 * $content['ss_001'];
+						$ingredient['oil_003'] += 225 * $content['ss_001'];
+						$ingredient['oil_004'] += 150 * $content['ss_001'];
+						$ingredient['oil_007'] += 75 * $content['ss_001'];
+						$ingredient['oil_008'] += 150 * $content['ss_001'];
+						$ingredient['additive_010'] += 6 * $content['ss_001'];
+						$ingredient['NaOH'] += 107 * $content['ss_001'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_002'])) {
+					if (is_nonnegativeInt($content['ss_002'])) {
+						$ingredient['oil_002'] += 150 * $content['ss_002'];
+						$ingredient['oil_003'] += 225 * $content['ss_002'];
+						$ingredient['oil_004'] += 150 * $content['ss_002'];
+						$ingredient['oil_007'] += 75 * $content['ss_002'];
+						$ingredient['oil_008'] += 150 * $content['ss_002'];
+						$ingredient['additive_009'] += 15 * $content['ss_002'];
+						$ingredient['NaOH'] += 107 * $content['ss_002'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				if (is_nonnegativeInt($content['ss_2'])) {
-					$ingredient['oil_2'] += 150 * $content['ss_2'];
-					$ingredient['oil_3'] += 225 * $content['ss_2'];
-					$ingredient['oil_4'] += 150 * $content['ss_2'];
-					$ingredient['oil_7'] += 75 * $content['ss_2'];
-					$ingredient['oil_8'] += 150 * $content['ss_2'];
-					$ingredient['additive_9'] += 15 * $content['ss_2'];
-					$ingredient['NaOH'] += 107 * $content['ss_2'];
+				if (isset($content['ss_003'])) {
+					if (is_nonnegativeInt($content['ss_003'])) {
+						$ingredient['oil_001'] += 337.5 * $content['ss_003'];
+						$ingredient['oil_002'] += 150 * $content['ss_003'];
+						$ingredient['oil_003'] += 187.5 * $content['ss_003'];
+						$ingredient['oil_006'] += 75 * $content['ss_003'];
+						$ingredient['additive_008'] += 6 * $content['ss_003'];
+						$ingredient['NaOH'] += 106 * $content['ss_003'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_004'])) {
+					if (is_nonnegativeInt($content['ss_004'])) {
+						$ingredient['oil_001'] += 300 * $content['ss_004'];
+						$ingredient['oil_002'] += 112.5 * $content['ss_004'];
+						$ingredient['oil_003'] += 112.5 * $content['ss_004'];
+						$ingredient['oil_004'] += 150 * $content['ss_004'];
+						$ingredient['oil_009'] += 75 * $content['ss_004'];
+						$ingredient['additive_007'] += 6 * $content['ss_004'];
+						$ingredient['NaOH'] += 101 * $content['ss_004'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				if (is_nonnegativeInt($content['ss_3'])) {
-					$ingredient['oil_1'] += 337.5 * $content['ss_3'];
-					$ingredient['oil_2'] += 150 * $content['ss_3'];
-					$ingredient['oil_3'] += 187.5 * $content['ss_3'];
-					$ingredient['oil_6'] += 75 * $content['ss_3'];
-					$ingredient['additive_8'] += 6 * $content['ss_3'];
-					$ingredient['NaOH'] += 106 * $content['ss_3'];
+				if (isset($content['ss_005'])) {
+					if (is_nonnegativeInt($content['ss_005'])) {
+						$ingredient['oil_001'] += 300 * $content['ss_005'];
+						$ingredient['oil_002'] += 112.5 * $content['ss_005'];
+						$ingredient['oil_003'] += 112.5 * $content['ss_005'];
+						$ingredient['oil_004'] += 150 * $content['ss_005'];
+						$ingredient['oil_005'] += 5 * $content['ss_005'];
+						$ingredient['additive_007'] += 6 * $content['ss_005'];
+						$ingredient['NaOH'] += 101 * $content['ss_005'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_006'])) {
+					if (is_nonnegativeInt($content['ss_006'])) {
+						$ingredient['oil_001'] += 337.5 * $content['ss_006'];
+						$ingredient['oil_002'] += 150 * $content['ss_006'];
+						$ingredient['oil_003'] += 187.5 * $content['ss_006'];
+						$ingredient['oil_006'] += 75 * $content['ss_006'];
+						$ingredient['additive_005'] += 5 * $content['ss_006'];
+						$ingredient['NaOH'] += 106 * $content['ss_006'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				if (is_nonnegativeInt($content['ss_4'])) {
-					$ingredient['oil_1'] += 300 * $content['ss_4'];
-					$ingredient['oil_2'] += 112.5 * $content['ss_4'];
-					$ingredient['oil_3'] += 112.5 * $content['ss_4'];
-					$ingredient['oil_4'] += 150 * $content['ss_4'];
-					$ingredient['oil_9'] += 75 * $content['ss_4'];
-					$ingredient['additive_7'] += 6 * $content['ss_4'];
-					$ingredient['NaOH'] += 101 * $content['ss_4'];
+				if (isset($content['ss_007'])) {
+					if (is_nonnegativeInt($content['ss_007'])) {
+						$ingredient['oil_002'] += 176 * $content['ss_007'];
+						$ingredient['oil_003'] += 184 * $content['ss_007'];
+						$ingredient['oil_004'] += 40 * $content['ss_007'];
+						$ingredient['oil_008'] += 120 * $content['ss_007'];
+						$ingredient['oil_011'] += 80 * $content['ss_007'];
+						$ingredient['oil_013'] += 200 * $content['ss_007'];
+						$ingredient['additive_012'] += 8 * $content['ss_007'];
+						$ingredient['NaOH'] += 112 * $content['ss_007'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_008'])) {
+					if (is_nonnegativeInt($content['ss_008'])) {
+						$ingredient['oil_002'] += 176 * $content['ss_008'];
+						$ingredient['oil_003'] += 184 * $content['ss_008'];
+						$ingredient['oil_004'] += 40 * $content['ss_008'];
+						$ingredient['oil_008'] += 120 * $content['ss_008'];
+						$ingredient['oil_011'] += 80 * $content['ss_008'];
+						$ingredient['oil_013'] += 200 * $content['ss_008'];
+						$ingredient['additive_017'] += 5 * $content['ss_008'];
+						$ingredient['NaOH'] += 112 * $content['ss_008'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				if (is_nonnegativeInt($content['ss_5'])) {
-					$ingredient['oil_1'] += 300 * $content['ss_5'];
-					$ingredient['oil_2'] += 112.5 * $content['ss_5'];
-					$ingredient['oil_3'] += 112.5 * $content['ss_5'];
-					$ingredient['oil_4'] += 150 * $content['ss_5'];
-					$ingredient['oil_5'] += 5 * $content['ss_5'];
-					$ingredient['additive_7'] += 6 * $content['ss_5'];
-					$ingredient['NaOH'] += 101 * $content['ss_5'];
+				if (isset($content['ss_009'])) {
+					if (is_nonnegativeInt($content['ss_009'])) {
+						$ingredient['oil_001'] += 572 * $content['ss_009'];
+						$ingredient['oil_002'] += 80 * $content['ss_009'];
+						$ingredient['oil_003'] += 80 * $content['ss_009'];
+						$ingredient['oil_004'] += 64 * $content['ss_009'];
+						$ingredient['additive_004'] += 8 * $content['ss_009'];
+						$ingredient['NaOH'] += 106 * $content['ss_009'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_010'])) {
+					if (is_nonnegativeInt($content['ss_010'])) {
+						$ingredient['oil_001'] += 572 * $content['ss_010'];
+						$ingredient['oil_002'] += 80 * $content['ss_010'];
+						$ingredient['oil_003'] += 80 * $content['ss_010'];
+						$ingredient['oil_004'] += 64 * $content['ss_010'];
+						$ingredient['additive_005'] += 8 * $content['ss_010'];
+						$ingredient['NaOH'] += 106 * $content['ss_010'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				if (is_nonnegativeInt($content['ss_6'])) {
-					$ingredient['oil_1'] += 337.5 * $content['ss_6'];
-					$ingredient['oil_2'] += 150 * $content['ss_6'];
-					$ingredient['oil_3'] += 187.5 * $content['ss_6'];
-					$ingredient['oil_6'] += 75 * $content['ss_6'];
-					$ingredient['additive_5'] += 5 * $content['ss_6'];
-					$ingredient['NaOH'] += 106 * $content['ss_6'];
-				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_011'])) {
+					if (is_nonnegativeInt($content['ss_011'])) {
+						$ingredient['oil_001'] += 320 * $content['ss_011'];
+						$ingredient['oil_003'] += 80 * $content['ss_011'];
+						$ingredient['oil_005'] += 200 * $content['ss_011'];
+						$ingredient['oil_009'] += 120 * $content['ss_011'];
+						$ingredient['oil_010'] += 64 * $content['ss_011'];
+						$ingredient['additive_011'] += 16 * $content['ss_011'];
+						$ingredient['additive_013'] += 8 * $content['ss_011'];
+						$ingredient['NaOH'] += 106 * $content['ss_011'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
 			}
-			$ingredient['oil_1'] = ceil($ingredient['oil_1']);
-			$ingredient['oil_2'] = ceil($ingredient['oil_2']);
-			$ingredient['oil_3'] = ceil($ingredient['oil_3']);
+			$ingredient['oil_001'] = ceil($ingredient['oil_001']);
+			$ingredient['oil_002'] = ceil($ingredient['oil_002']);
+			$ingredient['oil_003'] = ceil($ingredient['oil_003']);
 			return array('ingredient' => $ingredient, 'authority' => $fetch1['AUTHORITY']);
 		}
 	}
@@ -260,120 +389,249 @@ function produce($content) {
 			return 'No authority';
 		}
 		else {
-			$ingredient = array('oil_1' => 0, 'oil_2' => 0, 'oil_3' => 0, 'oil_4' => 0, 'oil_5' => 0, 'oil_6' => 0, 'oil_7' => 0, 'oil_8' => 0, 'oil_9' => 0, 'additive_1' => 0, 'additive_2' => 0, 'additive_3' => 0, 'additive_4' => 0, 'additive_5' => 0, 'additive_6' => 0, 'additive_7' => 0, 'additive_8' => 0, 'additive_9' => 0, 'additive_10' => 0, 'NaOH' => 0);
-			if (is_nonnegativeInt($content['sp_1'])) {
-				$ingredient['oil_1'] += 360 * $content['sp_1'];
-				$ingredient['oil_2'] += 160 * $content['sp_1'];
-				$ingredient['oil_3'] += 120 * $content['sp_1'];
-				$ingredient['oil_4'] += 80 * $content['sp_1'];
-				$ingredient['oil_9'] += 80 * $content['sp_1'];
-				$ingredient['additive_4'] += 5 * $content['sp_1'];
-				$ingredient['additive_5'] += 5 * $content['sp_1'];
-				$ingredient['additive_6'] += 5 * $content['sp_1'];
-				$ingredient['NaOH'] += 108 * $content['sp_1'];
+			$ingredient = array('oil_001' => 0, 'oil_002' => 0, 'oil_003' => 0, 'oil_004' => 0, 'oil_005' => 0, 'oil_006' => 0, 'oil_007' => 0, 'oil_008' => 0, 'oil_009' => 0, 'oil_010' => 0, 'oil_011' => 0, 'oil_012' => 0, 'oil_013' => 0, 'oil_014' => 0, 'additive_001' => 0, 'additive_002' => 0, 'additive_003' => 0, 'additive_004' => 0, 'additive_005' => 0, 'additive_006' => 0, 'additive_007' => 0, 'additive_008' => 0, 'additive_009' => 0, 'additive_010' => 0, 'additive_011' => 0, 'additive_012' => 0, 'additive_013' => 0, 'additive_014' => 0, 'additive_015' => 0, 'additive_016' => 0, 'additive_017' => 0, 'NaOH' => 0);
+			if (isset($content['sp_001'])) {
+				if (is_nonnegativeInt($content['sp_001'])) {
+					$ingredient['oil_001'] += 360 * $content['sp_001'];
+					$ingredient['oil_002'] += 160 * $content['sp_001'];
+					$ingredient['oil_003'] += 120 * $content['sp_001'];
+					$ingredient['oil_004'] += 80 * $content['sp_001'];
+					$ingredient['oil_009'] += 80 * $content['sp_001'];
+					$ingredient['additive_004'] += 5 * $content['sp_001'];
+					$ingredient['additive_005'] += 5 * $content['sp_001'];
+					$ingredient['additive_006'] += 5 * $content['sp_001'];
+					$ingredient['NaOH'] += 108 * $content['sp_001'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['sp_002'])) {
+				if (is_nonnegativeInt($content['sp_002'])) {
+					$ingredient['oil_001'] += 425 * $content['sp_002'];
+					$ingredient['oil_002'] += 170 * $content['sp_002'];
+					$ingredient['oil_003'] += 170 * $content['sp_002'];
+					$ingredient['oil_009'] += 85 * $content['sp_002'];
+					$ingredient['additive_001'] += 5 * $content['sp_002'];
+					$ingredient['NaOH'] += 118 * $content['sp_002'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			if (is_nonnegativeInt($content['sp_2'])) {
-				$ingredient['oil_1'] += 425 * $content['sp_2'];
-				$ingredient['oil_2'] += 170 * $content['sp_2'];
-				$ingredient['oil_3'] += 170 * $content['sp_2'];
-				$ingredient['oil_9'] += 85 * $content['sp_2'];
-				$ingredient['additive_1'] += 5 * $content['sp_2'];
-				$ingredient['NaOH'] += 118 * $content['sp_2'];
+			if (isset($content['sp_003'])) {
+				if (is_nonnegativeInt($content['sp_003'])) {
+					$ingredient['oil_001'] += 280 * $content['sp_003'];
+					$ingredient['oil_002'] += 160 * $content['sp_003'];
+					$ingredient['oil_003'] += 200 * $content['sp_003'];
+					$ingredient['oil_006'] += 80 * $content['sp_003'];
+					$ingredient['oil_009'] += 80 * $content['sp_003'];
+					$ingredient['additive_002'] += 5 * $content['sp_003'];
+					$ingredient['additive_003'] += 60 * $content['sp_003'];
+					$ingredient['NaOH'] += 112 * $content['sp_003'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['sp_004'])) {
+				if (is_nonnegativeInt($content['sp_004'])) {
+					$ingredient['oil_003'] += 640 * $content['sp_004'];
+					$ingredient['oil_004'] += 40 * $content['sp_004'];
+					$ingredient['oil_011'] += 120 * $content['sp_004'];
+					$ingredient['additive_014'] += 50 * $content['sp_004'];
+					$ingredient['NaOH'] += 135 * $content['sp_004'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			if (is_nonnegativeInt($content['sp_3'])) {
-				$ingredient['oil_1'] += 280 * $content['sp_3'];
-				$ingredient['oil_2'] += 160 * $content['sp_3'];
-				$ingredient['oil_3'] += 200 * $content['sp_3'];
-				$ingredient['oil_6'] += 80 * $content['sp_3'];
-				$ingredient['oil_9'] += 80 * $content['sp_3'];
-				$ingredient['additive_2'] += 5 * $content['sp_3'];
-				$ingredient['additive_3'] += 60 * $content['sp_3'];
-				$ingredient['NaOH'] += 112 * $content['sp_3'];
+			if (isset($content['sp_005'])) {
+				if (is_nonnegativeInt($content['sp_005'])) {
+					$ingredient['oil_001'] += 240 * $content['sp_005'];
+					$ingredient['oil_002'] += 120 * $content['sp_005'];
+					$ingredient['oil_003'] += 120 * $content['sp_005'];
+					$ingredient['oil_014'] += 320 * $content['sp_005'];
+					$ingredient['additive_015'] += 50 * $content['sp_005'];
+					$ingredient['NaOH'] += 111 * $content['sp_005'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['sp_006'])) {
+				if (is_nonnegativeInt($content['sp_006'])) {
+					$ingredient['oil_001'] += 160 * $content['sp_006'];
+					$ingredient['oil_002'] += 80 * $content['sp_006'];
+					$ingredient['oil_003'] += 80 * $content['sp_006'];
+					$ingredient['oil_009'] += 80 * $content['sp_006'];
+					$ingredient['oil_010'] += 160 * $content['sp_006'];
+					$ingredient['oil_012'] += 240 * $content['sp_006'];
+					$ingredient['additive_016'] += 6 * $content['sp_006'];
+					$ingredient['NaOH'] += 107 * $content['sp_006'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
 			if ($fetch1['AUTHORITY'] != 'C') {
-				if (is_nonnegativeInt($content['ss_1'])) {
-					$ingredient['oil_2'] += 150 * $content['ss_1'];
-					$ingredient['oil_3'] += 225 * $content['ss_1'];
-					$ingredient['oil_4'] += 150 * $content['ss_1'];
-					$ingredient['oil_7'] += 75 * $content['ss_1'];
-					$ingredient['oil_8'] += 150 * $content['ss_1'];
-					$ingredient['additive_10'] += 6 * $content['ss_1'];
-					$ingredient['NaOH'] += 107 * $content['ss_1'];
+				if (isset($content['ss_001'])) {
+					if (is_nonnegativeInt($content['ss_001'])) {
+						$ingredient['oil_002'] += 150 * $content['ss_001'];
+						$ingredient['oil_003'] += 225 * $content['ss_001'];
+						$ingredient['oil_004'] += 150 * $content['ss_001'];
+						$ingredient['oil_007'] += 75 * $content['ss_001'];
+						$ingredient['oil_008'] += 150 * $content['ss_001'];
+						$ingredient['additive_010'] += 6 * $content['ss_001'];
+						$ingredient['NaOH'] += 107 * $content['ss_001'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_002'])) {
+					if (is_nonnegativeInt($content['ss_002'])) {
+						$ingredient['oil_002'] += 150 * $content['ss_002'];
+						$ingredient['oil_003'] += 225 * $content['ss_002'];
+						$ingredient['oil_004'] += 150 * $content['ss_002'];
+						$ingredient['oil_007'] += 75 * $content['ss_002'];
+						$ingredient['oil_008'] += 150 * $content['ss_002'];
+						$ingredient['additive_009'] += 15 * $content['ss_002'];
+						$ingredient['NaOH'] += 107 * $content['ss_002'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				if (is_nonnegativeInt($content['ss_2'])) {
-					$ingredient['oil_2'] += 150 * $content['ss_2'];
-					$ingredient['oil_3'] += 225 * $content['ss_2'];
-					$ingredient['oil_4'] += 150 * $content['ss_2'];
-					$ingredient['oil_7'] += 75 * $content['ss_2'];
-					$ingredient['oil_8'] += 150 * $content['ss_2'];
-					$ingredient['additive_9'] += 15 * $content['ss_2'];
-					$ingredient['NaOH'] += 107 * $content['ss_2'];
+				if (isset($content['ss_003'])) {
+					if (is_nonnegativeInt($content['ss_003'])) {
+						$ingredient['oil_001'] += 337.5 * $content['ss_003'];
+						$ingredient['oil_002'] += 150 * $content['ss_003'];
+						$ingredient['oil_003'] += 187.5 * $content['ss_003'];
+						$ingredient['oil_006'] += 75 * $content['ss_003'];
+						$ingredient['additive_008'] += 6 * $content['ss_003'];
+						$ingredient['NaOH'] += 106 * $content['ss_003'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_004'])) {
+					if (is_nonnegativeInt($content['ss_004'])) {
+						$ingredient['oil_001'] += 300 * $content['ss_004'];
+						$ingredient['oil_002'] += 112.5 * $content['ss_004'];
+						$ingredient['oil_003'] += 112.5 * $content['ss_004'];
+						$ingredient['oil_004'] += 150 * $content['ss_004'];
+						$ingredient['oil_009'] += 75 * $content['ss_004'];
+						$ingredient['additive_007'] += 6 * $content['ss_004'];
+						$ingredient['NaOH'] += 101 * $content['ss_004'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				if (is_nonnegativeInt($content['ss_3'])) {
-					$ingredient['oil_1'] += 337.5 * $content['ss_3'];
-					$ingredient['oil_2'] += 150 * $content['ss_3'];
-					$ingredient['oil_3'] += 187.5 * $content['ss_3'];
-					$ingredient['oil_6'] += 75 * $content['ss_3'];
-					$ingredient['additive_8'] += 6 * $content['ss_3'];
-					$ingredient['NaOH'] += 106 * $content['ss_3'];
+				if (isset($content['ss_005'])) {
+					if (is_nonnegativeInt($content['ss_005'])) {
+						$ingredient['oil_001'] += 300 * $content['ss_005'];
+						$ingredient['oil_002'] += 112.5 * $content['ss_005'];
+						$ingredient['oil_003'] += 112.5 * $content['ss_005'];
+						$ingredient['oil_004'] += 150 * $content['ss_005'];
+						$ingredient['oil_005'] += 5 * $content['ss_005'];
+						$ingredient['additive_007'] += 6 * $content['ss_005'];
+						$ingredient['NaOH'] += 101 * $content['ss_005'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_006'])) {
+					if (is_nonnegativeInt($content['ss_006'])) {
+						$ingredient['oil_001'] += 337.5 * $content['ss_006'];
+						$ingredient['oil_002'] += 150 * $content['ss_006'];
+						$ingredient['oil_003'] += 187.5 * $content['ss_006'];
+						$ingredient['oil_006'] += 75 * $content['ss_006'];
+						$ingredient['additive_005'] += 5 * $content['ss_006'];
+						$ingredient['NaOH'] += 106 * $content['ss_006'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				if (is_nonnegativeInt($content['ss_4'])) {
-					$ingredient['oil_1'] += 300 * $content['ss_4'];
-					$ingredient['oil_2'] += 112.5 * $content['ss_4'];
-					$ingredient['oil_3'] += 112.5 * $content['ss_4'];
-					$ingredient['oil_4'] += 150 * $content['ss_4'];
-					$ingredient['oil_9'] += 75 * $content['ss_4'];
-					$ingredient['additive_7'] += 6 * $content['ss_4'];
-					$ingredient['NaOH'] += 101 * $content['ss_4'];
+				if (isset($content['ss_007'])) {
+					if (is_nonnegativeInt($content['ss_007'])) {
+						$ingredient['oil_002'] += 176 * $content['ss_007'];
+						$ingredient['oil_003'] += 184 * $content['ss_007'];
+						$ingredient['oil_004'] += 40 * $content['ss_007'];
+						$ingredient['oil_008'] += 120 * $content['ss_007'];
+						$ingredient['oil_011'] += 80 * $content['ss_007'];
+						$ingredient['oil_013'] += 200 * $content['ss_007'];
+						$ingredient['additive_012'] += 8 * $content['ss_007'];
+						$ingredient['NaOH'] += 112 * $content['ss_007'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_008'])) {
+					if (is_nonnegativeInt($content['ss_008'])) {
+						$ingredient['oil_002'] += 176 * $content['ss_008'];
+						$ingredient['oil_003'] += 184 * $content['ss_008'];
+						$ingredient['oil_004'] += 40 * $content['ss_008'];
+						$ingredient['oil_008'] += 120 * $content['ss_008'];
+						$ingredient['oil_011'] += 80 * $content['ss_008'];
+						$ingredient['oil_013'] += 200 * $content['ss_008'];
+						$ingredient['additive_017'] += 5 * $content['ss_008'];
+						$ingredient['NaOH'] += 112 * $content['ss_008'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				if (is_nonnegativeInt($content['ss_5'])) {
-					$ingredient['oil_1'] += 300 * $content['ss_5'];
-					$ingredient['oil_2'] += 112.5 * $content['ss_5'];
-					$ingredient['oil_3'] += 112.5 * $content['ss_5'];
-					$ingredient['oil_4'] += 150 * $content['ss_5'];
-					$ingredient['oil_5'] += 5 * $content['ss_5'];
-					$ingredient['additive_7'] += 6 * $content['ss_5'];
-					$ingredient['NaOH'] += 101 * $content['ss_5'];
+				if (isset($content['ss_009'])) {
+					if (is_nonnegativeInt($content['ss_009'])) {
+						$ingredient['oil_001'] += 572 * $content['ss_009'];
+						$ingredient['oil_002'] += 80 * $content['ss_009'];
+						$ingredient['oil_003'] += 80 * $content['ss_009'];
+						$ingredient['oil_004'] += 64 * $content['ss_009'];
+						$ingredient['additive_004'] += 8 * $content['ss_009'];
+						$ingredient['NaOH'] += 106 * $content['ss_009'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_010'])) {
+					if (is_nonnegativeInt($content['ss_010'])) {
+						$ingredient['oil_001'] += 572 * $content['ss_010'];
+						$ingredient['oil_002'] += 80 * $content['ss_010'];
+						$ingredient['oil_003'] += 80 * $content['ss_010'];
+						$ingredient['oil_004'] += 64 * $content['ss_010'];
+						$ingredient['additive_005'] += 8 * $content['ss_010'];
+						$ingredient['NaOH'] += 106 * $content['ss_010'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
-				if (is_nonnegativeInt($content['ss_6'])) {
-					$ingredient['oil_1'] += 337.5 * $content['ss_6'];
-					$ingredient['oil_2'] += 150 * $content['ss_6'];
-					$ingredient['oil_3'] += 187.5 * $content['ss_6'];
-					$ingredient['oil_6'] += 75 * $content['ss_6'];
-					$ingredient['additive_5'] += 5 * $content['ss_6'];
-					$ingredient['NaOH'] += 106 * $content['ss_6'];
-				}
-				else {
-					return 'Wrong input format';
+				if (isset($content['ss_011'])) {
+					if (is_nonnegativeInt($content['ss_011'])) {
+						$ingredient['oil_001'] += 320 * $content['ss_011'];
+						$ingredient['oil_003'] += 80 * $content['ss_011'];
+						$ingredient['oil_005'] += 200 * $content['ss_011'];
+						$ingredient['oil_009'] += 120 * $content['ss_011'];
+						$ingredient['oil_010'] += 64 * $content['ss_011'];
+						$ingredient['additive_011'] += 16 * $content['ss_011'];
+						$ingredient['additive_013'] += 8 * $content['ss_011'];
+						$ingredient['NaOH'] += 106 * $content['ss_011'];
+					}
+					else {
+						return 'Wrong input format';
+					}
 				}
 			}
-			$ingredient['oil_1'] = ceil($ingredient['oil_1']);
-			$ingredient['oil_2'] = ceil($ingredient['oil_2']);
-			$ingredient['oil_3'] = ceil($ingredient['oil_3']);
+			$ingredient['oil_001'] = ceil($ingredient['oil_001']);
+			$ingredient['oil_002'] = ceil($ingredient['oil_002']);
+			$ingredient['oil_003'] = ceil($ingredient['oil_003']);
 			if ($fetch1['AUTHORITY'] == 'B') {
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND (ITEMCLASS='A' OR ITEMCLASS='B') AND ACTCODE='1'");
 				$message = '';
@@ -476,104 +734,104 @@ function package($content) {
 			return 'No authority';
 		}
 		else {
-			$ingredient = array('sp_1_100' => 0, 'sp_2_100' => 0, 'sp_3_100' => 0, 'slice_ss_1' => 0, 'slice_ss_2' => 0, 'slice_ss_3' => 0, 'package_1' => 0, 'package_2a' => 0, 'package_2b' => 0, 'package_2c' => 0, 'package_3' => 0, 'package_4' => 0, 'package_5' => 0, 'package_6' => 0, 'package_7a' => 0, 'package_8a' => 0, 'package_9a' => 0, 'product_sp_1' => 0, 'product_sp_3' => 0, 'product_sp_5' => 0, 'product_ss_1' => 0, 'product_ss_2' => 0, 'product_ss_3' => 0);
-			if (is_nonnegativeInt($content['product_sp_1'])) {
-				$ingredient['sp_1_100'] += $content['product_sp_1'];
-				$ingredient['package_7a'] += $content['product_sp_1'];
+			$ingredient = array('sp_001_100' => 0, 'sp_002_100' => 0, 'sp_003_100' => 0, 'sp_004_100' => 0, 'sp_005_100' => 0, 'sp_006_100' => 0, 'slice_ss_001' => 0, 'slice_ss_002' => 0, 'slice_ss_003' => 0, 'slice_ss_004' => 0, 'slice_ss_005' => 0, 'slice_ss_006' => 0, 'package_001' => 0, 'package_002a' => 0, 'package_002b' => 0, 'package_002c' => 0, 'package_003' => 0, 'package_004' => 0, 'package_005' => 0, 'package_006' => 0, 'package_007a' => 0, 'package_008a' => 0, 'package_009a' => 0, 'product_sp_001a' => 0, 'product_sp_002a' => 0, 'product_sp_003a' => 0, 'product_ss_001' => 0, 'product_ss_002' => 0, 'product_ss_003' => 0);
+			if (is_nonnegativeInt($content['product_sp_001a'])) {
+				$ingredient['sp_001_100'] += $content['product_sp_001a'];
+				$ingredient['package_007a'] += $content['product_sp_001a'];
 			}
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_sp_3'])) {
-				$ingredient['sp_2_100'] += $content['product_sp_3'];
-				$ingredient['package_8a'] += $content['product_sp_3'];
+			if (is_nonnegativeInt($content['product_sp_002a'])) {
+				$ingredient['sp_002_100'] += $content['product_sp_002a'];
+				$ingredient['package_008a'] += $content['product_sp_002a'];
 			}
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_sp_5'])) {
-				$ingredient['sp_3_100'] += $content['product_sp_5'];
-				$ingredient['package_9a'] += $content['product_sp_5'];
+			if (is_nonnegativeInt($content['product_sp_003a'])) {
+				$ingredient['sp_003_100'] += $content['product_sp_003a'];
+				$ingredient['package_009a'] += $content['product_sp_003a'];
 			}
 			else {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_sp_box'])) {
-				$sp_1_type1 = $content['sp_1_type1'];
-				$sp_2_type1 = $content['sp_2_type1'];
-				$sp_3_type1 = $content['sp_3_type1'];
-				$sp_1_type2 = $content['sp_1_type2'];
-				$sp_2_type2 = $content['sp_2_type2'];
-				$sp_3_type2 = $content['sp_3_type2'];
-				if (!is_nonnegativeInt($sp_1_type1) || !is_nonnegativeInt($sp_2_type1) || !is_nonnegativeInt($sp_3_type1) || !is_nonnegativeInt($sp_1_type2) || !is_nonnegativeInt($sp_2_type2) || !is_nonnegativeInt($sp_3_type2)) {
+				$sp_001_type1 = $content['sp_001_type1'];
+				$sp_002_type1 = $content['sp_002_type1'];
+				$sp_003_type1 = $content['sp_003_type1'];
+				$sp_001_type2 = $content['sp_001_type2'];
+				$sp_002_type2 = $content['sp_002_type2'];
+				$sp_003_type2 = $content['sp_003_type2'];
+				if (!is_nonnegativeInt($sp_001_type1) || !is_nonnegativeInt($sp_002_type1) || !is_nonnegativeInt($sp_003_type1) || !is_nonnegativeInt($sp_001_type2) || !is_nonnegativeInt($sp_002_type2) || !is_nonnegativeInt($sp_003_type2)) {
 					return 'Wrong input format';
 				}
-				elseif ($sp_1_type1 + $sp_1_type2 != $content['product_sp_box']){
-					return 'Wrong sp_1 series amount';
+				elseif ($sp_001_type1 + $sp_001_type2 != $content['product_sp_box']){
+					return 'Wrong sp_001 series amount';
 				}
-				elseif ($sp_2_type1 + $sp_2_type2 != $content['product_sp_box']){
-					return 'Wrong sp_2 series amount';
+				elseif ($sp_002_type1 + $sp_002_type2 != $content['product_sp_box']){
+					return 'Wrong sp_002 series amount';
 				}
-				elseif ($sp_3_type1 + $sp_3_type2 != $content['product_sp_box']){
-					return 'Wrong sp_3 series amount';
+				elseif ($sp_003_type1 + $sp_003_type2 != $content['product_sp_box']){
+					return 'Wrong sp_003 series amount';
 				}
 				else {
-					$ingredient['sp_1_100'] += $sp_1_type1;
-					$ingredient['sp_2_100'] += $sp_2_type1;
-					$ingredient['sp_3_100'] += $sp_3_type1;
-					$ingredient['package_7a'] += $sp_1_type1;
-					$ingredient['package_8a'] += $sp_2_type1;
-					$ingredient['package_9a'] += $sp_3_type1;
-					$ingredient['product_sp_1'] += $sp_1_type2;
-					$ingredient['product_sp_3'] += $sp_2_type2;
-					$ingredient['product_sp_5'] += $sp_3_type2;
-					$ingredient['package_3'] += $content['product_sp_box'];
-					$ingredient['package_4'] += $content['product_sp_box'];
-					$ingredient['package_6'] += $content['product_sp_box'];
+					$ingredient['sp_001_100'] += $sp_001_type1;
+					$ingredient['sp_002_100'] += $sp_002_type1;
+					$ingredient['sp_003_100'] += $sp_003_type1;
+					$ingredient['package_007a'] += $sp_001_type1;
+					$ingredient['package_008a'] += $sp_002_type1;
+					$ingredient['package_009a'] += $sp_003_type1;
+					$ingredient['product_sp_001a'] += $sp_001_type2;
+					$ingredient['product_sp_002a'] += $sp_002_type2;
+					$ingredient['product_sp_003a'] += $sp_003_type2;
+					$ingredient['package_003'] += $content['product_sp_box'];
+					$ingredient['package_004'] += $content['product_sp_box'];
+					$ingredient['package_006'] += $content['product_sp_box'];
 				}
 			}
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_ss_1'])) {
-				$ingredient['slice_ss_1'] += 10 * $content['product_ss_1'];
-				$ingredient['package_1'] += $content['product_ss_1'];
-				$ingredient['package_2a'] += $content['product_ss_1'];
+			if (is_nonnegativeInt($content['product_ss_001'])) {
+				$ingredient['slice_ss_001'] += 10 * $content['product_ss_001'];
+				$ingredient['package_001'] += $content['product_ss_001'];
+				$ingredient['package_002a'] += $content['product_ss_001'];
 			}
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_ss_2'])) {
-				$ingredient['slice_ss_2'] += 10 * $content['product_ss_2'];
-				$ingredient['package_1'] += $content['product_ss_2'];
-				$ingredient['package_2b'] += $content['product_ss_2'];
+			if (is_nonnegativeInt($content['product_ss_002'])) {
+				$ingredient['slice_ss_002'] += 10 * $content['product_ss_002'];
+				$ingredient['package_001'] += $content['product_ss_002'];
+				$ingredient['package_002b'] += $content['product_ss_002'];
 			}
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_ss_3'])) {
-				$ingredient['slice_ss_3'] += 10 * $content['product_ss_3'];
-				$ingredient['package_1'] += $content['product_ss_3'];
-				$ingredient['package_2c'] += $content['product_ss_3'];
+			if (is_nonnegativeInt($content['product_ss_003'])) {
+				$ingredient['slice_ss_003'] += 10 * $content['product_ss_003'];
+				$ingredient['package_001'] += $content['product_ss_003'];
+				$ingredient['package_002c'] += $content['product_ss_003'];
 			}
 			else {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_ss_box'])) {
-				$ss_1_type1 = $content['ss_1_type1'];
-				$ss_2_type1 = $content['ss_2_type1'];
-				$ss_3_type1 = $content['ss_3_type1'];
-				if (!is_nonnegativeInt($ss_1_type1) || !is_nonnegativeInt($ss_2_type1) || !is_nonnegativeInt($ss_3_type1)) {
+				$ss_001_type1 = $content['ss_001_type1'];
+				$ss_002_type1 = $content['ss_002_type1'];
+				$ss_003_type1 = $content['ss_003_type1'];
+				if (!is_nonnegativeInt($ss_001_type1) || !is_nonnegativeInt($ss_002_type1) || !is_nonnegativeInt($ss_003_type1)) {
 					return 'Wrong input format';
 				}
-				elseif ($ss_1_type1 + $ss_2_type1 + $ss_3_type1 != $content['product_ss_box'] * 6){
+				elseif ($ss_001_type1 + $ss_002_type1 + $ss_003_type1 != $content['product_ss_box'] * 6){
 					return 'Wrong ss series amount';
 				}
 				else {
-					$ingredient['product_ss_1'] += $ss_1_type1;
-					$ingredient['product_ss_2'] += $ss_2_type1;
-					$ingredient['product_ss_3'] += $ss_3_type1;
-					$ingredient['package_5'] += $content['product_ss_box'];
+					$ingredient['product_ss_001'] += $ss_001_type1;
+					$ingredient['product_ss_002'] += $ss_002_type1;
+					$ingredient['product_ss_003'] += $ss_003_type1;
+					$ingredient['package_005'] += $content['product_ss_box'];
 				}
 			}
 			else {
@@ -606,104 +864,104 @@ function packing($content) {
 			return 'No authority';
 		}
 		else {
-			$ingredient = array('sp_1_100' => 0, 'sp_2_100' => 0, 'sp_3_100' => 0, 'slice_ss_1' => 0, 'slice_ss_2' => 0, 'slice_ss_3' => 0, 'package_1' => 0, 'package_2a' => 0, 'package_2b' => 0, 'package_2c' => 0, 'package_3' => 0, 'package_4' => 0, 'package_5' => 0, 'package_6' => 0, 'package_7a' => 0, 'package_8a' => 0, 'package_9a' => 0, 'product_sp_1' => 0, 'product_sp_3' => 0, 'product_sp_5' => 0, 'product_ss_1' => 0, 'product_ss_2' => 0, 'product_ss_3' => 0);
-			if (is_nonnegativeInt($content['product_sp_1'])) {
-				$ingredient['sp_1_100'] += $content['product_sp_1'];
-				$ingredient['package_7a'] += $content['product_sp_1'];
+			$ingredient = array('sp_001_100' => 0, 'sp_002_100' => 0, 'sp_003_100' => 0, 'sp_004_100' => 0, 'sp_005_100' => 0, 'sp_006_100' => 0, 'slice_ss_001' => 0, 'slice_ss_002' => 0, 'slice_ss_003' => 0, 'slice_ss_004' => 0, 'slice_ss_005' => 0, 'slice_ss_006' => 0, 'package_001' => 0, 'package_002a' => 0, 'package_002b' => 0, 'package_002c' => 0, 'package_003' => 0, 'package_004' => 0, 'package_005' => 0, 'package_006' => 0, 'package_007a' => 0, 'package_008a' => 0, 'package_009a' => 0, 'product_sp_001a' => 0, 'product_sp_002a' => 0, 'product_sp_003a' => 0, 'product_ss_001' => 0, 'product_ss_002' => 0, 'product_ss_003' => 0);
+			if (is_nonnegativeInt($content['product_sp_001a'])) {
+				$ingredient['sp_001_100'] += $content['product_sp_001a'];
+				$ingredient['package_007a'] += $content['product_sp_001a'];
 			}
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_sp_3'])) {
-				$ingredient['sp_2_100'] += $content['product_sp_3'];
-				$ingredient['package_8a'] += $content['product_sp_3'];
+			if (is_nonnegativeInt($content['product_sp_002a'])) {
+				$ingredient['sp_002_100'] += $content['product_sp_002a'];
+				$ingredient['package_008a'] += $content['product_sp_002a'];
 			}
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_sp_5'])) {
-				$ingredient['sp_3_100'] += $content['product_sp_5'];
-				$ingredient['package_9a'] += $content['product_sp_5'];
+			if (is_nonnegativeInt($content['product_sp_003a'])) {
+				$ingredient['sp_003_100'] += $content['product_sp_003a'];
+				$ingredient['package_009a'] += $content['product_sp_003a'];
 			}
 			else {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_sp_box'])) {
-				$sp_1_type1 = $content['sp_1_type1'];
-				$sp_2_type1 = $content['sp_2_type1'];
-				$sp_3_type1 = $content['sp_3_type1'];
-				$sp_1_type2 = $content['sp_1_type2'];
-				$sp_2_type2 = $content['sp_2_type2'];
-				$sp_3_type2 = $content['sp_3_type2'];
-				if (!is_nonnegativeInt($sp_1_type1) || !is_nonnegativeInt($sp_2_type1) || !is_nonnegativeInt($sp_3_type1) || !is_nonnegativeInt($sp_1_type2) || !is_nonnegativeInt($sp_2_type2) || !is_nonnegativeInt($sp_3_type2)) {
+				$sp_001_type1 = $content['sp_001_type1'];
+				$sp_002_type1 = $content['sp_002_type1'];
+				$sp_003_type1 = $content['sp_003_type1'];
+				$sp_001_type2 = $content['sp_001_type2'];
+				$sp_002_type2 = $content['sp_002_type2'];
+				$sp_003_type2 = $content['sp_003_type2'];
+				if (!is_nonnegativeInt($sp_001_type1) || !is_nonnegativeInt($sp_002_type1) || !is_nonnegativeInt($sp_003_type1) || !is_nonnegativeInt($sp_001_type2) || !is_nonnegativeInt($sp_002_type2) || !is_nonnegativeInt($sp_003_type2)) {
 					return 'Wrong input format';
 				}
-				elseif ($sp_1_type1 + $sp_1_type2 != $content['product_sp_box']){
-					return 'Wrong sp_1 series amount';
+				elseif ($sp_001_type1 + $sp_001_type2 != $content['product_sp_box']){
+					return 'Wrong sp_001 series amount';
 				}
-				elseif ($sp_2_type1 + $sp_2_type2 != $content['product_sp_box']){
-					return 'Wrong sp_2 series amount';
+				elseif ($sp_002_type1 + $sp_002_type2 != $content['product_sp_box']){
+					return 'Wrong sp_002 series amount';
 				}
-				elseif ($sp_3_type1 + $sp_3_type2 != $content['product_sp_box']){
-					return 'Wrong sp_3 series amount';
+				elseif ($sp_003_type1 + $sp_003_type2 != $content['product_sp_box']){
+					return 'Wrong sp_003 series amount';
 				}
 				else {
-					$ingredient['sp_1_100'] += $sp_1_type1;
-					$ingredient['sp_2_100'] += $sp_2_type1;
-					$ingredient['sp_3_100'] += $sp_3_type1;
-					$ingredient['package_7a'] += $sp_1_type1;
-					$ingredient['package_8a'] += $sp_2_type1;
-					$ingredient['package_9a'] += $sp_3_type1;
-					$ingredient['product_sp_1'] += $sp_1_type2;
-					$ingredient['product_sp_3'] += $sp_2_type2;
-					$ingredient['product_sp_5'] += $sp_3_type2;
-					$ingredient['package_3'] += $content['product_sp_box'];
-					$ingredient['package_4'] += $content['product_sp_box'];
-					$ingredient['package_6'] += $content['product_sp_box'];
+					$ingredient['sp_001_100'] += $sp_001_type1;
+					$ingredient['sp_002_100'] += $sp_002_type1;
+					$ingredient['sp_003_100'] += $sp_003_type1;
+					$ingredient['package_007a'] += $sp_001_type1;
+					$ingredient['package_008a'] += $sp_002_type1;
+					$ingredient['package_009a'] += $sp_003_type1;
+					$ingredient['product_sp_001a'] += $sp_001_type2;
+					$ingredient['product_sp_002a'] += $sp_002_type2;
+					$ingredient['product_sp_003a'] += $sp_003_type2;
+					$ingredient['package_003'] += $content['product_sp_box'];
+					$ingredient['package_004'] += $content['product_sp_box'];
+					$ingredient['package_006'] += $content['product_sp_box'];
 				}
 			}
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_ss_1'])) {
-				$ingredient['slice_ss_1'] += 10 * $content['product_ss_1'];
-				$ingredient['package_1'] += $content['product_ss_1'];
-				$ingredient['package_2a'] += $content['product_ss_1'];
+			if (is_nonnegativeInt($content['product_ss_001'])) {
+				$ingredient['slice_ss_001'] += 10 * $content['product_ss_001'];
+				$ingredient['package_001'] += $content['product_ss_001'];
+				$ingredient['package_002a'] += $content['product_ss_001'];
 			}
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_ss_2'])) {
-				$ingredient['slice_ss_2'] += 10 * $content['product_ss_2'];
-				$ingredient['package_1'] += $content['product_ss_2'];
-				$ingredient['package_2b'] += $content['product_ss_2'];
+			if (is_nonnegativeInt($content['product_ss_002'])) {
+				$ingredient['slice_ss_002'] += 10 * $content['product_ss_002'];
+				$ingredient['package_001'] += $content['product_ss_002'];
+				$ingredient['package_002b'] += $content['product_ss_002'];
 			}
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_ss_3'])) {
-				$ingredient['slice_ss_3'] += 10 * $content['product_ss_3'];
-				$ingredient['package_1'] += $content['product_ss_3'];
-				$ingredient['package_2c'] += $content['product_ss_3'];
+			if (is_nonnegativeInt($content['product_ss_003'])) {
+				$ingredient['slice_ss_003'] += 10 * $content['product_ss_003'];
+				$ingredient['package_001'] += $content['product_ss_003'];
+				$ingredient['package_002c'] += $content['product_ss_003'];
 			}
 			else {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_ss_box'])) {
-				$ss_1_type1 = $content['ss_1_type1'];
-				$ss_2_type1 = $content['ss_2_type1'];
-				$ss_3_type1 = $content['ss_3_type1'];
-				if (!is_nonnegativeInt($ss_1_type1) || !is_nonnegativeInt($ss_2_type1) || !is_nonnegativeInt($ss_3_type1)) {
+				$ss_001_type1 = $content['ss_001_type1'];
+				$ss_002_type1 = $content['ss_002_type1'];
+				$ss_003_type1 = $content['ss_003_type1'];
+				if (!is_nonnegativeInt($ss_001_type1) || !is_nonnegativeInt($ss_002_type1) || !is_nonnegativeInt($ss_003_type1)) {
 					return 'Wrong input format';
 				}
-				elseif ($ss_1_type1 + $ss_2_type1 + $ss_3_type1 != $content['product_ss_box'] * 6){
+				elseif ($ss_001_type1 + $ss_002_type1 + $ss_003_type1 != $content['product_ss_box'] * 6){
 					return 'Wrong ss series amount';
 				}
 				else {
-					$ingredient['product_ss_1'] += $ss_1_type1;
-					$ingredient['product_ss_2'] += $ss_2_type1;
-					$ingredient['product_ss_3'] += $ss_3_type1;
-					$ingredient['package_5'] += $content['product_ss_box'];
+					$ingredient['product_ss_001'] += $ss_001_type1;
+					$ingredient['product_ss_002'] += $ss_002_type1;
+					$ingredient['product_ss_003'] += $ss_003_type1;
+					$ingredient['package_005'] += $content['product_ss_box'];
 				}
 			}
 			else {
@@ -712,7 +970,7 @@ function packing($content) {
 			$sql2 = ($fetch1['AUTHORITY'] == 'B') ? mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ACTCODE='1'") : mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ACTCODE='1'");
 			$message = '';
 			while ($fetch2 = mysql_fetch_array($sql2)) {
-				if (in_array($fetch2['ITEMNO'], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'slice_ss_1', 'slice_ss_2', 'slice_ss_3', 'package_1', 'package_2a', 'package_2b', 'package_2c', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_8a', 'package_9a', 'product_sp_1', 'product_sp_3', 'product_sp_5', 'product_ss_1', 'product_ss_2', 'product_ss_3'))) {
+				if (in_array($fetch2['ITEMNO'], array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_ss_001', 'product_ss_002', 'product_ss_003'))) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					$ITEMNM = $fetch2['ITEMNM'];
 					$amount = $ingredient[$ITEMNO];
@@ -735,122 +993,46 @@ function packing($content) {
 function querySearchTable($query, $authority) {
 	if ($authority == 'A' || $authority == 'E') {
 		$queryResult = '<table><tr><th>原料</th><th>所需數量(g)</th><th>北投庫存數量(g)</th><th>台東庫存數量(g)</th><th>宜蘭庫存數量(g)</th></tr>';
-		if ($query['oil_1'] != 0) $queryResult .= '<tr><td>橄欖油</td><td>'.$query['oil_1'].'</td><td>'.inventory('Beitou', 'oil_1').'</td><td>'.inventory('Taitung', 'oil_1').'</td><td>'.inventory('Yilan', 'oil_1').'</td></tr>';
-		if ($query['oil_2'] != 0) $queryResult .= '<tr><td>棕梠油</td><td>'.$query['oil_2'].'</td><td>'.inventory('Beitou', 'oil_2').'</td><td>'.inventory('Taitung', 'oil_2').'</td><td>'.inventory('Yilan', 'oil_2').'</td></tr>';
-		if ($query['oil_3'] != 0) $queryResult .= '<tr><td>椰子油</td><td>'.$query['oil_3'].'</td><td>'.inventory('Beitou', 'oil_3').'</td><td>'.inventory('Taitung', 'oil_3').'</td><td>'.inventory('Yilan', 'oil_3').'</td></tr>';
-		if ($query['oil_4'] != 0) $queryResult .= '<tr><td>米糠油</td><td>'.$query['oil_4'].'</td><td>'.inventory('Beitou', 'oil_4').'</td><td>'.inventory('Taitung', 'oil_4').'</td><td>'.inventory('Yilan', 'oil_4').'</td></tr>';
-		if ($query['oil_5'] != 0) $queryResult .= '<tr><td>紅棕梠油</td><td>'.$query['oil_5'].'</td><td>'.inventory('Beitou', 'oil_5').'</td><td>'.inventory('Taitung', 'oil_5').'</td><td>'.inventory('Yilan', 'oil_5').'</td></tr>';
-		if ($query['oil_6'] != 0) $queryResult .= '<tr><td>葡萄籽油</td><td>'.$query['oil_6'].'</td><td>'.inventory('Beitou', 'oil_6').'</td><td>'.inventory('Taitung', 'oil_6').'</td><td>'.inventory('Yilan', 'oil_6').'</td></tr>';
-		if ($query['oil_7'] != 0) $queryResult .= '<tr><td>苦茶油</td><td>'.$query['oil_7'].'</td><td>'.inventory('Beitou', 'oil_7').'</td><td>'.inventory('Taitung', 'oil_7').'</td><td>'.inventory('Yilan', 'oil_7').'</td></tr>';
-		if ($query['oil_8'] != 0) $queryResult .= '<tr><td>蓖麻油</td><td>'.$query['oil_8'].'</td><td>'.inventory('Beitou', 'oil_8').'</td><td>'.inventory('Taitung', 'oil_8').'</td><td>'.inventory('Yilan', 'oil_8').'</td></tr>';
-		if ($query['oil_9'] != 0) $queryResult .= '<tr><td>乳油木果脂</td><td>'.$query['oil_9'].'</td><td>'.inventory('Beitou', 'oil_9').'</td><td>'.inventory('Taitung', 'oil_9').'</td><td>'.inventory('Yilan', 'oil_9').'</td></tr>';
-		if ($query['NaOH'] != 0) $queryResult .= '<tr><td>鹼</td><td>'.$query['NaOH'].'</td><td>'.inventory('Beitou', 'NaOH').'</td><td>'.inventory('Taitung', 'NaOH').'</td><td>'.inventory('Yilan', 'NaOH').'</td></tr>';
-		if ($query['additive_1'] != 0) $queryResult .= '<tr><td>金針花瓣</td><td>'.$query['additive_1'].'</td><td>'.inventory('Beitou', 'additive_1').'</td><td>'.inventory('Taitung', 'additive_1').'</td><td>'.inventory('Yilan', 'additive_1').'</td></tr>';
-		if ($query['additive_2'] != 0) $queryResult .= '<tr><td>釋迦果粉</td><td>'.$query['additive_2'].'</td><td>'.inventory('Beitou', 'additive_2').'</td><td>'.inventory('Taitung', 'additive_2').'</td><td>'.inventory('Yilan', 'additive_2').'</td></tr>';
-		if ($query['additive_3'] != 0) $queryResult .= '<tr><td>釋迦果泥</td><td>'.$query['additive_3'].'</td><td>'.inventory('Beitou', 'additive_3').'</td><td>'.inventory('Taitung', 'additive_3').'</td><td>'.inventory('Yilan', 'additive_3').'</td></tr>';
-		if ($query['additive_4'] != 0) $queryResult .= '<tr><td>米粉</td><td>'.$query['additive_4'].'</td><td>'.inventory('Beitou', 'additive_4').'</td><td>'.inventory('Taitung', 'additive_4').'</td><td>'.inventory('Yilan', 'additive_4').'</td></tr>';
-		if ($query['additive_5'] != 0) $queryResult .= '<tr><td>蕁麻葉粉</td><td>'.$query['additive_5'].'</td><td>'.inventory('Beitou', 'additive_5').'</td><td>'.inventory('Taitung', 'additive_5').'</td><td>'.inventory('Yilan', 'additive_5').'</td></tr>';
-		if ($query['additive_6'] != 0) $queryResult .= '<tr><td>金盞花粉</td><td>'.$query['additive_6'].'</td><td>'.inventory('Beitou', 'additive_6').'</td><td>'.inventory('Taitung', 'additive_6').'</td><td>'.inventory('Yilan', 'additive_6').'</td></tr>';
-		if ($query['additive_7'] != 0) $queryResult .= '<tr><td>金針花粉</td><td>'.$query['additive_7'].'</td><td>'.inventory('Beitou', 'additive_7').'</td><td>'.inventory('Taitung', 'additive_7').'</td><td>'.inventory('Yilan', 'additive_7').'</td></tr>';
-		if ($query['additive_8'] != 0) $queryResult .= '<tr><td>薑黃粉</td><td>'.$query['additive_8'].'</td><td>'.inventory('Beitou', 'additive_8').'</td><td>'.inventory('Taitung', 'additive_8').'</td><td>'.inventory('Yilan', 'additive_8').'</td></tr>';
-		if ($query['additive_9'] != 0) $queryResult .= '<tr><td>紅麴粉</td><td>'.$query['additive_9'].'</td><td>'.inventory('Beitou', 'additive_9').'</td><td>'.inventory('Taitung', 'additive_9').'</td><td>'.inventory('Yilan', 'additive_9').'</td></tr>';
-		if ($query['additive_10'] != 0) $queryResult .= '<tr><td>洛神花粉</td><td>'.$query['additive_10'].'</td><td>'.inventory('Beitou', 'additive_10').'</td><td>'.inventory('Taitung', 'additive_10').'</td><td>'.inventory('Yilan', 'additive_10').'</td></tr>';
+		$content = array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_009', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014', 'NaOH', 'additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010', 'additive_011', 'additive_012', 'additive_013', 'additive_014', 'additive_015', 'additive_016', 'additive_017');
+		while ($item = array_shift($content)) {
+			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Beitou', $item).'</td><td>'.inventory('Taitung', $item).'</td><td>'.inventory('Yilan', $item).'</td></tr>';
+		}
 		$queryResult .= '</table>';
 	}
 	elseif ($authority == 'B') {
 		$queryResult = '<table><tr><th>原料</th><th>所需數量(g)</th><th>庫存數量(g)</th></tr>';
-		if ($query['oil_1'] != 0) $queryResult .= '<tr><td>橄欖油</td><td>'.$query['oil_1'].'</td><td>'.inventory('Beitou', 'oil_1').'</td>'.compare($query['oil_1'], inventory('Beitou', 'oil_1')).'</tr>';
-		if ($query['oil_2'] != 0) $queryResult .= '<tr><td>棕梠油</td><td>'.$query['oil_2'].'</td><td>'.inventory('Beitou', 'oil_2').'</td>'.compare($query['oil_2'], inventory('Beitou', 'oil_2')).'</tr>';
-		if ($query['oil_3'] != 0) $queryResult .= '<tr><td>椰子油</td><td>'.$query['oil_3'].'</td><td>'.inventory('Beitou', 'oil_3').'</td>'.compare($query['oil_3'], inventory('Beitou', 'oil_3')).'</tr>';
-		if ($query['oil_4'] != 0) $queryResult .= '<tr><td>米糠油</td><td>'.$query['oil_4'].'</td><td>'.inventory('Beitou', 'oil_4').'</td>'.compare($query['oil_4'], inventory('Beitou', 'oil_4')).'</tr>';
-		if ($query['oil_5'] != 0) $queryResult .= '<tr><td>紅棕梠油</td><td>'.$query['oil_5'].'</td><td>'.inventory('Beitou', 'oil_5').'</td>'.compare($query['oil_5'], inventory('Beitou', 'oil_5')).'</tr>';
-		if ($query['oil_6'] != 0) $queryResult .= '<tr><td>葡萄籽油</td><td>'.$query['oil_6'].'</td><td>'.inventory('Beitou', 'oil_6').'</td>'.compare($query['oil_6'], inventory('Beitou', 'oil_6')).'</tr>';
-		if ($query['oil_7'] != 0) $queryResult .= '<tr><td>苦茶油</td><td>'.$query['oil_7'].'</td><td>'.inventory('Beitou', 'oil_7').'</td>'.compare($query['oil_7'], inventory('Beitou', 'oil_7')).'</tr>';
-		if ($query['oil_8'] != 0) $queryResult .= '<tr><td>蓖麻油</td><td>'.$query['oil_8'].'</td><td>'.inventory('Beitou', 'oil_8').'</td>'.compare($query['oil_8'], inventory('Beitou', 'oil_8')).'</tr>';
-		if ($query['oil_9'] != 0) $queryResult .= '<tr><td>乳油木果脂</td><td>'.$query['oil_9'].'</td><td>'.inventory('Beitou', 'oil_9').'</td>'.compare($query['oil_9'], inventory('Beitou', 'oil_9')).'</tr>';
-		if ($query['NaOH'] != 0) $queryResult .= '<tr><td>鹼</td><td>'.$query['NaOH'].'</td><td>'.inventory('Beitou', 'NaOH').'</td>'.compare($query['NaOH'], inventory('Beitou', 'NaOH')).'</tr>';
-		if ($query['additive_1'] != 0) $queryResult .= '<tr><td>金針花瓣</td><td>'.$query['additive_1'].'</td><td>'.inventory('Beitou', 'additive_1').'</td>'.compare($query['additive_1'], inventory('Beitou', 'additive_1')).'</tr>';
-		if ($query['additive_2'] != 0) $queryResult .= '<tr><td>釋迦果粉</td><td>'.$query['additive_2'].'</td><td>'.inventory('Beitou', 'additive_2').'</td>'.compare($query['additive_2'], inventory('Beitou', 'additive_2')).'</tr>';
-		if ($query['additive_3'] != 0) $queryResult .= '<tr><td>釋迦果泥</td><td>'.$query['additive_3'].'</td><td>'.inventory('Beitou', 'additive_3').'</td>'.compare($query['additive_3'], inventory('Beitou', 'additive_3')).'</tr>';
-		if ($query['additive_4'] != 0) $queryResult .= '<tr><td>米粉</td><td>'.$query['additive_4'].'</td><td>'.inventory('Beitou', 'additive_4').'</td>'.compare($query['additive_4'], inventory('Beitou', 'additive_4')).'</tr>';
-		if ($query['additive_5'] != 0) $queryResult .= '<tr><td>蕁麻葉粉</td><td>'.$query['additive_5'].'</td><td>'.inventory('Beitou', 'additive_5').'</td>'.compare($query['additive_5'], inventory('Beitou', 'additive_5')).'</tr>';
-		if ($query['additive_6'] != 0) $queryResult .= '<tr><td>金盞花粉</td><td>'.$query['additive_6'].'</td><td>'.inventory('Beitou', 'additive_6').'</td>'.compare($query['additive_6'], inventory('Beitou', 'additive_6')).'</tr>';
-		if ($query['additive_7'] != 0) $queryResult .= '<tr><td>金針花粉</td><td>'.$query['additive_7'].'</td><td>'.inventory('Beitou', 'additive_7').'</td>'.compare($query['additive_7'], inventory('Beitou', 'additive_7')).'</tr>';
-		if ($query['additive_8'] != 0) $queryResult .= '<tr><td>薑黃粉</td><td>'.$query['additive_8'].'</td><td>'.inventory('Beitou', 'additive_8').'</td>'.compare($query['additive_8'], inventory('Beitou', 'additive_8')).'</tr>';
-		if ($query['additive_9'] != 0) $queryResult .= '<tr><td>紅麴粉</td><td>'.$query['additive_9'].'</td><td>'.inventory('Beitou', 'additive_9').'</td>'.compare($query['additive_9'], inventory('Beitou', 'additive_9')).'</tr>';
-		if ($query['additive_10'] != 0) $queryResult .= '<tr><td>洛神花粉</td><td>'.$query['additive_10'].'</td><td>'.inventory('Beitou', 'additive_10').'</td>'.compare($query['additive_10'], inventory('Beitou', 'additive_10')).'</tr>';
+		$content = array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_009', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014', 'NaOH', 'additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010', 'additive_011', 'additive_012', 'additive_013', 'additive_014', 'additive_015', 'additive_016', 'additive_017');
+		while ($item = array_shift($content)) {
+			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Beitou', $item).'</td>'.compare($query[$item], inventory('Beitou', $item)).'</tr>';
+		}
 		$queryResult .= '</table>';
 	}
 	elseif ($authority == 'C') {
 		$queryResult = '<table><tr><th>原料</th><th>所需數量(g)</th><th>庫存數量(g)</th></tr>';
-		if ($query['oil_1'] != 0) $queryResult .= '<tr><td>橄欖油</td><td>'.$query['oil_1'].'</td><td>Infinite</td></tr>';
-		if ($query['oil_2'] != 0) $queryResult .= '<tr><td>棕梠油</td><td>'.$query['oil_2'].'</td><td>Infinite</td></tr>';
-		if ($query['oil_3'] != 0) $queryResult .= '<tr><td>椰子油</td><td>'.$query['oil_3'].'</td><td>Infinite</td></tr>';
-		if ($query['oil_4'] != 0) $queryResult .= '<tr><td>米糠油</td><td>'.$query['oil_4'].'</td><td>Infinite</td></tr>';
-		if ($query['oil_5'] != 0) $queryResult .= '<tr><td>紅棕梠油</td><td>'.$query['oil_5'].'</td><td>Infinite</td></tr>';
-		if ($query['oil_6'] != 0) $queryResult .= '<tr><td>葡萄籽油</td><td>'.$query['oil_6'].'</td><td>Infinite</td></tr>';
-		if ($query['oil_7'] != 0) $queryResult .= '<tr><td>苦茶油</td><td>'.$query['oil_7'].'</td><td>Infinite</td></tr>';
-		if ($query['oil_8'] != 0) $queryResult .= '<tr><td>蓖麻油</td><td>'.$query['oil_8'].'</td><td>Infinite</td></tr>';
-		if ($query['oil_9'] != 0) $queryResult .= '<tr><td>乳油木果脂</td><td>'.$query['oil_9'].'</td><td>Infinite</td></tr>';
-		if ($query['NaOH'] != 0) $queryResult .= '<tr><td>鹼</td><td>'.$query['NaOH'].'</td><td>Infinite</td></tr>';
-		if ($query['additive_1'] != 0) $queryResult .= '<tr><td>金針花瓣</td><td>'.$query['additive_1'].'</td><td>'.inventory('Houshanpi', 'additive_1').'</td>'.compare($query['additive_1'], inventory('Houshanpi', 'additive_1')).'</tr>';
-		if ($query['additive_2'] != 0) $queryResult .= '<tr><td>釋迦果粉</td><td>'.$query['additive_2'].'</td><td>'.inventory('Houshanpi', 'additive_2').'</td>'.compare($query['additive_2'], inventory('Houshanpi', 'additive_2')).'</tr>';
-		if ($query['additive_3'] != 0) $queryResult .= '<tr><td>釋迦果泥</td><td>'.$query['additive_3'].'</td><td>'.inventory('Houshanpi', 'additive_3').'</td>'.compare($query['additive_3'], inventory('Houshanpi', 'additive_3')).'</tr>';
-		if ($query['additive_4'] != 0) $queryResult .= '<tr><td>米粉</td><td>'.$query['additive_4'].'</td><td>'.inventory('Houshanpi', 'additive_4').'</td>'.compare($query['additive_4'], inventory('Houshanpi', 'additive_4')).'</tr>';
-		if ($query['additive_5'] != 0) $queryResult .= '<tr><td>蕁麻葉粉</td><td>'.$query['additive_5'].'</td><td>'.inventory('Houshanpi', 'additive_5').'</td>'.compare($query['additive_5'], inventory('Houshanpi', 'additive_5')).'</tr>';
-		if ($query['additive_6'] != 0) $queryResult .= '<tr><td>金盞花粉</td><td>'.$query['additive_6'].'</td><td>'.inventory('Houshanpi', 'additive_6').'</td>'.compare($query['additive_6'], inventory('Houshanpi', 'additive_6')).'</tr>';
-		if ($query['additive_7'] != 0) $queryResult .= '<tr><td>金針花粉</td><td>'.$query['additive_7'].'</td><td>'.inventory('Houshanpi', 'additive_7').'</td>'.compare($query['additive_7'], inventory('Houshanpi', 'additive_7')).'</tr>';
-		if ($query['additive_8'] != 0) $queryResult .= '<tr><td>薑黃粉</td><td>'.$query['additive_8'].'</td><td>'.inventory('Houshanpi', 'additive_8').'</td>'.compare($query['additive_8'], inventory('Houshanpi', 'additive_8')).'</tr>';
-		if ($query['additive_9'] != 0) $queryResult .= '<tr><td>紅麴粉</td><td>'.$query['additive_9'].'</td><td>'.inventory('Houshanpi', 'additive_9').'</td>'.compare($query['additive_9'], inventory('Houshanpi', 'additive_9')).'</tr>';
-		if ($query['additive_10'] != 0) $queryResult .= '<tr><td>洛神花粉</td><td>'.$query['additive_10'].'</td><td>'.inventory('Houshanpi', 'additive_10').'</td>'.compare($query['additive_10'], inventory('Houshanpi', 'additive_10')).'</tr>';
+		$content = array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_009', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014');
+		while ($item = array_shift($content)) {
+			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>Infinite</td></tr>';
+		}
+		$content = array('additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010', 'additive_011', 'additive_012', 'additive_013', 'additive_014', 'additive_015', 'additive_016', 'additive_017');
+		while ($item = array_shift($content)) {
+			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Houshanpi', $item).'</td>'.compare($query[$item], inventory('Houshanpi', $item)).'</tr>';
+		}
 		$queryResult .= '</table>';
 	}
 	elseif ($authority == 'D') {
 		$queryResult = '<table><tr><th>原料</th><th>所需數量(g)</th><th>庫存數量(g)</th></tr>';
-		if ($query['oil_1'] != 0) $queryResult .= '<tr><td>橄欖油</td><td>'.$query['oil_1'].'</td><td>'.inventory('Taitung', 'oil_1').'</td>'.compare($query['oil_1'], inventory('Taitung', 'oil_1')).'</tr>';
-		if ($query['oil_2'] != 0) $queryResult .= '<tr><td>棕梠油</td><td>'.$query['oil_2'].'</td><td>'.inventory('Taitung', 'oil_2').'</td>'.compare($query['oil_2'], inventory('Taitung', 'oil_2')).'</tr>';
-		if ($query['oil_3'] != 0) $queryResult .= '<tr><td>椰子油</td><td>'.$query['oil_3'].'</td><td>'.inventory('Taitung', 'oil_3').'</td>'.compare($query['oil_3'], inventory('Taitung', 'oil_3')).'</tr>';
-		if ($query['oil_4'] != 0) $queryResult .= '<tr><td>米糠油</td><td>'.$query['oil_4'].'</td><td>'.inventory('Taitung', 'oil_4').'</td>'.compare($query['oil_4'], inventory('Taitung', 'oil_4')).'</tr>';
-		if ($query['oil_5'] != 0) $queryResult .= '<tr><td>紅棕梠油</td><td>'.$query['oil_5'].'</td><td>'.inventory('Taitung', 'oil_5').'</td>'.compare($query['oil_5'], inventory('Taitung', 'oil_5')).'</tr>';
-		if ($query['oil_6'] != 0) $queryResult .= '<tr><td>葡萄籽油</td><td>'.$query['oil_6'].'</td><td>'.inventory('Taitung', 'oil_6').'</td>'.compare($query['oil_6'], inventory('Taitung', 'oil_6')).'</tr>';
-		if ($query['oil_7'] != 0) $queryResult .= '<tr><td>苦茶油</td><td>'.$query['oil_7'].'</td><td>'.inventory('Taitung', 'oil_7').'</td>'.compare($query['oil_7'], inventory('Taitung', 'oil_7')).'</tr>';
-		if ($query['oil_8'] != 0) $queryResult .= '<tr><td>蓖麻油</td><td>'.$query['oil_8'].'</td><td>'.inventory('Taitung', 'oil_8').'</td>'.compare($query['oil_8'], inventory('Taitung', 'oil_8')).'</tr>';
-		if ($query['oil_9'] != 0) $queryResult .= '<tr><td>乳油木果脂</td><td>'.$query['oil_9'].'</td><td>'.inventory('Taitung', 'oil_9').'</td>'.compare($query['oil_9'], inventory('Taitung', 'oil_9')).'</tr>';
-		if ($query['NaOH'] != 0) $queryResult .= '<tr><td>鹼</td><td>'.$query['NaOH'].'</td><td>'.inventory('Taitung', 'NaOH').'</td>'.compare($query['NaOH'], inventory('Taitung', 'NaOH')).'</tr>';
-		if ($query['additive_1'] != 0) $queryResult .= '<tr><td>金針花瓣</td><td>'.$query['additive_1'].'</td><td>'.inventory('Taitung', 'additive_1').'</td>'.compare($query['additive_1'], inventory('Taitung', 'additive_1')).'</tr>';
-		if ($query['additive_2'] != 0) $queryResult .= '<tr><td>釋迦果粉</td><td>'.$query['additive_2'].'</td><td>'.inventory('Taitung', 'additive_2').'</td>'.compare($query['additive_2'], inventory('Taitung', 'additive_2')).'</tr>';
-		if ($query['additive_3'] != 0) $queryResult .= '<tr><td>釋迦果泥</td><td>'.$query['additive_3'].'</td><td>'.inventory('Taitung', 'additive_3').'</td>'.compare($query['additive_3'], inventory('Taitung', 'additive_3')).'</tr>';
-		if ($query['additive_4'] != 0) $queryResult .= '<tr><td>米粉</td><td>'.$query['additive_4'].'</td><td>'.inventory('Taitung', 'additive_4').'</td>'.compare($query['additive_4'], inventory('Taitung', 'additive_4')).'</tr>';
-		if ($query['additive_5'] != 0) $queryResult .= '<tr><td>蕁麻葉粉</td><td>'.$query['additive_5'].'</td><td>'.inventory('Taitung', 'additive_5').'</td>'.compare($query['additive_5'], inventory('Taitung', 'additive_5')).'</tr>';
-		if ($query['additive_6'] != 0) $queryResult .= '<tr><td>金盞花粉</td><td>'.$query['additive_6'].'</td><td>'.inventory('Taitung', 'additive_6').'</td>'.compare($query['additive_6'], inventory('Taitung', 'additive_6')).'</tr>';
-		if ($query['additive_7'] != 0) $queryResult .= '<tr><td>金針花粉</td><td>'.$query['additive_7'].'</td><td>'.inventory('Taitung', 'additive_7').'</td>'.compare($query['additive_7'], inventory('Taitung', 'additive_7')).'</tr>';
-		if ($query['additive_8'] != 0) $queryResult .= '<tr><td>薑黃粉</td><td>'.$query['additive_8'].'</td><td>'.inventory('Taitung', 'additive_8').'</td>'.compare($query['additive_8'], inventory('Taitung', 'additive_8')).'</tr>';
-		if ($query['additive_9'] != 0) $queryResult .= '<tr><td>紅麴粉</td><td>'.$query['additive_9'].'</td><td>'.inventory('Taitung', 'additive_9').'</td>'.compare($query['additive_9'], inventory('Taitung', 'additive_9')).'</tr>';
-		if ($query['additive_10'] != 0) $queryResult .= '<tr><td>洛神花粉</td><td>'.$query['additive_10'].'</td><td>'.inventory('Taitung', 'additive_10').'</td>'.compare($query['additive_10'], inventory('Taitung', 'additive_10')).'</tr>';
+		$content = array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_009', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014', 'NaOH', 'additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010', 'additive_011', 'additive_012', 'additive_013', 'additive_014', 'additive_015', 'additive_016', 'additive_017');
+		while ($item = array_shift($content)) {
+			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Taitung', $item).'</td>'.compare($query[$item], inventory('Taitung', $item)).'</tr>';
+		}
 		$queryResult .= '</table>';
 	}
 	elseif ($authority == 'I') {
 		$queryResult = '<table><tr><th>原料</th><th>所需數量(g)</th><th>庫存數量(g)</th></tr>';
-		if ($query['oil_1'] != 0) $queryResult .= '<tr><td>橄欖油</td><td>'.$query['oil_1'].'</td><td>'.inventory('Yilan', 'oil_1').'</td>'.compare($query['oil_1'], inventory('Yilan', 'oil_1')).'</tr>';
-		if ($query['oil_2'] != 0) $queryResult .= '<tr><td>棕梠油</td><td>'.$query['oil_2'].'</td><td>'.inventory('Yilan', 'oil_2').'</td>'.compare($query['oil_2'], inventory('Yilan', 'oil_2')).'</tr>';
-		if ($query['oil_3'] != 0) $queryResult .= '<tr><td>椰子油</td><td>'.$query['oil_3'].'</td><td>'.inventory('Yilan', 'oil_3').'</td>'.compare($query['oil_3'], inventory('Yilan', 'oil_3')).'</tr>';
-		if ($query['oil_4'] != 0) $queryResult .= '<tr><td>米糠油</td><td>'.$query['oil_4'].'</td><td>'.inventory('Yilan', 'oil_4').'</td>'.compare($query['oil_4'], inventory('Yilan', 'oil_4')).'</tr>';
-		if ($query['oil_5'] != 0) $queryResult .= '<tr><td>紅棕梠油</td><td>'.$query['oil_5'].'</td><td>'.inventory('Yilan', 'oil_5').'</td>'.compare($query['oil_5'], inventory('Yilan', 'oil_5')).'</tr>';
-		if ($query['oil_6'] != 0) $queryResult .= '<tr><td>葡萄籽油</td><td>'.$query['oil_6'].'</td><td>'.inventory('Yilan', 'oil_6').'</td>'.compare($query['oil_6'], inventory('Yilan', 'oil_6')).'</tr>';
-		if ($query['oil_7'] != 0) $queryResult .= '<tr><td>苦茶油</td><td>'.$query['oil_7'].'</td><td>'.inventory('Yilan', 'oil_7').'</td>'.compare($query['oil_7'], inventory('Yilan', 'oil_7')).'</tr>';
-		if ($query['oil_8'] != 0) $queryResult .= '<tr><td>蓖麻油</td><td>'.$query['oil_8'].'</td><td>'.inventory('Yilan', 'oil_8').'</td>'.compare($query['oil_8'], inventory('Yilan', 'oil_8')).'</tr>';
-		if ($query['oil_9'] != 0) $queryResult .= '<tr><td>乳油木果脂</td><td>'.$query['oil_9'].'</td><td>'.inventory('Yilan', 'oil_9').'</td>'.compare($query['oil_9'], inventory('Yilan', 'oil_9')).'</tr>';
-		if ($query['NaOH'] != 0) $queryResult .= '<tr><td>鹼</td><td>'.$query['NaOH'].'</td><td>'.inventory('Yilan', 'NaOH').'</td>'.compare($query['NaOH'], inventory('Yilan', 'NaOH')).'</tr>';
-		if ($query['additive_1'] != 0) $queryResult .= '<tr><td>金針花瓣</td><td>'.$query['additive_1'].'</td><td>'.inventory('Yilan', 'additive_1').'</td>'.compare($query['additive_1'], inventory('Yilan', 'additive_1')).'</tr>';
-		if ($query['additive_2'] != 0) $queryResult .= '<tr><td>釋迦果粉</td><td>'.$query['additive_2'].'</td><td>'.inventory('Yilan', 'additive_2').'</td>'.compare($query['additive_2'], inventory('Yilan', 'additive_2')).'</tr>';
-		if ($query['additive_3'] != 0) $queryResult .= '<tr><td>釋迦果泥</td><td>'.$query['additive_3'].'</td><td>'.inventory('Yilan', 'additive_3').'</td>'.compare($query['additive_3'], inventory('Yilan', 'additive_3')).'</tr>';
-		if ($query['additive_4'] != 0) $queryResult .= '<tr><td>米粉</td><td>'.$query['additive_4'].'</td><td>'.inventory('Yilan', 'additive_4').'</td>'.compare($query['additive_4'], inventory('Yilan', 'additive_4')).'</tr>';
-		if ($query['additive_5'] != 0) $queryResult .= '<tr><td>蕁麻葉粉</td><td>'.$query['additive_5'].'</td><td>'.inventory('Yilan', 'additive_5').'</td>'.compare($query['additive_5'], inventory('Yilan', 'additive_5')).'</tr>';
-		if ($query['additive_6'] != 0) $queryResult .= '<tr><td>金盞花粉</td><td>'.$query['additive_6'].'</td><td>'.inventory('Yilan', 'additive_6').'</td>'.compare($query['additive_6'], inventory('Yilan', 'additive_6')).'</tr>';
-		if ($query['additive_7'] != 0) $queryResult .= '<tr><td>金針花粉</td><td>'.$query['additive_7'].'</td><td>'.inventory('Yilan', 'additive_7').'</td>'.compare($query['additive_7'], inventory('Yilan', 'additive_7')).'</tr>';
-		if ($query['additive_8'] != 0) $queryResult .= '<tr><td>薑黃粉</td><td>'.$query['additive_8'].'</td><td>'.inventory('Yilan', 'additive_8').'</td>'.compare($query['additive_8'], inventory('Yilan', 'additive_8')).'</tr>';
-		if ($query['additive_9'] != 0) $queryResult .= '<tr><td>紅麴粉</td><td>'.$query['additive_9'].'</td><td>'.inventory('Yilan', 'additive_9').'</td>'.compare($query['additive_9'], inventory('Yilan', 'additive_9')).'</tr>';
-		if ($query['additive_10'] != 0) $queryResult .= '<tr><td>洛神花粉</td><td>'.$query['additive_10'].'</td><td>'.inventory('Yilan', 'additive_10').'</td>'.compare($query['additive_10'], inventory('Yilan', 'additive_10')).'</tr>';
+		$content = array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_009', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014', 'NaOH', 'additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010', 'additive_011', 'additive_012', 'additive_013', 'additive_014', 'additive_015', 'additive_016', 'additive_017');
+		while ($item = array_shift($content)) {
+			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Yilan', $item).'</td>'.compare($query[$item], inventory('Yilan', $item)).'</tr>';
+		}
 		$queryResult .= '</table>';
 	}
 	return $queryResult;
@@ -861,54 +1043,16 @@ function queryPackageTable($message) {
 	$query = $message['ingredient'];
 	$queryResult = '<table><tr><th>原料</th><th>所需數量</th><th>庫存數量</th></tr>';
 	if ($authority == 'B') {
-		if ($query['sp_1_100'] != 0) $queryResult .= '<tr><td>米皂100g</td><td>'.$query['sp_1_100'].'</td><td>'.inventory('Beitou', 'sp_1_100').'</td>'.compare($query['sp_1_100'], inventory('Beitou', 'sp_1_100')).'</tr>';
-		if ($query['sp_2_100'] != 0) $queryResult .= '<tr><td>金針皂100g</td><td>'.$query['sp_2_100'].'</td><td>'.inventory('Beitou', 'sp_2_100').'</td>'.compare($query['sp_2_100'], inventory('Beitou', 'sp_2_100')).'</tr>';
-		if ($query['sp_3_100'] != 0) $queryResult .= '<tr><td>釋迦皂100g</td><td>'.$query['sp_3_100'].'</td><td>'.inventory('Beitou', 'sp_3_100').'</td>'.compare($query['sp_3_100'], inventory('Beitou', 'sp_3_100')).'</tr>';
-		if ($query['slice_ss_1'] != 0) $queryResult .= '<tr><td>洛神紅麴皂絲</td><td>'.$query['slice_ss_1'].'</td><td>'.inventory('Beitou', 'slice_ss_1').'</td>'.compare($query['slice_ss_1'], inventory('Beitou', 'slice_ss_1')).'</tr>';
-		if ($query['slice_ss_2'] != 0) $queryResult .= '<tr><td>暖暖薑黃皂絲</td><td>'.$query['slice_ss_2'].'</td><td>'.inventory('Beitou', 'slice_ss_2').'</td>'.compare($query['slice_ss_2'], inventory('Beitou', 'slice_ss_2')).'</tr>';
-		if ($query['slice_ss_3'] != 0) $queryResult .= '<tr><td>萱草米黃皂絲</td><td>'.$query['slice_ss_3'].'</td><td>'.inventory('Beitou', 'slice_ss_3').'</td>'.compare($query['slice_ss_3'], inventory('Beitou', 'slice_ss_3')).'</tr>';
-		if ($query['package_1'] != 0) $queryResult .= '<tr><td>不織布包</td><td>'.$query['package_1'].'</td><td>'.inventory('Beitou', 'package_1').'</td>'.compare($query['package_1'], inventory('Beitou', 'package_1')).'</tr>';
-		if ($query['package_2a'] != 0) $queryResult .= '<tr><td>洛神紅麴皂絲鋁包</td><td>'.$query['package_2a'].'</td><td>'.inventory('Beitou', 'package_2a').'</td>'.compare($query['package_2a'], inventory('Beitou', 'package_2a')).'</tr>';
-		if ($query['package_2b'] != 0) $queryResult .= '<tr><td>暖暖薑黃皂絲鋁包</td><td>'.$query['package_2b'].'</td><td>'.inventory('Beitou', 'package_2b').'</td>'.compare($query['package_2b'], inventory('Beitou', 'package_2b')).'</tr>';
-		if ($query['package_2c'] != 0) $queryResult .= '<tr><td>萱草米黃皂絲鋁包</td><td>'.$query['package_2c'].'</td><td>'.inventory('Beitou', 'package_2c').'</td>'.compare($query['package_2c'], inventory('Beitou', 'package_2c')).'</tr>';
-		if ($query['package_3'] != 0) $queryResult .= '<tr><td>單顆皂禮盒封套</td><td>'.$query['package_3'].'</td><td>'.inventory('Beitou', 'package_3').'</td>'.compare($query['package_3'], inventory('Beitou', 'package_3')).'</tr>';
-		if ($query['package_4'] != 0) $queryResult .= '<tr><td>單顆皂禮盒內盒</td><td>'.$query['package_4'].'</td><td>'.inventory('Beitou', 'package_4').'</td>'.compare($query['package_4'], inventory('Beitou', 'package_4')).'</tr>';
-		if ($query['package_5'] != 0) $queryResult .= '<tr><td>皂絲禮盒</td><td>'.$query['package_5'].'</td><td>'.inventory('Beitou', 'package_5').'</td>'.compare($query['package_5'], inventory('Beitou', 'package_5')).'</tr>';
-		if ($query['package_6'] != 0) $queryResult .= '<tr><td>內襯</td><td>'.$query['package_6'].'</td><td>'.inventory('Beitou', 'package_6').'</td>'.compare($query['package_6'], inventory('Beitou', 'package_6')).'</tr>';
-		if ($query['package_7a'] != 0) $queryResult .= '<tr><td>米皂外盒100g</td><td>'.$query['package_7a'].'</td><td>'.inventory('Beitou', 'package_7a').'</td>'.compare($query['package_7a'], inventory('Beitou', 'package_7a')).'</tr>';
-		if ($query['package_8a'] != 0) $queryResult .= '<tr><td>金針皂外盒100g</td><td>'.$query['package_8a'].'</td><td>'.inventory('Beitou', 'package_8a').'</td>'.compare($query['package_8a'], inventory('Beitou', 'package_8a')).'</tr>';
-		if ($query['package_9a'] != 0) $queryResult .= '<tr><td>釋迦皂外盒100g</td><td>'.$query['package_9a'].'</td><td>'.inventory('Beitou', 'package_9a').'</td>'.compare($query['package_9a'], inventory('Beitou', 'package_9a')).'</tr>';
-		if ($query['product_sp_1'] != 0) $queryResult .= '<tr><td>田靜山巒禾風皂100g</td><td>'.$query['product_sp_1'].'</td><td>'.inventory('Beitou', 'product_sp_1').'</td>'.compare($query['product_sp_1'], inventory('Beitou', 'product_sp_1')).'</tr>';
-		if ($query['product_sp_3'] != 0) $queryResult .= '<tr><td>金絲森林渲染皂100g</td><td>'.$query['product_sp_3'].'</td><td>'.inventory('Beitou', 'product_sp_3').'</td>'.compare($query['product_sp_3'], inventory('Beitou', 'product_sp_3')).'</tr>';
-		if ($query['product_sp_5'] != 0) $queryResult .= '<tr><td>釋迦手感果力皂100g</td><td>'.$query['product_sp_5'].'</td><td>'.inventory('Beitou', 'product_sp_5').'</td>'.compare($query['product_sp_5'], inventory('Beitou', 'product_sp_5')).'</tr>';
-		if ($query['product_ss_1'] != 0) $queryResult .= '<tr><td>洛神紅麴旅用皂絲</td><td>'.$query['product_ss_1'].'</td><td>'.inventory('Beitou', 'product_ss_1').'</td>'.compare($query['product_ss_1'], inventory('Beitou', 'product_ss_1')).'</tr>';
-		if ($query['product_ss_2'] != 0) $queryResult .= '<tr><td>暖暖薑黃旅用皂絲</td><td>'.$query['product_ss_2'].'</td><td>'.inventory('Beitou', 'product_ss_2').'</td>'.compare($query['product_ss_2'], inventory('Beitou', 'product_ss_2')).'</tr>';
-		if ($query['product_ss_3'] != 0) $queryResult .= '<tr><td>萱草米黃旅用皂絲</td><td>'.$query['product_ss_3'].'</td><td>'.inventory('Beitou', 'product_ss_3').'</td>'.compare($query['product_ss_3'], inventory('Beitou', 'product_ss_3')).'</tr>';
+		$content = array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_ss_001', 'product_ss_002', 'product_ss_003');
+		while ($item = array_shift($content)) {
+			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Beitou', $item).'</td>'.compare($query[$item], inventory('Beitou', $item)).'</tr>';
+		}
 	}
 	elseif ($authority == 'I') {
-		if ($query['sp_1_100'] != 0) $queryResult .= '<tr><td>米皂100g</td><td>'.$query['sp_1_100'].'</td><td>'.inventory('Yilan', 'sp_1_100').'</td>'.compare($query['sp_1_100'], inventory('Yilan', 'sp_1_100')).'</tr>';
-		if ($query['sp_2_100'] != 0) $queryResult .= '<tr><td>金針皂100g</td><td>'.$query['sp_2_100'].'</td><td>'.inventory('Yilan', 'sp_2_100').'</td>'.compare($query['sp_2_100'], inventory('Yilan', 'sp_2_100')).'</tr>';
-		if ($query['sp_3_100'] != 0) $queryResult .= '<tr><td>釋迦皂100g</td><td>'.$query['sp_3_100'].'</td><td>'.inventory('Yilan', 'sp_3_100').'</td>'.compare($query['sp_3_100'], inventory('Yilan', 'sp_3_100')).'</tr>';
-		if ($query['slice_ss_1'] != 0) $queryResult .= '<tr><td>洛神紅麴皂絲</td><td>'.$query['slice_ss_1'].'</td><td>'.inventory('Yilan', 'slice_ss_1').'</td>'.compare($query['slice_ss_1'], inventory('Yilan', 'slice_ss_1')).'</tr>';
-		if ($query['slice_ss_2'] != 0) $queryResult .= '<tr><td>暖暖薑黃皂絲</td><td>'.$query['slice_ss_2'].'</td><td>'.inventory('Yilan', 'slice_ss_2').'</td>'.compare($query['slice_ss_2'], inventory('Yilan', 'slice_ss_2')).'</tr>';
-		if ($query['slice_ss_3'] != 0) $queryResult .= '<tr><td>萱草米黃皂絲</td><td>'.$query['slice_ss_3'].'</td><td>'.inventory('Yilan', 'slice_ss_3').'</td>'.compare($query['slice_ss_3'], inventory('Yilan', 'slice_ss_3')).'</tr>';
-		if ($query['package_1'] != 0) $queryResult .= '<tr><td>不織布包</td><td>'.$query['package_1'].'</td><td>'.inventory('Yilan', 'package_1').'</td>'.compare($query['package_1'], inventory('Yilan', 'package_1')).'</tr>';
-		if ($query['package_2a'] != 0) $queryResult .= '<tr><td>洛神紅麴皂絲鋁包</td><td>'.$query['package_2a'].'</td><td>'.inventory('Yilan', 'package_2a').'</td>'.compare($query['package_2a'], inventory('Yilan', 'package_2a')).'</tr>';
-		if ($query['package_2b'] != 0) $queryResult .= '<tr><td>暖暖薑黃皂絲鋁包</td><td>'.$query['package_2b'].'</td><td>'.inventory('Yilan', 'package_2b').'</td>'.compare($query['package_2b'], inventory('Yilan', 'package_2b')).'</tr>';
-		if ($query['package_2c'] != 0) $queryResult .= '<tr><td>萱草米黃皂絲鋁包</td><td>'.$query['package_2c'].'</td><td>'.inventory('Yilan', 'package_2c').'</td>'.compare($query['package_2c'], inventory('Yilan', 'package_2c')).'</tr>';
-		if ($query['package_3'] != 0) $queryResult .= '<tr><td>單顆皂禮盒封套</td><td>'.$query['package_3'].'</td><td>'.inventory('Yilan', 'package_3').'</td>'.compare($query['package_3'], inventory('Yilan', 'package_3')).'</tr>';
-		if ($query['package_4'] != 0) $queryResult .= '<tr><td>單顆皂禮盒內盒</td><td>'.$query['package_4'].'</td><td>'.inventory('Yilan', 'package_4').'</td>'.compare($query['package_4'], inventory('Yilan', 'package_4')).'</tr>';
-		if ($query['package_5'] != 0) $queryResult .= '<tr><td>皂絲禮盒</td><td>'.$query['package_5'].'</td><td>'.inventory('Yilan', 'package_5').'</td>'.compare($query['package_5'], inventory('Yilan', 'package_5')).'</tr>';
-		if ($query['package_6'] != 0) $queryResult .= '<tr><td>內襯</td><td>'.$query['package_6'].'</td><td>'.inventory('Yilan', 'package_6').'</td>'.compare($query['package_6'], inventory('Yilan', 'package_6')).'</tr>';
-		if ($query['package_7a'] != 0) $queryResult .= '<tr><td>米皂外盒100g</td><td>'.$query['package_7a'].'</td><td>'.inventory('Yilan', 'package_7a').'</td>'.compare($query['package_7a'], inventory('Yilan', 'package_7a')).'</tr>';
-		if ($query['package_8a'] != 0) $queryResult .= '<tr><td>金針皂外盒100g</td><td>'.$query['package_8a'].'</td><td>'.inventory('Yilan', 'package_8a').'</td>'.compare($query['package_8a'], inventory('Yilan', 'package_8a')).'</tr>';
-		if ($query['package_9a'] != 0) $queryResult .= '<tr><td>釋迦皂外盒100g</td><td>'.$query['package_9a'].'</td><td>'.inventory('Yilan', 'package_9a').'</td>'.compare($query['package_9a'], inventory('Yilan', 'package_9a')).'</tr>';
-		if ($query['product_sp_1'] != 0) $queryResult .= '<tr><td>田靜山巒禾風皂100g</td><td>'.$query['product_sp_1'].'</td><td>'.inventory('Yilan', 'product_sp_1').'</td>'.compare($query['product_sp_1'], inventory('Yilan', 'product_sp_1')).'</tr>';
-		if ($query['product_sp_3'] != 0) $queryResult .= '<tr><td>金絲森林渲染皂100g</td><td>'.$query['product_sp_3'].'</td><td>'.inventory('Yilan', 'product_sp_3').'</td>'.compare($query['product_sp_3'], inventory('Yilan', 'product_sp_3')).'</tr>';
-		if ($query['product_sp_5'] != 0) $queryResult .= '<tr><td>釋迦手感果力皂100g</td><td>'.$query['product_sp_5'].'</td><td>'.inventory('Yilan', 'product_sp_5').'</td>'.compare($query['product_sp_5'], inventory('Yilan', 'product_sp_5')).'</tr>';
-		if ($query['product_ss_1'] != 0) $queryResult .= '<tr><td>洛神紅麴旅用皂絲</td><td>'.$query['product_ss_1'].'</td><td>'.inventory('Yilan', 'product_ss_1').'</td>'.compare($query['product_ss_1'], inventory('Yilan', 'product_ss_1')).'</tr>';
-		if ($query['product_ss_2'] != 0) $queryResult .= '<tr><td>暖暖薑黃旅用皂絲</td><td>'.$query['product_ss_2'].'</td><td>'.inventory('Yilan', 'product_ss_2').'</td>'.compare($query['product_ss_2'], inventory('Yilan', 'product_ss_2')).'</tr>';
-		if ($query['product_ss_3'] != 0) $queryResult .= '<tr><td>萱草米黃旅用皂絲</td><td>'.$query['product_ss_3'].'</td><td>'.inventory('Yilan', 'product_ss_3').'</td>'.compare($query['product_ss_3'], inventory('Yilan', 'product_ss_3')).'</tr>';
+		$content = array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_ss_001', 'product_ss_002', 'product_ss_003');
+		while ($item = array_shift($content)) {
+			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Yilan', $item).'</td>'.compare($query[$item], inventory('Yilan', $item)).'</tr>';
+		}
 	}	
 	$queryResult .= '</table>';
 	return $queryResult;
@@ -928,112 +1072,19 @@ function ingredient_to_product($ingredient, $product, $whouse) {
 				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT-'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
 			}
 		}
-		if (is_positiveInt($product['sp_1'])) {
-			$ITEMNO = 'sp_1_' . $today;
-			$ITEMNM = $today . '的米皂';
-			$amount = $product['sp_1'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			}
-		}
-		if (is_positiveInt($product['sp_2'])) {
-			$ITEMNO = 'sp_2_' . $today;
-			$ITEMNM = $today . '的金針皂';
-			$amount = $product['sp_2'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			}
-		}
-		if (is_positiveInt($product['sp_3'])) {
-			$ITEMNO = 'sp_3_' . $today;
-			$ITEMNM = $today . '的釋迦皂';
-			$amount = $product['sp_3'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			}
-		}
-		if (is_positiveInt($product['ss_1'])) {
-			$ITEMNO = 'ss_1_' . $today;
-			$ITEMNM = $today . '的洛神皂';
-			$amount = $product['ss_1'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			}
-		}
-		if (is_positiveInt($product['ss_2'])) {
-			$ITEMNO = 'ss_2_' . $today;
-			$ITEMNM = $today . '的紅麴皂';
-			$amount = $product['ss_2'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			}
-		}
-		if (is_positiveInt($product['ss_3'])) {
-			$ITEMNO = 'ss_3_' . $today;
-			$ITEMNM = $today . '的薑黃皂';
-			$amount = $product['ss_3'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			}
-		}
-		if (is_positiveInt($product['ss_4'])) {
-			$ITEMNO = 'ss_4_' . $today;
-			$ITEMNM = $today . '的蕁麻葉皂';
-			$amount = $product['ss_4'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			}
-		}
-		if (is_positiveInt($product['ss_5'])) {
-			$ITEMNO = 'ss_5_' . $today;
-			$ITEMNM = $today . '的金針皂';
-			$amount = $product['ss_5'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			}
-		}
-		if (is_positiveInt($product['ss_6'])) {
-			$ITEMNO = 'ss_6_' . $today;
-			$ITEMNM = $today . '的紅棕梠皂';
-			$amount = $product['ss_6'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
+		$content = array('sp_001', 'sp_002', 'sp_003', 'sp_004', 'sp_005', 'sp_006', 'ss_001', 'ss_002', 'ss_003', 'ss_004', 'ss_005', 'ss_006', 'ss_007', 'ss_008', 'ss_009', 'ss_010', 'ss_011');
+		while ($item = array_pop($content)) {
+			if (is_positiveInt($product[$item])) {
+				$ITEMNO = $item . '_' . $today;
+				$ITEMNM = $today . '的' . query_name($item);
+				$amount = $product[$item] * 1000;
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
+				if (mysql_num_rows($sql2) == 0) {
+					mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
+				}
+				else {
+					mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
+				}
 			}
 		}
 	}
@@ -1047,40 +1098,19 @@ function ingredient_to_product($ingredient, $product, $whouse) {
 				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT-'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
 			}
 		}
-		if (is_positiveInt($product['sp_1'])) {
-			$ITEMNO = 'sp_1_houshanpi_' . $today;
-			$ITEMNM = $today . '的後山埤的米皂';
-			$amount = $product['sp_1'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			}
-		}
-		if (is_positiveInt($product['sp_2'])) {
-			$ITEMNO = 'sp_2_houshanpi_' . $today;
-			$ITEMNM = $today . '的後山埤的金針皂';
-			$amount = $product['sp_2'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			}
-		}
-		if (is_positiveInt($product['sp_3'])) {
-			$ITEMNO = 'sp_3_houshanpi_' . $today;
-			$ITEMNM = $today . '的後山埤的釋迦皂';
-			$amount = $product['sp_3'] * 1000;
-			$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
-			if (mysql_num_rows($sql2) == 0) {
-				mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
-			}
-			else {
-				mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
+		$content = array('sp_001', 'sp_002', 'sp_003');
+		while ($item = array_pop($content)) {
+			if (is_positiveInt($product[$item])) {
+				$ITEMNO = $item . '_houshanpi_' . $today;
+				$ITEMNM = $today . '的後山埤的' . query_name($item);
+				$amount = $product[$item] * 1000;
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
+				if (mysql_num_rows($sql2) == 0) {
+					mysql_query("INSERT INTO WHOUSEITEMMAS (WHOUSENO, ITEMNO, ITEMNM, ITEMCLASS, TOTALAMT, UPDATEDATE) VALUES ('$whouse', '$ITEMNO', '$ITEMNM', 'F', '$amount', '$date')");
+				}
+				else {
+					mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$whouse' AND ITEMNO='$ITEMNO'");
+				}
 			}
 		}
 	}
@@ -1093,7 +1123,7 @@ function package_to_product($package, $product, $authority) {
 	$location = ($authority == 'B') ? 'Beitou' : 'Yilan';
 	$sql1 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ACTCODE='1'");
 	while ($fetch1 = mysql_fetch_array($sql1)) {
-		if (in_array($fetch1['ITEMNO'], array('sp_1_100', 'sp_2_100', 'sp_3_100', 'slice_ss_1', 'slice_ss_2', 'slice_ss_3', 'package_1', 'package_2a', 'package_2b', 'package_2c', 'package_3', 'package_4', 'package_5', 'package_6', 'package_7a', 'package_8a', 'package_9a', 'product_sp_1', 'product_sp_3', 'product_sp_5', 'product_ss_1', 'product_ss_2', 'product_ss_3'))) {
+		if (in_array($fetch1['ITEMNO'], array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_ss_001', 'product_ss_002', 'product_ss_003'))) {
 			$ITEMNO = $fetch1['ITEMNO'];
 			$ITEMNM = $fetch1['ITEMNM'];
 			$amount = $package[$ITEMNO];
@@ -1102,45 +1132,13 @@ function package_to_product($package, $product, $authority) {
 			}
 		}
 	}
-	if (is_positiveInt($product['product_sp_1'])) {
-		$ITEMNO = 'product_sp_1';
-		$amount = $product['product_sp_1'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$ITEMNO'");
-	}
-	if (is_positiveInt($product['product_sp_3'])) {
-		$ITEMNO = 'product_sp_3';
-		$amount = $product['product_sp_3'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$ITEMNO'");
-	}
-	if (is_positiveInt($product['product_sp_5'])) {
-		$ITEMNO = 'product_sp_5';
-		$amount = $product['product_sp_5'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$ITEMNO'");
-	}
-	if (is_positiveInt($product['product_sp_box'])) {
-		$ITEMNO = 'product_sp_box';
-		$amount = $product['product_sp_box'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$ITEMNO'");
-	}
-	if (is_positiveInt($product['product_ss_1'])) {
-		$ITEMNO = 'product_ss_1';
-		$amount = $product['product_ss_1'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$ITEMNO'");
-	}
-	if (is_positiveInt($product['product_ss_2'])) {
-		$ITEMNO = 'product_ss_2';
-		$amount = $product['product_ss_2'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$ITEMNO'");
-	}
-	if (is_positiveInt($product['product_ss_3'])) {
-		$ITEMNO = 'product_ss_3';
-		$amount = $product['product_ss_3'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$ITEMNO'");
-	}
-	if (is_positiveInt($product['product_ss_box'])) {
-		$ITEMNO = 'product_ss_box';
-		$amount = $product['product_ss_box'];
-		mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$ITEMNO'");
+	$content = array('product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_box', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_box');
+	while ($item = array_pop($content)) {
+		if (is_positiveInt($product[$item])) {
+			$ITEMNO = $item;
+			$amount = $product[$item];
+			mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT=TOTALAMT+'$amount', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$ITEMNO'");
+		}
 	}
 }
 
@@ -1180,4 +1178,10 @@ function inventory($whouse, $item) {
 		$sqlFetch = mysql_fetch_row($sqlQuery);
 		return $sqlFetch[0];
 	}
+}
+
+function query_name($itemno) {
+	$sql = mysql_query("SELECT ITEMNM FROM ITEMMAS WHERE ITEMNO='$itemno'");
+	$fetch = mysql_fetch_row($sql);
+	return $fetch[0];
 }

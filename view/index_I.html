@@ -54,16 +54,14 @@
 					<h3>製皂內容</h3>
 					<table>
 						<tr><th>產品</th><th>單位</th><th>數量</th></tr>
-						<tr><td>米皂</td><td><input type="number" id="calculate_sp_1" value="0" min="0" onchange="document.getElementById('result_calculate_sp_1').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_sp_1">0</td></tr>
-						<tr><td>金針皂</td><td><input type="number" id="calculate_sp_2" value="0" min="0" onchange="document.getElementById('result_calculate_sp_2').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_sp_2">0</td></tr>
-						<tr><td>釋迦皂</td><td><input type="number" id="calculate_sp_3" value="0" min="0" onchange="document.getElementById('result_calculate_sp_3').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_sp_3">0</td></tr>
-						<tr><td>洛神皂</td><td><input type="number" id="calculate_ss_1" value="0" min="0" onchange="document.getElementById('result_calculate_ss_1').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_1">0</td></tr>
-						<tr><td>紅麴皂</td><td><input type="number" id="calculate_ss_2" value="0" min="0" onchange="document.getElementById('result_calculate_ss_2').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_2">0</td></tr>
-						<tr><td>薑黃皂</td><td><input type="number" id="calculate_ss_3" value="0" min="0" onchange="document.getElementById('result_calculate_ss_3').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_3">0</td></tr>
-						<tr><td>蕁麻葉皂</td><td><input type="number" id="calculate_ss_4" value="0" min="0" onchange="document.getElementById('result_calculate_ss_4').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_4">0</td></tr>
-						<tr><td>金針皂</td><td><input type="number" id="calculate_ss_5" value="0" min="0" onchange="document.getElementById('result_calculate_ss_5').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_5">0</td></tr>
-						<tr><td>紅棕梠皂</td><td><input type="number" id="calculate_ss_6" value="0" min="0" onchange="document.getElementById('result_calculate_ss_56').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_6">0</td></tr>
-						
+						<tr><td>地瓜皂</td><td><input type="number" id="calculate_sp_004" value="0" min="0" onchange="document.getElementById('result_calculate_sp_004').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_sp_004">0</td></tr>
+						<tr><td>金棗皂</td><td><input type="number" id="calculate_sp_005" value="0" min="0" onchange="document.getElementById('result_calculate_sp_005').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_sp_005">0</td></tr>
+						<tr><td>海藻皂</td><td><input type="number" id="calculate_sp_006" value="0" min="0" onchange="document.getElementById('result_calculate_sp_006').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_sp_006">0</td></tr>
+						<tr><td>黑豆皂</td><td><input type="number" id="calculate_ss_007" value="0" min="0" onchange="document.getElementById('result_calculate_ss_007').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_007">0</td></tr>
+						<tr><td>竹炭皂</td><td><input type="number" id="calculate_ss_008" value="0" min="0" onchange="document.getElementById('result_calculate_ss_008').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_008">0</td></tr>
+						<tr><td>米粉皂</td><td><input type="number" id="calculate_ss_009" value="0" min="0" onchange="document.getElementById('result_calculate_ss_009').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_009">0</td></tr>
+						<tr><td>蕁麻葉皂</td><td><input type="number" id="calculate_ss_010" value="0" min="0" onchange="document.getElementById('result_calculate_ss_010').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_010">0</td></tr>
+						<tr><td>蜂蜜皂</td><td><input type="number" id="calculate_ss_011" value="0" min="0" onchange="document.getElementById('result_calculate_ss_011').innerHTML = this.value*1000 + 'g'"></td><td id="result_calculate_ss_011">0</td></tr>
 					</table>
 					<button onclick="calculate_search()">查詢</button>
 					<button onclick="calculate_refresh()">清除</button>
@@ -79,12 +77,11 @@
 					<h3>產品切絲</h3>
 					<select id="slice" onchange="slice_search()">
 						<option value="">請選擇</option>
-						<option value="ss_1">洛神皂</option>
-						<option value="ss_2">紅麴皂</option>
-						<option value="ss_3">薑黃皂</option>
-						<option value="ss_4">蕁麻葉皂</option>
-						<option value="ss_5">金針皂</option>
-						<option value="ss_6">紅棕梠皂</option>
+						<option value="ss_007">黑豆皂</option>
+						<option value="ss_008">竹炭皂</option>
+						<option value="ss_009">米粉皂</option>
+						<option value="ss_010">蕁麻葉皂</option>
+						<option value="ss_011">蜂蜜皂</option>
 					</select>
 					<p id="slice_search_content"></p>
 				</div>
@@ -95,13 +92,13 @@
 						<div>
 							<table>
 								<tr><th>商品</th><th>數量</th></tr>
-								<tr><td>田靜山巒禾風皂100g</td><td><input type="number" id="package_sp_1" value="0" min="0"></td></tr>
-								<tr><td>金絲森林渲染皂100g</td><td><input type="number" id="package_sp_3" value="0" min="0"></td></tr>
-								<tr><td>釋迦手感果力皂100g</td><td><input type="number" id="package_sp_5" value="0" min="0"></td></tr>
+								<tr><td>田靜山巒禾風皂100g</td><td><input type="number" id="package_sp_001a" value="0" min="0"></td></tr>
+								<tr><td>金絲森林渲染皂100g</td><td><input type="number" id="package_sp_002a" value="0" min="0"></td></tr>
+								<tr><td>釋迦手感果力皂100g</td><td><input type="number" id="package_sp_003a" value="0" min="0"></td></tr>
 								<tr><td>三三台東意象禮盒組</td><td><input type="number" id="package_sp_box" value="0" min="0" onchange="sp_box_change()"></td></tr>
-								<tr><td>洛神紅麴旅用皂絲</td><td><input type="number" id="package_ss_1" value="0" min="0"></td></tr>
-								<tr><td>暖暖薑黃旅用皂絲</td><td><input type="number" id="package_ss_2" value="0" min="0"></td></tr>
-								<tr><td>萱草米黃旅用皂絲</td><td><input type="number" id="package_ss_3" value="0" min="0"></td></tr>
+								<tr><td>洛神紅麴旅用皂絲</td><td><input type="number" id="package_ss_001" value="0" min="0"></td></tr>
+								<tr><td>暖暖薑黃旅用皂絲</td><td><input type="number" id="package_ss_002" value="0" min="0"></td></tr>
+								<tr><td>萱草米黃旅用皂絲</td><td><input type="number" id="package_ss_003" value="0" min="0"></td></tr>
 								<tr><td>三三台東意象皂絲旅行組</td><td><input type="number" id="package_ss_box" value="0" min="0" onchange="ss_box_change()"></td></tr>
 							</table>
 						</div>
@@ -112,24 +109,24 @@
 						<table>
 							<tr><th>米皂+包裝</th><th>金針皂+包裝</th><th>釋迦皂+包裝</th></tr>
 							<tr>
-								<td><input type="number" id="sp_1_type1" value="0" min="0" onchange="document.getElementById('sp_1_type2').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_1_type1').value)"></td>
-								<td><input type="number" id="sp_2_type1" value="0" min="0" onchange="document.getElementById('sp_2_type2').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_2_type1').value)"></td>
-								<td><input type="number" id="sp_3_type1" value="0" min="0" onchange="document.getElementById('sp_3_type2').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_3_type1').value)"></td>
+								<td><input type="number" id="sp_001_type1" value="0" min="0" onchange="document.getElementById('sp_001_type2').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_001_type1').value)"></td>
+								<td><input type="number" id="sp_002_type1" value="0" min="0" onchange="document.getElementById('sp_002_type2').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_002_type1').value)"></td>
+								<td><input type="number" id="sp_003_type1" value="0" min="0" onchange="document.getElementById('sp_003_type2').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_003_type1').value)"></td>
 							</tr>
 							<tr><th>田靜山巒禾風皂</th><th>金絲森林渲染皂</th><th>釋迦手感果力皂</th></tr>
 							<tr>
-								<td><input type="number" id="sp_1_type2" value="0" min="0" onchange="document.getElementById('sp_1_type1').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_1_type2').value)"></td>
-								<td><input type="number" id="sp_2_type2" value="0" min="0" onchange="document.getElementById('sp_1_type1').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_1_type2').value)"></td>
-								<td><input type="number" id="sp_3_type2" value="0" min="0" onchange="document.getElementById('sp_1_type1').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_1_type2').value)"></td>
+								<td><input type="number" id="sp_001_type2" value="0" min="0" onchange="document.getElementById('sp_001_type1').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_001_type2').value)"></td>
+								<td><input type="number" id="sp_002_type2" value="0" min="0" onchange="document.getElementById('sp_001_type1').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_001_type2').value)"></td>
+								<td><input type="number" id="sp_003_type2" value="0" min="0" onchange="document.getElementById('sp_001_type1').value = Number(document.getElementById('package_sp_box').value) - Number(document.getElementById('sp_001_type2').value)"></td>
 							</tr>
 						</table>
 						<h4>三三台東意象皂絲旅行組包裝原料</h4>
 						<table>
 							<tr><th>洛神紅麴旅用皂絲</th><th>暖暖薑黃旅用皂絲</th><th>萱草米黃旅用皂絲</th></tr>
 							<tr>
-								<td><input type="number" id="ss_1_type1" value="0" min="0"></td>
-								<td><input type="number" id="ss_2_type1" value="0" min="0"></td>
-								<td><input type="number" id="ss_3_type1" value="0" min="0"></td>
+								<td><input type="number" id="ss_001_type1" value="0" min="0"></td>
+								<td><input type="number" id="ss_002_type1" value="0" min="0"></td>
+								<td><input type="number" id="ss_003_type1" value="0" min="0"></td>
 							</tr>
 						</table>
 					</div>
@@ -168,15 +165,18 @@
 							<td>
 								<select id="itemno">
 									<option value="all">全部</option>
-									<option value="oil_1">橄欖油</option>
-									<option value="oil_2">棕梠油</option>
-									<option value="oil_3">椰子油</option>
-									<option value="oil_4">米糠油</option>
-									<option value="oil_5">紅棕梠油</option>
-									<option value="oil_6">葡萄籽油</option>
-									<option value="oil_7">苦茶油</option>
-									<option value="oil_8">蓖麻油</option>
-									<option value="oil_9">乳油木果脂</option>
+									<option value="oil_001">橄欖油</option>
+									<option value="oil_002">棕梠油</option>
+									<option value="oil_003">椰子油</option>
+									<option value="oil_004">米糠油</option>
+									<option value="oil_005">紅棕梠油</option>
+									<option value="oil_008">蓖麻油</option>
+									<option value="oil_009">乳油木果脂</option>
+									<option value="oil_010">榛果油</option>
+									<option value="oil_011">芥花油</option>
+									<option value="oil_012">酪梨油</option>
+									<option value="oil_013">甜杏仁油</option>
+									<option value="oil_014">山茶花油</option>
 									<option value="NaOH">鹼</option>
 								</select>
 							</td>
