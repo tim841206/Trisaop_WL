@@ -237,49 +237,77 @@ function view($account, $token) {
 			if ($fetch1['AUTHORITY'] == 'A') {
 				$content = '<table><tr><th>油品</th><th>添加物</th><th>包裝</th><th>商品</th><th>產品</th><th>半成品</th><th>後山埤的產品</th></tr><tr>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th><th>宜蘭存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM ITEMMAS WHERE ITEMCLASS='A' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$itemno = $fetch2['ITEMNO'];
+					$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
+					$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMNO='$itemno'");
+					$sql5 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMNO='$itemno'");
 					$fetch3 = mysql_fetch_array($sql3);
 					$fetch4 = mysql_fetch_array($sql4);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td><td>'.number_format($fetch4['TOTALAMT']).'</td></tr>';
+					$fetch5 = mysql_fetch_array($sql5);
+					$amount3 = isset($fetch3['TOTALAMT']) ? $fetch3['TOTALAMT'] : '';
+					$amount4 = isset($fetch4['TOTALAMT']) ? $fetch4['TOTALAMT'] : '';
+					$amount5 = isset($fetch5['TOTALAMT']) ? $fetch5['TOTALAMT'] : '';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$amount3.'</td><td>'.$amount4.'</td><td>'.$amount5.'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th><th>宜蘭存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM ITEMMAS WHERE ITEMCLASS='B' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$itemno = $fetch2['ITEMNO'];
+					$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
+					$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMNO='$itemno'");
+					$sql5 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMNO='$itemno'");
 					$fetch3 = mysql_fetch_array($sql3);
 					$fetch4 = mysql_fetch_array($sql4);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td><td>'.number_format($fetch4['TOTALAMT']).'</td></tr>';
+					$fetch5 = mysql_fetch_array($sql5);
+					$amount3 = isset($fetch3['TOTALAMT']) ? $fetch3['TOTALAMT'] : '';
+					$amount4 = isset($fetch4['TOTALAMT']) ? $fetch4['TOTALAMT'] : '';
+					$amount5 = isset($fetch5['TOTALAMT']) ? $fetch5['TOTALAMT'] : '';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$amount3.'</td><td>'.$amount4.'</td><td>'.$amount5.'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>宜蘭存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM ITEMMAS WHERE ITEMCLASS='C' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$itemno = $fetch2['ITEMNO'];
+					$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
+					$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMNO='$itemno'");
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
+					$fetch4 = mysql_fetch_array($sql4);
+					$amount3 = isset($fetch3['TOTALAMT']) ? $fetch3['TOTALAMT'] : '';
+					$amount4 = isset($fetch4['TOTALAMT']) ? $fetch4['TOTALAMT'] : '';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$amount3.'</td><td>'.$amount4.'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>宜蘭存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM ITEMMAS WHERE ITEMCLASS='D' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$itemno = $fetch2['ITEMNO'];
+					$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
+					$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMNO='$itemno'");
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
+					$fetch4 = mysql_fetch_array($sql4);
+					$amount3 = isset($fetch3['TOTALAMT']) ? $fetch3['TOTALAMT'] : '';
+					$amount4 = isset($fetch4['TOTALAMT']) ? $fetch4['TOTALAMT'] : '';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$amount3.'</td><td>'.$amount4.'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th><th>宜蘭存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM ITEMMAS WHERE ITEMCLASS='E' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$itemno = $fetch2['ITEMNO'];
+					$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
+					$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMNO='$itemno'");
+					$sql5 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMNO='$itemno'");
 					$fetch3 = mysql_fetch_array($sql3);
 					$fetch4 = mysql_fetch_array($sql4);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td><td>'.number_format($fetch4['TOTALAMT']).'</td></tr>';
+					$fetch5 = mysql_fetch_array($sql5);
+					$amount3 = isset($fetch3['TOTALAMT']) ? $fetch3['TOTALAMT'] : '';
+					$amount4 = isset($fetch4['TOTALAMT']) ? $fetch4['TOTALAMT'] : '';
+					$amount5 = isset($fetch5['TOTALAMT']) ? $fetch5['TOTALAMT'] : '';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$amount3.'</td><td>'.$amount4.'</td><td>'.$amount5.'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table class="table_content"><tr><th>名稱</th><th>製作地點</th><th>存量</th></tr>';
@@ -289,13 +317,19 @@ function view($account, $token) {
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>後山埤存量</th><th>宜蘭存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='H' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM ITEMMAS WHERE ITEMCLASS='H' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$itemno = $fetch2['ITEMNO'];
+					$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
+					$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Houshanpi' AND ITEMNO='$itemno'");
+					$sql5 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMNO='$itemno'");
 					$fetch3 = mysql_fetch_array($sql3);
 					$fetch4 = mysql_fetch_array($sql4);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td><td>'.number_format($fetch4['TOTALAMT']).'</td></tr>';
+					$fetch5 = mysql_fetch_array($sql5);
+					$amount3 = isset($fetch3['TOTALAMT']) ? $fetch3['TOTALAMT'] : '';
+					$amount4 = isset($fetch4['TOTALAMT']) ? $fetch4['TOTALAMT'] : '';
+					$amount5 = isset($fetch5['TOTALAMT']) ? $fetch5['TOTALAMT'] : '';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$amount3.'</td><td>'.$amount4.'</td><td>'.$amount5.'</td></tr>';
 				}
 				$content .= '</table></td></tr></table>';
 			}
@@ -389,44 +423,82 @@ function view($account, $token) {
 			}
 			elseif ($fetch1['AUTHORITY'] == 'E') {
 				$content = '<table><tr><th>油品</th><th>添加物</th><th>包裝</th><th>商品</th><th>產品</th><th>半成品</th></tr><tr>';
-				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='A' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th><th>宜蘭存量</th></tr>';
+				$sql2 = mysql_query("SELECT * FROM ITEMMAS WHERE ITEMCLASS='A' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$itemno = $fetch2['ITEMNO'];
+					$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
+					$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMNO='$itemno'");
+					$sql5 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMNO='$itemno'");
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
+					$fetch4 = mysql_fetch_array($sql4);
+					$fetch5 = mysql_fetch_array($sql5);
+					$amount3 = isset($fetch3['TOTALAMT']) ? $fetch3['TOTALAMT'] : '';
+					$amount4 = isset($fetch4['TOTALAMT']) ? $fetch4['TOTALAMT'] : '';
+					$amount5 = isset($fetch5['TOTALAMT']) ? $fetch5['TOTALAMT'] : '';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$amount3.'</td><td>'.$amount4.'</td><td>'.$amount5.'</td></tr>';
 				}
 				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='B' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th><th>宜蘭存量</th></tr>';
+				$sql2 = mysql_query("SELECT * FROM ITEMMAS WHERE ITEMCLASS='B' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$itemno = $fetch2['ITEMNO'];
+					$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
+					$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMNO='$itemno'");
+					$sql5 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMNO='$itemno'");
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
+					$fetch4 = mysql_fetch_array($sql4);
+					$fetch5 = mysql_fetch_array($sql5);
+					$amount3 = isset($fetch3['TOTALAMT']) ? $fetch3['TOTALAMT'] : '';
+					$amount4 = isset($fetch4['TOTALAMT']) ? $fetch4['TOTALAMT'] : '';
+					$amount5 = isset($fetch5['TOTALAMT']) ? $fetch5['TOTALAMT'] : '';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$amount3.'</td><td>'.$amount4.'</td><td>'.$amount5.'</td></tr>';
 				}
 				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='C' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>宜蘭存量</th></tr>';
+				$sql2 = mysql_query("SELECT * FROM ITEMMAS WHERE ITEMCLASS='C' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
-				}
-				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='D' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
-				}
-				$content .= '</table></td>';
-				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMCLASS='E' AND ACTCODE='1' ORDER BY ITEMNO ASC");
-				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$itemno = $fetch2['ITEMNO'];
+					$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
+					$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMNO='$itemno'");
 					$fetch3 = mysql_fetch_array($sql3);
-					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td><td>'.number_format($fetch3['TOTALAMT']).'</td></tr>';
+					$fetch4 = mysql_fetch_array($sql4);
+					$amount3 = isset($fetch3['TOTALAMT']) ? $fetch3['TOTALAMT'] : '';
+					$amount4 = isset($fetch4['TOTALAMT']) ? $fetch4['TOTALAMT'] : '';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$amount3.'</td><td>'.$amount4.'</td></tr>';
+				}
+				$content .= '</table></td>';
+				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>宜蘭存量</th></tr>';
+				$sql2 = mysql_query("SELECT * FROM ITEMMAS WHERE ITEMCLASS='D' AND ACTCODE='1'");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$itemno = $fetch2['ITEMNO'];
+					$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
+					$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMNO='$itemno'");
+					$fetch3 = mysql_fetch_array($sql3);
+					$fetch4 = mysql_fetch_array($sql4);
+					$amount3 = isset($fetch3['TOTALAMT']) ? $fetch3['TOTALAMT'] : '';
+					$amount4 = isset($fetch4['TOTALAMT']) ? $fetch4['TOTALAMT'] : '';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$amount3.'</td><td>'.$amount4.'</td></tr>';
+				}
+				$content .= '</table></td>';
+				$content .= '<td><table><tr><th>名稱</th><th>北投存量</th><th>台東存量</th><th>宜蘭存量</th></tr>';
+				$sql2 = mysql_query("SELECT * FROM ITEMMAS WHERE ITEMCLASS='E' AND ACTCODE='1'");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$itemno = $fetch2['ITEMNO'];
+					$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMNO='$itemno'");
+					$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND ITEMNO='$itemno'");
+					$sql5 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMNO='$itemno'");
+					$fetch3 = mysql_fetch_array($sql3);
+					$fetch4 = mysql_fetch_array($sql4);
+					$fetch5 = mysql_fetch_array($sql5);
+					$amount3 = isset($fetch3['TOTALAMT']) ? $fetch3['TOTALAMT'] : '';
+					$amount4 = isset($fetch4['TOTALAMT']) ? $fetch4['TOTALAMT'] : '';
+					$amount5 = isset($fetch5['TOTALAMT']) ? $fetch5['TOTALAMT'] : '';
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.$amount3.'</td><td>'.$amount4.'</td><td>'.$amount5.'</td></tr>';
 				}
 				$content .= '</table></td>';
 				$content .= '<td><table class="table_content"><tr><th>名稱</th><th>製作地點</th><th>存量</th></tr>';
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE (WHOUSENO='Beitou' OR WHOUSENO='Taitung') AND ITEMCLASS='F' AND ACTCODE='1' ORDER BY ITEMNO ASC");
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO!='Houshanpi' AND ITEMCLASS='F' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.transfer($fetch2['WHOUSENO']).'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
 				}
