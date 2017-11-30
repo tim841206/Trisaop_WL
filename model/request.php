@@ -872,7 +872,7 @@ function notice($account, $token) {
 				}
 				if (mysql_num_rows($sql3) != 0) {
 					while ($fetch3 = mysql_fetch_array($sql3)) {
-						$content .= ($fetch3['RQSTSTAT'] == 'A') ? '<span style="color: red;">您有一個來自 ' . translate($fetch3['SENDER']) . ' 的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。</span><button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>' : $content .= '<span style="color: red;">您有一個待確認的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。</span><button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>';
+						$content .= ($fetch3['RQSTSTAT'] == 'A') ? '<span style="color: red;">您有一個來自 ' . translate($fetch3['SENDER']) . ' 的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。</span><button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>' : '<span style="color: red;">您有一個待確認的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。</span><button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>';
 					}
 				}
 				return array('message' => 'Success', 'content' => $content);

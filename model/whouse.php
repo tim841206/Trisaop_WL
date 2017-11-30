@@ -339,7 +339,6 @@ function view($account, $token) {
 				$set = array('A', 'B', 'C', 'D', 'E', 'F', 'H');
 				while ($i = array_shift($set)) {
 					$content .= ($i == 'F') ? '<td><table class="table_content"><tr><th>名稱</th><th>存量</th></tr>' : '<td><table><tr><th>名稱</th><th>存量</th></tr>';
-					$content .= '<td><table><tr><th>名稱</th><th>存量</th></tr>';
 					$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ITEMCLASS='$i' AND ACTCODE='1' ORDER BY ITEMNO ASC");
 					while ($fetch2 = mysql_fetch_array($sql2)) {
 						$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td>'.number_format($fetch2['TOTALAMT']).'</td></tr>';
