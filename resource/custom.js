@@ -899,10 +899,10 @@ function command() {
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				document.getElementsByClassName("command_content")[0].innerHTML = data.command;
-				document.getElementsByClassName("command_content")[0].style.display = 'block';
-				document.getElementsByClassName("command_content")[1].style.display = 'block';
+				document.getElementsByClassName("command_content")[0].style.display = '';
+				document.getElementsByClassName("command_content")[1].style.display = '';
 				if (command == 'C1' || command == 'C2' || command == 'C3' || command == 'C4') {
-					document.getElementById("command_date").style.display = 'block';
+					document.getElementById("command_date").style.display = '';
 				}
 				else {
 					document.getElementById("command_date").style.display = 'none';
@@ -1145,39 +1145,39 @@ function ss_box_change() {
 }
 
 function package() {
-	var product_sp_001a = document.getElementById("package_sp_001a").value;
-	var product_sp_002a = document.getElementById("package_sp_002a").value;
-	var product_sp_003a = document.getElementById("package_sp_003a").value;
-	var product_sp_box = document.getElementById("package_sp_box").value;
-	var product_ss_001 = document.getElementById("package_ss_001").value;
-	var product_ss_002 = document.getElementById("package_ss_002").value;
-	var product_ss_003 = document.getElementById("package_ss_003").value;
-	var product_ss_box = document.getElementById("package_ss_box").value;
-	var sp_001_type1 = Number(document.getElementById("sp_001_type1").value);
-	var sp_002_type1 = Number(document.getElementById("sp_002_type1").value);
-	var sp_003_type1 = Number(document.getElementById("sp_003_type1").value);
-	var sp_001_type2 = Number(document.getElementById("sp_001_type2").value);
-	var sp_002_type2 = Number(document.getElementById("sp_002_type2").value);
-	var sp_003_type2 = Number(document.getElementById("sp_003_type2").value);
-	var ss_001_type1 = Number(document.getElementById("ss_001_type1").value);
-	var ss_002_type1 = Number(document.getElementById("ss_002_type1").value);
-	var ss_003_type1 = Number(document.getElementById("ss_003_type1").value);
-	if (sp_001_type1 + sp_001_type2 != product_sp_box) {
+	var data = "module=item&event=package";
+	data = data + "&package_sp_001a=" + document.getElementById("package_sp_001a").value;
+	data = data + "&package_sp_002a=" + document.getElementById("package_sp_002a").value;
+	data = data + "&package_sp_003a=" + document.getElementById("package_sp_003a").value;
+	data = data + "&product_sp_box=" + document.getElementById("package_sp_box").value;
+	data = data + "&product_ss_001=" + document.getElementById("package_ss_001").value;
+	data = data + "&product_ss_002=" + document.getElementById("package_ss_002").value;
+	data = data + "&product_ss_003=" + document.getElementById("package_ss_003").value;
+	data = data + "&product_ss_box=" + document.getElementById("package_ss_box").value;
+	data = data + "&sp_001_type1=" + Number(document.getElementById("sp_001_type1").value);
+	data = data + "&sp_002_type1=" + Number(document.getElementById("sp_002_type1").value);
+	data = data + "&sp_003_type1=" + Number(document.getElementById("sp_003_type1").value);
+	data = data + "&sp_001_type2=" + Number(document.getElementById("sp_001_type2").value);
+	data = data + "&sp_002_type2=" + Number(document.getElementById("sp_002_type2").value);
+	data = data + "&sp_003_type2=" + Number(document.getElementById("sp_003_type2").value);
+	data = data + "&ss_001_type1=" + Number(document.getElementById("ss_001_type1").value);
+	data = data + "&ss_002_type1=" + Number(document.getElementById("ss_002_type1").value);
+	data = data + "&ss_003_type1=" + Number(document.getElementById("ss_003_type1").value);
+	if (Number(document.getElementById("sp_001_type1").value) + Number(document.getElementById("sp_001_type2").value) != Number(document.getElementById("package_sp_box").value)) {
 		alert("米皂包裝原料與禮盒數量不符");
 	}
-	else if (sp_002_type1 + sp_002_type2 != product_sp_box) {
+	else if (Number(document.getElementById("sp_002_type1").value) + Number(document.getElementById("sp_002_type2").value) != Number(document.getElementById("package_sp_box").value)) {
 		alert("金針皂包裝原料與禮盒數量不符");
 	}
-	else if (sp_003_type1 + sp_003_type2 != product_sp_box) {
+	else if (Number(document.getElementById("sp_003_type1").value) + Number(document.getElementById("sp_003_type2").value) != Number(document.getElementById("package_sp_box").value)) {
 		alert("釋迦皂包裝原料與禮盒數量不符");
 	}
-	else if (ss_001_type1 + ss_002_type1 + ss_003_type1 != product_ss_box * 6) {
+	else if (Number(document.getElementById("ss_001_type1").value) + Number(document.getElementById("ss_002_type1").value) + Number(document.getElementById("ss_003_type1").value) != Number(document.getElementById("package_ss_box").value * 6)) {
 		alert("皂絲包裝原料與禮盒數量不符");
 	}
 	else {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
-		var data = "module=item&event=package&product_sp_001a=" + product_sp_001a + "&product_sp_002a=" + product_sp_002a + "&product_sp_003a=" + product_sp_003a + "&product_sp_box=" + product_sp_box + "&product_ss_001=" + product_ss_001 + "&product_ss_002=" + product_ss_002 + "&product_ss_003=" + product_ss_003 + "&product_ss_box=" + product_ss_box + "&sp_001_type1=" + sp_001_type1 + "&sp_002_type1=" + sp_002_type1 + "&sp_003_type1=" + sp_003_type1 + "&sp_001_type2=" + sp_001_type2 + "&sp_002_type2=" + sp_002_type2 + "&sp_003_type2=" + sp_003_type2 + "&ss_001_type1=" + ss_001_type1 + "&ss_002_type1=" + ss_002_type1 + "&ss_003_type1=" + ss_003_type1;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -1197,39 +1197,39 @@ function package() {
 }
 
 function pack() {
-	var product_sp_001a = document.getElementById("package_sp_001a").value;
-	var product_sp_002a = document.getElementById("package_sp_002a").value;
-	var product_sp_003a = document.getElementById("package_sp_003a").value;
-	var product_sp_box = document.getElementById("package_sp_box").value;
-	var product_ss_001 = document.getElementById("package_ss_001").value;
-	var product_ss_002 = document.getElementById("package_ss_002").value;
-	var product_ss_003 = document.getElementById("package_ss_003").value;
-	var product_ss_box = document.getElementById("package_ss_box").value;
-	var sp_001_type1 = Number(document.getElementById("sp_001_type1").value);
-	var sp_002_type1 = Number(document.getElementById("sp_002_type1").value);
-	var sp_003_type1 = Number(document.getElementById("sp_003_type1").value);
-	var sp_001_type2 = Number(document.getElementById("sp_001_type2").value);
-	var sp_002_type2 = Number(document.getElementById("sp_002_type2").value);
-	var sp_003_type2 = Number(document.getElementById("sp_003_type2").value);
-	var ss_001_type1 = Number(document.getElementById("ss_001_type1").value);
-	var ss_002_type1 = Number(document.getElementById("ss_002_type1").value);
-	var ss_003_type1 = Number(document.getElementById("ss_003_type1").value);
-	if (sp_001_type1 + sp_001_type2 != product_sp_box) {
+	var data = "module=item&event=pack";
+	data = data + "&package_sp_001a=" + document.getElementById("package_sp_001a").value;
+	data = data + "&package_sp_002a=" + document.getElementById("package_sp_002a").value;
+	data = data + "&package_sp_003a=" + document.getElementById("package_sp_003a").value;
+	data = data + "&product_sp_box=" + document.getElementById("package_sp_box").value;
+	data = data + "&product_ss_001=" + document.getElementById("package_ss_001").value;
+	data = data + "&product_ss_002=" + document.getElementById("package_ss_002").value;
+	data = data + "&product_ss_003=" + document.getElementById("package_ss_003").value;
+	data = data + "&product_ss_box=" + document.getElementById("package_ss_box").value;
+	data = data + "&sp_001_type1=" + Number(document.getElementById("sp_001_type1").value);
+	data = data + "&sp_002_type1=" + Number(document.getElementById("sp_002_type1").value);
+	data = data + "&sp_003_type1=" + Number(document.getElementById("sp_003_type1").value);
+	data = data + "&sp_001_type2=" + Number(document.getElementById("sp_001_type2").value);
+	data = data + "&sp_002_type2=" + Number(document.getElementById("sp_002_type2").value);
+	data = data + "&sp_003_type2=" + Number(document.getElementById("sp_003_type2").value);
+	data = data + "&ss_001_type1=" + Number(document.getElementById("ss_001_type1").value);
+	data = data + "&ss_002_type1=" + Number(document.getElementById("ss_002_type1").value);
+	data = data + "&ss_003_type1=" + Number(document.getElementById("ss_003_type1").value);
+	if (Number(document.getElementById("sp_001_type1").value) + Number(document.getElementById("sp_001_type2").value) != Number(document.getElementById("package_sp_box").value)) {
 		alert("米皂包裝原料與禮盒數量不符");
 	}
-	else if (sp_002_type1 + sp_002_type2 != product_sp_box) {
+	else if (Number(document.getElementById("sp_002_type1").value) + Number(document.getElementById("sp_002_type2").value) != Number(document.getElementById("package_sp_box").value)) {
 		alert("金針皂包裝原料與禮盒數量不符");
 	}
-	else if (sp_003_type1 + sp_003_type2 != product_sp_box) {
+	else if (Number(document.getElementById("sp_003_type1").value) + Number(document.getElementById("sp_003_type2").value) != Number(document.getElementById("package_sp_box").value)) {
 		alert("釋迦皂包裝原料與禮盒數量不符");
 	}
-	else if (ss_001_type1 + ss_002_type1 + ss_003_type1 != product_ss_box * 6) {
+	else if (Number(document.getElementById("ss_001_type1").value) + Number(document.getElementById("ss_002_type1").value) + Number(document.getElementById("ss_003_type1").value) != Number(document.getElementById("package_ss_box").value * 6)) {
 		alert("皂絲包裝原料與禮盒數量不符");
 	}
 	else {
 		var request = new XMLHttpRequest();
 		request.open("POST", "index.php");
-		var data = "module=item&event=pack&product_sp_001a=" + product_sp_001a + "&product_sp_002a=" + product_sp_002a + "&product_sp_003a=" + product_sp_003a + "&product_sp_box=" + product_sp_box + "&product_ss_001=" + product_ss_001 + "&product_ss_002=" + product_ss_002 + "&product_ss_003=" + product_ss_003 + "&product_ss_box=" + product_ss_box + "&sp_001_type1=" + sp_001_type1 + "&sp_002_type1=" + sp_002_type1 + "&sp_003_type1=" + sp_003_type1 + "&sp_001_type2=" + sp_001_type2 + "&sp_002_type2=" + sp_002_type2 + "&sp_003_type2=" + sp_003_type2 + "&ss_001_type1=" + ss_001_type1 + "&ss_002_type1=" + ss_002_type1 + "&ss_003_type1=" + ss_003_type1;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {

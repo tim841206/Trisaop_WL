@@ -664,5 +664,4 @@ function transfer($authority) {
 	elseif ($authority == 'D') return '台東';
 	elseif ($authority == 'E') return '實習';
 	elseif ($authority == 'I') return '宜蘭';
-	else return 'Unknown';
 }

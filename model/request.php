@@ -417,41 +417,11 @@ function search_date($account, $token, $year, $month, $day) {
 			$month = process_date($month);
 			$day = process_date($day);
 			if (in_array($fetch1['AUTHORITY'], array('A', 'E'))) {
-				if (empty($year)) {
-					if (empty($month)) {
-						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
-					}
-					else {
-						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m')='$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
-					}
-				}
-				else {
-					if (empty($month)) {
-						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
-					}
-					else {
-						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
-					}
-				}
+				$sql2 = empty($year) ? (empty($month) ? (empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%d')='$day'")) : (empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m')='$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'"))) : (empty($month) ? (empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y')='$year'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'")) : (empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'")));
 			}
 			elseif (in_array($fetch1['AUTHORITY'], array('B', 'C', 'D', 'I'))) {
 				$location = authorityToName($fetch1['AUTHORITY']);
-				if (empty($year)) {
-					if (empty($month)) {
-						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location')") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%d')='$day'");
-					}
-					else {
-						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%m')='$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'");
-					}
-				}
-				else {
-					if (empty($month)) {
-						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'");
-					}
-					else {
-						$sql2 = empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'");
-					}
-				}
+				$sql2 = empty($year) ? (empty($month) ? (empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location')") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%d')='$day'")) : (empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%m')='$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%m-%d')='$month-$day'"))) : (empty($month) ? (empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y')='$year'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y-%d')='$year-$day'")) : (empty($day) ? mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y-%m')='$year-$month'") : mysql_query("SELECT * FROM RQSTMAS WHERE ACTCODE='1' AND (SENDER='$location' OR RECEIVER='$location') AND DATE_FORMAT(CREATEDATE,'%Y-%m-%d')='$year-$month-$day'")));
 			}
 			$content = '';
 			if ($sql2 == false) {
@@ -525,7 +495,6 @@ function view_index($account, $token, $index) {
 						return 'Unable to update review date';
 					}
 				}
-				// 到這
 				if ($fetch2['SENDER'] == 'Trisoap' && $fetch2['RECEIVER'] == 'Beitou') {
 					if (in_array($fetch1['AUTHORITY'], array('A', 'B', 'E'))) {
 						$content = '<table><tr><th>物流編號</th><th>建立時間</th><th>運送方</th><th>接收方</th><th>物流狀態</th><th>運費</th></tr><tr><td>'.$fetch2['RQSTNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>'.translate($fetch2['SENDER']).'</td><td>'.translate($fetch2['RECEIVER']).'</td><td>'.transfer_state($fetch2['RQSTSTAT']).'</td><td>'.number_format($fetch2['SHIPFEE']).'</td></tr>';
@@ -903,12 +872,7 @@ function notice($account, $token) {
 				}
 				if (mysql_num_rows($sql3) != 0) {
 					while ($fetch3 = mysql_fetch_array($sql3)) {
-						if ($fetch3['RQSTSTAT'] == 'A') {
-							$content .= '<span style="color: red;">您有一個來自 ' . translate($fetch3['SENDER']) . ' 的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。</span><button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>';
-						}
-						else {
-							$content .= '<span style="color: red;">您有一個待確認的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。</span><button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>';
-						}
+						$content .= ($fetch3['RQSTSTAT'] == 'A') ? '<span style="color: red;">您有一個來自 ' . translate($fetch3['SENDER']) . ' 的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。</span><button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>' : $content .= '<span style="color: red;">您有一個待確認的物流，物流編號 ' . $fetch3['RQSTNO'] . ' 。</span><button onclick="view_index_notice('.$fetch3['RQSTNO'].')">查看</button><br>';
 					}
 				}
 				return array('message' => 'Success', 'content' => $content);
@@ -1635,7 +1599,6 @@ function transfer_state($state) {
 	elseif ($state == 'B') return '待確認';
 	elseif ($state == 'C') return '已確認';
 	elseif ($state == 'D') return '已拒絕';
-	else return 'Unknown';
 }
 
 function translate($whouseno) {
@@ -1644,7 +1607,6 @@ function translate($whouseno) {
 	elseif ($whouseno == 'Houshanpi') return '後山埤';
 	elseif ($whouseno == 'Taitung') return '台東';
 	elseif ($whouseno == 'Yilan') return '宜蘭';
-	else return 'Unknown';
 }
 
 function inventory($whouse, $item) {
@@ -1674,7 +1636,6 @@ function authorityToName($authority) {
 	elseif ($authority == 'D') return 'Taitung';
 	elseif ($authority == 'E') return 'Intern';
 	elseif ($authority == 'I') return 'Yilan';
-	else return 'Unknown';
 }
 
 function process_date($value) {

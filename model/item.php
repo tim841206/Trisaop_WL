@@ -999,11 +999,11 @@ function querySearchTable($query, $authority) {
 		}
 		$queryResult .= '</table>';
 	}
-	elseif ($authority == 'B') {
+	elseif (in_array($authority, array('B', 'D', 'I'))) {
 		$queryResult = '<table><tr><th>原料</th><th>所需數量(g)</th><th>庫存數量(g)</th></tr>';
 		$content = array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_009', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014', 'NaOH', 'additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010', 'additive_011', 'additive_012', 'additive_013', 'additive_014', 'additive_015', 'additive_016', 'additive_017');
 		while ($item = array_shift($content)) {
-			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Beitou', $item).'</td>'.compare($query[$item], inventory('Beitou', $item)).'</tr>';
+			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory(authorityToName($authority), $item).'</td>'.compare($query[$item], inventory(authorityToName($authority), $item)).'</tr>';
 		}
 		$queryResult .= '</table>';
 	}
@@ -1019,22 +1019,6 @@ function querySearchTable($query, $authority) {
 		}
 		$queryResult .= '</table>';
 	}
-	elseif ($authority == 'D') {
-		$queryResult = '<table><tr><th>原料</th><th>所需數量(g)</th><th>庫存數量(g)</th></tr>';
-		$content = array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_009', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014', 'NaOH', 'additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010', 'additive_011', 'additive_012', 'additive_013', 'additive_014', 'additive_015', 'additive_016', 'additive_017');
-		while ($item = array_shift($content)) {
-			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Taitung', $item).'</td>'.compare($query[$item], inventory('Taitung', $item)).'</tr>';
-		}
-		$queryResult .= '</table>';
-	}
-	elseif ($authority == 'I') {
-		$queryResult = '<table><tr><th>原料</th><th>所需數量(g)</th><th>庫存數量(g)</th></tr>';
-		$content = array('oil_001', 'oil_002', 'oil_003', 'oil_004', 'oil_005', 'oil_006', 'oil_007', 'oil_008', 'oil_009', 'oil_010', 'oil_011', 'oil_012', 'oil_013', 'oil_014', 'NaOH', 'additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010', 'additive_011', 'additive_012', 'additive_013', 'additive_014', 'additive_015', 'additive_016', 'additive_017');
-		while ($item = array_shift($content)) {
-			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Yilan', $item).'</td>'.compare($query[$item], inventory('Yilan', $item)).'</tr>';
-		}
-		$queryResult .= '</table>';
-	}
 	return $queryResult;
 }
 
@@ -1042,16 +1026,10 @@ function queryPackageTable($message) {
 	$authority = $message['authority'];
 	$query = $message['ingredient'];
 	$queryResult = '<table><tr><th>原料</th><th>所需數量</th><th>庫存數量</th></tr>';
-	if ($authority == 'B') {
+	if ($authority == 'B' || $authority == 'I') {
 		$content = array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_ss_001', 'product_ss_002', 'product_ss_003');
 		while ($item = array_shift($content)) {
-			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Beitou', $item).'</td>'.compare($query[$item], inventory('Beitou', $item)).'</tr>';
-		}
-	}
-	elseif ($authority == 'I') {
-		$content = array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_ss_001', 'product_ss_002', 'product_ss_003');
-		while ($item = array_shift($content)) {
-			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory('Yilan', $item).'</td>'.compare($query[$item], inventory('Yilan', $item)).'</tr>';
+			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory(authorityToName($authority), $item).'</td>'.compare($query[$item], inventory(authorityToName($authority), $item)).'</tr>';
 		}
 	}	
 	$queryResult .= '</table>';
@@ -1184,4 +1162,13 @@ function query_name($itemno) {
 	$sql = mysql_query("SELECT ITEMNM FROM ITEMMAS WHERE ITEMNO='$itemno'");
 	$fetch = mysql_fetch_row($sql);
 	return $fetch[0];
+}
+
+function authorityToName($authority) {
+	if ($authority == 'A') return 'Trisoap';
+	elseif ($authority == 'B') return 'Beitou';
+	elseif ($authority == 'C') return 'Houshanpi';
+	elseif ($authority == 'D') return 'Taitung';
+	elseif ($authority == 'E') return 'Intern';
+	elseif ($authority == 'I') return 'Yilan';
 }
