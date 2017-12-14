@@ -635,6 +635,9 @@ function itemclass() {
 	var option_package_002a = document.createElement("option"); option_package_002a.text = '洛神紅麴皂絲鋁包'; option_package_002a.value = 'package_002a';
 	var option_package_002b = document.createElement("option"); option_package_002b.text = '暖暖薑黃皂絲鋁包'; option_package_002b.value = 'package_002b';
 	var option_package_002c = document.createElement("option"); option_package_002c.text = '萱草米黃皂絲鋁包'; option_package_002c.value = 'package_002c';
+	var option_package_002d = document.createElement("option"); option_package_002d.text = '黑豆清爽皂絲鋁包'; option_package_002d.value = 'package_002d';
+	var option_package_002e = document.createElement("option"); option_package_002e.text = '米糠馬賽皂絲鋁包'; option_package_002e.value = 'package_002e';
+	var option_package_002f = document.createElement("option"); option_package_002f.text = '蜂蜜甜心皂絲鋁包'; option_package_002f.value = 'package_002f';
 	var option_package_003 = document.createElement("option"); option_package_003.text = '單顆皂禮盒封套'; option_package_003.value = 'package_003';
 	var option_package_004 = document.createElement("option"); option_package_004.text = '單顆皂禮盒內盒'; option_package_004.value = 'package_004';
 	var option_package_005 = document.createElement("option"); option_package_005.text = '皂絲禮盒'; option_package_005.value = 'package_005';
@@ -642,14 +645,25 @@ function itemclass() {
 	var option_package_007a = document.createElement("option"); option_package_007a.text = '米皂外盒100g'; option_package_007a.value = 'package_007a';
 	var option_package_008a = document.createElement("option"); option_package_008a.text = '金針皂外盒100g'; option_package_008a.value = 'package_008a';
 	var option_package_009a = document.createElement("option"); option_package_009a.text = '釋迦皂外盒100g'; option_package_009a.value = 'package_009a';
-	var option_product_sp_001a = document.createElement("option"); option_product_sp_001a.text = '田靜山巒禾風皂100g'; option1_product_sp_001avalue = 'product_sp_001a';
-	var option_product_sp_002a = document.createElement("option"); option_product_sp_002a.text = '金絲森林渲染皂100g'; option2_product_sp_002avalue = 'product_sp_002a';
-	var option_product_sp_003a = document.createElement("option"); option_product_sp_003a.text = '釋迦手感果力皂100g'; option3_product_sp_003avalue = 'product_sp_003a';
-	var option_product_sp_box = document.createElement("option"); option_product_sp_box.text = '三三台東意象禮盒組'; option_product_sp_box.value = 'product_sp_box';
+	var option_package_010a = document.createElement("option"); option_package_010a.text = '地瓜皂外盒100g'; option_package_010a.value = 'package_010a';
+	var option_package_011a = document.createElement("option"); option_package_011a.text = '金棗皂外盒100g'; option_package_011a.value = 'package_011a';
+	var option_package_012a = document.createElement("option"); option_package_012a.text = '海藻皂外盒100g'; option_package_012a.value = 'package_012a';
+	var option_product_sp_001a = document.createElement("option"); option_product_sp_001a.text = '田靜山巒禾風皂100g'; option_product_sp_001a.value = 'product_sp_001a';
+	var option_product_sp_002a = document.createElement("option"); option_product_sp_002a.text = '金絲森林渲染皂100g'; option_product_sp_002a.value = 'product_sp_002a';
+	var option_product_sp_003a = document.createElement("option"); option_product_sp_003a.text = '釋迦手感果力皂100g'; option_product_sp_003a.value = 'product_sp_003a';
+	var option_product_sp_004a = document.createElement("option"); option_product_sp_004a.text = '紅瓜天然家事皂100g'; option_product_sp_004a.value = 'product_sp_004a';
+	var option_product_sp_005a = document.createElement("option"); option_product_sp_005a.text = '金柑苦茶洗髮皂100g'; option_product_sp_005a.value = 'product_sp_005a';
+	var option_product_sp_006a = document.createElement("option"); option_product_sp_006a.text = '石花淨白洗面皂100g'; option_product_sp_006a.value = 'product_sp_006a';
+	var option_product_sp_box_001 = document.createElement("option"); option_product_sp_box_001.text = '三三台東意象禮盒組'; option_product_sp_box_001.value = 'product_sp_box_001';
+	var option_product_sp_box_002 = document.createElement("option"); option_product_sp_box_002.text = '三三宜蘭經典禮盒組'; option_product_sp_box_002.value = 'product_sp_box_002';
 	var option_product_ss_001 = document.createElement("option"); option_product_ss_001.text = '洛神紅麴旅用皂絲'; option_product_ss_001.value = 'product_ss_001';
 	var option_product_ss_002 = document.createElement("option"); option_product_ss_002.text = '暖暖薑黃旅用皂絲'; option_product_ss_002.value = 'product_ss_002';
 	var option_product_ss_003 = document.createElement("option"); option_product_ss_003.text = '萱草米黃旅用皂絲'; option_product_ss_003.value = 'product_ss_003';
-	var option_product_ss_box = document.createElement("option"); option_product_ss_box.text = '三三台東意象皂絲旅行組'; option_product_ss_box.value = 'product_ss_box';
+	var option_product_ss_004 = document.createElement("option"); option_product_ss_004.text = '黑豆清爽旅用皂絲'; option_product_ss_004.value = 'product_ss_004';
+	var option_product_ss_005 = document.createElement("option"); option_product_ss_005.text = '米糠馬賽旅用皂絲'; option_product_ss_005.value = 'product_ss_005';
+	var option_product_ss_006 = document.createElement("option"); option_product_ss_006.text = '蜂蜜甜心旅用皂絲'; option_product_ss_006.value = 'product_ss_006';
+	var option_product_ss_box_001 = document.createElement("option"); option_product_ss_box_001.text = '三三台東意象皂絲旅行組'; option_product_ss_box_001.value = 'product_ss_box_001';
+	var option_product_ss_box_002 = document.createElement("option"); option_product_ss_box_002.text = '三三宜蘭經典皂絲旅行組'; option_product_ss_box_002.value = 'product_ss_box_002';
 	var option_sp_001_100 = document.createElement("option"); option_sp_001_100.text = '米皂100g'; option_sp_001_100.value = 'sp_001_100';
 	var option_sp_002_100 = document.createElement("option"); option_sp_002_100.text = '金針皂100g'; option_sp_002_100.value = 'sp_002_100';
 	var option_sp_003_100 = document.createElement("option"); option_sp_003_100.text = '釋迦皂100g'; option_sp_003_100.value = 'sp_003_100';
@@ -695,21 +709,32 @@ function itemclass() {
 		else if (itemclass == 'C') {
 			item.add(option0);				item.add(option_package_001);
 			item.add(option_package_002a);	item.add(option_package_002b);
-			item.add(option_package_002c);	item.add(option_package_003);
-			item.add(option_package_004);	item.add(option_package_005);
-			item.add(option_package_006);	item.add(option_package_007a);
-			item.add(option_package_008a);	item.add(option_package_009a);
+			item.add(option_package_002c);	item.add(option_package_002d);
+			item.add(option_package_002e);	item.add(option_package_002f);
+			item.add(option_package_003);	item.add(option_package_004);
+			item.add(option_package_005);	item.add(option_package_006);
+			item.add(option_package_007a);	item.add(option_package_008a);
+			item.add(option_package_009a);	item.add(option_package_010a);
+			item.add(option_package_011a);	item.add(option_package_012a);
 		}
 		else if (itemclass == 'D') {
 			item.add(option0);
 			item.add(option_product_sp_001a);
 			item.add(option_product_sp_002a);
 			item.add(option_product_sp_003a);
-			item.add(option_product_sp_box);
+			item.add(option_product_sp_004a);
+			item.add(option_product_sp_005a);
+			item.add(option_product_sp_006a);
+			item.add(option_product_sp_box_001);
+			item.add(option_product_sp_box_002);
 			item.add(option_product_ss_001);
 			item.add(option_product_ss_002);
 			item.add(option_product_ss_003);
-			item.add(option_product_ss_box);
+			item.add(option_product_ss_004);
+			item.add(option_product_ss_005);
+			item.add(option_product_ss_006);
+			item.add(option_product_ss_box_001);
+			item.add(option_product_ss_box_002);
 		}
 		else if (itemclass == 'E') {
 			item.add(option0);				item.add(option_sp_001_100);
@@ -752,21 +777,32 @@ function itemclass() {
 		else if (itemclass == 'C') {
 			item.add(option0);				item.add(option_package_001);
 			item.add(option_package_002a);	item.add(option_package_002b);
-			item.add(option_package_002c);	item.add(option_package_003);
-			item.add(option_package_004);	item.add(option_package_005);
-			item.add(option_package_006);	item.add(option_package_007a);
-			item.add(option_package_008a);	item.add(option_package_009a);
+			item.add(option_package_002c);	item.add(option_package_002d);
+			item.add(option_package_002e);	item.add(option_package_002f);
+			item.add(option_package_003);	item.add(option_package_004);
+			item.add(option_package_005);	item.add(option_package_006);
+			item.add(option_package_007a);	item.add(option_package_008a);
+			item.add(option_package_009a);	item.add(option_package_010a);
+			item.add(option_package_011a);	item.add(option_package_012a);
 		}
 		else if (itemclass == 'D') {
 			item.add(option0);
 			item.add(option_product_sp_001a);
 			item.add(option_product_sp_002a);
 			item.add(option_product_sp_003a);
-			item.add(option_product_sp_box);
+			item.add(option_product_sp_004a);
+			item.add(option_product_sp_005a);
+			item.add(option_product_sp_006a);
+			item.add(option_product_sp_box_001);
+			item.add(option_product_sp_box_002);
 			item.add(option_product_ss_001);
 			item.add(option_product_ss_002);
 			item.add(option_product_ss_003);
-			item.add(option_product_ss_box);
+			item.add(option_product_ss_004);
+			item.add(option_product_ss_005);
+			item.add(option_product_ss_006);
+			item.add(option_product_ss_box_001);
+			item.add(option_product_ss_box_002);
 		}
 		else if (itemclass == 'E') {
 			item.add(option0);				item.add(option_sp_001_100);
@@ -848,21 +884,32 @@ function itemclass() {
 		else if (itemclass == 'C') {
 			item.add(option0);				item.add(option_package_001);
 			item.add(option_package_002a);	item.add(option_package_002b);
-			item.add(option_package_002c);	item.add(option_package_003);
-			item.add(option_package_004);	item.add(option_package_005);
-			item.add(option_package_006);	item.add(option_package_007a);
-			item.add(option_package_008a);	item.add(option_package_009a);
+			item.add(option_package_002c);	item.add(option_package_002d);
+			item.add(option_package_002e);	item.add(option_package_002f);
+			item.add(option_package_003);	item.add(option_package_004);
+			item.add(option_package_005);	item.add(option_package_006);
+			item.add(option_package_007a);	item.add(option_package_008a);
+			item.add(option_package_009a);	item.add(option_package_010a);
+			item.add(option_package_011a);	item.add(option_package_012a);
 		}
 		else if (itemclass == 'D') {
 			item.add(option0);
 			item.add(option_product_sp_001a);
 			item.add(option_product_sp_002a);
 			item.add(option_product_sp_003a);
-			item.add(option_product_sp_box);
+			item.add(option_product_sp_004a);
+			item.add(option_product_sp_005a);
+			item.add(option_product_sp_006a);
+			item.add(option_product_sp_box_001);
+			item.add(option_product_sp_box_002);
 			item.add(option_product_ss_001);
 			item.add(option_product_ss_002);
 			item.add(option_product_ss_003);
-			item.add(option_product_ss_box);
+			item.add(option_product_ss_004);
+			item.add(option_product_ss_005);
+			item.add(option_product_ss_006);
+			item.add(option_product_ss_box_001);
+			item.add(option_product_ss_box_002);
 		}
 		else if (itemclass == 'E') {
 			item.add(option0);				item.add(option_sp_001_100);
@@ -962,11 +1009,19 @@ function command_check() {
 		if (document.getElementById("command_product_sp_001a") != null) data = data + "&product_sp_001a=" + document.getElementById("command_product_sp_001a").value;
 		if (document.getElementById("command_product_sp_002a") != null) data = data + "&product_sp_002a=" + document.getElementById("command_product_sp_002a").value;
 		if (document.getElementById("command_product_sp_003a") != null) data = data + "&product_sp_003a=" + document.getElementById("command_product_sp_003a").value;
-		if (document.getElementById("command_product_sp_box") != null) data = data + "&product_sp_box=" + document.getElementById("command_product_sp_box").value;
+		if (document.getElementById("command_product_sp_004a") != null) data = data + "&product_sp_004a=" + document.getElementById("command_product_sp_004a").value;
+		if (document.getElementById("command_product_sp_005a") != null) data = data + "&product_sp_005a=" + document.getElementById("command_product_sp_005a").value;
+		if (document.getElementById("command_product_sp_006a") != null) data = data + "&product_sp_006a=" + document.getElementById("command_product_sp_006a").value;
+		if (document.getElementById("command_product_sp_box_001") != null) data = data + "&product_sp_box_001=" + document.getElementById("command_product_sp_box_001").value;
+		if (document.getElementById("command_product_sp_box_002") != null) data = data + "&product_sp_box_002=" + document.getElementById("command_product_sp_box_002").value;
 		if (document.getElementById("command_product_ss_001") != null) data = data + "&product_ss_001=" + document.getElementById("command_product_ss_001").value;
 		if (document.getElementById("command_product_ss_002") != null) data = data + "&product_ss_002=" + document.getElementById("command_product_ss_002").value;
 		if (document.getElementById("command_product_ss_003") != null) data = data + "&product_ss_003=" + document.getElementById("command_product_ss_003").value;
-		if (document.getElementById("command_product_ss_box") != null) data = data + "&product_ss_box=" + document.getElementById("command_product_ss_box").value;
+		if (document.getElementById("command_product_ss_004") != null) data = data + "&product_ss_004=" + document.getElementById("command_product_ss_004").value;
+		if (document.getElementById("command_product_ss_005") != null) data = data + "&product_ss_005=" + document.getElementById("command_product_ss_005").value;
+		if (document.getElementById("command_product_ss_006") != null) data = data + "&product_ss_006=" + document.getElementById("command_product_ss_006").value;
+		if (document.getElementById("command_product_ss_box_001") != null) data = data + "&product_ss_box_001=" + document.getElementById("command_product_ss_box_001").value;
+		if (document.getElementById("command_product_ss_box_002") != null) data = data + "&product_ss_box_002=" + document.getElementById("command_product_ss_box_002").value;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -1127,8 +1182,8 @@ function whouse_search() {
 	}
 }
 
-function sp_box_change() {
-	var sp_box_num = document.getElementById("package_sp_box").value;
+function sp_box_001_change() {
+	var sp_box_num = document.getElementById("package_sp_box_001").value;
 	document.getElementById("sp_001_type1").value = 0;
 	document.getElementById("sp_002_type1").value = 0;
 	document.getElementById("sp_003_type1").value = 0;
@@ -1137,11 +1192,28 @@ function sp_box_change() {
 	document.getElementById("sp_003_type2").value = sp_box_num;
 }
 
-function ss_box_change() {
-	var ss_box_num = document.getElementById("package_ss_box").value;
+function sp_box_002_change() {
+	var sp_box_num = document.getElementById("package_sp_box_002").value;
+	document.getElementById("sp_004_type1").value = 0;
+	document.getElementById("sp_005_type1").value = 0;
+	document.getElementById("sp_006_type1").value = 0;
+	document.getElementById("sp_004_type2").value = sp_box_num;
+	document.getElementById("sp_005_type2").value = sp_box_num;
+	document.getElementById("sp_006_type2").value = sp_box_num;
+}
+
+function ss_box_001_change() {
+	var ss_box_num = document.getElementById("package_ss_box_001").value;
 	document.getElementById("ss_001_type1").value = ss_box_num * 2;
 	document.getElementById("ss_002_type1").value = ss_box_num * 2;
 	document.getElementById("ss_003_type1").value = ss_box_num * 2;
+}
+
+function ss_box_002_change() {
+	var ss_box_num = document.getElementById("package_ss_box_002").value;
+	document.getElementById("ss_004_type1").value = ss_box_num * 2;
+	document.getElementById("ss_005_type1").value = ss_box_num * 2;
+	document.getElementById("ss_006_type1").value = ss_box_num * 2;
 }
 
 function package() {
@@ -1149,11 +1221,19 @@ function package() {
 	data = data + "&package_sp_001a=" + document.getElementById("package_sp_001a").value;
 	data = data + "&package_sp_002a=" + document.getElementById("package_sp_002a").value;
 	data = data + "&package_sp_003a=" + document.getElementById("package_sp_003a").value;
-	data = data + "&product_sp_box=" + document.getElementById("package_sp_box").value;
+	data = data + "&package_sp_004a=" + document.getElementById("package_sp_004a").value;
+	data = data + "&package_sp_005a=" + document.getElementById("package_sp_005a").value;
+	data = data + "&package_sp_006a=" + document.getElementById("package_sp_006a").value;
+	data = data + "&product_sp_box_001=" + document.getElementById("package_sp_box_001").value;
+	data = data + "&product_sp_box_002=" + document.getElementById("package_sp_box_002").value;
 	data = data + "&product_ss_001=" + document.getElementById("package_ss_001").value;
 	data = data + "&product_ss_002=" + document.getElementById("package_ss_002").value;
 	data = data + "&product_ss_003=" + document.getElementById("package_ss_003").value;
-	data = data + "&product_ss_box=" + document.getElementById("package_ss_box").value;
+	data = data + "&product_ss_004=" + document.getElementById("package_ss_004").value;
+	data = data + "&product_ss_005=" + document.getElementById("package_ss_005").value;
+	data = data + "&product_ss_006=" + document.getElementById("package_ss_006").value;
+	data = data + "&product_ss_box_001=" + document.getElementById("package_ss_box_001").value;
+	data = data + "&product_ss_box_002=" + document.getElementById("package_ss_box_002").value;
 	data = data + "&sp_001_type1=" + Number(document.getElementById("sp_001_type1").value);
 	data = data + "&sp_002_type1=" + Number(document.getElementById("sp_002_type1").value);
 	data = data + "&sp_003_type1=" + Number(document.getElementById("sp_003_type1").value);
@@ -1163,17 +1243,38 @@ function package() {
 	data = data + "&ss_001_type1=" + Number(document.getElementById("ss_001_type1").value);
 	data = data + "&ss_002_type1=" + Number(document.getElementById("ss_002_type1").value);
 	data = data + "&ss_003_type1=" + Number(document.getElementById("ss_003_type1").value);
-	if (Number(document.getElementById("sp_001_type1").value) + Number(document.getElementById("sp_001_type2").value) != Number(document.getElementById("package_sp_box").value)) {
+	data = data + "&sp_004_type1=" + Number(document.getElementById("sp_004_type1").value);
+	data = data + "&sp_005_type1=" + Number(document.getElementById("sp_005_type1").value);
+	data = data + "&sp_006_type1=" + Number(document.getElementById("sp_006_type1").value);
+	data = data + "&sp_004_type2=" + Number(document.getElementById("sp_004_type2").value);
+	data = data + "&sp_005_type2=" + Number(document.getElementById("sp_005_type2").value);
+	data = data + "&sp_006_type2=" + Number(document.getElementById("sp_006_type2").value);
+	data = data + "&ss_004_type1=" + Number(document.getElementById("ss_004_type1").value);
+	data = data + "&ss_005_type1=" + Number(document.getElementById("ss_005_type1").value);
+	data = data + "&ss_006_type1=" + Number(document.getElementById("ss_006_type1").value);
+	if (Number(document.getElementById("sp_001_type1").value) + Number(document.getElementById("sp_001_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
 		alert("米皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("sp_002_type1").value) + Number(document.getElementById("sp_002_type2").value) != Number(document.getElementById("package_sp_box").value)) {
+	else if (Number(document.getElementById("sp_002_type1").value) + Number(document.getElementById("sp_002_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
 		alert("金針皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("sp_003_type1").value) + Number(document.getElementById("sp_003_type2").value) != Number(document.getElementById("package_sp_box").value)) {
+	else if (Number(document.getElementById("sp_003_type1").value) + Number(document.getElementById("sp_003_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
 		alert("釋迦皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("ss_001_type1").value) + Number(document.getElementById("ss_002_type1").value) + Number(document.getElementById("ss_003_type1").value) != Number(document.getElementById("package_ss_box").value * 6)) {
-		alert("皂絲包裝原料與禮盒數量不符");
+	else if (Number(document.getElementById("ss_001_type1").value) + Number(document.getElementById("ss_002_type1").value) + Number(document.getElementById("ss_003_type1").value) != Number(document.getElementById("package_ss_box_001").value * 6)) {
+		alert("台東皂絲包裝原料與禮盒數量不符");
+	}
+	else if (Number(document.getElementById("sp_004_type1").value) + Number(document.getElementById("sp_004_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+		alert("地瓜皂包裝原料與禮盒數量不符");
+	}
+	else if (Number(document.getElementById("sp_005_type1").value) + Number(document.getElementById("sp_005_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+		alert("金棗皂包裝原料與禮盒數量不符");
+	}
+	else if (Number(document.getElementById("sp_006_type1").value) + Number(document.getElementById("sp_006_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+		alert("海藻皂包裝原料與禮盒數量不符");
+	}
+	else if (Number(document.getElementById("ss_004_type1").value) + Number(document.getElementById("ss_005_type1").value) + Number(document.getElementById("ss_006_type1").value) != Number(document.getElementById("package_ss_box_002").value * 6)) {
+		alert("宜蘭皂絲包裝原料與禮盒數量不符");
 	}
 	else {
 		var request = new XMLHttpRequest();
@@ -1201,11 +1302,19 @@ function pack() {
 	data = data + "&package_sp_001a=" + document.getElementById("package_sp_001a").value;
 	data = data + "&package_sp_002a=" + document.getElementById("package_sp_002a").value;
 	data = data + "&package_sp_003a=" + document.getElementById("package_sp_003a").value;
-	data = data + "&product_sp_box=" + document.getElementById("package_sp_box").value;
+	data = data + "&package_sp_004a=" + document.getElementById("package_sp_004a").value;
+	data = data + "&package_sp_005a=" + document.getElementById("package_sp_005a").value;
+	data = data + "&package_sp_006a=" + document.getElementById("package_sp_006a").value;
+	data = data + "&product_sp_box_001=" + document.getElementById("package_sp_box_001").value;
+	data = data + "&product_sp_box_002=" + document.getElementById("package_sp_box_002").value;
 	data = data + "&product_ss_001=" + document.getElementById("package_ss_001").value;
 	data = data + "&product_ss_002=" + document.getElementById("package_ss_002").value;
 	data = data + "&product_ss_003=" + document.getElementById("package_ss_003").value;
-	data = data + "&product_ss_box=" + document.getElementById("package_ss_box").value;
+	data = data + "&product_ss_004=" + document.getElementById("package_ss_004").value;
+	data = data + "&product_ss_005=" + document.getElementById("package_ss_005").value;
+	data = data + "&product_ss_006=" + document.getElementById("package_ss_006").value;
+	data = data + "&product_ss_box_001=" + document.getElementById("package_ss_box_001").value;
+	data = data + "&product_ss_box_002=" + document.getElementById("package_ss_box_002").value;
 	data = data + "&sp_001_type1=" + Number(document.getElementById("sp_001_type1").value);
 	data = data + "&sp_002_type1=" + Number(document.getElementById("sp_002_type1").value);
 	data = data + "&sp_003_type1=" + Number(document.getElementById("sp_003_type1").value);
@@ -1215,17 +1324,38 @@ function pack() {
 	data = data + "&ss_001_type1=" + Number(document.getElementById("ss_001_type1").value);
 	data = data + "&ss_002_type1=" + Number(document.getElementById("ss_002_type1").value);
 	data = data + "&ss_003_type1=" + Number(document.getElementById("ss_003_type1").value);
-	if (Number(document.getElementById("sp_001_type1").value) + Number(document.getElementById("sp_001_type2").value) != Number(document.getElementById("package_sp_box").value)) {
+	data = data + "&sp_004_type1=" + Number(document.getElementById("sp_004_type1").value);
+	data = data + "&sp_005_type1=" + Number(document.getElementById("sp_005_type1").value);
+	data = data + "&sp_006_type1=" + Number(document.getElementById("sp_006_type1").value);
+	data = data + "&sp_004_type2=" + Number(document.getElementById("sp_004_type2").value);
+	data = data + "&sp_005_type2=" + Number(document.getElementById("sp_005_type2").value);
+	data = data + "&sp_006_type2=" + Number(document.getElementById("sp_006_type2").value);
+	data = data + "&ss_004_type1=" + Number(document.getElementById("ss_004_type1").value);
+	data = data + "&ss_005_type1=" + Number(document.getElementById("ss_005_type1").value);
+	data = data + "&ss_006_type1=" + Number(document.getElementById("ss_006_type1").value);
+	if (Number(document.getElementById("sp_001_type1").value) + Number(document.getElementById("sp_001_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
 		alert("米皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("sp_002_type1").value) + Number(document.getElementById("sp_002_type2").value) != Number(document.getElementById("package_sp_box").value)) {
+	else if (Number(document.getElementById("sp_002_type1").value) + Number(document.getElementById("sp_002_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
 		alert("金針皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("sp_003_type1").value) + Number(document.getElementById("sp_003_type2").value) != Number(document.getElementById("package_sp_box").value)) {
+	else if (Number(document.getElementById("sp_003_type1").value) + Number(document.getElementById("sp_003_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
 		alert("釋迦皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("ss_001_type1").value) + Number(document.getElementById("ss_002_type1").value) + Number(document.getElementById("ss_003_type1").value) != Number(document.getElementById("package_ss_box").value * 6)) {
-		alert("皂絲包裝原料與禮盒數量不符");
+	else if (Number(document.getElementById("ss_001_type1").value) + Number(document.getElementById("ss_002_type1").value) + Number(document.getElementById("ss_003_type1").value) != Number(document.getElementById("package_ss_box_001").value * 6)) {
+		alert("台東皂絲包裝原料與禮盒數量不符");
+	}
+	else if (Number(document.getElementById("sp_004_type1").value) + Number(document.getElementById("sp_004_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+		alert("地瓜皂包裝原料與禮盒數量不符");
+	}
+	else if (Number(document.getElementById("sp_005_type1").value) + Number(document.getElementById("sp_005_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+		alert("金棗皂包裝原料與禮盒數量不符");
+	}
+	else if (Number(document.getElementById("sp_006_type1").value) + Number(document.getElementById("sp_006_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+		alert("海藻皂包裝原料與禮盒數量不符");
+	}
+	else if (Number(document.getElementById("ss_004_type1").value) + Number(document.getElementById("ss_005_type1").value) + Number(document.getElementById("ss_006_type1").value) != Number(document.getElementById("package_ss_box_002").value * 6)) {
+		alert("宜蘭皂絲包裝原料與禮盒數量不符");
 	}
 	else {
 		var request = new XMLHttpRequest();
@@ -1748,6 +1878,12 @@ function send() {
 		if (package_002b != null && package_002b.value != 0) data = data + "&package_002b=" + package_002b.value;
 		var package_002c = document.getElementById("send_package_002c");
 		if (package_002c != null && package_002c.value != 0) data = data + "&package_002c=" + package_002c.value;
+		var package_002d = document.getElementById("send_package_002d");
+		if (package_002d != null && package_002d.value != 0) data = data + "&package_002d=" + package_002d.value;
+		var package_002e = document.getElementById("send_package_002e");
+		if (package_002e != null && package_002e.value != 0) data = data + "&package_002e=" + package_002e.value;
+		var package_002f = document.getElementById("send_package_002f");
+		if (package_002f != null && package_002f.value != 0) data = data + "&package_002f=" + package_002f.value;
 		var package_003 = document.getElementById("send_package_003");
 		if (package_003 != null && package_003.value != 0) data = data + "&package_003=" + package_003.value;
 		var package_004 = document.getElementById("send_package_004");
@@ -1762,6 +1898,12 @@ function send() {
 		if (package_008a != null && package_008a.value != 0) data = data + "&package_008a=" + package_008a.value;
 		var package_009a = document.getElementById("send_package_009a");
 		if (package_009a != null && package_009a.value != 0) data = data + "&package_009a=" + package_009a.value;
+		var package_010a = document.getElementById("send_package_010a");
+		if (package_010a != null && package_010a.value != 0) data = data + "&package_010a=" + package_010a.value;
+		var package_011a = document.getElementById("send_package_011a");
+		if (package_011a != null && package_011a.value != 0) data = data + "&package_011a=" + package_011a.value;
+		var package_012a = document.getElementById("send_package_012a");
+		if (package_012a != null && package_012a.value != 0) data = data + "&package_012a=" + package_012a.value;
 	}
 	if (sender == 'Taitung') {
 		var sp_001_100 = document.getElementById("send_sp_001_100");
@@ -1845,6 +1987,9 @@ function send_refresh() {
 	if (document.getElementById("send_package_002a") != null) document.getElementById("send_package_002a").value = 0;
 	if (document.getElementById("send_package_002b") != null) document.getElementById("send_package_002b").value = 0;
 	if (document.getElementById("send_package_002c") != null) document.getElementById("send_package_002c").value = 0;
+	if (document.getElementById("send_package_002d") != null) document.getElementById("send_package_002d").value = 0;
+	if (document.getElementById("send_package_002e") != null) document.getElementById("send_package_002e").value = 0;
+	if (document.getElementById("send_package_002f") != null) document.getElementById("send_package_002f").value = 0;
 	if (document.getElementById("send_package_003") != null) document.getElementById("send_package_003").value = 0;
 	if (document.getElementById("send_package_004") != null) document.getElementById("send_package_004").value = 0;
 	if (document.getElementById("send_package_005") != null) document.getElementById("send_package_005").value = 0;
@@ -1852,6 +1997,9 @@ function send_refresh() {
 	if (document.getElementById("send_package_007a") != null) document.getElementById("send_package_007a").value = 0;
 	if (document.getElementById("send_package_008a") != null) document.getElementById("send_package_008a").value = 0;
 	if (document.getElementById("send_package_009a") != null) document.getElementById("send_package_009a").value = 0;
+	if (document.getElementById("send_package_010a") != null) document.getElementById("send_package_010a").value = 0;
+	if (document.getElementById("send_package_011a") != null) document.getElementById("send_package_011a").value = 0;
+	if (document.getElementById("send_package_012a") != null) document.getElementById("send_package_012a").value = 0;
 	if (document.getElementById("send_sp_001_100") != null) document.getElementById("send_sp_001_100").value = 0;
 	if (document.getElementById("send_sp_002_100") != null) document.getElementById("send_sp_002_100").value = 0;
 	if (document.getElementById("send_sp_003_100") != null) document.getElementById("send_sp_003_100").value = 0;

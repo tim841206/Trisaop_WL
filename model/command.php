@@ -992,7 +992,7 @@ function send($content) {
 				}
 			}
 			elseif ($type == 'B1' || $type == 'B2') {
-				$set = array('product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_box', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_box');
+				$set = array('product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_004a', 'product_sp_005a', 'product_sp_006a', 'product_sp_box_001', 'product_sp_box_002', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_004', 'product_ss_005', 'product_ss_006', 'product_ss_box_001', 'product_ss_box_002');
 				$itemno = array();
 				$itemamt = array();
 				while ($item = array_shift($set)) {
