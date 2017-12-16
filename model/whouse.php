@@ -1104,7 +1104,7 @@ function cut($account, $token, $itemno, $_100g) {
 					$difference = (strtotime($date) - strtotime($fetch2['UPDATEDATE'])) / (60 * 60 * 24);
 					if ($difference >= $matureDay) {
 						if ($_100g * 100 > $fetch2['TOTALAMT']) {
-							return 'Output enceed ingredient';
+							return 'Output exceed ingredient';
 						}
 						else {
 							mysql_query("UPDATE WHOUSEITEMMAS SET TOTALAMT='0', ACTCODE='0', UPDATEDATE='$date' WHERE WHOUSENO='$location' AND ITEMNO='$itemno'");
