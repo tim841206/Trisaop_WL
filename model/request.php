@@ -1473,17 +1473,17 @@ function request_search($account, $token, $sender, $receiver) {
 			$material_C = '<table>';
 			$material_E = '<table>';
 			$material_H = '<table>';
-			if ($sender == 'Yilan') {
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='B' AND ACTCODE='1'");
-				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='C' AND ACTCODE='1'");
-				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='E' AND ACTCODE='1'");
-				$sql5 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='H' AND ACTCODE='1'");
-			}
-			else {
+			if ($sender == 'Taitung' || $sender == 'Yilan') {
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$sender' AND ITEMCLASS='B' AND ACTCODE='1'");
 				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$sender' AND ITEMCLASS='C' AND ACTCODE='1'");
 				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$sender' AND ITEMCLASS='E' AND ACTCODE='1'");
 				$sql5 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$sender' AND ITEMCLASS='H' AND ACTCODE='1'");
+			}
+			else {
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='B' AND ACTCODE='1'");
+				$sql3 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='C' AND ACTCODE='1'");
+				$sql4 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='E' AND ACTCODE='1'");
+				$sql5 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$receiver' AND ITEMCLASS='H' AND ACTCODE='1'");
 			}
 			while ($fetch2 = mysql_fetch_array($sql2)) {
 				$material_B .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td><input type="number" id="send_'.$fetch2['ITEMNO'].'" value="0" min="0">g</td></tr>';

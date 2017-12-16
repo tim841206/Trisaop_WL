@@ -1686,6 +1686,18 @@ function sender() {
 		option4.text = '台東'; option4.value = 'Taitung'; receiver.add(option4);
 		option5.text = '宜蘭'; option5.value = 'Yilan'; receiver.add(option5);
 	}
+	else if (sender == 'Houshanpi') {
+		var option1 = document.createElement("option");
+		option1.text = '北投'; option1.value = 'Beitou'; receiver.add(option1);
+	}
+	else if (sender == 'Taitung') {
+		var option1 = document.createElement("option");
+		option1.text = '北投'; option1.value = 'Beitou'; receiver.add(option1);
+	}
+	else if (sender == 'Yilan') {
+		var option1 = document.createElement("option");
+		option1.text = '北投'; option1.value = 'Beitou'; receiver.add(option1);
+	}
 	document.getElementById("receiver").onchange();
 }
 
