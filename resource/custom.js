@@ -662,6 +662,10 @@ function itemclass() {
 	var option_package_010a = document.createElement("option"); option_package_010a.text = '地瓜皂外盒100g'; option_package_010a.value = 'package_010a';
 	var option_package_011a = document.createElement("option"); option_package_011a.text = '金棗皂外盒100g'; option_package_011a.value = 'package_011a';
 	var option_package_012a = document.createElement("option"); option_package_012a.text = '海藻皂外盒100g'; option_package_012a.value = 'package_012a';
+	var option_newyear_package_1 = document.createElement("option"); option_newyear_package_1.text = '宜蘭媽祖保庇禮盒上蓋'; option_newyear_package_1.value = 'newyear_package_1';
+	var option_newyear_package_2 = document.createElement("option"); option_newyear_package_2.text = '宜蘭媽祖保庇禮盒外盒'; option_newyear_package_2.value = 'newyear_package_2';
+	var option_newyear_package_3 = document.createElement("option"); option_newyear_package_3.text = '台東新春嘉年禮盒上蓋'; option_newyear_package_3.value = 'newyear_package_3';
+	var option_newyear_package_4 = document.createElement("option"); option_newyear_package_4.text = '台東新春嘉年禮盒外盒'; option_newyear_package_4.value = 'newyear_package_4';
 	var option_product_sp_001a = document.createElement("option"); option_product_sp_001a.text = '田靜山巒禾風皂100g'; option_product_sp_001a.value = 'product_sp_001a';
 	var option_product_sp_002a = document.createElement("option"); option_product_sp_002a.text = '金絲森林渲染皂100g'; option_product_sp_002a.value = 'product_sp_002a';
 	var option_product_sp_003a = document.createElement("option"); option_product_sp_003a.text = '釋迦手感果力皂100g'; option_product_sp_003a.value = 'product_sp_003a';
@@ -678,6 +682,8 @@ function itemclass() {
 	var option_product_ss_006 = document.createElement("option"); option_product_ss_006.text = '蜂蜜甜心旅用皂絲'; option_product_ss_006.value = 'product_ss_006';
 	var option_product_ss_box_001 = document.createElement("option"); option_product_ss_box_001.text = '三三台東意象皂絲旅行組'; option_product_ss_box_001.value = 'product_ss_box_001';
 	var option_product_ss_box_002 = document.createElement("option"); option_product_ss_box_002.text = '三三宜蘭經典皂絲旅行組'; option_product_ss_box_002.value = 'product_ss_box_002';
+	var option_newyear_box_1 = document.createElement("option"); option_newyear_box_1.text = '宜蘭媽祖保庇禮盒'; option_newyear_box_1.value = 'newyear_box_1';
+	var option_newyear_box_2 = document.createElement("option"); option_newyear_box_2.text = '台東新春嘉年禮盒'; option_newyear_box_2.value = 'newyear_box_2';
 	var option_sp_001_100 = document.createElement("option"); option_sp_001_100.text = '米皂100g'; option_sp_001_100.value = 'sp_001_100';
 	var option_sp_002_100 = document.createElement("option"); option_sp_002_100.text = '金針皂100g'; option_sp_002_100.value = 'sp_002_100';
 	var option_sp_003_100 = document.createElement("option"); option_sp_003_100.text = '釋迦皂100g'; option_sp_003_100.value = 'sp_003_100';
@@ -730,6 +736,8 @@ function itemclass() {
 			item.add(option_package_007a);	item.add(option_package_008a);
 			item.add(option_package_009a);	item.add(option_package_010a);
 			item.add(option_package_011a);	item.add(option_package_012a);
+			item.add(option_newyear_package_1);	item.add(option_newyear_package_2);
+			item.add(option_newyear_package_3);	item.add(option_newyear_package_4);
 		}
 		else if (itemclass == 'D') {
 			item.add(option0);
@@ -749,6 +757,8 @@ function itemclass() {
 			item.add(option_product_ss_006);
 			item.add(option_product_ss_box_001);
 			item.add(option_product_ss_box_002);
+			item.add(option_newyear_box_1);
+			item.add(option_newyear_box_2);
 		}
 		else if (itemclass == 'E') {
 			item.add(option0);				item.add(option_sp_001_100);
@@ -798,6 +808,8 @@ function itemclass() {
 			item.add(option_package_007a);	item.add(option_package_008a);
 			item.add(option_package_009a);	item.add(option_package_010a);
 			item.add(option_package_011a);	item.add(option_package_012a);
+			item.add(option_newyear_package_1);	item.add(option_newyear_package_2);
+			item.add(option_newyear_package_3);	item.add(option_newyear_package_4);
 		}
 		else if (itemclass == 'D') {
 			item.add(option0);
@@ -817,6 +829,8 @@ function itemclass() {
 			item.add(option_product_ss_006);
 			item.add(option_product_ss_box_001);
 			item.add(option_product_ss_box_002);
+			item.add(option_newyear_box_1);
+			item.add(option_newyear_box_2);
 		}
 		else if (itemclass == 'E') {
 			item.add(option0);				item.add(option_sp_001_100);
@@ -902,6 +916,7 @@ function itemclass() {
 			item.add(option_package_004);	item.add(option_package_005);
 			item.add(option_package_006);	item.add(option_package_010a);
 			item.add(option_package_011a);	item.add(option_package_012a);
+			item.add(option_newyear_package_1);	item.add(option_newyear_package_2);
 		}
 		else if (itemclass == 'D') {
 			item.add(option0);
@@ -913,6 +928,7 @@ function itemclass() {
 			item.add(option_product_ss_005);
 			item.add(option_product_ss_006);
 			item.add(option_product_ss_box_002);
+			item.add(option_newyear_box_1);
 		}
 		else if (itemclass == 'E') {
 			item.add(option0);				
@@ -1015,6 +1031,8 @@ function command_check() {
 		if (document.getElementById("command_product_ss_006") != null) data = data + "&product_ss_006=" + document.getElementById("command_product_ss_006").value;
 		if (document.getElementById("command_product_ss_box_001") != null) data = data + "&product_ss_box_001=" + document.getElementById("command_product_ss_box_001").value;
 		if (document.getElementById("command_product_ss_box_002") != null) data = data + "&product_ss_box_002=" + document.getElementById("command_product_ss_box_002").value;
+		if (document.getElementById("command_newyear_box_1") != null) data = data + "&newyear_box_1=" + document.getElementById("command_newyear_box_1").value;
+		if (document.getElementById("command_newyear_box_2") != null) data = data + "&newyear_box_2=" + document.getElementById("command_newyear_box_2").value;
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(data);
 		request.onreadystatechange = function() {
@@ -1211,22 +1229,24 @@ function ss_box_002_change() {
 
 function package() {
 	var data = "module=item&event=package";
-	if (document.getElementById("package_sp_001a") != null) { data = data + "&package_sp_001a=" + document.getElementById("package_sp_001a").value; }
-	if (document.getElementById("package_sp_002a") != null) { data = data + "&package_sp_002a=" + document.getElementById("package_sp_002a").value; }
-	if (document.getElementById("package_sp_003a") != null) { data = data + "&package_sp_003a=" + document.getElementById("package_sp_003a").value; }
-	data = data + "&package_sp_004a=" + document.getElementById("package_sp_004a").value;
-	data = data + "&package_sp_005a=" + document.getElementById("package_sp_005a").value;
-	data = data + "&package_sp_006a=" + document.getElementById("package_sp_006a").value;
-	if (document.getElementById("package_sp_box_001") != null) { data = data + "&product_sp_box_001=" + document.getElementById("package_sp_box_001").value; }
-	data = data + "&product_sp_box_002=" + document.getElementById("package_sp_box_002").value;
-	if (document.getElementById("package_ss_001") != null) { data = data + "&product_ss_001=" + document.getElementById("package_ss_001").value; }
-	if (document.getElementById("package_ss_002") != null) { data = data + "&product_ss_002=" + document.getElementById("package_ss_002").value; }
-	if (document.getElementById("package_ss_003") != null) { data = data + "&product_ss_003=" + document.getElementById("package_ss_003").value; }
-	data = data + "&product_ss_004=" + document.getElementById("package_ss_004").value;
-	data = data + "&product_ss_005=" + document.getElementById("package_ss_005").value;
-	data = data + "&product_ss_006=" + document.getElementById("package_ss_006").value;
-	if (document.getElementById("package_ss_box_001") != null) { data = data + "&product_ss_box_001=" + document.getElementById("package_ss_box_001").value; }
-	data = data + "&product_ss_box_002=" + document.getElementById("package_ss_box_002").value;
+	if (document.getElementById("product_sp_001a") != null) { data = data + "&product_sp_001a=" + document.getElementById("product_sp_001a").value; }
+	if (document.getElementById("product_sp_002a") != null) { data = data + "&product_sp_002a=" + document.getElementById("product_sp_002a").value; }
+	if (document.getElementById("product_sp_003a") != null) { data = data + "&product_sp_003a=" + document.getElementById("product_sp_003a").value; }
+	data = data + "&product_sp_004a=" + document.getElementById("product_sp_004a").value;
+	data = data + "&product_sp_005a=" + document.getElementById("product_sp_005a").value;
+	data = data + "&product_sp_006a=" + document.getElementById("product_sp_006a").value;
+	if (document.getElementById("product_sp_box_001") != null) { data = data + "&product_sp_box_001=" + document.getElementById("product_sp_box_001").value; }
+	data = data + "&product_sp_box_002=" + document.getElementById("product_sp_box_002").value;
+	if (document.getElementById("product_ss_001") != null) { data = data + "&product_ss_001=" + document.getElementById("product_ss_001").value; }
+	if (document.getElementById("product_ss_002") != null) { data = data + "&product_ss_002=" + document.getElementById("product_ss_002").value; }
+	if (document.getElementById("product_ss_003") != null) { data = data + "&product_ss_003=" + document.getElementById("product_ss_003").value; }
+	data = data + "&product_ss_004=" + document.getElementById("product_ss_004").value;
+	data = data + "&product_ss_005=" + document.getElementById("product_ss_005").value;
+	data = data + "&product_ss_006=" + document.getElementById("product_ss_006").value;
+	if (document.getElementById("product_ss_box_001") != null) { data = data + "&product_ss_box_001=" + document.getElementById("product_ss_box_001").value; }
+	data = data + "&product_ss_box_002=" + document.getElementById("product_ss_box_002").value;
+	data = data + "&product_newyear_box_1=" + document.getElementById("product_newyear_box_1").value;
+	if (document.getElementById("product_newyear_box_2") != null) { data = data + "&product_newyear_box_2=" + document.getElementById("product_newyear_box_2").value; }
 	if (document.getElementById("sp_001_type1") != null) { data = data + "&sp_001_type1=" + document.getElementById("sp_001_type1").value; }
 	if (document.getElementById("sp_002_type1") != null) { data = data + "&sp_002_type1=" + document.getElementById("sp_002_type1").value; }
 	if (document.getElementById("sp_003_type1") != null) { data = data + "&sp_003_type1=" + document.getElementById("sp_003_type1").value; }
@@ -1246,31 +1266,31 @@ function package() {
 	data = data + "&ss_005_type1=" + document.getElementById("ss_005_type1").value;
 	data = data + "&ss_006_type1=" + document.getElementById("ss_006_type1").value;
 	if (document.getElementById("package_sp_box_001") != null) {
-		if (Number(document.getElementById("sp_001_type1").value) + Number(document.getElementById("sp_001_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
+		if (Number(document.getElementById("sp_001_type1").value) + Number(document.getElementById("sp_001_type2").value) != Number(document.getElementById("product_sp_box_001").value)) {
 			alert("米皂包裝原料與禮盒數量不符");
 		}
-		else if (Number(document.getElementById("sp_002_type1").value) + Number(document.getElementById("sp_002_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
+		else if (Number(document.getElementById("sp_002_type1").value) + Number(document.getElementById("sp_002_type2").value) != Number(document.getElementById("product_sp_box_001").value)) {
 			alert("金針皂包裝原料與禮盒數量不符");
 		}
-		else if (Number(document.getElementById("sp_003_type1").value) + Number(document.getElementById("sp_003_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
+		else if (Number(document.getElementById("sp_003_type1").value) + Number(document.getElementById("sp_003_type2").value) != Number(document.getElementById("product_sp_box_001").value)) {
 			alert("釋迦皂包裝原料與禮盒數量不符");
 		}
 	}
 	if (document.getElementById("package_ss_box_001") != null) {
-		if (Number(document.getElementById("ss_001_type1").value) + Number(document.getElementById("ss_002_type1").value) + Number(document.getElementById("ss_003_type1").value) != Number(document.getElementById("package_ss_box_001").value * 6)) {
+		if (Number(document.getElementById("ss_001_type1").value) + Number(document.getElementById("ss_002_type1").value) + Number(document.getElementById("ss_003_type1").value) != Number(document.getElementById("product_ss_box_001").value * 6)) {
 			alert("台東皂絲包裝原料與禮盒數量不符");
 		}
 	}
-	if (Number(document.getElementById("sp_004_type1").value) + Number(document.getElementById("sp_004_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+	if (Number(document.getElementById("sp_004_type1").value) + Number(document.getElementById("sp_004_type2").value) != Number(document.getElementById("product_sp_box_002").value)) {
 		alert("地瓜皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("sp_005_type1").value) + Number(document.getElementById("sp_005_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+	else if (Number(document.getElementById("sp_005_type1").value) + Number(document.getElementById("sp_005_type2").value) != Number(document.getElementById("product_sp_box_002").value)) {
 		alert("金棗皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("sp_006_type1").value) + Number(document.getElementById("sp_006_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+	else if (Number(document.getElementById("sp_006_type1").value) + Number(document.getElementById("sp_006_type2").value) != Number(document.getElementById("product_sp_box_002").value)) {
 		alert("海藻皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("ss_004_type1").value) + Number(document.getElementById("ss_005_type1").value) + Number(document.getElementById("ss_006_type1").value) != Number(document.getElementById("package_ss_box_002").value * 6)) {
+	else if (Number(document.getElementById("ss_004_type1").value) + Number(document.getElementById("ss_005_type1").value) + Number(document.getElementById("ss_006_type1").value) != Number(document.getElementById("product_ss_box_002").value * 6)) {
 		alert("宜蘭皂絲包裝原料與禮盒數量不符");
 	}
 	else {
@@ -1296,22 +1316,24 @@ function package() {
 
 function pack() {
 	var data = "module=item&event=pack";
-	if (document.getElementById("package_sp_001a") != null) { data = data + "&package_sp_001a=" + document.getElementById("package_sp_001a").value; }
-	if (document.getElementById("package_sp_002a") != null) { data = data + "&package_sp_002a=" + document.getElementById("package_sp_002a").value; }
-	if (document.getElementById("package_sp_003a") != null) { data = data + "&package_sp_003a=" + document.getElementById("package_sp_003a").value; }
-	data = data + "&package_sp_004a=" + document.getElementById("package_sp_004a").value;
-	data = data + "&package_sp_005a=" + document.getElementById("package_sp_005a").value;
-	data = data + "&package_sp_006a=" + document.getElementById("package_sp_006a").value;
-	if (document.getElementById("package_sp_box_001") != null) { data = data + "&product_sp_box_001=" + document.getElementById("package_sp_box_001").value; }
-	data = data + "&product_sp_box_002=" + document.getElementById("package_sp_box_002").value;
-	if (document.getElementById("package_ss_001") != null) { data = data + "&product_ss_001=" + document.getElementById("package_ss_001").value; }
-	if (document.getElementById("package_ss_002") != null) { data = data + "&product_ss_002=" + document.getElementById("package_ss_002").value; }
-	if (document.getElementById("package_ss_003") != null) { data = data + "&product_ss_003=" + document.getElementById("package_ss_003").value; }
-	data = data + "&product_ss_004=" + document.getElementById("package_ss_004").value;
-	data = data + "&product_ss_005=" + document.getElementById("package_ss_005").value;
-	data = data + "&product_ss_006=" + document.getElementById("package_ss_006").value;
-	if (document.getElementById("package_ss_box_001") != null) { data = data + "&product_ss_box_001=" + document.getElementById("package_ss_box_001").value; }
-	data = data + "&product_ss_box_002=" + document.getElementById("package_ss_box_002").value;
+	if (document.getElementById("product_sp_001a") != null) { data = data + "&product_sp_001a=" + document.getElementById("product_sp_001a").value; }
+	if (document.getElementById("product_sp_002a") != null) { data = data + "&product_sp_002a=" + document.getElementById("product_sp_002a").value; }
+	if (document.getElementById("product_sp_003a") != null) { data = data + "&product_sp_003a=" + document.getElementById("product_sp_003a").value; }
+	data = data + "&product_sp_004a=" + document.getElementById("product_sp_004a").value;
+	data = data + "&product_sp_005a=" + document.getElementById("product_sp_005a").value;
+	data = data + "&product_sp_006a=" + document.getElementById("product_sp_006a").value;
+	if (document.getElementById("product_sp_box_001") != null) { data = data + "&product_sp_box_001=" + document.getElementById("product_sp_box_001").value; }
+	data = data + "&product_sp_box_002=" + document.getElementById("product_sp_box_002").value;
+	if (document.getElementById("product_ss_001") != null) { data = data + "&product_ss_001=" + document.getElementById("product_ss_001").value; }
+	if (document.getElementById("product_ss_002") != null) { data = data + "&product_ss_002=" + document.getElementById("product_ss_002").value; }
+	if (document.getElementById("product_ss_003") != null) { data = data + "&product_ss_003=" + document.getElementById("product_ss_003").value; }
+	data = data + "&product_ss_004=" + document.getElementById("product_ss_004").value;
+	data = data + "&product_ss_005=" + document.getElementById("product_ss_005").value;
+	data = data + "&product_ss_006=" + document.getElementById("product_ss_006").value;
+	if (document.getElementById("product_ss_box_001") != null) { data = data + "&product_ss_box_001=" + document.getElementById("product_ss_box_001").value; }
+	data = data + "&product_ss_box_002=" + document.getElementById("product_ss_box_002").value;
+	data = data + "&product_newyear_box_1=" + document.getElementById("product_newyear_box_1").value;
+	if (document.getElementById("product_newyear_box_2") != null) { data = data + "&product_newyear_box_2=" + document.getElementById("product_newyear_box_2").value; }
 	if (document.getElementById("sp_001_type1") != null) { data = data + "&sp_001_type1=" + document.getElementById("sp_001_type1").value; }
 	if (document.getElementById("sp_002_type1") != null) { data = data + "&sp_002_type1=" + document.getElementById("sp_002_type1").value; }
 	if (document.getElementById("sp_003_type1") != null) { data = data + "&sp_003_type1=" + document.getElementById("sp_003_type1").value; }
@@ -1331,31 +1353,31 @@ function pack() {
 	data = data + "&ss_005_type1=" + document.getElementById("ss_005_type1").value;
 	data = data + "&ss_006_type1=" + document.getElementById("ss_006_type1").value;
 	if (document.getElementById("package_sp_box_001") != null) {
-		if (Number(document.getElementById("sp_001_type1").value) + Number(document.getElementById("sp_001_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
+		if (Number(document.getElementById("sp_001_type1").value) + Number(document.getElementById("sp_001_type2").value) != Number(document.getElementById("product_sp_box_001").value)) {
 			alert("米皂包裝原料與禮盒數量不符");
 		}
-		else if (Number(document.getElementById("sp_002_type1").value) + Number(document.getElementById("sp_002_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
+		else if (Number(document.getElementById("sp_002_type1").value) + Number(document.getElementById("sp_002_type2").value) != Number(document.getElementById("product_sp_box_001").value)) {
 			alert("金針皂包裝原料與禮盒數量不符");
 		}
-		else if (Number(document.getElementById("sp_003_type1").value) + Number(document.getElementById("sp_003_type2").value) != Number(document.getElementById("package_sp_box_001").value)) {
+		else if (Number(document.getElementById("sp_003_type1").value) + Number(document.getElementById("sp_003_type2").value) != Number(document.getElementById("product_sp_box_001").value)) {
 			alert("釋迦皂包裝原料與禮盒數量不符");
 		}
 	}
 	if (document.getElementById("package_ss_box_001") != null) {
-		if (Number(document.getElementById("ss_001_type1").value) + Number(document.getElementById("ss_002_type1").value) + Number(document.getElementById("ss_003_type1").value) != Number(document.getElementById("package_ss_box_001").value * 6)) {
+		if (Number(document.getElementById("ss_001_type1").value) + Number(document.getElementById("ss_002_type1").value) + Number(document.getElementById("ss_003_type1").value) != Number(document.getElementById("product_ss_box_001").value * 6)) {
 			alert("台東皂絲包裝原料與禮盒數量不符");
 		}
 	}
-	if (Number(document.getElementById("sp_004_type1").value) + Number(document.getElementById("sp_004_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+	if (Number(document.getElementById("sp_004_type1").value) + Number(document.getElementById("sp_004_type2").value) != Number(document.getElementById("product_sp_box_002").value)) {
 		alert("地瓜皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("sp_005_type1").value) + Number(document.getElementById("sp_005_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+	else if (Number(document.getElementById("sp_005_type1").value) + Number(document.getElementById("sp_005_type2").value) != Number(document.getElementById("product_sp_box_002").value)) {
 		alert("金棗皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("sp_006_type1").value) + Number(document.getElementById("sp_006_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
+	else if (Number(document.getElementById("sp_006_type1").value) + Number(document.getElementById("sp_006_type2").value) != Number(document.getElementById("product_sp_box_002").value)) {
 		alert("海藻皂包裝原料與禮盒數量不符");
 	}
-	else if (Number(document.getElementById("ss_004_type1").value) + Number(document.getElementById("ss_005_type1").value) + Number(document.getElementById("ss_006_type1").value) != Number(document.getElementById("package_ss_box_002").value * 6)) {
+	else if (Number(document.getElementById("ss_004_type1").value) + Number(document.getElementById("ss_005_type1").value) + Number(document.getElementById("ss_006_type1").value) != Number(document.getElementById("product_ss_box_002").value * 6)) {
 		alert("宜蘭皂絲包裝原料與禮盒數量不符");
 	}
 	else {
@@ -1907,6 +1929,14 @@ function send() {
 		if (package_011a != null && package_011a.value != 0) data = data + "&package_011a=" + package_011a.value;
 		var package_012a = document.getElementById("send_package_012a");
 		if (package_012a != null && package_012a.value != 0) data = data + "&package_012a=" + package_012a.value;
+		var newyear_package_1 = document.getElementById("send_newyear_package_1");
+		if (newyear_package_1 != null && newyear_package_1.value != 0) data = data + "&newyear_package_1=" + newyear_package_1.value;
+		var newyear_package_2 = document.getElementById("send_newyear_package_2");
+		if (newyear_package_2 != null && newyear_package_2.value != 0) data = data + "&newyear_package_2=" + newyear_package_2.value;
+		var newyear_package_3 = document.getElementById("send_newyear_package_3");
+		if (newyear_package_3 != null && newyear_package_3.value != 0) data = data + "&newyear_package_3=" + newyear_package_3.value;
+		var newyear_package_4 = document.getElementById("send_newyear_package_4");
+		if (newyear_package_4 != null && newyear_package_4.value != 0) data = data + "&newyear_package_4=" + newyear_package_4.value;
 	}
 	if (sender == 'Houshanpi') {
 		var sp_001_100_houshanpi = document.getElementById("send_sp_001_100_houshanpi");
@@ -2021,6 +2051,10 @@ function send_refresh() {
 	if (document.getElementById("send_package_010a") != null) document.getElementById("send_package_010a").value = 0;
 	if (document.getElementById("send_package_011a") != null) document.getElementById("send_package_011a").value = 0;
 	if (document.getElementById("send_package_012a") != null) document.getElementById("send_package_012a").value = 0;
+	if (document.getElementById("send_newyear_package_1") != null) document.getElementById("send_newyear_package_1").value = 0;
+	if (document.getElementById("send_newyear_package_2") != null) document.getElementById("send_newyear_package_2").value = 0;
+	if (document.getElementById("send_newyear_package_3") != null) document.getElementById("send_newyear_package_3").value = 0;
+	if (document.getElementById("send_newyear_package_4") != null) document.getElementById("send_newyear_package_4").value = 0;
 	if (document.getElementById("send_sp_001_100") != null) document.getElementById("send_sp_001_100").value = 0;
 	if (document.getElementById("send_sp_002_100") != null) document.getElementById("send_sp_002_100").value = 0;
 	if (document.getElementById("send_sp_003_100") != null) document.getElementById("send_sp_003_100").value = 0;

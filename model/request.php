@@ -1225,7 +1225,7 @@ function send($content) {
 			if ($fetch1['AUTHORITY'] == 'A') {
 				if ($sender == 'Trisoap' && $receiver == 'Beitou') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_002d', 'package_002e', 'package_002f', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'package_010a', 'package_011a', 'package_012a'))) {
+						if (in_array($key[$i], array('additive_001', 'additive_002', 'additive_003', 'additive_004', 'additive_005', 'additive_006', 'additive_007', 'additive_008', 'additive_009', 'additive_010', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_002d', 'package_002e', 'package_002f', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'package_010a', 'package_011a', 'package_012a', 'newyear_package_1', 'newyear_package_2', 'newyear_package_3', 'newyear_package_4'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}
@@ -1249,7 +1249,7 @@ function send($content) {
 				}
 				elseif ($sender == 'Trisoap' && $receiver == 'Yilan') {
 					for ($i = 0; $i < count($content); $i++) {
-						if (in_array($key[$i], array('additive_004', 'additive_005', 'additive_011', 'additive_012', 'additive_013', 'additive_014', 'additive_015', 'additive_016', 'additive_017', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_002d', 'package_002e', 'package_002f', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'package_010a', 'package_011a', 'package_012a'))) {
+						if (in_array($key[$i], array('additive_004', 'additive_005', 'additive_011', 'additive_012', 'additive_013', 'additive_014', 'additive_015', 'additive_016', 'additive_017', 'package_001', 'package_002d', 'package_002e', 'package_002f', 'package_003', 'package_004', 'package_005', 'package_006', 'package_010a', 'package_011a', 'package_012a', 'newyear_package_1', 'newyear_package_2'))) {
 							array_push($itemno, $key[$i]);
 							array_push($itemamt, $content[$key[$i]]);
 						}

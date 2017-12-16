@@ -697,7 +697,7 @@ function package($content) {
 			return 'No authority';
 		}
 		else {
-			$ingredient = array('sp_001_100' => 0, 'sp_002_100' => 0, 'sp_003_100' => 0, 'sp_004_100' => 0, 'sp_005_100' => 0, 'sp_006_100' => 0, 'slice_ss_001' => 0, 'slice_ss_002' => 0, 'slice_ss_003' => 0, 'slice_ss_004' => 0, 'slice_ss_005' => 0, 'slice_ss_006' => 0, 'package_001' => 0, 'package_002a' => 0, 'package_002b' => 0, 'package_002c' => 0, 'package_002d' => 0, 'package_002e' => 0, 'package_002f' => 0, 'package_003' => 0, 'package_004' => 0, 'package_005' => 0, 'package_006' => 0, 'package_007a' => 0, 'package_008a' => 0, 'package_009a' => 0, 'package_010a' => 0, 'package_011a' => 0, 'package_012a' => 0, 'product_sp_001a' => 0, 'product_sp_002a' => 0, 'product_sp_003a' => 0, 'product_sp_004a' => 0, 'product_sp_005a' => 0, 'product_sp_006a' => 0, 'product_ss_001' => 0, 'product_ss_002' => 0, 'product_ss_003' => 0, 'product_ss_004' => 0, 'product_ss_005' => 0, 'product_ss_006' => 0);
+			$ingredient = array('sp_001_100' => 0, 'sp_002_100' => 0, 'sp_003_100' => 0, 'sp_004_100' => 0, 'sp_005_100' => 0, 'sp_006_100' => 0, 'slice_ss_001' => 0, 'slice_ss_002' => 0, 'slice_ss_003' => 0, 'slice_ss_004' => 0, 'slice_ss_005' => 0, 'slice_ss_006' => 0, 'package_001' => 0, 'package_002a' => 0, 'package_002b' => 0, 'package_002c' => 0, 'package_002d' => 0, 'package_002e' => 0, 'package_002f' => 0, 'package_003' => 0, 'package_004' => 0, 'package_005' => 0, 'package_006' => 0, 'package_007a' => 0, 'package_008a' => 0, 'package_009a' => 0, 'package_010a' => 0, 'package_011a' => 0, 'package_012a' => 0, 'newyear_package_1' => 0, 'newyear_package_2' => 0, 'newyear_package_3' => 0, 'newyear_package_4' => 0, 'product_sp_001a' => 0, 'product_sp_002a' => 0, 'product_sp_003a' => 0, 'product_sp_004a' => 0, 'product_sp_005a' => 0, 'product_sp_006a' => 0, 'product_ss_001' => 0, 'product_ss_002' => 0, 'product_ss_003' => 0, 'product_ss_004' => 0, 'product_ss_005' => 0, 'product_ss_006' => 0);
 			if (isset($content['product_sp_001a'])) {
 				if (is_nonnegativeInt($content['product_sp_001a'])) {
 					$ingredient['sp_001_100'] += $content['product_sp_001a'];
@@ -917,6 +917,34 @@ function package($content) {
 			}
 			else {
 				return 'Wrong input format';
+			}
+			if (is_nonnegativeInt($content['newyear_box_1'])) {
+				$ingredient['newyear_package_1'] += $content['newyear_box_1'];
+				$ingredient['newyear_package_2'] += $content['newyear_box_1'];
+				$ingredient['product_sp_004a'] += $content['newyear_box_1'];
+				$ingredient['product_sp_005a'] += $content['newyear_box_1'];
+				$ingredient['product_sp_006a'] += $content['newyear_box_1'];
+				$ingredient['product_ss_004'] += 2 * $content['newyear_box_1'];
+				$ingredient['product_ss_005'] += 2 * $content['newyear_box_1'];
+				$ingredient['product_ss_006'] += 2 * $content['newyear_box_1'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (isset($content['newyear_box_2'])) {
+				if (is_nonnegativeInt($content['newyear_box_2'])) {
+					$ingredient['newyear_package_3'] += $content['newyear_box_2'];
+					$ingredient['newyear_package_4'] += $content['newyear_box_2'];
+					$ingredient['product_sp_001a'] += $content['newyear_box_2'];
+					$ingredient['product_sp_002a'] += $content['newyear_box_2'];
+					$ingredient['product_sp_003a'] += $content['newyear_box_2'];
+					$ingredient['product_ss_001'] += 2 * $content['newyear_box_2'];
+					$ingredient['product_ss_002'] += 2 * $content['newyear_box_2'];
+					$ingredient['product_ss_003'] += 2 * $content['newyear_box_2'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
 			return array('ingredient' => $ingredient, 'authority' => $fetch1['AUTHORITY']);
 		}
@@ -945,7 +973,7 @@ function packing($content) {
 			return 'No authority';
 		}
 		else {
-			$ingredient = array('sp_001_100' => 0, 'sp_002_100' => 0, 'sp_003_100' => 0, 'sp_004_100' => 0, 'sp_005_100' => 0, 'sp_006_100' => 0, 'slice_ss_001' => 0, 'slice_ss_002' => 0, 'slice_ss_003' => 0, 'slice_ss_004' => 0, 'slice_ss_005' => 0, 'slice_ss_006' => 0, 'package_001' => 0, 'package_002a' => 0, 'package_002b' => 0, 'package_002c' => 0, 'package_002d' => 0, 'package_002e' => 0, 'package_002f' => 0, 'package_003' => 0, 'package_004' => 0, 'package_005' => 0, 'package_006' => 0, 'package_007a' => 0, 'package_008a' => 0, 'package_009a' => 0, 'package_010a' => 0, 'package_011a' => 0, 'package_012a' => 0, 'product_sp_001a' => 0, 'product_sp_002a' => 0, 'product_sp_003a' => 0, 'product_sp_004a' => 0, 'product_sp_005a' => 0, 'product_sp_006a' => 0, 'product_ss_001' => 0, 'product_ss_002' => 0, 'product_ss_003' => 0, 'product_ss_004' => 0, 'product_ss_005' => 0, 'product_ss_006' => 0);
+			$ingredient = array('sp_001_100' => 0, 'sp_002_100' => 0, 'sp_003_100' => 0, 'sp_004_100' => 0, 'sp_005_100' => 0, 'sp_006_100' => 0, 'slice_ss_001' => 0, 'slice_ss_002' => 0, 'slice_ss_003' => 0, 'slice_ss_004' => 0, 'slice_ss_005' => 0, 'slice_ss_006' => 0, 'package_001' => 0, 'package_002a' => 0, 'package_002b' => 0, 'package_002c' => 0, 'package_002d' => 0, 'package_002e' => 0, 'package_002f' => 0, 'package_003' => 0, 'package_004' => 0, 'package_005' => 0, 'package_006' => 0, 'package_007a' => 0, 'package_008a' => 0, 'package_009a' => 0, 'package_010a' => 0, 'package_011a' => 0, 'package_012a' => 0, 'newyear_package_1' => 0, 'newyear_package_2' => 0, 'newyear_package_3' => 0, 'newyear_package_4' => 0, 'product_sp_001a' => 0, 'product_sp_002a' => 0, 'product_sp_003a' => 0, 'product_sp_004a' => 0, 'product_sp_005a' => 0, 'product_sp_006a' => 0, 'product_ss_001' => 0, 'product_ss_002' => 0, 'product_ss_003' => 0, 'product_ss_004' => 0, 'product_ss_005' => 0, 'product_ss_006' => 0);
 			if (isset($content['product_sp_001a'])) {
 				if (is_nonnegativeInt($content['product_sp_001a'])) {
 					$ingredient['sp_001_100'] += $content['product_sp_001a'];
@@ -1166,10 +1194,38 @@ function packing($content) {
 			else {
 				return 'Wrong input format';
 			}
+			if (is_nonnegativeInt($content['newyear_box_1'])) {
+				$ingredient['newyear_package_1'] += $content['newyear_box_1'];
+				$ingredient['newyear_package_2'] += $content['newyear_box_1'];
+				$ingredient['product_sp_004a'] += $content['newyear_box_1'];
+				$ingredient['product_sp_005a'] += $content['newyear_box_1'];
+				$ingredient['product_sp_006a'] += $content['newyear_box_1'];
+				$ingredient['product_ss_004'] += 2 * $content['newyear_box_1'];
+				$ingredient['product_ss_005'] += 2 * $content['newyear_box_1'];
+				$ingredient['product_ss_006'] += 2 * $content['newyear_box_1'];
+			}
+			else {
+				return 'Wrong input format';
+			}
+			if (isset($content['newyear_box_2'])) {
+				if (is_nonnegativeInt($content['newyear_box_2'])) {
+					$ingredient['newyear_package_3'] += $content['newyear_box_2'];
+					$ingredient['newyear_package_4'] += $content['newyear_box_2'];
+					$ingredient['product_sp_001a'] += $content['newyear_box_2'];
+					$ingredient['product_sp_002a'] += $content['newyear_box_2'];
+					$ingredient['product_sp_003a'] += $content['newyear_box_2'];
+					$ingredient['product_ss_001'] += 2 * $content['newyear_box_2'];
+					$ingredient['product_ss_002'] += 2 * $content['newyear_box_2'];
+					$ingredient['product_ss_003'] += 2 * $content['newyear_box_2'];
+				}
+				else {
+					return 'Wrong input format';
+				}
+			}
 			$sql2 = ($fetch1['AUTHORITY'] == 'B') ? mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ACTCODE='1'") : mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ACTCODE='1'");
 			$message = '';
 			while ($fetch2 = mysql_fetch_array($sql2)) {
-				if (in_array($fetch2['ITEMNO'], array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_002d', 'package_002e', 'package_002f', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'package_010a', 'package_011a', 'package_012a', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_004a', 'product_sp_005a', 'product_sp_006a', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_004', 'product_ss_005', 'product_ss_006'))) {
+				if (in_array($fetch2['ITEMNO'], array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_002d', 'package_002e', 'package_002f', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'package_010a', 'package_011a', 'package_012a', 'newyear_package_1', 'newyear_package_2', 'newyear_package_3', 'newyear_package_4', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_004a', 'product_sp_005a', 'product_sp_006a', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_004', 'product_ss_005', 'product_ss_006'))) {
 					$ITEMNO = $fetch2['ITEMNO'];
 					$ITEMNM = $fetch2['ITEMNM'];
 					$amount = $ingredient[$ITEMNO];
@@ -1226,7 +1282,7 @@ function queryPackageTable($message) {
 	$query = $message['ingredient'];
 	$queryResult = '<table><tr><th>原料</th><th>所需數量</th><th>庫存數量</th></tr>';
 	if ($authority == 'B' || $authority == 'I') {
-		$content = array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_002d', 'package_002e', 'package_002f', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'package_010a', 'package_011a', 'package_012a', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_004a', 'product_sp_005a', 'product_sp_006a', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_004', 'product_ss_005', 'product_ss_006');
+		$content = array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_002d', 'package_002e', 'package_002f', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'package_010a', 'package_011a', 'package_012a', 'newyear_package_1', 'newyear_package_2', 'newyear_package_3', 'newyear_package_4', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_004a', 'product_sp_005a', 'product_sp_006a', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_004', 'product_ss_005', 'product_ss_006');
 		while ($item = array_shift($content)) {
 			if ($query[$item] != 0) $queryResult .= '<tr><td>'.query_name($item).'</td><td>'.$query[$item].'</td><td>'.inventory(authorityToName($authority), $item).'</td>'.compare($query[$item], inventory(authorityToName($authority), $item)).'</tr>';
 		}
@@ -1300,7 +1356,7 @@ function package_to_product($package, $product, $authority) {
 	$location = ($authority == 'B') ? 'Beitou' : 'Yilan';
 	$sql1 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND ACTCODE='1'");
 	while ($fetch1 = mysql_fetch_array($sql1)) {
-		if (in_array($fetch1['ITEMNO'], array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_002d', 'package_002e', 'package_002f', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'package_010a', 'package_011a', 'package_012a', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_004a', 'product_sp_005a', 'product_sp_006a', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_004', 'product_ss_005', 'product_ss_006'))) {
+		if (in_array($fetch1['ITEMNO'], array('sp_001_100', 'sp_002_100', 'sp_003_100', 'sp_004_100', 'sp_005_100', 'sp_006_100', 'slice_ss_001', 'slice_ss_002', 'slice_ss_003', 'slice_ss_004', 'slice_ss_005', 'slice_ss_006', 'package_001', 'package_002a', 'package_002b', 'package_002c', 'package_002d', 'package_002e', 'package_002f', 'package_003', 'package_004', 'package_005', 'package_006', 'package_007a', 'package_008a', 'package_009a', 'package_010a', 'package_011a', 'package_012a', 'newyear_package_1', 'newyear_package_2', 'newyear_package_3', 'newyear_package_4', 'product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_004a', 'product_sp_005a', 'product_sp_006a', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_004', 'product_ss_005', 'product_ss_006'))) {
 			$ITEMNO = $fetch1['ITEMNO'];
 			$ITEMNM = $fetch1['ITEMNM'];
 			$amount = $package[$ITEMNO];
@@ -1309,7 +1365,7 @@ function package_to_product($package, $product, $authority) {
 			}
 		}
 	}
-	$content = array('product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_004a', 'product_sp_005a', 'product_sp_006a', 'product_sp_box_001', 'product_sp_box_002', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_004', 'product_ss_005', 'product_ss_006', 'product_ss_box_001', 'product_ss_box_002');
+	$content = array('product_sp_001a', 'product_sp_002a', 'product_sp_003a', 'product_sp_004a', 'product_sp_005a', 'product_sp_006a', 'product_sp_box_001', 'product_sp_box_002', 'product_ss_001', 'product_ss_002', 'product_ss_003', 'product_ss_004', 'product_ss_005', 'product_ss_006', 'product_ss_box_001', 'product_ss_box_002', 'newyear_box_1', 'newyear_box_2');
 	while ($item = array_pop($content)) {
 		if (is_positiveInt($product[$item])) {
 			$ITEMNO = $item;
