@@ -520,7 +520,7 @@ function view_index($account, $token, $index) {
 					}
 					return array('message' => 'Success', 'content' => $content);
 				}
-				elseif ($fetch1['AUTHORITY'] == 'B' && $fetch2['TARGET'] == 'Beitou') {
+				elseif (($fetch1['AUTHORITY'] == 'B' && $fetch2['TARGET'] == 'Beitou') || ($fetch1['AUTHORITY'] == 'I' && $fetch2['TARGET'] == 'Yilan')) {
 					if ($fetch2['CMDSTAT'] == 'A') {
 						$sql4 = "UPDATE CMDMAS SET CMDSTAT='B', UPDATEDATE='$date' WHERE CMDNO='$index'";
 						if (!mysql_query($sql4)) {
@@ -610,47 +610,6 @@ function view_index($account, $token, $index) {
 						}
 					}
 					if ($fetch2['CMDTYPE'] == 'C') {
-						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th><th>開始日期</th><th>結束日期</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>製皂</td><td>'.$fetch2['STARTDATE'].'</td><td>'.$fetch2['ENDDATE'].'</td></tr>';
-						if ($fetch2['NOTICE'] != null) {
-							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
-						}
-						if ($fetch2['FILESTAT'] == 1) {
-							$content .= '<tr><td colspan="10"><a href="../resource/download.php?cmdno='.$fetch2['CMDNO'].'">下載檔案</a></td></tr>';
-						}
-						$content .= '</table><table><tr><th>名稱</th><th>數量</th><th>完成狀態</th></tr>';
-						while ($fetch3 = mysql_fetch_array($sql3)) {
-							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).'</td><td>'.translate_check($fetch3['CHECKSTAT'], $index, $fetch3['ITEMNO']).'</td></tr>');
-						}
-						$content .= '</table>';
-					}
-					return array('message' => 'Success', 'content' => $content);
-				}
-				elseif ($fetch1['AUTHORITY'] == 'I' && $fetch2['TARGET'] == 'Yilan') {
-					if ($fetch2['CMDSTAT'] == 'A') {
-						$sql4 = "UPDATE CMDMAS SET CMDSTAT='B', UPDATEDATE='$date' WHERE CMDNO='$index'";
-						if (!mysql_query($sql4)) {
-							return 'Unable to update review date';
-						}
-					}
-					if ($fetch2['CMDTYPE'] == 'B') {
-						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th><th>訂單狀態</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>出貨</td><td>'.transfer_state($fetch2['CMDSTAT'], $fetch2['CMDTYPE']).'</td></tr>';
-						if ($fetch2['NOTICE'] != null) {
-							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
-						}
-						$content .= '</table><table><tr><th>名稱</th><th>數量</th></tr>';
-						while ($fetch3 = mysql_fetch_array($sql3)) {
-							$content .= ('<tr><td>'.$fetch3['ITEMNM'].'</td><td>'.number_format($fetch3['ITEMAMT']).unit($fetch3['ITEMNO']).'</td></tr>');
-						}
-						$sql5 = mysql_query("SELECT * FROM CMDMAS WHERE CMDNO='$index' AND ACTCODE='1'");
-						$fetch5 = mysql_fetch_array($sql5);
-						if ($fetch5['CMDSTAT'] == 'B') {
-							$content .= '<tr><td colspan="2"><button onclick="deliver('.$index.')">送出</button> <button onclick="refuse('.$index.')">拒絕</button></td></tr></table>';
-						}
-						else {
-							$content .= '</table>';
-						}
-					}
-					elseif ($fetch2['CMDTYPE'] == 'C') {
 						$content = '<table><tr><th>訂單編號</th><th>建立時間</th><th>類別</th><th>開始日期</th><th>結束日期</th></tr><tr><td>'.$fetch2['CMDNO'].'</td><td>'.$fetch2['CREATEDATE'].'</td><td>製皂</td><td>'.$fetch2['STARTDATE'].'</td><td>'.$fetch2['ENDDATE'].'</td></tr>';
 						if ($fetch2['NOTICE'] != null) {
 							$content .= '<tr><td colspan="10">'.$fetch2['NOTICE'].'</td></tr>';
@@ -882,25 +841,7 @@ function refuse($account, $token, $index) {
 			$fetch2 = mysql_fetch_array($sql2);
 			date_default_timezone_set('Asia/Taipei');
 			$date = date("Y-m-d H:i:s");
-			if ($fetch1['AUTHORITY'] == 'B' && $fetch2['TARGET'] == 'Beitou' && $fetch2['CMDTYPE'] == 'B') {
-				$sql3 = "UPDATE CMDMAS SET CMDSTAT='D', UPDATEDATE='$date' WHERE CMDNO='$index'";
-				if (mysql_query($sql3)) {
-					return 'Success';
-				}
-				else {
-					return 'Database operation error';
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'C' && $fetch2['TARGET'] == 'Houshanpi' && $fetch2['CMDTYPE'] == 'A') { 
-				$sql3 = "UPDATE CMDMAS SET CMDSTAT='D', UPDATEDATE='$date' WHERE CMDNO='$index'";
-				if (mysql_query($sql3)) {
-					return 'Success';
-				}
-				else {
-					return 'Database operation error';
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'I' && $fetch2['TARGET'] == 'Yilan' && $fetch2['CMDTYPE'] == 'B') {
+			if (($fetch1['AUTHORITY'] == 'B' && $fetch2['TARGET'] == 'Beitou' && $fetch2['CMDTYPE'] == 'B') || ($fetch1['AUTHORITY'] == 'C' && $fetch2['TARGET'] == 'Houshanpi' && $fetch2['CMDTYPE'] == 'A') || ($fetch1['AUTHORITY'] == 'I' && $fetch2['TARGET'] == 'Yilan' && $fetch2['CMDTYPE'] == 'B')) {
 				$sql3 = "UPDATE CMDMAS SET CMDSTAT='D', UPDATEDATE='$date' WHERE CMDNO='$index'";
 				if (mysql_query($sql3)) {
 					return 'Success';
@@ -1237,8 +1178,15 @@ function command_search($account, $token, $command) {
 				}
 				$content .= '</table>';
 			}
-			elseif ($command == 'B1' || $command == 'B2') {
+			elseif ($command == 'B1') {
 				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND ITEMCLASS='D' AND ACTCODE='1'");
+				while ($fetch2 = mysql_fetch_array($sql2)) {
+					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td><input type="number" id="command_'.$fetch2['ITEMNO'].'" value="0" min="0">個</td></tr>';
+				}
+				$content .= '</table>';
+			}
+			elseif ($command == 'B2') {
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND ITEMCLASS='D' AND ACTCODE='1'");
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$content .= '<tr><td>'.$fetch2['ITEMNM'].'</td><td><input type="number" id="command_'.$fetch2['ITEMNO'].'" value="0" min="0">個</td></tr>';
 				}

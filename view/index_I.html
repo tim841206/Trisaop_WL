@@ -46,8 +46,9 @@
 				<li><a data-toggle="tab" href="#menu3">商品包裝</a></li>
 				<li><a data-toggle="tab" href="#menu4" onclick="whouse_view()">庫存一覽</a></li>
 				<li><a data-toggle="tab" href="#menu5" onclick="request_view()">物流一覽</a></li>
-				<li><a data-toggle="tab" href="#menu6" onclick="command_view()">訂單一覽</a></li>
-				<li><a data-toggle="tab" href="#menu7" onclick="member_view()">使用者一覽</a></li>
+				<li><a data-toggle="tab" href="#menu6">建立物流</a></li>
+				<li><a data-toggle="tab" href="#menu7" onclick="command_view()">訂單一覽</a></li>
+				<li><a data-toggle="tab" href="#menu8" onclick="member_view()">使用者一覽</a></li>
 			</ul>
 			<div class="tab-content">
 				<div id="menu1" class="tab-pane fade">
@@ -92,51 +93,19 @@
 						<div>
 							<table>
 								<tr><th>商品</th><th>數量</th></tr>
-								<tr><td>田靜山巒禾風皂100g</td><td><input type="number" id="package_sp_001a" value="0" min="0"></td></tr>
-								<tr><td>金絲森林渲染皂100g</td><td><input type="number" id="package_sp_002a" value="0" min="0"></td></tr>
-								<tr><td>釋迦手感果力皂100g</td><td><input type="number" id="package_sp_003a" value="0" min="0"></td></tr>
 								<tr><td>紅瓜天然家事皂100g</td><td><input type="number" id="package_sp_004a" value="0" min="0"></td></tr>
 								<tr><td>金柑苦茶洗髮皂100g</td><td><input type="number" id="package_sp_005a" value="0" min="0"></td></tr>
 								<tr><td>石花淨白洗面皂100g</td><td><input type="number" id="package_sp_006a" value="0" min="0"></td></tr>
-								<tr><td>三三台東意象禮盒組</td><td><input type="number" id="package_sp_box_001" value="0" min="0" onchange="sp_box_001_change()"></td></tr>
 								<tr><td>三三宜蘭經典禮盒組</td><td><input type="number" id="package_sp_box_002" value="0" min="0" onchange="sp_box_002_change()"></td></tr>
-								<tr><td>洛神紅麴旅用皂絲</td><td><input type="number" id="package_ss_001" value="0" min="0"></td></tr>
-								<tr><td>暖暖薑黃旅用皂絲</td><td><input type="number" id="package_ss_002" value="0" min="0"></td></tr>
-								<tr><td>萱草米黃旅用皂絲</td><td><input type="number" id="package_ss_003" value="0" min="0"></td></tr>
 								<tr><td>黑豆清爽旅用皂絲</td><td><input type="number" id="package_ss_004" value="0" min="0"></td></tr>
 								<tr><td>米糠馬賽旅用皂絲</td><td><input type="number" id="package_ss_005" value="0" min="0"></td></tr>
 								<tr><td>蜂蜜甜心旅用皂絲</td><td><input type="number" id="package_ss_006" value="0" min="0"></td></tr>
-								<tr><td>三三台東意象皂絲旅行組</td><td><input type="number" id="package_ss_box_001" value="0" min="0" onchange="ss_box_001_change()"></td></tr>
 								<tr><td>三三宜蘭經典皂絲旅行組</td><td><input type="number" id="package_ss_box_002" value="0" min="0" onchange="ss_box_002_change()"></td></tr>
 							</table>
 						</div>
 					</div>
 
 					<div style="width: 45%; display: inline-block; vertical-align: top;">
-						<h4>三三台東意象禮盒組包裝原料</h4>
-						<table>
-							<tr><th>米皂+包裝</th><th>金針皂+包裝</th><th>釋迦皂+包裝</th></tr>
-							<tr>
-								<td><input type="number" id="sp_001_type1" value="0" min="0" onchange="document.getElementById('sp_001_type2').value = Number(document.getElementById('package_sp_box_001').value) - Number(document.getElementById('sp_001_type1').value)"></td>
-								<td><input type="number" id="sp_002_type1" value="0" min="0" onchange="document.getElementById('sp_002_type2').value = Number(document.getElementById('package_sp_box_001').value) - Number(document.getElementById('sp_002_type1').value)"></td>
-								<td><input type="number" id="sp_003_type1" value="0" min="0" onchange="document.getElementById('sp_003_type2').value = Number(document.getElementById('package_sp_box_001').value) - Number(document.getElementById('sp_003_type1').value)"></td>
-							</tr>
-							<tr><th>田靜山巒禾風皂</th><th>金絲森林渲染皂</th><th>釋迦手感果力皂</th></tr>
-							<tr>
-								<td><input type="number" id="sp_001_type2" value="0" min="0" onchange="document.getElementById('sp_001_type1').value = Number(document.getElementById('package_sp_box_001').value) - Number(document.getElementById('sp_001_type2').value)"></td>
-								<td><input type="number" id="sp_002_type2" value="0" min="0" onchange="document.getElementById('sp_002_type1').value = Number(document.getElementById('package_sp_box_001').value) - Number(document.getElementById('sp_002_type2').value)"></td>
-								<td><input type="number" id="sp_003_type2" value="0" min="0" onchange="document.getElementById('sp_003_type1').value = Number(document.getElementById('package_sp_box_001').value) - Number(document.getElementById('sp_003_type2').value)"></td>
-							</tr>
-						</table>
-						<h4>三三台東意象皂絲旅行組包裝原料</h4>
-						<table>
-							<tr><th>洛神紅麴旅用皂絲</th><th>暖暖薑黃旅用皂絲</th><th>萱草米黃旅用皂絲</th></tr>
-							<tr>
-								<td><input type="number" id="ss_001_type1" value="0" min="0"></td>
-								<td><input type="number" id="ss_002_type1" value="0" min="0"></td>
-								<td><input type="number" id="ss_003_type1" value="0" min="0"></td>
-							</tr>
-						</table>
 						<h4>三三宜蘭經典禮盒組包裝原料</h4>
 						<table>
 							<tr><th>地瓜皂+包裝</th><th>金棗皂+包裝</th><th>海藻皂+包裝</th></tr>
@@ -191,7 +160,6 @@
 									<option value="D">商品</option>
 									<option value="E">產品</option>
 									<option value="F">半成品</option>
-									<option value="H">後山埤產品</option>
 								</select>
 							</td>
 							<td>
@@ -252,6 +220,52 @@
 					<p id="request_search_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 				</div>
 				<div id="menu6" class="tab-pane fade">
+					<h3>建立物流</h3>
+					<table>
+						<tr>
+							<th>運送地</th>
+							<th>接收地</th>
+						</tr>
+						<tr>
+							<td>
+								<select id="sender">
+									<option value="Yilan">宜蘭</option>
+								</select>
+							</td>
+							<td>
+								<select id="receiver">
+									<option value="Beitou">北投</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<div id="content">
+						<table>
+							<tr>
+								<th class="material_E">產品</th>
+							</tr>
+							<tr>
+								<td class="material_E">
+									<table>
+										<tr><td>地瓜皂100g</td><td><input type="number" id="send_sp_004_100" value="0" min="0">顆</td></tr>
+										<tr><td>金棗皂100g</td><td><input type="number" id="send_sp_005_100" value="0" min="0">顆</td></tr>
+										<tr><td>海藻皂100g</td><td><input type="number" id="send_sp_006_100" value="0" min="0">顆</td></tr>
+										<tr><td>黑豆皂</td><td><input type="number" id="send_ss_007" value="0" min="0">g</td></tr>
+										<tr><td>竹炭皂</td><td><input type="number" id="send_ss_008" value="0" min="0">g</td></tr>
+										<tr><td>米粉皂</td><td><input type="number" id="send_ss_009" value="0" min="0">g</td></tr>
+										<tr><td>蕁麻葉皂</td><td><input type="number" id="send_ss_010" value="0" min="0">g</td></tr>
+										<tr><td>蜂蜜皂</td><td><input type="number" id="send_ss_011" value="0" min="0">g</td></tr>
+									</table>
+								</td>
+							</tr>
+							<tr><td>運費：<input type="text" id="shipfee" value="0"></td></tr>
+							<tr><td>備註：<textarea type="text" id="memo"></textarea></td></tr>
+						</table>
+						<button onclick="send()">確定</button>
+						<button onclick="send_refresh()">清除</button>
+					</div>
+				</div>
+				<div id="menu7" class="tab-pane fade">
 					<h3>訂單一覽</h3>
 					<p id="command_view_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 					<p id="command_view_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
@@ -282,7 +296,7 @@
 					<p id="command_search_content" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 					<p id="command_search_detail" style="width: 45%; display: inline-block; max-height: 300px; overflow: scroll;"></p>
 				</div>
-				<div id="menu7" class="tab-pane fade">
+				<div id="menu8" class="tab-pane fade">
 					<h3>使用者一覽</h3>
 					<p id="member_view_content" style="max-height: 300px; overflow: scroll;"></p>
 					<h3>進階查詢</h3>

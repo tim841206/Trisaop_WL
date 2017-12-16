@@ -632,8 +632,9 @@ function produce($content) {
 			$ingredient['oil_001'] = ceil($ingredient['oil_001']);
 			$ingredient['oil_002'] = ceil($ingredient['oil_002']);
 			$ingredient['oil_003'] = ceil($ingredient['oil_003']);
-			if ($fetch1['AUTHORITY'] == 'B') {
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Beitou' AND (ITEMCLASS='A' OR ITEMCLASS='B') AND ACTCODE='1'");
+			if (in_array($fetch1['AUTHORITY'], array('B', 'D', 'I'))) {
+				$location = authorityToName($fetch1['AUTHORITY']);
+				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='$location' AND (ITEMCLASS='A' OR ITEMCLASS='B') AND ACTCODE='1'");
 				$message = '';
 				while ($fetch2 = mysql_fetch_array($sql2)) {
 					$ITEMNO = $fetch2['ITEMNO'];
@@ -644,7 +645,7 @@ function produce($content) {
 					}
 				}
 				if (empty($message)) {
-					ingredient_to_product($ingredient, $content, 'Beitou');
+					ingredient_to_product($ingredient, $content, $location);
 					return 'Success';
 				}
 				else {
@@ -664,44 +665,6 @@ function produce($content) {
 				}
 				if (empty($message)) {
 					ingredient_to_product($ingredient, $content, 'Houshanpi');
-					return 'Success';
-				}
-				else {
-					return $message;
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'D') {
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Taitung' AND (ITEMCLASS='A' OR ITEMCLASS='B') AND ACTCODE='1'");
-				$message = '';
-				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$ITEMNO = $fetch2['ITEMNO'];
-					$ITEMNM = $fetch2['ITEMNM'];
-					$amount = $ingredient[$ITEMNO];
-					if ($fetch2['TOTALAMT'] < $amount) {
-						$message .= $ITEMNM . "存量不足\n";
-					}
-				}
-				if (empty($message)) {
-					ingredient_to_product($ingredient, $content, 'Taitung');
-					return 'Success';
-				}
-				else {
-					return $message;
-				}
-			}
-			elseif ($fetch1['AUTHORITY'] == 'I') {
-				$sql2 = mysql_query("SELECT * FROM WHOUSEITEMMAS WHERE WHOUSENO='Yilan' AND (ITEMCLASS='A' OR ITEMCLASS='B') AND ACTCODE='1'");
-				$message = '';
-				while ($fetch2 = mysql_fetch_array($sql2)) {
-					$ITEMNO = $fetch2['ITEMNO'];
-					$ITEMNM = $fetch2['ITEMNM'];
-					$amount = $ingredient[$ITEMNO];
-					if ($fetch2['TOTALAMT'] < $amount) {
-						$message .= $ITEMNM . "存量不足\n";
-					}
-				}
-				if (empty($message)) {
-					ingredient_to_product($ingredient, $content, 'Yilan');
 					return 'Success';
 				}
 				else {
@@ -735,26 +698,32 @@ function package($content) {
 		}
 		else {
 			$ingredient = array('sp_001_100' => 0, 'sp_002_100' => 0, 'sp_003_100' => 0, 'sp_004_100' => 0, 'sp_005_100' => 0, 'sp_006_100' => 0, 'slice_ss_001' => 0, 'slice_ss_002' => 0, 'slice_ss_003' => 0, 'slice_ss_004' => 0, 'slice_ss_005' => 0, 'slice_ss_006' => 0, 'package_001' => 0, 'package_002a' => 0, 'package_002b' => 0, 'package_002c' => 0, 'package_002d' => 0, 'package_002e' => 0, 'package_002f' => 0, 'package_003' => 0, 'package_004' => 0, 'package_005' => 0, 'package_006' => 0, 'package_007a' => 0, 'package_008a' => 0, 'package_009a' => 0, 'package_010a' => 0, 'package_011a' => 0, 'package_012a' => 0, 'product_sp_001a' => 0, 'product_sp_002a' => 0, 'product_sp_003a' => 0, 'product_sp_004a' => 0, 'product_sp_005a' => 0, 'product_sp_006a' => 0, 'product_ss_001' => 0, 'product_ss_002' => 0, 'product_ss_003' => 0, 'product_ss_004' => 0, 'product_ss_005' => 0, 'product_ss_006' => 0);
-			if (is_nonnegativeInt($content['product_sp_001a'])) {
-				$ingredient['sp_001_100'] += $content['product_sp_001a'];
-				$ingredient['package_007a'] += $content['product_sp_001a'];
+			if (isset($content['product_sp_001a'])) {
+				if (is_nonnegativeInt($content['product_sp_001a'])) {
+					$ingredient['sp_001_100'] += $content['product_sp_001a'];
+					$ingredient['package_007a'] += $content['product_sp_001a'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['product_sp_002a'])) {
+				if (is_nonnegativeInt($content['product_sp_002a'])) {
+					$ingredient['sp_002_100'] += $content['product_sp_002a'];
+					$ingredient['package_008a'] += $content['product_sp_002a'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			if (is_nonnegativeInt($content['product_sp_002a'])) {
-				$ingredient['sp_002_100'] += $content['product_sp_002a'];
-				$ingredient['package_008a'] += $content['product_sp_002a'];
-			}
-			else {
-				return 'Wrong input format';
-			}
-			if (is_nonnegativeInt($content['product_sp_003a'])) {
-				$ingredient['sp_003_100'] += $content['product_sp_003a'];
-				$ingredient['package_009a'] += $content['product_sp_003a'];
-			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['product_sp_003a'])) {
+				if (is_nonnegativeInt($content['product_sp_003a'])) {
+					$ingredient['sp_003_100'] += $content['product_sp_003a'];
+					$ingredient['package_009a'] += $content['product_sp_003a'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
 			if (is_nonnegativeInt($content['product_sp_004a'])) {
 				$ingredient['sp_004_100'] += $content['product_sp_004a'];
@@ -777,42 +746,44 @@ function package($content) {
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_sp_box_001'])) {
-				$sp_001_type1 = $content['sp_001_type1'];
-				$sp_002_type1 = $content['sp_002_type1'];
-				$sp_003_type1 = $content['sp_003_type1'];
-				$sp_001_type2 = $content['sp_001_type2'];
-				$sp_002_type2 = $content['sp_002_type2'];
-				$sp_003_type2 = $content['sp_003_type2'];
-				if (!is_nonnegativeInt($sp_001_type1) || !is_nonnegativeInt($sp_002_type1) || !is_nonnegativeInt($sp_003_type1) || !is_nonnegativeInt($sp_001_type2) || !is_nonnegativeInt($sp_002_type2) || !is_nonnegativeInt($sp_003_type2)) {
-					return 'Wrong input format';
-				}
-				elseif ($sp_001_type1 + $sp_001_type2 != $content['product_sp_box_001']){
-					return 'Wrong sp_001 series amount';
-				}
-				elseif ($sp_002_type1 + $sp_002_type2 != $content['product_sp_box_001']){
-					return 'Wrong sp_002 series amount';
-				}
-				elseif ($sp_003_type1 + $sp_003_type2 != $content['product_sp_box_001']){
-					return 'Wrong sp_003 series amount';
+			if (isset($content['product_sp_box_001'])) {
+				if (is_nonnegativeInt($content['product_sp_box_001'])) {
+					$sp_001_type1 = $content['sp_001_type1'];
+					$sp_002_type1 = $content['sp_002_type1'];
+					$sp_003_type1 = $content['sp_003_type1'];
+					$sp_001_type2 = $content['sp_001_type2'];
+					$sp_002_type2 = $content['sp_002_type2'];
+					$sp_003_type2 = $content['sp_003_type2'];
+					if (!is_nonnegativeInt($sp_001_type1) || !is_nonnegativeInt($sp_002_type1) || !is_nonnegativeInt($sp_003_type1) || !is_nonnegativeInt($sp_001_type2) || !is_nonnegativeInt($sp_002_type2) || !is_nonnegativeInt($sp_003_type2)) {
+						return 'Wrong input format';
+					}
+					elseif ($sp_001_type1 + $sp_001_type2 != $content['product_sp_box_001']){
+						return 'Wrong sp_001 series amount';
+					}
+					elseif ($sp_002_type1 + $sp_002_type2 != $content['product_sp_box_001']){
+						return 'Wrong sp_002 series amount';
+					}
+					elseif ($sp_003_type1 + $sp_003_type2 != $content['product_sp_box_001']){
+						return 'Wrong sp_003 series amount';
+					}
+					else {
+						$ingredient['sp_001_100'] += $sp_001_type1;
+						$ingredient['sp_002_100'] += $sp_002_type1;
+						$ingredient['sp_003_100'] += $sp_003_type1;
+						$ingredient['package_007a'] += $sp_001_type1;
+						$ingredient['package_008a'] += $sp_002_type1;
+						$ingredient['package_009a'] += $sp_003_type1;
+						$ingredient['product_sp_001a'] += $sp_001_type2;
+						$ingredient['product_sp_002a'] += $sp_002_type2;
+						$ingredient['product_sp_003a'] += $sp_003_type2;
+						$ingredient['package_003'] += $content['product_sp_box_001'];
+						$ingredient['package_004'] += $content['product_sp_box_001'];
+						$ingredient['package_006'] += $content['product_sp_box_001'];
+					}
 				}
 				else {
-					$ingredient['sp_001_100'] += $sp_001_type1;
-					$ingredient['sp_002_100'] += $sp_002_type1;
-					$ingredient['sp_003_100'] += $sp_003_type1;
-					$ingredient['package_007a'] += $sp_001_type1;
-					$ingredient['package_008a'] += $sp_002_type1;
-					$ingredient['package_009a'] += $sp_003_type1;
-					$ingredient['product_sp_001a'] += $sp_001_type2;
-					$ingredient['product_sp_002a'] += $sp_002_type2;
-					$ingredient['product_sp_003a'] += $sp_003_type2;
-					$ingredient['package_003'] += $content['product_sp_box_001'];
-					$ingredient['package_004'] += $content['product_sp_box_001'];
-					$ingredient['package_006'] += $content['product_sp_box_001'];
+					return 'Wrong input format';
 				}
-			}
-			else {
-				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_sp_box_002'])) {
 				$sp_004_type1 = $content['sp_004_type1'];
@@ -851,29 +822,35 @@ function package($content) {
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_ss_001'])) {
-				$ingredient['slice_ss_001'] += 10 * $content['product_ss_001'];
-				$ingredient['package_001'] += $content['product_ss_001'];
-				$ingredient['package_002a'] += $content['product_ss_001'];
+			if (isset($content['product_ss_001'])) {
+				if (is_nonnegativeInt($content['product_ss_001'])) {
+					$ingredient['slice_ss_001'] += 10 * $content['product_ss_001'];
+					$ingredient['package_001'] += $content['product_ss_001'];
+					$ingredient['package_002a'] += $content['product_ss_001'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['product_ss_002'])) {
+				if (is_nonnegativeInt($content['product_ss_002'])) {
+					$ingredient['slice_ss_002'] += 10 * $content['product_ss_002'];
+					$ingredient['package_001'] += $content['product_ss_002'];
+					$ingredient['package_002b'] += $content['product_ss_002'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			if (is_nonnegativeInt($content['product_ss_002'])) {
-				$ingredient['slice_ss_002'] += 10 * $content['product_ss_002'];
-				$ingredient['package_001'] += $content['product_ss_002'];
-				$ingredient['package_002b'] += $content['product_ss_002'];
-			}
-			else {
-				return 'Wrong input format';
-			}
-			if (is_nonnegativeInt($content['product_ss_003'])) {
-				$ingredient['slice_ss_003'] += 10 * $content['product_ss_003'];
-				$ingredient['package_001'] += $content['product_ss_003'];
-				$ingredient['package_002c'] += $content['product_ss_003'];
-			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['product_ss_003'])) {
+				if (is_nonnegativeInt($content['product_ss_003'])) {
+					$ingredient['slice_ss_003'] += 10 * $content['product_ss_003'];
+					$ingredient['package_001'] += $content['product_ss_003'];
+					$ingredient['package_002c'] += $content['product_ss_003'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
 			if (is_nonnegativeInt($content['product_ss_004'])) {
 				$ingredient['slice_ss_004'] += 10 * $content['product_ss_004'];
@@ -899,25 +876,27 @@ function package($content) {
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_ss_box_001'])) {
-				$ss_001_type1 = $content['ss_001_type1'];
-				$ss_002_type1 = $content['ss_002_type1'];
-				$ss_003_type1 = $content['ss_003_type1'];
-				if (!is_nonnegativeInt($ss_001_type1) || !is_nonnegativeInt($ss_002_type1) || !is_nonnegativeInt($ss_003_type1)) {
-					return 'Wrong input format';
-				}
-				elseif ($ss_001_type1 + $ss_002_type1 + $ss_003_type1 != $content['product_ss_box_001'] * 6){
-					return 'Wrong ss series amount';
+			if (isset($content['product_ss_box_001'])) {
+				if (is_nonnegativeInt($content['product_ss_box_001'])) {
+					$ss_001_type1 = $content['ss_001_type1'];
+					$ss_002_type1 = $content['ss_002_type1'];
+					$ss_003_type1 = $content['ss_003_type1'];
+					if (!is_nonnegativeInt($ss_001_type1) || !is_nonnegativeInt($ss_002_type1) || !is_nonnegativeInt($ss_003_type1)) {
+						return 'Wrong input format';
+					}
+					elseif ($ss_001_type1 + $ss_002_type1 + $ss_003_type1 != $content['product_ss_box_001'] * 6){
+						return 'Wrong ss series amount';
+					}
+					else {
+						$ingredient['product_ss_001'] += $ss_001_type1;
+						$ingredient['product_ss_002'] += $ss_002_type1;
+						$ingredient['product_ss_003'] += $ss_003_type1;
+						$ingredient['package_005'] += $content['product_ss_box_001'];
+					}
 				}
 				else {
-					$ingredient['product_ss_001'] += $ss_001_type1;
-					$ingredient['product_ss_002'] += $ss_002_type1;
-					$ingredient['product_ss_003'] += $ss_003_type1;
-					$ingredient['package_005'] += $content['product_ss_box_001'];
+					return 'Wrong input format';
 				}
-			}
-			else {
-				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_ss_box_002'])) {
 				$ss_004_type1 = $content['ss_004_type1'];
@@ -967,26 +946,32 @@ function packing($content) {
 		}
 		else {
 			$ingredient = array('sp_001_100' => 0, 'sp_002_100' => 0, 'sp_003_100' => 0, 'sp_004_100' => 0, 'sp_005_100' => 0, 'sp_006_100' => 0, 'slice_ss_001' => 0, 'slice_ss_002' => 0, 'slice_ss_003' => 0, 'slice_ss_004' => 0, 'slice_ss_005' => 0, 'slice_ss_006' => 0, 'package_001' => 0, 'package_002a' => 0, 'package_002b' => 0, 'package_002c' => 0, 'package_002d' => 0, 'package_002e' => 0, 'package_002f' => 0, 'package_003' => 0, 'package_004' => 0, 'package_005' => 0, 'package_006' => 0, 'package_007a' => 0, 'package_008a' => 0, 'package_009a' => 0, 'package_010a' => 0, 'package_011a' => 0, 'package_012a' => 0, 'product_sp_001a' => 0, 'product_sp_002a' => 0, 'product_sp_003a' => 0, 'product_sp_004a' => 0, 'product_sp_005a' => 0, 'product_sp_006a' => 0, 'product_ss_001' => 0, 'product_ss_002' => 0, 'product_ss_003' => 0, 'product_ss_004' => 0, 'product_ss_005' => 0, 'product_ss_006' => 0);
-			if (is_nonnegativeInt($content['product_sp_001a'])) {
-				$ingredient['sp_001_100'] += $content['product_sp_001a'];
-				$ingredient['package_007a'] += $content['product_sp_001a'];
+			if (isset($content['product_sp_001a'])) {
+				if (is_nonnegativeInt($content['product_sp_001a'])) {
+					$ingredient['sp_001_100'] += $content['product_sp_001a'];
+					$ingredient['package_007a'] += $content['product_sp_001a'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['product_sp_002a'])) {
+				if (is_nonnegativeInt($content['product_sp_002a'])) {
+					$ingredient['sp_002_100'] += $content['product_sp_002a'];
+					$ingredient['package_008a'] += $content['product_sp_002a'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			if (is_nonnegativeInt($content['product_sp_002a'])) {
-				$ingredient['sp_002_100'] += $content['product_sp_002a'];
-				$ingredient['package_008a'] += $content['product_sp_002a'];
-			}
-			else {
-				return 'Wrong input format';
-			}
-			if (is_nonnegativeInt($content['product_sp_003a'])) {
-				$ingredient['sp_003_100'] += $content['product_sp_003a'];
-				$ingredient['package_009a'] += $content['product_sp_003a'];
-			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['product_sp_003a'])) {
+				if (is_nonnegativeInt($content['product_sp_003a'])) {
+					$ingredient['sp_003_100'] += $content['product_sp_003a'];
+					$ingredient['package_009a'] += $content['product_sp_003a'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
 			if (is_nonnegativeInt($content['product_sp_004a'])) {
 				$ingredient['sp_004_100'] += $content['product_sp_004a'];
@@ -1009,42 +994,44 @@ function packing($content) {
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_sp_box_001'])) {
-				$sp_001_type1 = $content['sp_001_type1'];
-				$sp_002_type1 = $content['sp_002_type1'];
-				$sp_003_type1 = $content['sp_003_type1'];
-				$sp_001_type2 = $content['sp_001_type2'];
-				$sp_002_type2 = $content['sp_002_type2'];
-				$sp_003_type2 = $content['sp_003_type2'];
-				if (!is_nonnegativeInt($sp_001_type1) || !is_nonnegativeInt($sp_002_type1) || !is_nonnegativeInt($sp_003_type1) || !is_nonnegativeInt($sp_001_type2) || !is_nonnegativeInt($sp_002_type2) || !is_nonnegativeInt($sp_003_type2)) {
-					return 'Wrong input format';
-				}
-				elseif ($sp_001_type1 + $sp_001_type2 != $content['product_sp_box_001']){
-					return 'Wrong sp_001 series amount';
-				}
-				elseif ($sp_002_type1 + $sp_002_type2 != $content['product_sp_box_001']){
-					return 'Wrong sp_002 series amount';
-				}
-				elseif ($sp_003_type1 + $sp_003_type2 != $content['product_sp_box_001']){
-					return 'Wrong sp_003 series amount';
+			if (isset($content['product_sp_box_001'])) {
+				if (is_nonnegativeInt($content['product_sp_box_001'])) {
+					$sp_001_type1 = $content['sp_001_type1'];
+					$sp_002_type1 = $content['sp_002_type1'];
+					$sp_003_type1 = $content['sp_003_type1'];
+					$sp_001_type2 = $content['sp_001_type2'];
+					$sp_002_type2 = $content['sp_002_type2'];
+					$sp_003_type2 = $content['sp_003_type2'];
+					if (!is_nonnegativeInt($sp_001_type1) || !is_nonnegativeInt($sp_002_type1) || !is_nonnegativeInt($sp_003_type1) || !is_nonnegativeInt($sp_001_type2) || !is_nonnegativeInt($sp_002_type2) || !is_nonnegativeInt($sp_003_type2)) {
+						return 'Wrong input format';
+					}
+					elseif ($sp_001_type1 + $sp_001_type2 != $content['product_sp_box_001']){
+						return 'Wrong sp_001 series amount';
+					}
+					elseif ($sp_002_type1 + $sp_002_type2 != $content['product_sp_box_001']){
+						return 'Wrong sp_002 series amount';
+					}
+					elseif ($sp_003_type1 + $sp_003_type2 != $content['product_sp_box_001']){
+						return 'Wrong sp_003 series amount';
+					}
+					else {
+						$ingredient['sp_001_100'] += $sp_001_type1;
+						$ingredient['sp_002_100'] += $sp_002_type1;
+						$ingredient['sp_003_100'] += $sp_003_type1;
+						$ingredient['package_007a'] += $sp_001_type1;
+						$ingredient['package_008a'] += $sp_002_type1;
+						$ingredient['package_009a'] += $sp_003_type1;
+						$ingredient['product_sp_001a'] += $sp_001_type2;
+						$ingredient['product_sp_002a'] += $sp_002_type2;
+						$ingredient['product_sp_003a'] += $sp_003_type2;
+						$ingredient['package_003'] += $content['product_sp_box_001'];
+						$ingredient['package_004'] += $content['product_sp_box_001'];
+						$ingredient['package_006'] += $content['product_sp_box_001'];
+					}
 				}
 				else {
-					$ingredient['sp_001_100'] += $sp_001_type1;
-					$ingredient['sp_002_100'] += $sp_002_type1;
-					$ingredient['sp_003_100'] += $sp_003_type1;
-					$ingredient['package_007a'] += $sp_001_type1;
-					$ingredient['package_008a'] += $sp_002_type1;
-					$ingredient['package_009a'] += $sp_003_type1;
-					$ingredient['product_sp_001a'] += $sp_001_type2;
-					$ingredient['product_sp_002a'] += $sp_002_type2;
-					$ingredient['product_sp_003a'] += $sp_003_type2;
-					$ingredient['package_003'] += $content['product_sp_box_001'];
-					$ingredient['package_004'] += $content['product_sp_box_001'];
-					$ingredient['package_006'] += $content['product_sp_box_001'];
+					return 'Wrong input format';
 				}
-			}
-			else {
-				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_sp_box_002'])) {
 				$sp_004_type1 = $content['sp_004_type1'];
@@ -1083,29 +1070,35 @@ function packing($content) {
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_ss_001'])) {
-				$ingredient['slice_ss_001'] += 10 * $content['product_ss_001'];
-				$ingredient['package_001'] += $content['product_ss_001'];
-				$ingredient['package_002a'] += $content['product_ss_001'];
+			if (isset($content['product_ss_001'])) {
+				if (is_nonnegativeInt($content['product_ss_001'])) {
+					$ingredient['slice_ss_001'] += 10 * $content['product_ss_001'];
+					$ingredient['package_001'] += $content['product_ss_001'];
+					$ingredient['package_002a'] += $content['product_ss_001'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['product_ss_002'])) {
+				if (is_nonnegativeInt($content['product_ss_002'])) {
+					$ingredient['slice_ss_002'] += 10 * $content['product_ss_002'];
+					$ingredient['package_001'] += $content['product_ss_002'];
+					$ingredient['package_002b'] += $content['product_ss_002'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
-			if (is_nonnegativeInt($content['product_ss_002'])) {
-				$ingredient['slice_ss_002'] += 10 * $content['product_ss_002'];
-				$ingredient['package_001'] += $content['product_ss_002'];
-				$ingredient['package_002b'] += $content['product_ss_002'];
-			}
-			else {
-				return 'Wrong input format';
-			}
-			if (is_nonnegativeInt($content['product_ss_003'])) {
-				$ingredient['slice_ss_003'] += 10 * $content['product_ss_003'];
-				$ingredient['package_001'] += $content['product_ss_003'];
-				$ingredient['package_002c'] += $content['product_ss_003'];
-			}
-			else {
-				return 'Wrong input format';
+			if (isset($content['product_ss_003'])) {
+				if (is_nonnegativeInt($content['product_ss_003'])) {
+					$ingredient['slice_ss_003'] += 10 * $content['product_ss_003'];
+					$ingredient['package_001'] += $content['product_ss_003'];
+					$ingredient['package_002c'] += $content['product_ss_003'];
+				}
+				else {
+					return 'Wrong input format';
+				}
 			}
 			if (is_nonnegativeInt($content['product_ss_004'])) {
 				$ingredient['slice_ss_004'] += 10 * $content['product_ss_004'];
@@ -1131,25 +1124,27 @@ function packing($content) {
 			else {
 				return 'Wrong input format';
 			}
-			if (is_nonnegativeInt($content['product_ss_box_001'])) {
-				$ss_001_type1 = $content['ss_001_type1'];
-				$ss_002_type1 = $content['ss_002_type1'];
-				$ss_003_type1 = $content['ss_003_type1'];
-				if (!is_nonnegativeInt($ss_001_type1) || !is_nonnegativeInt($ss_002_type1) || !is_nonnegativeInt($ss_003_type1)) {
-					return 'Wrong input format';
-				}
-				elseif ($ss_001_type1 + $ss_002_type1 + $ss_003_type1 != $content['product_ss_box_001'] * 6){
-					return 'Wrong ss series amount';
+			if (isset($content['product_ss_box_001'])) {
+				if (is_nonnegativeInt($content['product_ss_box_001'])) {
+					$ss_001_type1 = $content['ss_001_type1'];
+					$ss_002_type1 = $content['ss_002_type1'];
+					$ss_003_type1 = $content['ss_003_type1'];
+					if (!is_nonnegativeInt($ss_001_type1) || !is_nonnegativeInt($ss_002_type1) || !is_nonnegativeInt($ss_003_type1)) {
+						return 'Wrong input format';
+					}
+					elseif ($ss_001_type1 + $ss_002_type1 + $ss_003_type1 != $content['product_ss_box_001'] * 6){
+						return 'Wrong ss series amount';
+					}
+					else {
+						$ingredient['product_ss_001'] += $ss_001_type1;
+						$ingredient['product_ss_002'] += $ss_002_type1;
+						$ingredient['product_ss_003'] += $ss_003_type1;
+						$ingredient['package_005'] += $content['product_ss_box_001'];
+					}
 				}
 				else {
-					$ingredient['product_ss_001'] += $ss_001_type1;
-					$ingredient['product_ss_002'] += $ss_002_type1;
-					$ingredient['product_ss_003'] += $ss_003_type1;
-					$ingredient['package_005'] += $content['product_ss_box_001'];
+					return 'Wrong input format';
 				}
-			}
-			else {
-				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['product_ss_box_002'])) {
 				$ss_004_type1 = $content['ss_004_type1'];
