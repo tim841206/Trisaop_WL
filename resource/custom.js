@@ -1227,7 +1227,7 @@ function ss_box_002_change() {
 	document.getElementById("ss_006_type1").value = ss_box_num * 2;
 }
 
-function new_year_box_1_change() {
+function newyear_box_1_change() {
 	var ss_box_num = document.getElementById("package_newyear_box_1").value;
 	document.getElementById("newyear_box_11_type1").value = ss_box_num;
 	document.getElementById("newyear_box_12_type1").value = ss_box_num;
@@ -1237,7 +1237,7 @@ function new_year_box_1_change() {
 	document.getElementById("newyear_box_13_type2").value = 0;
 }
 
-function new_year_box_2_change() {
+function newyear_box_2_change() {
 	var ss_box_num = document.getElementById("package_newyear_box_2").value;
 	document.getElementById("newyear_box_21_type1").value = ss_box_num;
 	document.getElementById("newyear_box_22_type1").value = ss_box_num;
@@ -1352,7 +1352,6 @@ function package() {
 		request.send(data);
 		request.onreadystatechange = function() {
 			if (request.readyState === 4 && request.status === 200) {
-				alert(request.responseText);
 				var data = JSON.parse(request.responseText);
 				if (data.message == 'Success') {
 					document.getElementById("packageQueryResult").innerHTML = data.query;
