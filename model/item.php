@@ -919,28 +919,80 @@ function package($content) {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['newyear_box_1'])) {
-				$ingredient['newyear_package_1'] += $content['newyear_box_1'];
-				$ingredient['newyear_package_2'] += $content['newyear_box_1'];
-				$ingredient['product_sp_004a'] += $content['newyear_box_1'];
-				$ingredient['product_sp_005a'] += $content['newyear_box_1'];
-				$ingredient['product_sp_006a'] += $content['newyear_box_1'];
-				$ingredient['product_ss_004'] += 2 * $content['newyear_box_1'];
-				$ingredient['product_ss_005'] += 2 * $content['newyear_box_1'];
-				$ingredient['product_ss_006'] += 2 * $content['newyear_box_1'];
+				$sp_004_type1 = $content['newyear_box_11_type1'];
+				$sp_005_type1 = $content['newyear_box_12_type1'];
+				$sp_006_type1 = $content['newyear_box_13_type1'];
+				$sp_004_type2 = $content['newyear_box_11_type2'];
+				$sp_005_type2 = $content['newyear_box_12_type2'];
+				$sp_006_type2 = $content['newyear_box_13_type2'];
+				if (!is_nonnegativeInt($sp_004_type1) || !is_nonnegativeInt($sp_005_type1) || !is_nonnegativeInt($sp_006_type1) || !is_nonnegativeInt($sp_004_type2) || !is_nonnegativeInt($sp_005_type2) || !is_nonnegativeInt($sp_006_type2)) {
+					return 'Wrong input format';
+				}
+				elseif ($sp_004_type1 + $sp_004_type2 != $content['newyear_box_1']){
+					return 'Wrong sp_004 series amount';
+				}
+				elseif ($sp_005_type1 + $sp_005_type2 != $content['newyear_box_1']){
+					return 'Wrong sp_005 series amount';
+				}
+				elseif ($sp_006_type1 + $sp_006_type2 != $content['newyear_box_1']){
+					return 'Wrong sp_006 series amount';
+				}
+				else {
+					$ingredient['sp_004_100'] += $sp_004_type1;
+					$ingredient['sp_005_100'] += $sp_005_type1;
+					$ingredient['sp_006_100'] += $sp_006_type1;
+					$ingredient['package_010a'] += $sp_004_type1;
+					$ingredient['package_011a'] += $sp_005_type1;
+					$ingredient['package_012a'] += $sp_006_type1;
+					$ingredient['product_sp_004a'] += $sp_004_type2;
+					$ingredient['product_sp_005a'] += $sp_005_type2;
+					$ingredient['product_sp_006a'] += $sp_006_type2;
+					$ingredient['product_ss_004'] += $content['newyear_box_1'];
+					$ingredient['product_ss_005'] += $content['newyear_box_1'];
+					$ingredient['product_ss_006'] += $content['newyear_box_1'];
+					$ingredient['newyear_package_1'] += $content['newyear_box_1'];
+					$ingredient['newyear_package_2'] += $content['newyear_box_1'];
+				}
 			}
 			else {
 				return 'Wrong input format';
 			}
 			if (isset($content['newyear_box_2'])) {
 				if (is_nonnegativeInt($content['newyear_box_2'])) {
-					$ingredient['newyear_package_3'] += $content['newyear_box_2'];
-					$ingredient['newyear_package_4'] += $content['newyear_box_2'];
-					$ingredient['product_sp_001a'] += $content['newyear_box_2'];
-					$ingredient['product_sp_002a'] += $content['newyear_box_2'];
-					$ingredient['product_sp_003a'] += $content['newyear_box_2'];
-					$ingredient['product_ss_001'] += 2 * $content['newyear_box_2'];
-					$ingredient['product_ss_002'] += 2 * $content['newyear_box_2'];
-					$ingredient['product_ss_003'] += 2 * $content['newyear_box_2'];
+					$sp_001_type1 = $content['newyear_box_21_type1'];
+					$sp_002_type1 = $content['newyear_box_22_type1'];
+					$sp_003_type1 = $content['newyear_box_23_type1'];
+					$sp_001_type2 = $content['newyear_box_21_type2'];
+					$sp_002_type2 = $content['newyear_box_22_type2'];
+					$sp_003_type2 = $content['newyear_box_23_type2'];
+					if (!is_nonnegativeInt($sp_001_type1) || !is_nonnegativeInt($sp_002_type1) || !is_nonnegativeInt($sp_003_type1) || !is_nonnegativeInt($sp_001_type2) || !is_nonnegativeInt($sp_002_type2) || !is_nonnegativeInt($sp_003_type2)) {
+						return 'Wrong input format';
+					}
+					elseif ($sp_001_type1 + $sp_001_type2 != $content['newyear_box_2']){
+						return 'Wrong sp_001 series amount';
+					}
+					elseif ($sp_002_type1 + $sp_002_type2 != $content['newyear_box_2']){
+						return 'Wrong sp_002 series amount';
+					}
+					elseif ($sp_003_type1 + $sp_003_type2 != $content['newyear_box_2']){
+						return 'Wrong sp_003 series amount';
+					}
+					else {
+						$ingredient['sp_001_100'] += $sp_001_type1;
+						$ingredient['sp_002_100'] += $sp_002_type1;
+						$ingredient['sp_003_100'] += $sp_003_type1;
+						$ingredient['package_007a'] += $sp_001_type1;
+						$ingredient['package_008a'] += $sp_002_type1;
+						$ingredient['package_009a'] += $sp_003_type1;
+						$ingredient['product_sp_001a'] += $sp_001_type2;
+						$ingredient['product_sp_002a'] += $sp_002_type2;
+						$ingredient['product_sp_003a'] += $sp_003_type2;
+						$ingredient['product_ss_001'] += $content['newyear_box_2'];
+						$ingredient['product_ss_002'] += $content['newyear_box_2'];
+						$ingredient['product_ss_003'] += $content['newyear_box_2'];
+						$ingredient['newyear_package_3'] += $content['newyear_box_2'];
+						$ingredient['newyear_package_4'] += $content['newyear_box_2'];
+					}
 				}
 				else {
 					return 'Wrong input format';
@@ -1195,28 +1247,80 @@ function packing($content) {
 				return 'Wrong input format';
 			}
 			if (is_nonnegativeInt($content['newyear_box_1'])) {
-				$ingredient['newyear_package_1'] += $content['newyear_box_1'];
-				$ingredient['newyear_package_2'] += $content['newyear_box_1'];
-				$ingredient['product_sp_004a'] += $content['newyear_box_1'];
-				$ingredient['product_sp_005a'] += $content['newyear_box_1'];
-				$ingredient['product_sp_006a'] += $content['newyear_box_1'];
-				$ingredient['product_ss_004'] += 2 * $content['newyear_box_1'];
-				$ingredient['product_ss_005'] += 2 * $content['newyear_box_1'];
-				$ingredient['product_ss_006'] += 2 * $content['newyear_box_1'];
+				$sp_004_type1 = $content['newyear_box_11_type1'];
+				$sp_005_type1 = $content['newyear_box_12_type1'];
+				$sp_006_type1 = $content['newyear_box_13_type1'];
+				$sp_004_type2 = $content['newyear_box_11_type2'];
+				$sp_005_type2 = $content['newyear_box_12_type2'];
+				$sp_006_type2 = $content['newyear_box_13_type2'];
+				if (!is_nonnegativeInt($sp_004_type1) || !is_nonnegativeInt($sp_005_type1) || !is_nonnegativeInt($sp_006_type1) || !is_nonnegativeInt($sp_004_type2) || !is_nonnegativeInt($sp_005_type2) || !is_nonnegativeInt($sp_006_type2)) {
+					return 'Wrong input format';
+				}
+				elseif ($sp_004_type1 + $sp_004_type2 != $content['newyear_box_1']){
+					return 'Wrong sp_004 series amount';
+				}
+				elseif ($sp_005_type1 + $sp_005_type2 != $content['newyear_box_1']){
+					return 'Wrong sp_005 series amount';
+				}
+				elseif ($sp_006_type1 + $sp_006_type2 != $content['newyear_box_1']){
+					return 'Wrong sp_006 series amount';
+				}
+				else {
+					$ingredient['sp_004_100'] += $sp_004_type1;
+					$ingredient['sp_005_100'] += $sp_005_type1;
+					$ingredient['sp_006_100'] += $sp_006_type1;
+					$ingredient['package_010a'] += $sp_004_type1;
+					$ingredient['package_011a'] += $sp_005_type1;
+					$ingredient['package_012a'] += $sp_006_type1;
+					$ingredient['product_sp_004a'] += $sp_004_type2;
+					$ingredient['product_sp_005a'] += $sp_005_type2;
+					$ingredient['product_sp_006a'] += $sp_006_type2;
+					$ingredient['product_ss_004'] += $content['newyear_box_1'];
+					$ingredient['product_ss_005'] += $content['newyear_box_1'];
+					$ingredient['product_ss_006'] += $content['newyear_box_1'];
+					$ingredient['newyear_package_1'] += $content['newyear_box_1'];
+					$ingredient['newyear_package_2'] += $content['newyear_box_1'];
+				}
 			}
 			else {
 				return 'Wrong input format';
 			}
 			if (isset($content['newyear_box_2'])) {
 				if (is_nonnegativeInt($content['newyear_box_2'])) {
-					$ingredient['newyear_package_3'] += $content['newyear_box_2'];
-					$ingredient['newyear_package_4'] += $content['newyear_box_2'];
-					$ingredient['product_sp_001a'] += $content['newyear_box_2'];
-					$ingredient['product_sp_002a'] += $content['newyear_box_2'];
-					$ingredient['product_sp_003a'] += $content['newyear_box_2'];
-					$ingredient['product_ss_001'] += 2 * $content['newyear_box_2'];
-					$ingredient['product_ss_002'] += 2 * $content['newyear_box_2'];
-					$ingredient['product_ss_003'] += 2 * $content['newyear_box_2'];
+					$sp_001_type1 = $content['newyear_box_21_type1'];
+					$sp_002_type1 = $content['newyear_box_22_type1'];
+					$sp_003_type1 = $content['newyear_box_23_type1'];
+					$sp_001_type2 = $content['newyear_box_21_type2'];
+					$sp_002_type2 = $content['newyear_box_22_type2'];
+					$sp_003_type2 = $content['newyear_box_23_type2'];
+					if (!is_nonnegativeInt($sp_001_type1) || !is_nonnegativeInt($sp_002_type1) || !is_nonnegativeInt($sp_003_type1) || !is_nonnegativeInt($sp_001_type2) || !is_nonnegativeInt($sp_002_type2) || !is_nonnegativeInt($sp_003_type2)) {
+						return 'Wrong input format';
+					}
+					elseif ($sp_001_type1 + $sp_001_type2 != $content['newyear_box_2']){
+						return 'Wrong sp_001 series amount';
+					}
+					elseif ($sp_002_type1 + $sp_002_type2 != $content['newyear_box_2']){
+						return 'Wrong sp_002 series amount';
+					}
+					elseif ($sp_003_type1 + $sp_003_type2 != $content['newyear_box_2']){
+						return 'Wrong sp_003 series amount';
+					}
+					else {
+						$ingredient['sp_001_100'] += $sp_001_type1;
+						$ingredient['sp_002_100'] += $sp_002_type1;
+						$ingredient['sp_003_100'] += $sp_003_type1;
+						$ingredient['package_007a'] += $sp_001_type1;
+						$ingredient['package_008a'] += $sp_002_type1;
+						$ingredient['package_009a'] += $sp_003_type1;
+						$ingredient['product_sp_001a'] += $sp_001_type2;
+						$ingredient['product_sp_002a'] += $sp_002_type2;
+						$ingredient['product_sp_003a'] += $sp_003_type2;
+						$ingredient['product_ss_001'] += $content['newyear_box_2'];
+						$ingredient['product_ss_002'] += $content['newyear_box_2'];
+						$ingredient['product_ss_003'] += $content['newyear_box_2'];
+						$ingredient['newyear_package_3'] += $content['newyear_box_2'];
+						$ingredient['newyear_package_4'] += $content['newyear_box_2'];
+					}
 				}
 				else {
 					return 'Wrong input format';
