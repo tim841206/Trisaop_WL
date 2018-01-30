@@ -947,9 +947,9 @@ function package($content) {
 					$ingredient['product_sp_004a'] += $sp_004_type2;
 					$ingredient['product_sp_005a'] += $sp_005_type2;
 					$ingredient['product_sp_006a'] += $sp_006_type2;
-					$ingredient['product_ss_004'] += $content['newyear_box_1'];
-					$ingredient['product_ss_005'] += $content['newyear_box_1'];
-					$ingredient['product_ss_006'] += $content['newyear_box_1'];
+					$ingredient['product_ss_004'] += 2 * $content['newyear_box_1'];
+					$ingredient['product_ss_005'] += 2 * $content['newyear_box_1'];
+					$ingredient['product_ss_006'] += 2 * $content['newyear_box_1'];
 					$ingredient['newyear_package_1'] += $content['newyear_box_1'];
 					$ingredient['newyear_package_2'] += $content['newyear_box_1'];
 				}
@@ -987,9 +987,9 @@ function package($content) {
 						$ingredient['product_sp_001a'] += $sp_001_type2;
 						$ingredient['product_sp_002a'] += $sp_002_type2;
 						$ingredient['product_sp_003a'] += $sp_003_type2;
-						$ingredient['product_ss_001'] += $content['newyear_box_2'];
-						$ingredient['product_ss_002'] += $content['newyear_box_2'];
-						$ingredient['product_ss_003'] += $content['newyear_box_2'];
+						$ingredient['product_ss_001'] += 2 * $content['newyear_box_2'];
+						$ingredient['product_ss_002'] += 2 * $content['newyear_box_2'];
+						$ingredient['product_ss_003'] += 2 * $content['newyear_box_2'];
 						$ingredient['newyear_package_3'] += $content['newyear_box_2'];
 						$ingredient['newyear_package_4'] += $content['newyear_box_2'];
 					}
@@ -1275,9 +1275,9 @@ function packing($content) {
 					$ingredient['product_sp_004a'] += $sp_004_type2;
 					$ingredient['product_sp_005a'] += $sp_005_type2;
 					$ingredient['product_sp_006a'] += $sp_006_type2;
-					$ingredient['product_ss_004'] += $content['newyear_box_1'];
-					$ingredient['product_ss_005'] += $content['newyear_box_1'];
-					$ingredient['product_ss_006'] += $content['newyear_box_1'];
+					$ingredient['product_ss_004'] += 2 * $content['newyear_box_1'];
+					$ingredient['product_ss_005'] += 2 * $content['newyear_box_1'];
+					$ingredient['product_ss_006'] += 2 * $content['newyear_box_1'];
 					$ingredient['newyear_package_1'] += $content['newyear_box_1'];
 					$ingredient['newyear_package_2'] += $content['newyear_box_1'];
 				}
@@ -1315,9 +1315,9 @@ function packing($content) {
 						$ingredient['product_sp_001a'] += $sp_001_type2;
 						$ingredient['product_sp_002a'] += $sp_002_type2;
 						$ingredient['product_sp_003a'] += $sp_003_type2;
-						$ingredient['product_ss_001'] += $content['newyear_box_2'];
-						$ingredient['product_ss_002'] += $content['newyear_box_2'];
-						$ingredient['product_ss_003'] += $content['newyear_box_2'];
+						$ingredient['product_ss_001'] += 2 * $content['newyear_box_2'];
+						$ingredient['product_ss_002'] += 2 * $content['newyear_box_2'];
+						$ingredient['product_ss_003'] += 2 * $content['newyear_box_2'];
 						$ingredient['newyear_package_3'] += $content['newyear_box_2'];
 						$ingredient['newyear_package_4'] += $content['newyear_box_2'];
 					}

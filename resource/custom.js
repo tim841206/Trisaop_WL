@@ -661,7 +661,7 @@ function itemclass() {
 	var option_package_009a = document.createElement("option"); option_package_009a.text = '釋迦皂外盒100g'; option_package_009a.value = 'package_009a';
 	var option_package_010a = document.createElement("option"); option_package_010a.text = '地瓜皂外盒100g'; option_package_010a.value = 'package_010a';
 	var option_package_011a = document.createElement("option"); option_package_011a.text = '金棗皂外盒100g'; option_package_011a.value = 'package_011a';
-	var option_package_012a = document.createElement("option"); option_package_012a.text = '海藻皂外盒100g'; option_package_012a.value = 'package_012a';
+	var option_package_012a = document.createElement("option"); option_package_012a.text = '石花皂外盒100g'; option_package_012a.value = 'package_012a';
 	var option_newyear_package_1 = document.createElement("option"); option_newyear_package_1.text = '宜蘭媽祖保庇禮盒上蓋'; option_newyear_package_1.value = 'newyear_package_1';
 	var option_newyear_package_2 = document.createElement("option"); option_newyear_package_2.text = '宜蘭媽祖保庇禮盒外盒'; option_newyear_package_2.value = 'newyear_package_2';
 	var option_newyear_package_3 = document.createElement("option"); option_newyear_package_3.text = '台東新春嘉年禮盒上蓋'; option_newyear_package_3.value = 'newyear_package_3';
@@ -689,7 +689,7 @@ function itemclass() {
 	var option_sp_003_100 = document.createElement("option"); option_sp_003_100.text = '釋迦皂100g'; option_sp_003_100.value = 'sp_003_100';
 	var option_sp_004_100 = document.createElement("option"); option_sp_004_100.text = '地瓜皂100g'; option_sp_004_100.value = 'sp_004_100';
 	var option_sp_005_100 = document.createElement("option"); option_sp_005_100.text = '金棗皂100g'; option_sp_005_100.value = 'sp_005_100';
-	var option_sp_006_100 = document.createElement("option"); option_sp_006_100.text = '海藻皂100g'; option_sp_006_100.value = 'sp_006_100';
+	var option_sp_006_100 = document.createElement("option"); option_sp_006_100.text = '石花皂100g'; option_sp_006_100.value = 'sp_006_100';
 	var option_ss_001 = document.createElement("option"); option_ss_001.text = '洛神皂'; option_ss_001.value = 'ss_001';
 	var option_ss_002 = document.createElement("option"); option_ss_002.text = '紅麴皂'; option_ss_002.value = 'ss_002';
 	var option_ss_003 = document.createElement("option"); option_ss_003.text = '薑黃皂'; option_ss_003.value = 'ss_003';
@@ -1320,7 +1320,7 @@ function package() {
 		alert("金棗皂包裝原料與禮盒數量不符");
 	}
 	else if (Number(document.getElementById("sp_006_type1").value) + Number(document.getElementById("sp_006_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
-		alert("海藻皂包裝原料與禮盒數量不符");
+		alert("石花皂包裝原料與禮盒數量不符");
 	}
 	else if (Number(document.getElementById("ss_004_type1").value) + Number(document.getElementById("ss_005_type1").value) + Number(document.getElementById("ss_006_type1").value) != Number(document.getElementById("package_ss_box_002").value * 6)) {
 		alert("宜蘭皂絲包裝原料與禮盒數量不符");
@@ -1343,7 +1343,7 @@ function package() {
 		alert("金棗皂包裝原料與禮盒數量不符");
 	}
 	else if (Number(document.getElementById("newyear_box_13_type1").value) + Number(document.getElementById("newyear_box_13_type2").value) != Number(document.getElementById("package_newyear_box_1").value)) {
-		alert("海藻皂包裝原料與禮盒數量不符");
+		alert("石花皂包裝原料與禮盒數量不符");
 	}
 	else {
 		var request = new XMLHttpRequest();
@@ -1439,7 +1439,7 @@ function pack() {
 		alert("金棗皂包裝原料與禮盒數量不符");
 	}
 	else if (Number(document.getElementById("sp_006_type1").value) + Number(document.getElementById("sp_006_type2").value) != Number(document.getElementById("package_sp_box_002").value)) {
-		alert("海藻皂包裝原料與禮盒數量不符");
+		alert("石花皂包裝原料與禮盒數量不符");
 	}
 	else if (Number(document.getElementById("ss_004_type1").value) + Number(document.getElementById("ss_005_type1").value) + Number(document.getElementById("ss_006_type1").value) != Number(document.getElementById("package_ss_box_002").value * 6)) {
 		alert("宜蘭皂絲包裝原料與禮盒數量不符");
@@ -1462,7 +1462,7 @@ function pack() {
 		alert("金棗皂包裝原料與禮盒數量不符");
 	}
 	else if (Number(document.getElementById("newyear_box_13_type1").value) + Number(document.getElementById("newyear_box_13_type2").value) != Number(document.getElementById("package_newyear_box_1").value)) {
-		alert("海藻皂包裝原料與禮盒數量不符");
+		alert("石花皂包裝原料與禮盒數量不符");
 	}
 	else {
 		var request = new XMLHttpRequest();
